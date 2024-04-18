@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.samuraicmdv.mobistock"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.samuraicmdv.mobistock"
