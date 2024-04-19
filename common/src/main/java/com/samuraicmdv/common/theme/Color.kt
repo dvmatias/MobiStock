@@ -1,4 +1,4 @@
-package com.samuraicmdv.mobistock.ui.theme
+package com.samuraicmdv.common.theme
 
 import androidx.compose.ui.graphics.Color
 
