@@ -18,10 +18,18 @@ object MobiStockTheme {
         @Composable
         @ReadOnlyComposable
         get() = localMobiStockColors.current
+    val dimens: MobiStockDimens
+        @Composable
+        @ReadOnlyComposable
+        get() = localMobiStockDimens.current
 }
 
 private val localMobiStockColors = staticCompositionLocalOf<MobiStockColors> {
     error("No MobiSalesColors provided")
+}
+
+private val localMobiStockDimens = staticCompositionLocalOf<MobiStockDimens> {
+    error("No MobiSalesDimens provided")
 }
 
 @Composable
