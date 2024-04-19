@@ -38,6 +38,7 @@ fun MobiStockTheme(
     isPreview: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val dimens = mobiStockDimens()
     val colors = if (darkTheme) darkMobiStockColors else lightMobiStockColors
     val mobiSalesColors = remember { colors.copy() }.apply { update(colors) }
 
@@ -55,6 +56,7 @@ fun MobiStockTheme(
         typography = Typography
     ) {
         CompositionLocalProvider(
+            localMobiStockDimens provides dimens,
             localMobiStockColors provides mobiSalesColors,
             content = content,
         )
