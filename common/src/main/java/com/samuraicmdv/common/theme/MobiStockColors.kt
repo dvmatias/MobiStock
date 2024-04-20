@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 class MobiStockColors(
     backgroundPrimary: Color,
     backgroundSecondary: Color,
+    backgroundTertiary: Color,
     backgroundDisabled: Color,
     backgroundInverse: Color,
     backgroundAccent: Color,
@@ -43,18 +44,12 @@ class MobiStockColors(
 
     // loading colors
     loadingFill: Color,
-    loadingShimmer0: Color,
-    loadingShimmer1: Color,
-    loadingShimmer2: Color,
-    loadingShimmer3: Color,
-    loadingFillElevated: Color,
-    loadingShimmerElevated0: Color,
-    loadingShimmerElevated1: Color,
-    loadingShimmerElevated2: Color,
 ) {
     var backgroundPrimary by mutableStateOf(backgroundPrimary)
         private set
     var backgroundSecondary by mutableStateOf(backgroundSecondary)
+        private set
+    var backgroundTertiary by mutableStateOf(backgroundTertiary)
         private set
     var backgroundDisabled by mutableStateOf(backgroundDisabled)
         private set
@@ -110,27 +105,12 @@ class MobiStockColors(
     // loading colors
     var loadingFill by mutableStateOf(loadingFill)
         private set
-    var loadingShimmer0 by mutableStateOf(loadingShimmer0)
-        private set
-    var loadingShimmer1 by mutableStateOf(loadingShimmer1)
-        private set
-    var loadingShimmer2 by mutableStateOf(loadingShimmer2)
-        private set
-    var loadingShimmer3 by mutableStateOf(loadingShimmer3)
-        private set
-    var loadingFillElevated by mutableStateOf(loadingFillElevated)
-        private set
-    var loadingShimmerElevated0 by mutableStateOf(loadingShimmerElevated0)
-        private set
-    var loadingShimmerElevated1 by mutableStateOf(loadingShimmerElevated1)
-        private set
-    var loadingShimmerElevated2 by mutableStateOf(loadingShimmerElevated2)
-        private set
 
     fun copy() = MobiStockColors(
         // background
         backgroundPrimary = backgroundPrimary,
         backgroundSecondary = backgroundSecondary,
+        backgroundTertiary = backgroundTertiary,
         backgroundDisabled = backgroundDisabled,
         backgroundInverse = backgroundInverse,
         backgroundAccent = backgroundAccent,
@@ -147,26 +127,22 @@ class MobiStockColors(
         foregroundOnColor = foregroundOnColor,
         foregroundVisited = foregroundVisited,
 
+        // border
         borderDefault = borderDefault,
         borderSubtle = borderSubtle,
-        borderStrong,
-        borderInverse,
-        borderDisabled,
-        borderOnColor,
-        borderAccent,
-        borderAttention,
-        borderSuccess,
-        scrim,
-        loadingFill,
-        loadingShimmer0,
-        loadingShimmer1,
-        loadingShimmer2,
-        loadingShimmer3,
-        loadingFillElevated,
-        loadingShimmerElevated0,
-        loadingShimmerElevated1,
-        loadingShimmerElevated2
+        borderStrong = borderStrong,
+        borderInverse = borderInverse,
+        borderDisabled = borderDisabled,
+        borderOnColor = borderOnColor,
+        borderAccent = borderAccent,
+        borderAttention = borderAttention,
+        borderSuccess = borderSuccess,
 
+        // scrim
+        scrim = scrim,
+
+        // loading
+        loadingFill = loadingFill
     )
 
     fun update(other: MobiStockColors) = other.also {
@@ -174,56 +150,124 @@ class MobiStockColors(
             backgroundPrimary = backgroundPrimary,
             backgroundSecondary = backgroundSecondary,
             backgroundDisabled = backgroundDisabled,
+            backgroundTertiary = backgroundTertiary,
             backgroundInverse = backgroundInverse,
             backgroundAccent = backgroundAccent,
             backgroundAttention = backgroundAttention,
             backgroundSuccess = backgroundSuccess,
+
+            // foreground
             foregroundPrimary = foregroundPrimary,
             foregroundSecondary = foregroundSecondary,
             foregroundDisabled = foregroundDisabled,
             foregroundAccent = foregroundAccent,
             foregroundAttention = foregroundAttention,
-            foregroundSuccess = foregroundSuccess
+            foregroundSuccess = foregroundSuccess,
+            foregroundOnColor = foregroundOnColor,
+            foregroundVisited = foregroundVisited,
+
+
+            borderDefault = borderDefault,
+            borderSubtle = borderSubtle,
+            borderStrong = borderStrong,
+            borderInverse = borderInverse,
+            borderDisabled = borderDisabled,
+            borderOnColor = borderOnColor,
+            borderAccent = borderAccent,
+            borderAttention = borderAttention,
+            borderSuccess = borderSuccess,
+
+
+            scrim = scrim,
+
+
+            loadingFill = loadingFill
         )
     }
 }
 
 internal val lightMobiStockColors = MobiStockColors(
-    backgroundPrimary = B0,
-    backgroundSecondary = B1,
-    backgroundDisabled = B3,
-    backgroundInverse = B6,
-    backgroundAccent = MOBI_1,
-    backgroundAttention = Color(0xFFFF9800),
-    backgroundSuccess = Color(0xFFFF9800),
-    foregroundPrimary = B7,
-    foregroundSecondary = B5,
-    foregroundDisabled = B3,
-    foregroundAccent = Color(0xFFFF9800),
-    foregroundAttention = Color(0xFFFF9800),
-    foregroundSuccess = Color(0xFFFF9800)
+    // background colors
+    backgroundPrimary = NEUTRAL_100,
+    backgroundSecondary = NEUTRAL_200,
+    backgroundTertiary = NEUTRAL_300,
+    backgroundDisabled = NEUTRAL_400,
+    backgroundInverse = NEUTRAL_700,
+    backgroundAccent = BLUE_500,
+    backgroundAttention = RED_600,
+    backgroundSuccess = KIWI_600,
+
+    // foreground colors
+    foregroundPrimary = NEUTRAL_800,
+    foregroundSecondary = NEUTRAL_600,
+    foregroundDisabled = NEUTRAL_400,
+    foregroundAccent = BLUE_500,
+    foregroundAttention = RED_600,
+    foregroundSuccess = KIWI_600,
+    foregroundOnColor = NEUTRAL_100,
+    foregroundVisited = PINK_600,
+
+    // border colors
+    borderDefault = NEUTRAL_500,
+    borderSubtle = NEUTRAL_300,
+    borderStrong = NEUTRAL_800,
+    borderInverse = NEUTRAL_100,
+    borderDisabled = NEUTRAL_400,
+    borderOnColor = NEUTRAL_100,
+    borderAccent = BLUE_500,
+    borderAttention = RED_600,
+    borderSuccess = KIWI_600,
+
+    // scrim
+    scrim = NEUTRAL_900,
+
+    // loading
+    loadingFill = Color(0xFFF2F2F2)
 )
 
 internal val darkMobiStockColors = MobiStockColors(
-    backgroundPrimary = B8,
-    backgroundSecondary = B7,
-    backgroundDisabled = B5,
-    backgroundInverse = B2,
-    backgroundAccent = MOBI_1,
-    backgroundAttention = Color(0xFFFF9800),
-    backgroundSuccess = Color(0xFFFF9800),
-    foregroundPrimary = B1,
-    foregroundSecondary = B4,
-    foregroundDisabled = B5,
-    foregroundAccent = Color(0xFFFF9800),
-    foregroundAttention = Color(0xFFFF9800),
-    foregroundSuccess = Color(0xFFFF9800)
+    // background
+    backgroundPrimary = NEUTRAL_900,
+    backgroundSecondary = NEUTRAL_800,
+    backgroundTertiary = NEUTRAL_700,
+    backgroundDisabled = NEUTRAL_500,
+    backgroundInverse = NEUTRAL_300,
+    backgroundAccent = BLUE_400,
+    backgroundAttention = RED_400,
+    backgroundSuccess = KIWI_500,
+
+    // foreground
+    foregroundPrimary = NEUTRAL_200,
+    foregroundSecondary = NEUTRAL_500,
+    foregroundDisabled = NEUTRAL_600,
+    foregroundAccent = BLUE_400,
+    foregroundAttention = RED_400,
+    foregroundSuccess = KIWI_500,
+    foregroundOnColor = NEUTRAL_800,
+    foregroundVisited = PINK_400,
+
+    // border
+    borderDefault = NEUTRAL_600,
+    borderSubtle = NEUTRAL_700,
+    borderStrong = NEUTRAL_100,
+    borderInverse = NEUTRAL_100,
+    borderDisabled = NEUTRAL_500,
+    borderOnColor = NEUTRAL_800,
+    borderAccent = BLUE_300,
+    borderAttention = RED_400,
+    borderSuccess = KIWI_500,
+
+    // scrim
+    scrim = NEUTRAL_900,
+
+    // loading
+    loadingFill = Color(0xFF1B1B1B)
 )
 
 internal fun getColorScheme(colorScheme: MobiStockColors): ColorScheme =
     ColorScheme(
         primary = colorScheme.backgroundPrimary,
-        onPrimary = colorScheme.backgroundPrimary,
+        onPrimary = colorScheme.foregroundPrimary,
         primaryContainer = colorScheme.backgroundPrimary,
         onPrimaryContainer = colorScheme.backgroundPrimary,
         inversePrimary = colorScheme.backgroundPrimary,
