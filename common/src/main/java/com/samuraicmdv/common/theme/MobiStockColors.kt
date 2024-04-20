@@ -16,12 +16,41 @@ class MobiStockColors(
     backgroundAccent: Color,
     backgroundAttention: Color,
     backgroundSuccess: Color,
+
+    // foreground colors
     foregroundPrimary: Color,
     foregroundSecondary: Color,
     foregroundDisabled: Color,
     foregroundAccent: Color,
     foregroundAttention: Color,
-    foregroundSuccess: Color
+    foregroundSuccess: Color,
+    foregroundOnColor: Color,
+    foregroundVisited: Color,
+
+    // border colors
+    borderDefault: Color,
+    borderSubtle: Color,
+    borderStrong: Color,
+    borderInverse: Color,
+    borderDisabled: Color,
+    borderOnColor: Color,
+    borderAccent: Color,
+    borderAttention: Color,
+    borderSuccess: Color,
+
+    // scrim colors
+    scrim: Color,
+
+    // loading colors
+    loadingFill: Color,
+    loadingShimmer0: Color,
+    loadingShimmer1: Color,
+    loadingShimmer2: Color,
+    loadingShimmer3: Color,
+    loadingFillElevated: Color,
+    loadingShimmerElevated0: Color,
+    loadingShimmerElevated1: Color,
+    loadingShimmerElevated2: Color,
 ) {
     var backgroundPrimary by mutableStateOf(backgroundPrimary)
         private set
@@ -49,8 +78,57 @@ class MobiStockColors(
         private set
     var foregroundSuccess by mutableStateOf(foregroundSuccess)
         private set
+    var foregroundOnColor by mutableStateOf(foregroundOnColor)
+        private set
+    var foregroundVisited by mutableStateOf(foregroundVisited)
+        private set
+
+    // border colors
+    var borderDefault by mutableStateOf(borderDefault)
+        private set
+    var borderSubtle by mutableStateOf(borderSubtle)
+        private set
+    var borderStrong by mutableStateOf(borderStrong)
+        private set
+    var borderInverse by mutableStateOf(borderInverse)
+        private set
+    var borderDisabled by mutableStateOf(borderDisabled)
+        private set
+    var borderOnColor by mutableStateOf(borderOnColor)
+        private set
+    var borderAccent by mutableStateOf(borderAccent)
+        private set
+    var borderAttention by mutableStateOf(borderAttention)
+        private set
+    var borderSuccess by mutableStateOf(borderSuccess)
+        private set
+
+    // scrim colors
+    var scrim by mutableStateOf(scrim)
+        private set
+
+    // loading colors
+    var loadingFill by mutableStateOf(loadingFill)
+        private set
+    var loadingShimmer0 by mutableStateOf(loadingShimmer0)
+        private set
+    var loadingShimmer1 by mutableStateOf(loadingShimmer1)
+        private set
+    var loadingShimmer2 by mutableStateOf(loadingShimmer2)
+        private set
+    var loadingShimmer3 by mutableStateOf(loadingShimmer3)
+        private set
+    var loadingFillElevated by mutableStateOf(loadingFillElevated)
+        private set
+    var loadingShimmerElevated0 by mutableStateOf(loadingShimmerElevated0)
+        private set
+    var loadingShimmerElevated1 by mutableStateOf(loadingShimmerElevated1)
+        private set
+    var loadingShimmerElevated2 by mutableStateOf(loadingShimmerElevated2)
+        private set
 
     fun copy() = MobiStockColors(
+        // background
         backgroundPrimary = backgroundPrimary,
         backgroundSecondary = backgroundSecondary,
         backgroundDisabled = backgroundDisabled,
@@ -58,12 +136,37 @@ class MobiStockColors(
         backgroundAccent = backgroundAccent,
         backgroundAttention = backgroundAttention,
         backgroundSuccess = backgroundSuccess,
+
+        // foreground
         foregroundPrimary = foregroundPrimary,
         foregroundSecondary = foregroundSecondary,
         foregroundDisabled = foregroundDisabled,
         foregroundAccent = foregroundAccent,
         foregroundAttention = foregroundAttention,
-        foregroundSuccess = foregroundSuccess
+        foregroundSuccess = foregroundSuccess,
+        foregroundOnColor = foregroundOnColor,
+        foregroundVisited = foregroundVisited,
+
+        borderDefault = borderDefault,
+        borderSubtle = borderSubtle,
+        borderStrong,
+        borderInverse,
+        borderDisabled,
+        borderOnColor,
+        borderAccent,
+        borderAttention,
+        borderSuccess,
+        scrim,
+        loadingFill,
+        loadingShimmer0,
+        loadingShimmer1,
+        loadingShimmer2,
+        loadingShimmer3,
+        loadingFillElevated,
+        loadingShimmerElevated0,
+        loadingShimmerElevated1,
+        loadingShimmerElevated2
+
     )
 
     fun update(other: MobiStockColors) = other.also {
