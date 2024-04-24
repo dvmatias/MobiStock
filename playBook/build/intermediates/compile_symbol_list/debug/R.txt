@@ -1,0 +1,2 @@
+int string title_activity_play_book 0x0
+int style Theme_MobiStock 0x0
