@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_PARAMETER")
+
 package com.samuraicmdv.mobistock
 
 import android.os.Bundle
@@ -18,8 +20,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             MobiStockTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    LoginScreen()
+                Surface(modifier = Modifier.fillMaxSize(), color = MobiStockTheme.colors.backgroundPrimary) {
+                    LoginScreen {
+                        checkCredentialsMock(it)
+                    }
                 }
             }
         }
@@ -32,6 +36,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
+}
+
+fun checkCredentialsMock(credentials: com.samuraicmdv.featurelogin.compose.Credentials): Boolean {
+    return true
 }
 
 @Preview(showBackground = true)

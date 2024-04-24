@@ -16,7 +16,12 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MobiStock">
+            android:theme="@style/Theme.MobiStock" />
+        <activity
+            android:name="com.samuraicmdv.featurelogin.LoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.MobiStock" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
