@@ -1,7 +1,6 @@
 package com.samuraicmdv.featurelogin.compose
 
 import android.content.res.Configuration
-import android.net.Credentials
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -41,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -56,6 +56,7 @@ import com.samuraicmdv.ui.widget.MobiTextField
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    handleEvent: (PresentationEvent) -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -86,7 +87,9 @@ fun LoginScreen(
             LoginGreetingContent()
             LoginFormContent(
                 modifier.weight(1F)
-            )
+            ) { event ->
+                handleEvent(event)
+            }
             SignUpContent()
         }
     }
@@ -95,6 +98,7 @@ fun LoginScreen(
 @Composable
 fun LoginFormContent(
     modifier: Modifier = Modifier,
+    handleEvent: (PresentationEvent) -> Unit,
 ) {
     var credentials by remember { mutableStateOf(Credentials()) }
 
@@ -112,21 +116,18 @@ fun LoginFormContent(
         PasswordField(
             value = credentials.pwd,
             onChange = { data -> credentials = credentials.copy(pwd = data) },
-            submit = {
-                /*TODO*/
-            },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
         Text(
-            "forgot password?",
+            "Forgot password?",
             fontSize = 14.sp,
             color = MobiStockTheme.colors.linkEnabled
         )
         Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_4))
         Button(
             onClick = {
-                /*TODO*/
+                handleEvent(PresentationEvent.Login)
             },
             enabled = credentials.isNotEmpty(),
             shape = RoundedCornerShape(MobiStockTheme.spaces.grid_0_5),
@@ -140,7 +141,7 @@ fun LoginFormContent(
                 .fillMaxWidth()
                 .height(48.dp)
         ) {
-            Text("Login")
+            Text("Login", color = Color.White)
         }
     }
 }
@@ -219,11 +220,11 @@ fun LoginField(
 fun PasswordField(
     value: String,
     onChange: (String) -> Unit,
-    submit: () -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = "Password",
 ) {
     var isPasswordVisible by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     val leadingIcon = @Composable {
         Icon(
@@ -250,7 +251,9 @@ fun PasswordField(
             keyboardType = KeyboardType.Password
         ),
         keyboardActions = KeyboardActions(
-            onDone = { submit() }
+            onDone = {
+                keyboardController?.hide()
+            }
         ),
         placeholder = { Text(placeholder) },
         singleLine = true,
@@ -266,7 +269,7 @@ fun SignUpContent(
         modifier = modifier
     ) {
         Text(
-            text = "Don't have an account?",
+            text = "Don't have an account? Create one",
             color = MobiStockTheme.colors.foregroundPrimary,
             fontSize = 14.sp,
         )
@@ -308,7 +311,7 @@ data class Credentials(
 fun LoginScreenPreview() {
     MobiStockTheme {
         Surface(color = MobiStockTheme.colors.backgroundPrimary) {
-            LoginScreen()
+            LoginScreen {}
         }
     }
 }

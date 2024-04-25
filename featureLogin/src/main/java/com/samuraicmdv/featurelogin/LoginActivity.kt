@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurelogin.compose.LoginScreen
 import com.samuraicmdv.featurelogin.compose.LoginViewModel
+import com.samuraicmdv.featurelogin.compose.PresentationEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,9 +25,16 @@ class LoginActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MobiStockTheme.colors.backgroundPrimary
                 ) {
-                    LoginScreen()
+                    LoginScreen(handleEvent = ::handelEvent)
                 }
             }
+        }
+    }
+
+    private fun handelEvent(event: PresentationEvent) {
+        when (event) {
+            PresentationEvent.Login -> viewModel.doLogin()
+            else -> {}
         }
     }
 }

@@ -53,6 +53,8 @@ android {
 
 dependencies {
     implementation(project(mapOf("path" to ":common")))
+    implementation(project(mapOf("path" to ":data")))
+    implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":featureLogin")))
 
     implementation("androidx.core:core-ktx:1.13.0")
