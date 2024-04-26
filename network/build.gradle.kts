@@ -25,10 +25,23 @@ android {
             )
         }
     }
+
+    flavorDimensions += listOf("environment")
+
+    productFlavors {
+        create("qa") {
+            dimension = "environment"
+        }
+        create("prod") {
+            dimension = "environment"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -53,4 +66,6 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.growingio.android:okhttp3:4.2.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.14")
 }
