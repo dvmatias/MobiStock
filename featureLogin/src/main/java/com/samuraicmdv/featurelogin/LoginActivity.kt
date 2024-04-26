@@ -6,11 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurelogin.compose.LoginScreen
-import com.samuraicmdv.featurelogin.compose.LoginViewModel
-import com.samuraicmdv.featurelogin.compose.PresentationEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,11 +21,14 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MobiStockTheme {
+                val uiState by viewModel.uiState.collectAsState()
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MobiStockTheme.colors.backgroundPrimary
                 ) {
-                    LoginScreen(handleEvent = ::handelEvent)
+                    LoginScreen(uiState) { event ->
+                        handelEvent(event)
+                    }
                 }
             }
         }
@@ -33,8 +36,9 @@ class LoginActivity : ComponentActivity() {
 
     private fun handelEvent(event: PresentationEvent) {
         when (event) {
-            PresentationEvent.Login -> viewModel.doLogin()
-            else -> {}
+            is PresentationEvent.Login -> viewModel.doLoginWithCredentials(event.userCredentials)
+            is PresentationEvent.SignUp -> { /*TODO*/ }
+            is PresentationEvent.ForgotPassword -> { /*TODO*/ }
         }
     }
 }
