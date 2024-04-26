@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.featurelogin.compose.LoginGreetingContent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MobiStockTheme.colors.backgroundPrimary
                 ) {
-
+                    LoginGreetingContent()
                 }
             }
         }
