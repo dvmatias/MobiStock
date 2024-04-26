@@ -47,6 +47,7 @@ android {
 dependencies {
     implementation(project(mapOf("path" to ":common")))
     implementation(project(mapOf("path" to ":domain")))
+    implementation(project(mapOf("path" to ":network")))
 
     implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
