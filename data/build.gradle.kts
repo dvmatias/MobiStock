@@ -63,4 +63,7 @@ dependencies {
     androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
     testImplementation("com.google.dagger:hilt-android-testing:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 }
