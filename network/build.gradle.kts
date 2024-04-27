@@ -76,4 +76,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.growingio.android:okhttp3:4.2.0")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.14")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
 }
