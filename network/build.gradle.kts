@@ -31,17 +31,25 @@ android {
     productFlavors {
         create("qa") {
             dimension = "environment"
+            buildConfigField("String", "BASE_URL", "\"http://apimobishopstock.mooo.com/\"")
+            buildConfigField("long", "TIMESTAMP", "${System.currentTimeMillis()}L")
         }
         create("prod") {
             dimension = "environment"
+            buildConfigField("String", "BASE_URL", "\"https://www.mobishopstock.com/\"")
+            buildConfigField("long", "TIMESTAMP", "${System.currentTimeMillis()}L")
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
