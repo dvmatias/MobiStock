@@ -31,12 +31,12 @@ android {
     productFlavors {
         create("qa") {
             dimension = "environment"
-            buildConfigField("String", "BASE_URL", "\"http://apimobishopstock.mooo.com/\"")
+            buildConfigField("String", "BASE_URL", "\"http://apimobishopstock.mooo.com/api/\"")
             buildConfigField("long", "TIMESTAMP", "${System.currentTimeMillis()}L")
         }
         create("prod") {
             dimension = "environment"
-            buildConfigField("String", "BASE_URL", "\"https://www.mobishopstock.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://www.mobishopstock.com/api/\"")
             buildConfigField("long", "TIMESTAMP", "${System.currentTimeMillis()}L")
         }
     }

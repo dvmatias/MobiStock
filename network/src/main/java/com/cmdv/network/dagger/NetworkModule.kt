@@ -10,8 +10,6 @@ import retrofit2.Retrofit
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @Provides
     fun provideRetrofit(): Retrofit = RetrofitManager().getInstance()
-
 }
