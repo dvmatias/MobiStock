@@ -1,5 +1,6 @@
 package com.samuraicmdv.data.dagger
 
+import com.samuraicmdv.data.datasource.retrofit.LoginRetrofitDataSourceImpl
 import com.samuraicmdv.data.repository.LoginRepositoryImpl
 import com.samuraicmdv.domain.repository.LoginRepository
 import dagger.Module
@@ -9,9 +10,8 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object LoginModule {
-
+object RepositoryModule {
     @Provides
-    fun provideLoginRepository(): LoginRepository = LoginRepositoryImpl()
-
+    fun provideLoginRepository(loginDataSource: LoginRetrofitDataSourceImpl): LoginRepository =
+        LoginRepositoryImpl(loginDataSource)
 }
