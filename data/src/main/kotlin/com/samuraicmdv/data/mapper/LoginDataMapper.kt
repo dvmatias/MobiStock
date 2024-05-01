@@ -17,7 +17,7 @@ object LoginDataMapper : DataMapper<LoginResponseEntity?, LoginResponseModel?> {
 
     private fun transformErrors(errors: List<ErrorEntity>?): List<LoginErrorModel>? =
         errors?.map { error ->
-            LoginErrorModel(code = error.code)
+            LoginErrorModel(code = error.code, description = error.description)
         }
 
 }

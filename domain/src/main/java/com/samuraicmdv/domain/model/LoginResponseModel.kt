@@ -8,4 +8,5 @@ data class LoginResponseModel(
 
 data class LoginErrorModel(
     val code: Int? = null,
+    val description: String? = null,
 )
