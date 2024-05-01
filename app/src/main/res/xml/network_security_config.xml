@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config xmlns:tools="http://schemas.android.com/tools">
+    <domain-config>
+        <domain includeSubdomains="true">http://apimobishopstock.mooo.*</domain>
+        <domain includeSubdomains="true">*.mobishopstock.*</domain>
+        <domain includeSubdomains="true">https://www.mobishopstock.com</domain>
+        <domain includeSubdomains="true">https://www.mobishopstock.com/</domain>
+        <domain includeSubdomains="true">https://www.mobishopstock.qa.com</domain>
+        <domain includeSubdomains="true">https://www.mobishopstock.qa.com/</domain>
+    </domain-config>
+    <debug-overrides cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <!-- Trust user added CAs while debuggable only -->
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
+    <!-- TODO remove this unsecure configuration once api domain is secure (uses HTTPS instead of HTTP) -->
+    <base-config cleartextTrafficPermitted="true"
+        tools:ignore="InsecureBaseConfiguration">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

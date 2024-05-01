@@ -6,8 +6,8 @@ plugins {
 }
 
 android {
-    namespace = "com.samuraicmdv.data"
-    compileSdk = 33
+    namespace = "com.cmdv.network"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -19,7 +19,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -28,10 +31,18 @@ android {
     productFlavors {
         create("qa") {
             dimension = "environment"
+            buildConfigField("String", "BASE_URL", "\"http://apimobishopstock.mooo.com/api/\"")
+            buildConfigField("long", "TIMESTAMP", "${System.currentTimeMillis()}L")
         }
         create("prod") {
             dimension = "environment"
+            buildConfigField("String", "BASE_URL", "\"https://www.mobishopstock.com/api/\"")
+            buildConfigField("long", "TIMESTAMP", "${System.currentTimeMillis()}L")
         }
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     compileOptions {
@@ -45,9 +56,6 @@ android {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":common")))
-    implementation(project(mapOf("path" to ":domain")))
-    implementation(project(mapOf("path" to ":network")))
 
     implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -66,4 +74,7 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.growingio.android:okhttp3:4.2.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.14")
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
 }
