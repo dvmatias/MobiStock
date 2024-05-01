@@ -1,16 +1,17 @@
 package com.samuraicmdv.domain.util
 
 class ResponseWrapper<out T>(
-    val data: T?,
-    val responseStatus: ResponseStatus,
-    val responseFailure: ResponseFailure?
+    private val data: T?,
+    private val responseStatus: ResponseStatus,
+    private val responseFailure: ResponseFailure?,
 ) {
 
     val isSuccess: Boolean = data !== failMarker
 
     val isFailure: Boolean = data === failMarker
 
-    fun getOrNull(): T? = if (isSuccess) data else null
+    @Suppress("UNCHECKED_CAST")
+    fun getOrNull(): T? = if (isSuccess) data as T else null
 
     companion object {
         private val failMarker = object {}

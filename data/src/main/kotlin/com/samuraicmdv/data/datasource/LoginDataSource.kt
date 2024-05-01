@@ -1,6 +1,6 @@
 package com.samuraicmdv.data.datasource
 
-import com.samuraicmdv.data.entity.LoginResponseEntity
+import com.samuraicmdv.domain.model.LoginResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
 /**
@@ -18,5 +18,5 @@ interface LoginDataSource {
     suspend fun login(
         username: String,
         password: String,
-    ): ResponseWrapper<LoginResponseEntity>
+    ): ResponseWrapper<LoginResponseModel>
 }
