@@ -55,7 +55,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.compose.foundation:foundation-android:1.6.6")
+    implementation("androidx.compose.foundation:foundation-android:1.6.7")
     implementation("androidx.room:room-ktx:2.6.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -68,7 +68,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.7")
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.9.0")
     // Optional - Integration with ViewModels

@@ -1,5 +1,7 @@
 <resources>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="greetings_content_title">Welcome!</string>
+    <string name="greetings_content_subtitle">Sign in user your credentials or signup if you don\'t have an account yet.</string>
     <string name="label_user_name_input_field">user name or email</string>
     <string name="label_password_input_field">password</string>
     <string name="username_empty_error_message">This field is required and it must be not empty.</string>
