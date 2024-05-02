@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurelogin.PresentationEvent
 import com.samuraicmdv.featurelogin.state.LoginScreenState
+import com.samuraicmdv.ui.widget.LinearLoadingIndicator
 
 @Composable
 fun LoginScreen(
@@ -50,10 +51,8 @@ fun LoginScreen(
             )
     ) {
         if (uiState.isLoading) {
-            LinearProgressIndicator(
-                modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.secondary,
-                trackColor = MaterialTheme.colorScheme.surfaceVariant,
+            LinearLoadingIndicator(
+                modifier = Modifier.fillMaxWidth().height(MobiStockTheme.spaces.grid_2)
             )
         }
         Column(
@@ -79,7 +78,9 @@ fun LoginScreen(
                 password = password,
                 onPasswordChange = { password = it },
                 isLoading = uiState.isLoading,
-                modifier = modifier.weight(1F)
+                modifier = modifier.weight(1F),
+                userError = uiState.userError,
+                passwordError = uiState.passwordError
             ) { event ->
                 handleEvent(event)
             }
@@ -93,10 +94,10 @@ fun LoginScreen(
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun LoginScreenPreview() {
+fun PreviewLoginScreen() {
     MobiStockTheme {
         Surface(color = MobiStockTheme.colors.backgroundPrimary) {
-            LoginScreen(uiState = LoginScreenState(false)) {}
+            LoginScreen(uiState = LoginScreenState(true)) {}
         }
     }
 }

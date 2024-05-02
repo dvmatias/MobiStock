@@ -1,6 +1,7 @@
 package com.samuraicmdv.featurelogin
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -36,9 +37,18 @@ class LoginActivity : ComponentActivity() {
 
     private fun handelEvent(event: PresentationEvent) {
         when (event) {
-            is PresentationEvent.Login -> viewModel.doLoginWithCredentials(event.userCredentials)
-            is PresentationEvent.SignUp -> { /*TODO*/ }
-            is PresentationEvent.ForgotPassword -> { /*TODO*/ }
+            is PresentationEvent.Login -> viewModel.doLoginWithCredentials(
+                event.username,
+                event.password
+            )
+
+            is PresentationEvent.SignUp -> {
+                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_SHORT).show()
+            }
+
+            is PresentationEvent.ForgotPassword -> {
+                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
