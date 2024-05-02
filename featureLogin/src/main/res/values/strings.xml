@@ -1,3 +1,9 @@
 <resources>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="label_user_name_input_field">user name or email</string>
+    <string name="label_password_input_field">password</string>
+    <string name="username_empty_error_message">This field is required and it must be not empty.</string>
+    <string name="password_empty_error_message">This field is required and it must be not empty.</string>
+    <string name="user_not_found_error_message">The user name you entered is not found.</string>
+    <string name="incorrect_password_error_message">The password you entered is incorrect.</string>
 </resources>
