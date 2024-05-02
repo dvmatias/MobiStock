@@ -73,6 +73,7 @@ dependencies {
     implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":featureLogin")))
+    implementation(project(mapOf("path" to ":featureHome")))
 
     implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
