@@ -78,3 +78,8 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.14")
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
 }
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}

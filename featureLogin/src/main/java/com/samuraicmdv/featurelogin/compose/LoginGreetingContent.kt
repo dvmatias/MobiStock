@@ -10,9 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.featurelogin.R
 
 private const val TEXT_PERCENT_WIDTH = 0.7F
 
@@ -25,7 +27,7 @@ fun LoginGreetingContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Welcome!",
+            text = stringResource(id = R.string.greetings_content_title),
             color = MobiStockTheme.colors.foregroundPrimary,
             style = MobiStockTheme.typography.giant1Bold,
             textAlign = TextAlign.Center,
@@ -33,7 +35,7 @@ fun LoginGreetingContent(
         )
         Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_1))
         Text(
-            text = "Sign in user your credentials or signup if you don't have an account yet.",
+            text = stringResource(id = R.string.greetings_content_subtitle),
             color = MobiStockTheme.colors.foregroundSecondary,
             style = MobiStockTheme.typography.bodyRegular,
             textAlign = TextAlign.Center,

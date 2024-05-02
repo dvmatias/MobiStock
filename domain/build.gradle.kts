@@ -62,3 +62,8 @@ dependencies {
     testImplementation("com.google.dagger:hilt-android-testing:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 }
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}
