@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.samuraicmdv.common.ERROR_LOGIN_USER_EMPTY
 import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurelogin.PresentationEvent
+import com.samuraicmdv.featurelogin.event.LoginBusinessEvent
 
 @Composable
 fun LoginFormContent(
@@ -32,7 +32,7 @@ fun LoginFormContent(
     modifier: Modifier = Modifier,
     userError: Int? = null,
     passwordError: Int? = null,
-    handleEvent: (PresentationEvent) -> Unit,
+    handleEvent: (LoginBusinessEvent) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.Center,
@@ -60,12 +60,12 @@ fun LoginFormContent(
             fontSize = 14.sp,
             color = MobiStockTheme.colors.linkEnabled,
             modifier = Modifier
-                .clickable(enabled = !isLoading) { handleEvent(PresentationEvent.ForgotPassword) }
+                .clickable(enabled = !isLoading) { handleEvent(LoginBusinessEvent.ForgotPassword) }
         )
         Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_4))
         Button(
             onClick = {
-                handleEvent(PresentationEvent.Login(user, password))
+                handleEvent(LoginBusinessEvent.Login(user, password))
             },
             enabled = !isLoading,
             shape = RoundedCornerShape(MobiStockTheme.spaces.grid_0_5),

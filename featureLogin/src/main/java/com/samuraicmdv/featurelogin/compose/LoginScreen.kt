@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,7 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurelogin.PresentationEvent
+import com.samuraicmdv.featurelogin.event.LoginBusinessEvent
 import com.samuraicmdv.featurelogin.state.LoginScreenState
 import com.samuraicmdv.ui.widget.LinearLoadingIndicator
 
@@ -35,7 +33,7 @@ import com.samuraicmdv.ui.widget.LinearLoadingIndicator
 fun LoginScreen(
     uiState: LoginScreenState,
     modifier: Modifier = Modifier,
-    handleEvent: (PresentationEvent) -> Unit,
+    handleEvent: (LoginBusinessEvent) -> Unit,
 ) {
     var user by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }

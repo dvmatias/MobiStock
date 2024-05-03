@@ -7,6 +7,7 @@ import com.samuraicmdv.common.ERROR_LOGIN_PASSWORD_EMPTY
 import com.samuraicmdv.common.ERROR_LOGIN_USER_EMPTY
 import com.samuraicmdv.common.ERROR_LOGIN_USER_NOT_FOUND
 import com.samuraicmdv.domain.usecase.LoginWithCredentialsUseCase
+import com.samuraicmdv.featurelogin.event.LoginNavigationEvent
 import com.samuraicmdv.featurelogin.state.LoginScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,6 +26,10 @@ class LoginViewModel @Inject constructor(
     val uiState: StateFlow<LoginScreenState>
         get() = _uiState.asStateFlow()
 
+    private val _Login_navigationEvent = MutableStateFlow<LoginNavigationEvent?>(null)
+    val loginNavigationEvent: StateFlow<LoginNavigationEvent?>
+        get() = _Login_navigationEvent
+
     fun doLoginWithCredentials(username: String, password: String) {
         _uiState.value = uiState.value.copy(isLoading = true)
         viewModelScope.launch {
@@ -32,7 +37,7 @@ class LoginViewModel @Inject constructor(
                 LoginWithCredentialsUseCase.Params(username, password)
             ).let { loginResponseModel ->
                 when (loginResponseModel.hasErrors) {
-                    false ->
+                    false -> {
                         _uiState.update { currentState ->
                             currentState.copy(
                                 isLoading = false,
@@ -40,6 +45,8 @@ class LoginViewModel @Inject constructor(
                                 passwordError = null
                             )
                         }
+                        _Login_navigationEvent.value = LoginNavigationEvent.NavigateHome(1) // TODO need the real userId
+                    }
 
                     true -> {
                         _uiState.update { currentState ->
