@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class LoginResponseEntity(
     @SerializedName("meta")
-    val meta: MetaEntity? = null
+    val meta: MetaEntity? = null,
+    @SerializedName("userId")
+    val userId: Int? = null
 )
 
 data class MetaEntity(

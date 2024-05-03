@@ -26,9 +26,9 @@ class LoginViewModel @Inject constructor(
     val uiState: StateFlow<LoginScreenState>
         get() = _uiState.asStateFlow()
 
-    private val _Login_navigationEvent = MutableStateFlow<LoginNavigationEvent?>(null)
-    val loginNavigationEvent: StateFlow<LoginNavigationEvent?>
-        get() = _Login_navigationEvent
+    private val _navigationEvent = MutableStateFlow<LoginNavigationEvent?>(null)
+    val navigationEvent: StateFlow<LoginNavigationEvent?>
+        get() = _navigationEvent
 
     fun doLoginWithCredentials(username: String, password: String) {
         _uiState.value = uiState.value.copy(isLoading = true)
@@ -45,7 +45,9 @@ class LoginViewModel @Inject constructor(
                                 passwordError = null
                             )
                         }
-                        _Login_navigationEvent.value = LoginNavigationEvent.NavigateHome(1) // TODO need the real userId
+                        loginResponseModel.userId?.let { userId ->
+                            _navigationEvent.value = LoginNavigationEvent.NavigateHome(userId)
+                        }
                     }
 
                     true -> {

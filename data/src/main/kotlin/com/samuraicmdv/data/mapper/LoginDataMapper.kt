@@ -10,6 +10,7 @@ object LoginDataMapper : DataMapper<LoginResponseEntity?, LoginResponseModel?> {
     override fun entityToModel(entity: LoginResponseEntity?): LoginResponseModel? {
         return entity?.let { e ->
             LoginResponseModel(
+                userId = e.userId,
                 errors = transformErrors(e.meta?.errors),
             )
         }

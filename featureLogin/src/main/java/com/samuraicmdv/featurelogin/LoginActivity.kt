@@ -10,7 +10,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
+import com.samuraicmdv.common.BUNDLE_KEY_USER_ID
 import com.samuraicmdv.common.navigation.Navigator
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurelogin.compose.LoginScreen
@@ -31,7 +33,7 @@ class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch {
-            viewModel.loginNavigationEvent.collect { navigationEvent ->
+            viewModel.navigationEvent.collect { navigationEvent ->
                 navigationEvent?.let { handelEvent(it) }
             }
         }
@@ -66,7 +68,9 @@ class LoginActivity : ComponentActivity() {
             }
 
             is LoginNavigationEvent.NavigateHome -> {
-                navigator.toHome(origin = this, data = null, finish = true)
+                bundleOf(BUNDLE_KEY_USER_ID to event.userId).also { data ->
+                    navigator.toHome(origin = this, data = data, finish = true)
+                }
             }
         }
     }
