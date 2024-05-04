@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import com.samuraicmdv.common.ERROR_LOGIN_USER_EMPTY
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurelogin.event.LoginBusinessEvent
+import com.samuraicmdv.featurelogin.event.LoginEvent
 
 @Composable
 fun LoginFormContent(
@@ -32,7 +33,7 @@ fun LoginFormContent(
     modifier: Modifier = Modifier,
     userError: Int? = null,
     passwordError: Int? = null,
-    handleEvent: (LoginBusinessEvent) -> Unit,
+    handleEvent: (LoginEvent) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.Center,

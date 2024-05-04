@@ -16,11 +16,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurelogin.event.LoginBusinessEvent
+import com.samuraicmdv.featurelogin.event.LoginEvent
 
 @Composable
 fun SignUpContent(
     modifier: Modifier = Modifier,
-    handleEvent: (LoginBusinessEvent) -> Unit,
+    handleEvent: (LoginEvent) -> Unit,
 ) {
     Column(
         modifier = modifier
