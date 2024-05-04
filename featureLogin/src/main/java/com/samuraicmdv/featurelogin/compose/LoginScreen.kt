@@ -25,7 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurelogin.event.LoginBusinessEvent
+import com.samuraicmdv.featurelogin.event.LoginEvent
 import com.samuraicmdv.featurelogin.state.LoginScreenState
 import com.samuraicmdv.ui.widget.LinearLoadingIndicator
 
@@ -33,7 +33,7 @@ import com.samuraicmdv.ui.widget.LinearLoadingIndicator
 fun LoginScreen(
     uiState: LoginScreenState,
     modifier: Modifier = Modifier,
-    handleEvent: (LoginBusinessEvent) -> Unit,
+    handleEvent: (LoginEvent) -> Unit,
 ) {
     var user by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
@@ -50,7 +50,9 @@ fun LoginScreen(
     ) {
         if (uiState.isLoading) {
             LinearLoadingIndicator(
-                modifier = Modifier.fillMaxWidth().height(MobiStockTheme.spaces.grid_2)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(MobiStockTheme.spaces.grid_2)
             )
         }
         Column(

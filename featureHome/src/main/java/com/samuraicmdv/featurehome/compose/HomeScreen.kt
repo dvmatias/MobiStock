@@ -1,29 +1,34 @@
 package com.samuraicmdv.featurehome.compose
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
-fun HomeScreen() {
-
+fun HomeScreen(modifier: Modifier = Modifier) {
+    val tempUserName = "User name"
+    val tempUserAddress = "User address"
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        topBar = {
+            HomeScreenTopBarContent(tempUserName, tempUserAddress)
+        }
+    ) { paddingValues ->
+        HomeScreenContent(Modifier.padding(paddingValues))
+    }
 }
 
-
-@Preview
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@ThemePreviews
 @Composable
 fun PreviewHomeScreen() {
     MobiStockTheme {
         // A surface container using the 'background' color from the theme
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MobiStockTheme.colors.backgroundPrimary
-        ) {
+        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
             HomeScreen()
         }
     }
