@@ -1,10 +1,10 @@
 package com.samuraicmdv.featurehome.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -20,25 +20,25 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurehome.R
+import com.samuraicmdv.featurehome.event.HomeEvent
+import com.samuraicmdv.featurehome.event.HomePresentationEvent
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
 fun HomeScreenTopBarUserContent(
-    userName: String,
-    userAddress: String,
+    userName: String?,
+    userAddress: String?,
     modifier: Modifier = Modifier,
+    handleEvent: (HomeEvent) -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .padding(
-                top = MobiStockTheme.spaces.grid_1_5,
-                bottom = MobiStockTheme.spaces.grid_1_5,
-                start = MobiStockTheme.spaces.grid_3
-            ),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.clickable {
+            handleEvent(HomePresentationEvent.HandleUsersBottomSheetState(true))
+        }
     ) {
         Image(
-            painter = painterResource(id = R.drawable.user_profile_example),
+            painter = painterResource(id = R.drawable.user_profile_example), // TODO load from logo url
             contentDescription = null,
             modifier = Modifier
                 .size(MobiStockTheme.spaces.grid_5)
@@ -46,16 +46,20 @@ fun HomeScreenTopBarUserContent(
         )
         Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
         Column {
-            Text(
-                text = userName.uppercase(),
-                style = MobiStockTheme.typography.mediumBold,
-                color = MobiStockTheme.colors.foregroundPrimary,
-            )
-            Text(
-                text = userAddress,
-                style = MobiStockTheme.typography.bodyRegular,
-                color = MobiStockTheme.colors.foregroundPrimary
-            )
+            userName?.let { name ->
+                Text(
+                    text = name.uppercase(),
+                    style = MobiStockTheme.typography.mediumBold,
+                    color = MobiStockTheme.colors.foregroundPrimary,
+                )
+            }
+            userAddress?.let { address ->
+                Text(
+                    text = address,
+                    style = MobiStockTheme.typography.smallRegular,
+                    color = MobiStockTheme.colors.foregroundPrimary,
+                )
+            }
         }
         Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
         Icon(
@@ -71,7 +75,7 @@ fun HomeScreenTopBarUserContent(
 fun PreviewHomeScreenTopBarUserContent(modifier: Modifier = Modifier) {
     MobiStockTheme {
         Surface(color = MobiStockTheme.colors.backgroundPrimary) {
-            HomeScreenTopBarUserContent(userName = "User Name", userAddress = "User Address 123")
+            HomeScreenTopBarUserContent(userName = "User Name", userAddress = "User Address 123") {}
         }
     }
 }
