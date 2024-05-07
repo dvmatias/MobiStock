@@ -39,9 +39,8 @@ class HomeActivity : ComponentActivity() {
 
     private fun handelEvent(event: HomeEvent) {
         when (event) {
-            is HomePresentationEvent.HandleUsersBottomSheetState -> viewModel.updateUsersBottomSheetState(
-                event.show
-            )
+            is HomePresentationEvent.HandleUsersBottomSheetState ->
+                viewModel.updateUsersBottomSheetState(event.show)
         }
     }
 }
