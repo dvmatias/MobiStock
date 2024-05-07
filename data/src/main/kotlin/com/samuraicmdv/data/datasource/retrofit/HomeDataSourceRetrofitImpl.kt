@@ -21,7 +21,7 @@ class HomeDataSourceRetrofitImpl @Inject constructor(
     private val homeApi: HomeApi,
     private val mapper: UserProfileDataMapper
 ) : HomeDataSource {
-    override suspend fun getUserProfile(userId: Int) =
+    override suspend fun getUserProfile(userId: Int) = // TODO Do I need to make this (and repo version) suspendable???
         withContext(Dispatchers.IO) {
             UserProfileRequestEntity(userId = userId).let { requestEntity ->
                 homeApi.getProfile(requestEntity).let { serviceResponse ->
