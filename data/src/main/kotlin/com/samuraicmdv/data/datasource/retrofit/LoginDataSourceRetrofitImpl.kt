@@ -17,7 +17,7 @@ import javax.inject.Inject
  *
  * @param loginApi Retrofit Service interface. Provides Login service operations.
  */
-class LoginRetrofitDataSourceImpl @Inject constructor(
+class LoginDataSourceRetrofitImpl @Inject constructor(
     private val loginApi: LoginApi,
     private val mapper: LoginDataMapper,
 ) : LoginDataSource {

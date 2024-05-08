@@ -10,8 +10,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.state.HomeScreenState
+import com.samuraicmdv.featurehome.state.UserProfileUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -20,12 +22,10 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     handleEvent: (HomeEvent) -> Unit,
 ) {
-    val userName by remember { mutableStateOf(uiState.userName) }
-    val userAddress by remember { mutableStateOf(uiState.userAddress) }
-    val users by remember { mutableStateOf(uiState.users) }
-    val showUsersBottomSheet by remember(uiState.isUsersBottomSheetDisplayed) {
-        mutableStateOf(uiState.isUsersBottomSheetDisplayed)
-    }
+    val userName = uiState.profile?.user?.name
+    val userAddress = uiState.profile?.user?.address
+    val relatedUsers = uiState.profile?.relatedUsers
+    val showUsersBottomSheet = uiState.isUsersBottomSheetDisplayed
 
     Scaffold(
         topBar = {
@@ -37,7 +37,7 @@ fun HomeScreen(
         },
         modifier = modifier.fillMaxSize(),
     ) { paddingValues ->
-        UsersBottomSheetContent(users, showUsersBottomSheet, handleEvent = handleEvent)
+        UsersBottomSheetContent(relatedUsers, showUsersBottomSheet, handleEvent = handleEvent)
         HomeScreenContent(Modifier.padding(paddingValues))
     }
 }
@@ -50,8 +50,37 @@ fun PreviewHomeScreen() {
         Surface(color = MobiStockTheme.colors.backgroundPrimary) {
             HomeScreen(
                 uiState = HomeScreenState(
-                    userName = "User Name",
-                    userAddress = "User Address, 123 Lorem, ipsum",
+                    profile = UserProfileUiData(
+                        user = UserUiData(
+                            id = 1,
+                            name = "User name 1",
+                            address = "User Address 123, Lorem, ipsum",
+                            type = null,
+                            logoUrl = "",
+                            isAdmin = true,
+                            isCurrent = true
+                        ),
+                        relatedUsers = listOf(
+                            UserUiData(
+                                id = 2,
+                                name = "User name 2",
+                                address = "User Address 456, Lorem, ipsum",
+                                type = null,
+                                logoUrl = "",
+                                isAdmin = false,
+                                isCurrent = false
+                            ),
+                            UserUiData(
+                                id = 3,
+                                name = "User name 3",
+                                address = "User Address 789, Lorem, ipsum",
+                                type = null,
+                                logoUrl = "",
+                                isAdmin = false,
+                                isCurrent = false
+                            )
+                        )
+                    ),
                     isUsersBottomSheetDisplayed = false
                 )
             ) {}

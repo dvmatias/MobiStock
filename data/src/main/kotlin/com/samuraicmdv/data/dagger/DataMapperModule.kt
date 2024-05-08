@@ -1,6 +1,7 @@
 package com.samuraicmdv.data.dagger
 
 import com.samuraicmdv.data.mapper.LoginDataMapper
+import com.samuraicmdv.data.mapper.UserProfileDataMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,4 +12,7 @@ import dagger.hilt.components.SingletonComponent
 object DataMapperModule {
     @Provides
     fun provideLoginDataMapper(): LoginDataMapper = LoginDataMapper
+
+    @Provides
+    fun provideUserProfileMapper(): UserProfileDataMapper = UserProfileDataMapper
 }

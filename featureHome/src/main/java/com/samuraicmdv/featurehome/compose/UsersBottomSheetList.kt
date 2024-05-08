@@ -12,13 +12,13 @@ import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
 fun UsersBottomSheetList(
-    users: List<UserUiData>?,
+    relatedUsers: List<UserUiData>?,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier
     ) {
-        users?.let { users ->
+        relatedUsers?.let { users ->
             items(users, { it.id }) {
                 UsersBottomSheetItem(user = it) {/*TODO*/ }
             }
