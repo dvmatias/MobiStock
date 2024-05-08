@@ -24,6 +24,7 @@ fun HomeScreen(
 ) {
     val userName = uiState.profile?.user?.name
     val userAddress = uiState.profile?.user?.address
+    val userLogoUtl = uiState.profile?.user?.logoUrl
     val relatedUsers = uiState.profile?.relatedUsers
     val showUsersBottomSheet = uiState.isUsersBottomSheetDisplayed
 
@@ -32,6 +33,7 @@ fun HomeScreen(
             HomeScreenTopBarContent(
                 userName = userName,
                 userAddress = userAddress,
+                userLogoUrl = userLogoUtl,
                 handleEvent = handleEvent
             )
         },

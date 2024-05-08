@@ -93,6 +93,9 @@ dependencies {
     androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
     testImplementation("com.google.dagger:hilt-android-testing:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    // Coil
+    implementation("io.coil-kt:coil:1.4.0")
+    implementation("io.coil-kt:coil-compose:1.4.0")
 }
 
 // Allow references to generated code

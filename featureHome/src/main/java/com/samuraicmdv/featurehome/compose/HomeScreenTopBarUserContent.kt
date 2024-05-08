@@ -17,9 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
+import coil.compose.rememberImagePainter
 import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurehome.R
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.event.HomePresentationEvent
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -28,6 +27,7 @@ import com.samuraicmdv.ui.util.ThemePreviews
 fun HomeScreenTopBarUserContent(
     userName: String?,
     userAddress: String?,
+    userLogoUrl: String?,
     modifier: Modifier = Modifier,
     handleEvent: (HomeEvent) -> Unit,
 ) {
@@ -38,7 +38,7 @@ fun HomeScreenTopBarUserContent(
         }
     ) {
         Image(
-            painter = painterResource(id = R.drawable.user_profile_example), // TODO load from logo url
+            painter = rememberImagePainter(userLogoUrl),
             contentDescription = null,
             modifier = Modifier
                 .size(MobiStockTheme.spaces.grid_5)
@@ -75,7 +75,11 @@ fun HomeScreenTopBarUserContent(
 fun PreviewHomeScreenTopBarUserContent(modifier: Modifier = Modifier) {
     MobiStockTheme {
         Surface(color = MobiStockTheme.colors.backgroundPrimary) {
-            HomeScreenTopBarUserContent(userName = "User Name", userAddress = "User Address 123") {}
+            HomeScreenTopBarUserContent(
+                userName = "User Name",
+                userAddress = "User Address 123",
+                userLogoUrl = "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/009.png"
+            ) {}
         }
     }
 }

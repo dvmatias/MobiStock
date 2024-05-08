@@ -19,7 +19,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import coil.compose.rememberImagePainter
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurehome.R
 import com.samuraicmdv.featurehome.data.UserType
@@ -47,8 +49,9 @@ fun UsersBottomSheetItem(
         ) {
             Row(modifier = Modifier.weight(1F)) {
                 Image(
-                    painter = painterResource(id = R.drawable.user_profile_example), // TODO load image from URL and use a default for loading or null
+                    painter = rememberImagePainter(user.logoUrl),
                     contentDescription = null,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(MobiStockTheme.spaces.grid_5)
                         .clip(CircleShape)

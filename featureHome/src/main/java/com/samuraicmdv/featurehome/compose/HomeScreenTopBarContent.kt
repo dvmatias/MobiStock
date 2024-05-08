@@ -15,6 +15,7 @@ import com.samuraicmdv.ui.util.ThemePreviews
 fun HomeScreenTopBarContent(
     userName: String?,
     userAddress: String?,
+    userLogoUrl: String?,
     modifier: Modifier = Modifier,
     handleEvent: (HomeEvent) -> Unit,
 ) {
@@ -32,6 +33,7 @@ fun HomeScreenTopBarContent(
         HomeScreenTopBarUserContent(
             userName = userName,
             userAddress = userAddress,
+            userLogoUrl = userLogoUrl,
             handleEvent = handleEvent
         )
     }
@@ -44,7 +46,8 @@ fun PreviewHomeScreenTopBarContent(modifier: Modifier = Modifier) {
         Surface(color = MobiStockTheme.colors.backgroundPrimary) {
             HomeScreenTopBarContent(
                 userName = "User Name",
-                userAddress = "User Address 123"
+                userAddress = "User Address 123",
+                userLogoUrl = "https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/detail/009.png"
             ) {
             }
         }
