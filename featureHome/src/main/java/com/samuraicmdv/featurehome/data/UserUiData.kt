@@ -9,7 +9,7 @@ package com.samuraicmdv.featurehome.data
  * @param type User's type.
  * @param logoUrl User's logo URL.
  * @param isAdmin Set to 'true' for admin users, 'false' otherwise.
- * @param isCurrent Set to 'true' if the user is the current selected user, 'false' if not.
+ * @param isCurrentSelected Set to 'true' if the user is the current selected user, 'false' if not.
  */
 data class UserUiData(
     val id: Int,
@@ -18,5 +18,5 @@ data class UserUiData(
     val type: UserType? = null,
     val logoUrl: String? = null,
     val isAdmin: Boolean? = null,
-    val isCurrent: Boolean? = null,
+    val isCurrentSelected: Boolean,
 )

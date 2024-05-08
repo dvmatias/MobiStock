@@ -1,6 +1,8 @@
 package com.samuraicmdv.featurehome.compose
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,11 +21,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import coil.compose.rememberImagePainter
 import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurehome.R
 import com.samuraicmdv.featurehome.data.UserType
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.event.HomeEvent
@@ -47,6 +50,14 @@ fun UsersBottomSheetItem(
                 .fillMaxWidth()
                 .clickable { /*TODO*/ }
         ) {
+            Canvas(modifier = Modifier.size(MobiStockTheme.spaces.grid_1)) {
+                drawCircle(
+                    color = if (user.isCurrentSelected) Color.Red else Color.Transparent,
+                    radius = 12f,
+                    center = center
+                )
+            }
+            Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
             Row(modifier = Modifier.weight(1F)) {
                 Image(
                     painter = rememberImagePainter(user.logoUrl),
@@ -55,6 +66,7 @@ fun UsersBottomSheetItem(
                     modifier = Modifier
                         .size(MobiStockTheme.spaces.grid_5)
                         .clip(CircleShape)
+                        .background(MobiStockTheme.colors.foregroundDisabled)
                 )
                 Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
                 Column {
@@ -107,7 +119,7 @@ fun PreviewUsersBottomSheetItem(modifier: Modifier = Modifier) {
                     type = UserType.SALES_BRANCH,
                     logoUrl = "",
                     isAdmin = true,
-                    isCurrent = true
+                    isCurrentSelected = true
                 )
             ) {}
         }

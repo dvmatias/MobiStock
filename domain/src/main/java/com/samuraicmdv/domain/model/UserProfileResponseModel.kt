@@ -10,6 +10,7 @@ data class UserModel(
     val email: String? = null,
     val logoUrl: String? = null,
     val name: String? = null,
+    val isCurrentSelected: Boolean? = null,
     val relatedUsers: List<UserModel>? = null,
 )
 

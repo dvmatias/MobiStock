@@ -33,7 +33,7 @@ object HomeUiDataTransformer {
                 type = null, // TODO
                 logoUrl = logoUrl,
                 isAdmin = false, // TODO
-                isCurrent = null, // TODO
+                isCurrentSelected = isCurrentSelected ?: false,
             )
         }
 

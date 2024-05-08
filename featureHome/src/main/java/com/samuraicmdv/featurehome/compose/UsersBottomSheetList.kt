@@ -47,7 +47,7 @@ fun getBottomSheetUsersForPreview() =
             type = UserType.SALES_BRANCH,
             logoUrl = "",
             isAdmin = true,
-            isCurrent = true
+            isCurrentSelected = true
         ),
         UserUiData(
             id = 2,
@@ -56,7 +56,7 @@ fun getBottomSheetUsersForPreview() =
             type = UserType.SALES_BRANCH,
             logoUrl = "",
             isAdmin = false,
-            isCurrent = false
+            isCurrentSelected = false
         ),
         UserUiData(
             id = 3,
@@ -65,7 +65,7 @@ fun getBottomSheetUsersForPreview() =
             type = UserType.SALES_BRANCH,
             logoUrl = "",
             isAdmin = false,
-            isCurrent = false
+            isCurrentSelected = false
         ),
         UserUiData(
             id = 4,
@@ -74,6 +74,6 @@ fun getBottomSheetUsersForPreview() =
             type = UserType.SALES_BRANCH,
             logoUrl = "",
             isAdmin = false,
-            isCurrent = false
+            isCurrentSelected = false
         ),
     )

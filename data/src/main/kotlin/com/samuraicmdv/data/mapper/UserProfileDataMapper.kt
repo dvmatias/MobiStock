@@ -12,12 +12,12 @@ object UserProfileDataMapper : DataMapper<UserProfileResponseEntity, UserProfile
 
     override fun entityToModel(entity: UserProfileResponseEntity?): UserProfileResponseModel =
         UserProfileResponseModel(
-            user = transformUser(entity?.user)
+            user = transformUser(entity?.user, entity?.user?.id)
         )
 
-    private fun transformUser(userEntity: UserEntity?): UserModel? {
+    private fun transformUser(userEntity: UserEntity?, currentSelectedUserId: Int?): UserModel? {
         val relatedUsers = userEntity?.relatedUsers?.mapNotNull {
-            transformUser(it)
+            transformUser(it, userEntity.id)
         }
         return userEntity?.id?.let { userId ->
             UserModel(
@@ -26,6 +26,7 @@ object UserProfileDataMapper : DataMapper<UserProfileResponseEntity, UserProfile
                 email = userEntity.email,
                 logoUrl = userEntity.logoUrl,
                 name = userEntity.name,
+                isCurrentSelected = currentSelectedUserId == userId,
                 relatedUsers = relatedUsers
             )
         }

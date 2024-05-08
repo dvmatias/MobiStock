@@ -5,9 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurehome.data.UserUiData
@@ -60,7 +57,7 @@ fun PreviewHomeScreen() {
                             type = null,
                             logoUrl = "",
                             isAdmin = true,
-                            isCurrent = true
+                            isCurrentSelected = true
                         ),
                         relatedUsers = listOf(
                             UserUiData(
@@ -70,7 +67,7 @@ fun PreviewHomeScreen() {
                                 type = null,
                                 logoUrl = "",
                                 isAdmin = false,
-                                isCurrent = false
+                                isCurrentSelected = false
                             ),
                             UserUiData(
                                 id = 3,
@@ -79,7 +76,7 @@ fun PreviewHomeScreen() {
                                 type = null,
                                 logoUrl = "",
                                 isAdmin = false,
-                                isCurrent = false
+                                isCurrentSelected = false
                             )
                         )
                     ),
