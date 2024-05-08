@@ -15,17 +15,22 @@ object UserProfileDataMapper : DataMapper<UserProfileResponseEntity, UserProfile
             user = transformUser(entity?.user)
         )
 
-    private fun transformUser(userEntity: UserEntity?): UserModel =
-        UserModel(
-            address = transformAddress(userEntity?.address),
-            email = userEntity?.email,
-            id = userEntity?.id,
-            logoUrl = userEntity?.logoUrl,
-            name = userEntity?.name,
-            relatedUsers = userEntity?.relatedUsers?.map {
-                transformUser(it)
-            }
-        )
+    private fun transformUser(userEntity: UserEntity?): UserModel? {
+        val relatedUsers = userEntity?.relatedUsers?.mapNotNull {
+            transformUser(it)
+        }
+        return userEntity?.id?.let { userId ->
+            UserModel(
+                id = userId,
+                address = transformAddress(userEntity.address),
+                email = userEntity.email,
+                logoUrl = userEntity.logoUrl,
+                name = userEntity.name,
+                relatedUsers = relatedUsers
+            )
+        }
+    }
+
 
     private fun transformAddress(addressEntity: UserAddressEntity?): UserAddressModel? =
         addressEntity?.let { address ->

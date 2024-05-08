@@ -13,10 +13,10 @@ package com.samuraicmdv.featurehome.data
  */
 data class UserUiData(
     val id: Int,
-    val name: String,
-    val address: String,
-    val type: UserType,
-    val logoUrl: String,
-    val isAdmin: Boolean,
-    val isCurrent: Boolean
+    val name: String? = null,
+    val address: String? = null,
+    val type: UserType? = null,
+    val logoUrl: String? = null,
+    val isAdmin: Boolean? = null,
+    val isCurrent: Boolean? = null,
 )

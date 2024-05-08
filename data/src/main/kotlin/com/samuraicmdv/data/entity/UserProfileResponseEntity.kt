@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class UserProfileResponseEntity(
     @SerializedName("meta")
     val meta: MetaEntity? = null,
-    @SerializedName("userId")
+    @SerializedName("user")
     val user: UserEntity? = null
 )

@@ -56,12 +56,12 @@ fun UsersBottomSheetItem(
                 Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
                 Column {
                     Text(
-                        text = user.name.uppercase(),
+                        text = user.name?.uppercase() ?: "",
                         style = MobiStockTheme.typography.mediumBold,
                         color = MobiStockTheme.colors.foregroundPrimary,
                     )
                     Text(
-                        text = user.address,
+                        text = user.address ?: "",
                         style = MobiStockTheme.typography.bodyRegular,
                         color = MobiStockTheme.colors.foregroundPrimary
                     )

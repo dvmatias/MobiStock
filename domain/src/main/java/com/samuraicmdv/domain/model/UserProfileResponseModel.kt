@@ -5,9 +5,9 @@ data class UserProfileResponseModel(
 )
 
 data class UserModel(
+    val id: Int,
     val address: UserAddressModel? = null,
     val email: String? = null,
-    val id: Int? = null,
     val logoUrl: String? = null,
     val name: String? = null,
     val relatedUsers: List<UserModel>? = null,
