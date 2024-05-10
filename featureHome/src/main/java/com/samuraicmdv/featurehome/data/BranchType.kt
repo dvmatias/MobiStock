@@ -1,6 +1,7 @@
 package com.samuraicmdv.featurehome.data
 
-enum class UserType {
+enum class BranchType {
+    UNKNOWN,
     SALES_BRANCH,
     DEPOSIT,
 }

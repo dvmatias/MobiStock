@@ -22,12 +22,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import coil.compose.rememberImagePainter
 import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurehome.data.UserType
+import com.samuraicmdv.featurehome.data.BranchType
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -41,7 +39,7 @@ fun UsersBottomSheetItem(
     Column(
         modifier = modifier.padding(
             horizontal = MobiStockTheme.spaces.grid_3,
-            vertical = MobiStockTheme.spaces.grid_2
+            vertical = MobiStockTheme.spaces.grid_1
         ),
     ) {
         Row(
@@ -49,6 +47,10 @@ fun UsersBottomSheetItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { /*TODO*/ }
+                .padding(
+                    horizontal = MobiStockTheme.spaces.grid_1,
+                    vertical = MobiStockTheme.spaces.grid_1
+                ),
         ) {
             Canvas(modifier = Modifier.size(MobiStockTheme.spaces.grid_1)) {
                 drawCircle(
@@ -57,7 +59,7 @@ fun UsersBottomSheetItem(
                     center = center
                 )
             }
-            Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
+            Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_0_5))
             Row(modifier = Modifier.weight(1F)) {
                 Image(
                     painter = rememberImagePainter(user.logoUrl),
@@ -71,12 +73,12 @@ fun UsersBottomSheetItem(
                 Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
                 Column {
                     Text(
-                        text = user.name?.uppercase() ?: "",
+                        text = user.name.uppercase(),
                         style = MobiStockTheme.typography.mediumBold,
                         color = MobiStockTheme.colors.foregroundPrimary,
                     )
                     Text(
-                        text = user.address ?: "",
+                        text = user.address,
                         style = MobiStockTheme.typography.bodyRegular,
                         color = MobiStockTheme.colors.foregroundPrimary
                     )
@@ -116,7 +118,7 @@ fun PreviewUsersBottomSheetItem(modifier: Modifier = Modifier) {
                     id = 1,
                     name = "User name",
                     address = "User Address 123, Lorem, ipsum",
-                    type = UserType.SALES_BRANCH,
+                    branchType = BranchType.SALES_BRANCH,
                     logoUrl = "",
                     isAdmin = true,
                     isCurrentSelected = true

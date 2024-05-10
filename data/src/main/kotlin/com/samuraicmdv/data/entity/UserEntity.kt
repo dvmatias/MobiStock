@@ -11,8 +11,12 @@ data class UserEntity(
     val email: String? = null,
     @SerializedName("logoUrl")
     val logoUrl: String? = null,
+    @SerializedName("branchType")
+    val branchType: String? = null,
     @SerializedName("name")
     val name: String? = null,
     @SerializedName("relatedUsers")
     val relatedUsers: List<UserEntity>? = null,
+    @SerializedName("isAdmin")
+    val isAdmin: Boolean? = null,
 )

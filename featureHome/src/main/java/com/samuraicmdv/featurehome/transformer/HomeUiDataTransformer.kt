@@ -2,6 +2,7 @@ package com.samuraicmdv.featurehome.transformer
 
 import com.samuraicmdv.domain.model.UserModel
 import com.samuraicmdv.domain.model.UserProfileResponseModel
+import com.samuraicmdv.featurehome.data.BranchType
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.state.UserProfileUiData
 
@@ -28,13 +29,21 @@ object HomeUiDataTransformer {
         user?.run {
             UserUiData(
                 id = id,
-                name = name,
+                name = name ?: "",
                 address = "${address?.line}, ${address?.city}, ${address?.province}",
-                type = null, // TODO
-                logoUrl = logoUrl,
-                isAdmin = false, // TODO
+                logoUrl = logoUrl ?: "",
+                branchType = getBranchType(branchType),
+                isAdmin = isAdmin ?: false, // TODO
                 isCurrentSelected = isCurrentSelected ?: false,
             )
         }
+
+    private fun getBranchType(branchType: String?): BranchType =
+        when (branchType) {
+            BranchType.SALES_BRANCH.name -> BranchType.SALES_BRANCH
+            BranchType.DEPOSIT.name -> BranchType.DEPOSIT
+            else -> BranchType.UNKNOWN
+        }
+
 
 }

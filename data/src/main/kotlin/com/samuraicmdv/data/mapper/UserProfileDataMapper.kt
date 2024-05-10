@@ -25,8 +25,10 @@ object UserProfileDataMapper : DataMapper<UserProfileResponseEntity, UserProfile
                 address = transformAddress(userEntity.address),
                 email = userEntity.email,
                 logoUrl = userEntity.logoUrl,
+                branchType = userEntity.branchType,
                 name = userEntity.name,
                 isCurrentSelected = currentSelectedUserId == userId,
+                isAdmin = userEntity.isAdmin,
                 relatedUsers = relatedUsers
             )
         }

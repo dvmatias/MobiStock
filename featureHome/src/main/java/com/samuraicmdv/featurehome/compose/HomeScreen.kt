@@ -7,6 +7,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.featurehome.data.BranchType
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.state.HomeScreenState
@@ -54,7 +55,7 @@ fun PreviewHomeScreen() {
                             id = 1,
                             name = "User name 1",
                             address = "User Address 123, Lorem, ipsum",
-                            type = null,
+                            branchType = BranchType.DEPOSIT,
                             logoUrl = "",
                             isAdmin = true,
                             isCurrentSelected = true
@@ -64,7 +65,7 @@ fun PreviewHomeScreen() {
                                 id = 2,
                                 name = "User name 2",
                                 address = "User Address 456, Lorem, ipsum",
-                                type = null,
+                                branchType = BranchType.SALES_BRANCH,
                                 logoUrl = "",
                                 isAdmin = false,
                                 isCurrentSelected = false
@@ -73,7 +74,7 @@ fun PreviewHomeScreen() {
                                 id = 3,
                                 name = "User name 3",
                                 address = "User Address 789, Lorem, ipsum",
-                                type = null,
+                                branchType = BranchType.UNKNOWN,
                                 logoUrl = "",
                                 isAdmin = false,
                                 isCurrentSelected = false
