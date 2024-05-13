@@ -2,7 +2,6 @@ package com.samuraicmdv.data.datasource.retrofit
 
 import com.samuraicmdv.data.api.HomeApi
 import com.samuraicmdv.data.datasource.HomeDataSource
-import com.samuraicmdv.data.entity.CategoriesRequestEntity
 import com.samuraicmdv.data.entity.UserProfileRequestEntity
 import com.samuraicmdv.data.mapper.ProductCategoryMapper
 import com.samuraicmdv.data.mapper.UserProfileDataMapper
@@ -49,10 +48,8 @@ class HomeDataSourceRetrofitImpl @Inject constructor(
     ): ResponseWrapper<ProductCategoriesResponseModel> =
         withContext(Dispatchers.IO) {
             homeApi.getCategories(
-                CategoriesRequestEntity(
-                    storeId = storeId,
-                    all = all
-                )
+                storeId = storeId,
+                all = all
             ).let { serviceResponse ->
                 if (serviceResponse.isSuccessful) {
                     ResponseWrapper.success(

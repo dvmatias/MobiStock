@@ -1,6 +1,5 @@
 package com.samuraicmdv.data.datasource
 
-import com.samuraicmdv.data.entity.ProductCategoriesResponseEntity
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
 import com.samuraicmdv.domain.model.UserProfileResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
@@ -26,6 +25,6 @@ interface HomeDataSource {
      */
     suspend fun getProductCategories(
         storeId: Int,
-        all: Boolean = true,
+        all: Boolean,
     ): ResponseWrapper<ProductCategoriesResponseModel>
 }
