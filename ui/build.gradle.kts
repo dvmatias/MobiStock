@@ -53,7 +53,7 @@ android {
 dependencies {
     implementation(project(mapOf("path" to ":common")))
 
-    implementation("androidx.core:core-ktx:1.13.0")
+    implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.compose.foundation:foundation-android:1.6.7")
     implementation("androidx.room:room-ktx:2.6.1")
