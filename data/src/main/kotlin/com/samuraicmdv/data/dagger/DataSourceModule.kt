@@ -7,6 +7,7 @@ import com.samuraicmdv.data.datasource.LoginDataSource
 import com.samuraicmdv.data.datasource.retrofit.HomeDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
 import com.samuraicmdv.data.mapper.LoginDataMapper
+import com.samuraicmdv.data.mapper.ProductCategoryMapper
 import com.samuraicmdv.data.mapper.UserProfileDataMapper
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,10 @@ object DataSourceModule {
     ): LoginDataSource = LoginDataSourceRetrofitImpl(loginApi, dataMapper)
 
     @Provides
-    fun provideHomeDataSourceRetrofit(homeApi: HomeApi, dataMapper: UserProfileDataMapper): HomeDataSource =
-        HomeDataSourceRetrofitImpl(homeApi, dataMapper)
+    fun provideHomeDataSourceRetrofit(
+        homeApi: HomeApi,
+        userProfileDataMapper: UserProfileDataMapper,
+        productCategoryMapper: ProductCategoryMapper,
+    ): HomeDataSource =
+        HomeDataSourceRetrofitImpl(homeApi, userProfileDataMapper, productCategoryMapper)
 }
