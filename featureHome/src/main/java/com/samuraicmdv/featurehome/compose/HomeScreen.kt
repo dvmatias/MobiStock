@@ -38,7 +38,7 @@ fun HomeScreen(
         modifier = modifier.fillMaxSize(),
     ) { paddingValues ->
         UsersBottomSheetContent(relatedUsers, showUsersBottomSheet, handleEvent = handleEvent)
-        HomeScreenContent(Modifier.padding(paddingValues))
+        HomeScreenContent(uiState, Modifier.padding(paddingValues))
     }
 }
 

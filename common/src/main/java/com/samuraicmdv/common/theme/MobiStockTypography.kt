@@ -68,7 +68,7 @@ fun mobiStockTypography(): MobiStockTypography {
     )
     val regular = TextStyle(
         fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Normal,
     )
 
     return MobiStockTypography(
