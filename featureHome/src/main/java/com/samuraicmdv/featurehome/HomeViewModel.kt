@@ -29,8 +29,8 @@ class HomeViewModel @AssistedInject constructor(
         get() = _uiState.asStateFlow()
 
     init {
-        getStoreProfile() // TODO get real store ID
-        getProductCategories() // TODO get real store ID
+        getStoreProfile()
+        getProductCategories()
     }
 
     private fun getStoreProfile() {
@@ -51,7 +51,11 @@ class HomeViewModel @AssistedInject constructor(
             getProductCategoriesUseCase(
                 GetProductCategoriesUseCase.Params(storeId)
             ).let { productCategories ->
-                _uiState
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        productCategories = transformer.transformProductCategories(productCategories)
+                    )
+                }
             }
         }
     }
