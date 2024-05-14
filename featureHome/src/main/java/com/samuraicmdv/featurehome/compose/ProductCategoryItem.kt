@@ -10,10 +10,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,7 +42,7 @@ fun ProductCategoryItem(
     Surface(
         shadowElevation = MobiStockTheme.elevations.card,
         shape = RoundedCornerShape(MobiStockTheme.spaces.grid_1),
-        modifier = modifier.padding(MobiStockTheme.spaces.grid_0_5)
+        modifier = modifier
     ) {
         Box(
             modifier = Modifier
@@ -52,40 +54,45 @@ fun ProductCategoryItem(
                     mutableStateOf(0.dp)
                 }
                 val density = LocalDensity.current.density
-                Image(
-                    painter = rememberImagePainter(data = category.imageUrl),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1F)
-                        .background(Color.LightGray)
-                )
-                Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
-                Text(
-                    text = stringResource(category.nameResId),
-                    textAlign = TextAlign.Center,
-                    maxLines = 2,
-                    style = MobiStockTheme.typography.bodyRegular,
-                    onTextLayout = {
-                        val isMultiLine = it.lineCount > 1
-                        val height = (it.size.height / density).dp
-                        textPadding = if (isMultiLine) {
-                            0.dp
-                        } else {
-                            height / 2
-                        }
-                    },
-                    modifier = Modifier
-                        .padding(
-                            start = MobiStockTheme.spaces.grid_2,
-                            end = MobiStockTheme.spaces.grid_2,
-                            top = textPadding,
-                            bottom = textPadding
-                        )
-                        .fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
+                category.imageUrl?.let {
+                    Image(
+                        painter = rememberImagePainter(data = category.imageUrl),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1F)
+                            .background(Color.LightGray)
+                    )
+                    Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
+                }
+                category.nameResId?.let { stringResource ->
+                    Text(
+                        text = stringResource(stringResource),
+                        textAlign = TextAlign.Center,
+                        maxLines = 2,
+                        style = MobiStockTheme.typography.smallRegular,
+                        onTextLayout = {
+                            val isMultiLine = it.lineCount > 1
+                            val height = (it.size.height / density).dp
+                            textPadding = if (isMultiLine) {
+                                0.dp
+                            } else {
+                                height / 2
+                            }
+                        },
+                        modifier = Modifier
+                            .padding(
+                                start = MobiStockTheme.spaces.grid_0_5,
+                                end = MobiStockTheme.spaces.grid_0_5,
+                                top = textPadding,
+                                bottom = textPadding
+                            )
+                            .fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
+                }
+
             }
             category.productsCount?.let { it ->
                 ProductCategoryItemProductsCount(it, modifier = Modifier.align(Alignment.TopEnd))
@@ -106,7 +113,7 @@ fun PreviewProductCategoryItem(modifier: Modifier = Modifier) {
                     imageUrl = "",
                     productsCount = 1245
                 ),
-                modifier = modifier
+                modifier = modifier.size(100.dp, 140.dp)
             )
         }
     }

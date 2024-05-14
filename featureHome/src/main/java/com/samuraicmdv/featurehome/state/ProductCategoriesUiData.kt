@@ -8,7 +8,7 @@ data class ProductCategoriesUiData(
 
 data class ProductCategoryUiData(
     val id: Int,
-    @StringRes val nameResId: Int,
-    val imageUrl: String,
+    @StringRes val nameResId: Int? = null,
+    val imageUrl: String? = null,
     val productsCount: Int? = null,
 )

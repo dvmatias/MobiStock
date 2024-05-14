@@ -1,7 +1,8 @@
 package com.samuraicmdv.featurehome.compose
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Surface
@@ -23,9 +24,16 @@ fun HomeScreenContent(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(COLUMNS_COUNT),
+        contentPadding = PaddingValues(
+            start = MobiStockTheme.spaces.grid_2,
+            end = MobiStockTheme.spaces.grid_2,
+            top = MobiStockTheme.spaces.grid_2,
+            bottom = MobiStockTheme.spaces.grid_2,
+        ),
+        verticalArrangement = Arrangement.spacedBy(MobiStockTheme.spaces.grid_1),
+        horizontalArrangement = Arrangement.spacedBy(MobiStockTheme.spaces.grid_1),
         modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = MobiStockTheme.spaces.grid_2)
+            .fillMaxSize()
     ) {
         uiState.productCategories?.categories.let { categories ->
             categories?.forEach { category ->
@@ -72,7 +80,7 @@ fun PreviewHomeScreenContent() {
                     )
                 )
             }
-            repeat(2) {
+            repeat(20) {
                 add(
                     ProductCategoryUiData(
                         id = it,
