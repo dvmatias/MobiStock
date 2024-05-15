@@ -5,10 +5,12 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
@@ -44,7 +46,36 @@ val lightScheme = lightColorScheme(
     inversePrimary = inversePrimaryLight
 )
 
-val darkScheme = lightScheme // TODO
+val darkScheme = darkColorScheme( // TODO
+    primary = Color(0xFFEC2B68),
+    onPrimary = Color(0xFFEC2B68),
+    primaryContainer = Color(0xFFEC2B68),
+    onPrimaryContainer = Color(0xFFEC2B68),
+    secondary = Color(0xFFEC2B68),
+    onSecondary = Color(0xFFEC2B68),
+    secondaryContainer = Color(0xFFEC2B68),
+    onSecondaryContainer = Color(0xFFEC2B68),
+    tertiary = Color(0xFFEC2B68),
+    onTertiary = Color(0xFFEC2B68),
+    tertiaryContainer = Color(0xFFEC2B68),
+    onTertiaryContainer = Color(0xFFEC2B68),
+    error = Color(0xFFEC2B68),
+    onError = Color(0xFFEC2B68),
+    errorContainer = Color(0xFFEC2B68),
+    onErrorContainer = Color(0xFFEC2B68),
+    background = Color(0xFFEC2B68),
+    onBackground = Color(0xFFEC2B68),
+    surface = Color(0xFFEC2B68),
+    onSurface = Color(0xFFEC2B68),
+    surfaceVariant = Color(0xFFEC2B68),
+    onSurfaceVariant = Color(0xFFEC2B68),
+    outline = Color(0xFFEC2B68),
+    outlineVariant = Color(0xFFEC2B68),
+    scrim = Color(0xFFEC2B68),
+    inverseSurface = Color(0xFFEC2B68),
+    inverseOnSurface = Color(0xFFEC2B68),
+    inversePrimary = Color(0xFFEC2B68)
+)
 
 @Composable
 fun MobiStockTheme(

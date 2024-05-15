@@ -19,11 +19,7 @@ class LoginWithCredentialsUseCase @Inject constructor(
             val response = loginRepository.loginWithCredentials(username, password)
             if (response.isSuccess) {
                 response.getOrNull() ?: LoginResponseModel(
-                    errors = listOf(
-                        LoginErrorModel(
-                            ERROR_LOGIN_UNKNOWN
-                        )
-                    )
+                    errors = listOf(LoginErrorModel(ERROR_LOGIN_UNKNOWN))
                 )
             } else {
                 LoginResponseModel(errors = listOf(LoginErrorModel(ERROR_LOGIN_UNKNOWN)))

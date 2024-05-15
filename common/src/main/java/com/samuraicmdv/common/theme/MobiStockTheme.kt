@@ -4,6 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 
 object MobiStockTheme {
+    val elevations: MobiStockElevations
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalMobiStockElevations.current
     val colors: MobiStockColors
         @Composable
         @ReadOnlyComposable

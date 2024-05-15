@@ -15,12 +15,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurelogin.PresentationEvent
+import com.samuraicmdv.featurelogin.event.LoginBusinessEvent
+import com.samuraicmdv.featurelogin.event.LoginEvent
 
 @Composable
 fun SignUpContent(
     modifier: Modifier = Modifier,
-    handleEvent: (PresentationEvent) -> Unit,
+    handleEvent: (LoginEvent) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -32,7 +33,7 @@ fun SignUpContent(
         )
         Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
         Button(
-            onClick = { handleEvent(PresentationEvent.SignUp) },
+            onClick = { handleEvent(LoginBusinessEvent.SignUp) },
             border = BorderStroke(1.5.dp, MobiStockTheme.colors.brandPrimary),
             shape = RoundedCornerShape(MobiStockTheme.spaces.grid_0_5),
             colors = ButtonDefaults.buttonColors(
