@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurehome.R
+import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.state.HomeScreenState
 import com.samuraicmdv.featurehome.state.ProductCategoriesUiData
 import com.samuraicmdv.featurehome.state.ProductCategoryUiData
@@ -20,6 +21,7 @@ private const val COLUMNS_COUNT = 3
 @Composable
 fun HomeScreenContent(
     uiState: HomeScreenState,
+    handleEvent: (HomeEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
@@ -38,7 +40,7 @@ fun HomeScreenContent(
         uiState.productCategories?.categories.let { categories ->
             categories?.forEach { category ->
                 item {
-                    ProductCategoryItem(category)
+                    ProductCategoryItem(category, handleEvent)
                 }
             }
         }
@@ -97,7 +99,8 @@ fun PreviewHomeScreenContent() {
                     productCategories = ProductCategoriesUiData(
                         categories = categories
                     )
-                )
+                ),
+                handleEvent = {}
             )
         }
     }
