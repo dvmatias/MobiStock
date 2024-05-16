@@ -4,8 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.samuraicmdv.common.BUNDLE_KEY_CATEGORY_ID
+import com.samuraicmdv.featureproductcategory.compose.CategoryScreen
 import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,8 +29,12 @@ class CategoryActivity : ComponentActivity() {
                     }
                 )
 
-                Surface {
+                val uiState by viewModel.uiState.collectAsState()
 
+                Surface {
+                    CategoryScreen(
+                        uiState = uiState
+                    )
                 }
             }
         }
