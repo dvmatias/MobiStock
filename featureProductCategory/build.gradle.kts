@@ -81,6 +81,7 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.7")
     implementation("androidx.compose.ui:ui-tooling:1.6.7")
     testImplementation("androidx.compose.ui:ui-test-junit4:runtime-livedata")
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.7")
     // View Models
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
