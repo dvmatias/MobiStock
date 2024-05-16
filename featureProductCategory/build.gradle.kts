@@ -96,6 +96,7 @@ dependencies {
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
     androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
     testImplementation("com.google.dagger:hilt-android-testing:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 }
 
