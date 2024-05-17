@@ -1,9 +1,12 @@
 package com.samuraicmdv.data.dagger
 
+import com.samuraicmdv.data.datasource.CategoryDataSource
 import com.samuraicmdv.data.datasource.retrofit.HomeDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
+import com.samuraicmdv.data.repository.CategoryRepositoryImpl
 import com.samuraicmdv.data.repository.HomeRepositoryImpl
 import com.samuraicmdv.data.repository.LoginRepositoryImpl
+import com.samuraicmdv.domain.repository.CategoryRepository
 import com.samuraicmdv.domain.repository.HomeRepository
 import com.samuraicmdv.domain.repository.LoginRepository
 import dagger.Module
@@ -21,4 +24,8 @@ object RepositoryModule {
     @Provides
     fun provideHomeRepository(homeDataSource: HomeDataSourceRetrofitImpl): HomeRepository =
         HomeRepositoryImpl(homeDataSource)
+
+    @Provides
+    fun provideHomeRepository(categoryDataSource: CategoryDataSource): CategoryRepository =
+        CategoryRepositoryImpl(categoryDataSource)
 }
