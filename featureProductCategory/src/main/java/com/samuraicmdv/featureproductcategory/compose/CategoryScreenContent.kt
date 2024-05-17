@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import com.samuraicmdv.featureproductcategory.R
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
+import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -91,9 +92,11 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                         name = "Product $index",
                         description = "Product Description",
                         imageUrl = "https://www.example.com/image.jpg",
-                        sellingPrice = 100.0,
-                        costPrice = 50.0,
-                        currency = "USD",
+                        price = ProductPriceUiData(
+                            sellingPrice = 100.0,
+                            costPrice = 50.0,
+                            currency = "$",
+                        ),
                         rating = 4.5,
                         reviews = 100,
                         isFavorite = true,

@@ -128,7 +128,7 @@ fun AppTheme(
             LocalAppTypography provides typography
         ) {
             ProvideTextStyle(
-                value = typography.bodyMedium.copy(color = AppTheme.colors.onPrimary),
+                value = typography.bodyMedium.copy(color = AppTheme.colors.textPrimary),
                 content = content
             )
         }

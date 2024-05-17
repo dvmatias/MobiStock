@@ -5,12 +5,16 @@ data class ProductUiData(
     val name: String,
     val description: String,
     val imageUrl: String,
-    val sellingPrice: Double,
-    val costPrice: Double,
-    val currency: String,
+    val price: ProductPriceUiData,
     val stock: Int,
     val rating: Double,
     val reviews: Int,
     val isFavorite: Boolean,
     val brand: ProductBrandUiData
+)
+
+data class ProductPriceUiData(
+    val sellingPrice: Double,
+    val costPrice: Double,
+    val currency: String,
 )

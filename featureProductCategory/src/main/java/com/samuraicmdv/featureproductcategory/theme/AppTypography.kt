@@ -28,7 +28,9 @@ data class AppTypography(
     val titleSmall: TextStyle,
     val titleSmallBold: TextStyle,
     val titleMedium: TextStyle,
+    val titleMediumBold: TextStyle,
     val titleLarge: TextStyle,
+    val titleLargeBold: TextStyle,
     val headlineSmall: TextStyle,
     val headlineSmallBold: TextStyle,
     val headlineMedium: TextStyle,
@@ -100,105 +102,121 @@ fun defaultAppTypography() = appTypography()
 fun appTypography(): AppTypography {
     val fontSizes = AppTypographyFontSizes()
     val lineHeights = AppTypographyLineHeight()
-    val bold = TextStyle(
+    val boldBody = TextStyle(
         fontFamily = bodyFontFamily,
         fontWeight = FontWeight.Bold
     )
-    val regular = TextStyle(
+    val boldDisplay = TextStyle(
+        fontFamily = displayFontFamily,
+        fontWeight = FontWeight.Bold
+    )
+    val regularBody = TextStyle(
+        fontFamily = bodyFontFamily,
+        fontWeight = FontWeight.Normal
+    )
+    val regularDisplay = TextStyle(
         fontFamily = displayFontFamily,
         fontWeight = FontWeight.Normal
     )
 
     return AppTypography(
-        labelSmall = regular.copy(
+        labelSmall = regularBody.copy(
             fontSize = fontSizes.small,
             lineHeight = lineHeights.small
         ),
-        labelSmallBold = bold.copy(
+        labelSmallBold = boldBody.copy(
             fontSize = fontSizes.small,
             lineHeight = lineHeights.small
         ),
-        labelMedium = regular.copy(
+        labelMedium = regularBody.copy(
             fontSize = fontSizes.regular,
             lineHeight = lineHeights.regular
         ),
-        labelMediumBold = bold.copy(
+        labelMediumBold = boldBody.copy(
             fontSize = fontSizes.regular,
             lineHeight = lineHeights.regular
         ),
-        labelLarge = regular.copy(
+        labelLarge = regularBody.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        labelLargeBold = bold.copy(
+        labelLargeBold = boldBody.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        bodySmall = regular.copy(
+        bodySmall = regularBody.copy(
             fontSize = fontSizes.regular,
             lineHeight = lineHeights.regular
         ),
-        bodySmallBold = bold.copy(
+        bodySmallBold = boldBody.copy(
             fontSize = fontSizes.regular,
             lineHeight = lineHeights.regular
         ),
-        bodyMedium = regular.copy(
+        bodyMedium = regularBody.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        bodyMediumBold = bold.copy(
+        bodyMediumBold = boldBody.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        bodyLarge = regular.copy(
+        bodyLarge = regularBody.copy(
             fontSize = fontSizes.medium2,
             lineHeight = lineHeights.medium2
         ),
-        bodyLargeBold = bold.copy(
+        bodyLargeBold = boldBody.copy(
             fontSize = fontSizes.medium2,
             lineHeight = lineHeights.medium2
         ),
-        titleSmall = regular.copy(
+        titleSmall = regularDisplay.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        titleSmallBold = bold.copy(
+        titleSmallBold = boldDisplay.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        titleMedium = regular.copy(
+        titleMedium = regularDisplay.copy(
             fontSize = fontSizes.medium2,
             lineHeight = lineHeights.medium2
         ),
-        titleLarge = regular.copy(
+        titleMediumBold = boldDisplay.copy(
+            fontSize = fontSizes.medium2,
+            lineHeight = lineHeights.medium2
+        ),
+        titleLarge = regularDisplay.copy(
             fontSize = fontSizes.large1,
             lineHeight = lineHeights.large2
         ),
-        headlineSmall = regular.copy(
+        titleLargeBold = boldDisplay.copy(
+            fontSize = fontSizes.large1,
+            lineHeight = lineHeights.large2
+        ),
+        headlineSmall = regularDisplay.copy(
             fontSize = fontSizes.large2,
             lineHeight = lineHeights.large2
         ),
-        headlineSmallBold = bold.copy(
+        headlineSmallBold = boldDisplay.copy(
             fontSize = fontSizes.large2,
             lineHeight = lineHeights.large2
         ),
-        headlineMedium = bold.copy(
+        headlineMedium = boldDisplay.copy(
             fontSize = fontSizes.large3,
             lineHeight = lineHeights.large3
         ),
-        headlineLarge = regular.copy(
+        headlineLarge = regularDisplay.copy(
             fontSize = fontSizes.giant1,
             lineHeight = lineHeights.giant1
         ),
-        displaySmall = regular.copy(
+        displaySmall = regularDisplay.copy(
             fontSize = fontSizes.giant2,
             lineHeight = lineHeights.giant2
         ),
-        displayMedium = regular.copy(
+        displayMedium = regularDisplay.copy(
             fontSize = fontSizes.giant3,
             lineHeight = lineHeights.giant3
         ),
-        displayLarge = regular.copy(
+        displayLarge = regularDisplay.copy(
             fontSize = fontSizes.giant4,
             lineHeight = lineHeights.giant4
         )
