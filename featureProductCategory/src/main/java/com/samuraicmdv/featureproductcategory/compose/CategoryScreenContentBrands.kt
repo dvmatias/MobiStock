@@ -68,7 +68,7 @@ fun PreviewProductCategoryBrands(modifier: Modifier = Modifier) {
             CategoryScreenContentBrands(
                 brands = List(13) { index ->
                     ProductBrandUiData(
-                        id = index.toString(),
+                        id = index,
                         name = "Brand $index",
                         logoUrl = "https://www.example.com/image.jpg"
                     )

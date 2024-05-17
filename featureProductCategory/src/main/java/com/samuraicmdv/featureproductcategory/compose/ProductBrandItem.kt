@@ -53,7 +53,7 @@ fun PreviewProductBrand(modifier: Modifier = Modifier) {
         Surface {
             ProductBrandItem(
                 brand = ProductBrandUiData(
-                    id = "1",
+                    id = 1,
                     name = "Brand Name",
                     logoUrl = "https://www.example.com/image.jpg"
                 ),

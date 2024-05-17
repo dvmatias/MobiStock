@@ -22,7 +22,7 @@ fun CategoryScreen(
     uiState: CategoryScreenState,
     modifier: Modifier = Modifier
 ) {
-    val category = uiState.productCategory
+    val category = uiState.category
     val brands = uiState.brands
     val products = uiState.products
 
@@ -58,17 +58,18 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
         Surface {
             CategoryScreen(
                 uiState = CategoryScreenState(
-                    productCategory = CategoryUiData(
-                        id = "1",
+                    category = CategoryUiData(
+                        id = 1,
                         name = "Category Name",
                         description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ",
                         imageUrl = "https://www.example.com/image.jpg",
                         productsCount = 32,
-                        productsQuantity = 547
+                        productsQuantity = 547,
+                        logoUrl = "https://www.example.com/image.jpg"
                     ),
                     products = List(5) { index ->
                         ProductUiData(
-                            id = index.toString(),
+                            id = index,
                             name = "Product $index",
                             description = "Product Description",
                             imageUrl = "https://www.example.com/image.jpg",
@@ -82,15 +83,17 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                             isFavorite = true,
                             stock = 100,
                             brand = ProductBrandUiData(
-                                id = "1",
+                                id = index+2,
                                 name = "Brand",
                                 logoUrl = "https://www.example.com/image.jpg"
-                            )
+                            ),
+                            model = "Model",
+                            code = "Code"
                         )
                     },
                     brands = List(5) { index ->
                         ProductBrandUiData(
-                            id = index.toString(),
+                            id = index,
                             name = "Brand $index",
                             logoUrl = "https://www.example.com/image.jpg"
                         )

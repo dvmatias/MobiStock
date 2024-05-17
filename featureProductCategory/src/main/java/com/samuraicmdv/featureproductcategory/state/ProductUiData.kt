@@ -1,9 +1,11 @@
 package com.samuraicmdv.featureproductcategory.state
 
 data class ProductUiData(
-    val id: String,
+    val id: Int,
     val name: String,
     val description: String,
+    val model: String,
+    val code: String,
     val imageUrl: String,
     val price: ProductPriceUiData,
     val stock: Int,

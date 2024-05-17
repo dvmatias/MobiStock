@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.samuraicmdv.common.BUNDLE_KEY_CATEGORY_ID
+import com.samuraicmdv.common.BUNDLE_KEY_STORE_ID
 import com.samuraicmdv.featureproductcategory.compose.CategoryScreen
 import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,6 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class CategoryActivity : ComponentActivity() {
     private val categoryId: Int
         get() = intent.getIntExtra(BUNDLE_KEY_CATEGORY_ID, -1)
+    private val storeId: Int
+        get() = intent.getIntExtra(BUNDLE_KEY_STORE_ID, -1)
 
     private lateinit var viewModel: CategoryViewModel
 
@@ -25,7 +28,7 @@ class CategoryActivity : ComponentActivity() {
             AppTheme {
                 viewModel = hiltViewModel(
                     creationCallback = { factory: CategoryViewModel.Factory ->
-                        factory.create(categoryId)
+                        factory.create(storeId, categoryId)
                     }
                 )
 

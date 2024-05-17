@@ -26,6 +26,6 @@ object RepositoryModule {
         HomeRepositoryImpl(homeDataSource)
 
     @Provides
-    fun provideHomeRepository(categoryDataSource: CategoryDataSource): CategoryRepository =
+    fun provideCategoryRepository(categoryDataSource: CategoryDataSource): CategoryRepository =
         CategoryRepositoryImpl(categoryDataSource)
 }

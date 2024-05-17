@@ -8,7 +8,7 @@ class GetCategoryUseCase @Inject constructor(
     private val repository: CategoryRepository
 ) {
 
-    suspend operator fun invoke(storeId: Int, categoryId: Int) {
+    suspend operator fun invoke(storeId: Int, categoryId: Int): CategoryResponseModel {
         return repository.getCategory(storeId, categoryId)
             .let { responseWrapper ->
                 responseWrapper.getOrNull()

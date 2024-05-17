@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.samuraicmdv.common.BUNDLE_KEY_CATEGORY_ID
+import com.samuraicmdv.common.BUNDLE_KEY_STORE_ID
 import com.samuraicmdv.common.BUNDLE_KEY_USER_ID
 import com.samuraicmdv.common.navigation.Navigator
 import com.samuraicmdv.common.theme.MobiStockTheme
@@ -62,8 +63,11 @@ class HomeActivity : ComponentActivity() {
                 viewModel.updateUsersBottomSheetState(event.show)
 
             is HomeNavigationEvent.NavigateProductCategory -> {
-                bundleOf(BUNDLE_KEY_CATEGORY_ID to event.categoryId).also { data ->
-                    navigator.toProductCategory(origin = this, data = data, finish = true)
+                bundleOf(
+                    BUNDLE_KEY_STORE_ID to storeId,
+                    BUNDLE_KEY_CATEGORY_ID to event.categoryId
+                ).also { data ->
+                    navigator.toProductCategory(origin = this, data = data, finish = false)
                 }
             }
         }

@@ -120,7 +120,7 @@ fun PreviewProductItem() {
         Surface {
             ProductItem(
                 product = ProductUiData(
-                    id = "1",
+                    id = 1,
                     name = "Product Name",
                     description = "Product Description",
                     imageUrl = "https://www.example.com/image.jpg",
@@ -134,10 +134,12 @@ fun PreviewProductItem() {
                     isFavorite = true,
                     stock = 100,
                     brand = ProductBrandUiData(
-                        id = "1",
+                        id = 1,
                         name = "Brand",
                         logoUrl = "https://www.example.com/image.jpg"
-                    )
+                    ),
+                    model = "Model",
+                    code = "Code"
                 ),
             )
         }
