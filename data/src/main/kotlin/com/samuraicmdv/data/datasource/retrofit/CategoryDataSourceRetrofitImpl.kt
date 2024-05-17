@@ -8,8 +8,9 @@ import com.samuraicmdv.domain.util.ResponseFailure
 import com.samuraicmdv.domain.util.ResponseWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class CategoryDataSourceRetrofitImpl(
+class CategoryDataSourceRetrofitImpl @Inject constructor(
     private val categoryApi: CategoryApi,
     private val categoryDataMapper: CategoryDataMapper
 ) : CategoryDataSource {
