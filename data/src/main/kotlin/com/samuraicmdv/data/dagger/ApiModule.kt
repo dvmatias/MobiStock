@@ -1,5 +1,6 @@
 package com.samuraicmdv.data.dagger
 
+import com.samuraicmdv.data.api.CategoryApi
 import com.samuraicmdv.data.api.HomeApi
 import com.samuraicmdv.data.api.LoginApi
 import dagger.Module
@@ -19,4 +20,8 @@ object ApiModule {
     @Provides
     @Singleton
     fun provideHomeApi(retrofit: Retrofit): HomeApi = retrofit.create(HomeApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCategoryApi(retrofit: Retrofit): CategoryApi = retrofit.create(CategoryApi::class.java)
 }
