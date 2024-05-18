@@ -115,7 +115,7 @@ fun PreviewProductCategoryItem(modifier: Modifier = Modifier) {
             ProductCategoryItem(
                 ProductCategoryUiData(
                     id = 0,
-                    nameResId = R.string.product_category_other_name,
+                    nameResId = com.samuraicmdv.common.R.string.product_category_other_name,
                     imageUrl = "",
                     productsCount = 1245
                 ),

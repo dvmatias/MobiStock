@@ -1,5 +1,7 @@
 package com.samuraicmdv.domain.model
 
+import com.samuraicmdv.common.utils.ProductCategory
+
 /**
  * Data class that models the API response for getting a Category in the domain layer.
  */
@@ -11,6 +13,7 @@ data class CategoryResponseModel(
 
 data class CategoryModel(
     val id: Int?,
+    val type: ProductCategory? = null,
     val name: String?,
     val description: String? = null,
     val logoUrl: String? = null,

@@ -1,16 +1,13 @@
 package com.samuraicmdv.data.mapper
 
+import com.samuraicmdv.common.utils.ProductCategory
 import com.samuraicmdv.data.entity.CategoryEntity
 import com.samuraicmdv.data.entity.CategoryResponseEntity
-import com.samuraicmdv.data.entity.ErrorEntity
-import com.samuraicmdv.data.entity.LoginResponseEntity
 import com.samuraicmdv.data.entity.ProductBrandEntity
 import com.samuraicmdv.data.entity.ProductEntity
 import com.samuraicmdv.domain.base.DataMapper
 import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
-import com.samuraicmdv.domain.model.LoginErrorModel
-import com.samuraicmdv.domain.model.LoginResponseModel
 import com.samuraicmdv.domain.model.ProductBrandModel
 import com.samuraicmdv.domain.model.ProductModel
 
@@ -28,6 +25,7 @@ object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponse
     private fun transformCategory(category: CategoryEntity?): CategoryModel =
         CategoryModel(
             id = category?.id,
+            type = getProductCategoryType(category?.name),
             name = category?.name,
             description = category?.description,
             logoUrl = category?.logoUrl,
@@ -63,5 +61,11 @@ object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponse
             )
         }.orEmpty()
 
+    private fun getProductCategoryType(productCategoryName: String?): ProductCategory =
+        ProductCategory.entries.find {
+            it.name == productCategoryName
+        } ?: run {
+            ProductCategory.UNKNOWN
+        }
 }
 

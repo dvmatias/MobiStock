@@ -4,7 +4,7 @@ import com.samuraicmdv.data.entity.ProductCategoriesResponseEntity
 import com.samuraicmdv.data.entity.ProductCategoryEntity
 import com.samuraicmdv.domain.base.DataMapper
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
-import com.samuraicmdv.domain.model.ProductCategory
+import com.samuraicmdv.common.utils.ProductCategory
 import com.samuraicmdv.domain.model.ProductCategoryModel
 
 object ProductCategoryMapper :

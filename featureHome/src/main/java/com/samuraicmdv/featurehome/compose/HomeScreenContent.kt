@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurehome.R
+import com.samuraicmdv.common.R
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.state.HomeScreenState
 import com.samuraicmdv.featurehome.state.ProductCategoriesUiData

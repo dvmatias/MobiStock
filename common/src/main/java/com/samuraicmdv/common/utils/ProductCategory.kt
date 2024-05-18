@@ -1,4 +1,4 @@
-package com.samuraicmdv.domain.model
+package com.samuraicmdv.common.utils
 
 enum class ProductCategory {
     UNKNOWN,

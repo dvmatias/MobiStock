@@ -31,7 +31,7 @@ fun CategoryScreenContent(
         LazyColumn(modifier = modifier.fillMaxWidth()) {
             item {
                 CategoryScreenContentHeader(
-                    name = name,
+                    name = stringResource(id = nameResId),
                     description = description,
                     imageUrl = imageUrl,
                     productsCount = productsCount,
@@ -73,7 +73,7 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
             CategoryScreenContent(
                 category = CategoryUiData(
                     id = 1,
-                    name = "Category Name",
+                    nameResId = com.samuraicmdv.common.R.string.product_category_battery_name,
                     description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ",
                     imageUrl = "https://www.example.com/image.jpg",
                     productsCount = 32,

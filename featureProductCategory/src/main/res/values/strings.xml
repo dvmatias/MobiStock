@@ -3,4 +3,5 @@
 
     <string name="title_products">Products</string>
     <string name="title_brands">Brands</string>
+    <string name="product_item_earnings_placeholder">%%%1$.2f</string>
 </resources>

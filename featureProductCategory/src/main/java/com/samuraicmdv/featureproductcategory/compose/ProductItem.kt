@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.featureproductcategory.R
@@ -67,16 +67,15 @@ fun ProductItem(
             ) {
                 Text(
                     text = product.name,
-                    style = AppTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Bold,
+                    style = AppTheme.typography.bodyMediumBold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
                     text = product.description,
-                    style = AppTheme.typography.bodyMedium,
-                    maxLines = 1,
+                    style = AppTheme.typography.bodySmall,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )
 
@@ -102,8 +101,11 @@ fun ProductItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "%${product.price.sellingPrice / product.price.costPrice}",
-                        style = AppTheme.typography.labelSmallBold
+                        text = stringResource(
+                            id = R.string.product_item_earnings_placeholder,
+                            product.price.sellingPrice / product.price.costPrice
+                        ),
+                        style = AppTheme.typography.labelSmallBold,
                     )
                     Text(text = "$${product.price.costPrice}", style = AppTheme.typography.bodyMedium)
                     Text(text = "$${product.price.sellingPrice}", style = AppTheme.typography.bodyMediumBold)

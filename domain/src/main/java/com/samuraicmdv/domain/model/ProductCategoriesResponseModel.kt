@@ -1,5 +1,7 @@
 package com.samuraicmdv.domain.model
 
+import com.samuraicmdv.common.utils.ProductCategory
+
 data class ProductCategoriesResponseModel(
     val productCategories: List<ProductCategoryModel>? = null,
 )

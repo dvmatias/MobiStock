@@ -9,9 +9,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.samuraicmdv.common.R
 import com.samuraicmdv.featureproductcategory.state.CategoryScreenState
-import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
+import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.featureproductcategory.theme.AppTheme
@@ -60,7 +61,7 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                 uiState = CategoryScreenState(
                     category = CategoryUiData(
                         id = 1,
-                        name = "Category Name",
+                        nameResId = R.string.product_category_battery_name,
                         description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ",
                         imageUrl = "https://www.example.com/image.jpg",
                         productsCount = 32,
@@ -83,7 +84,7 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                             isFavorite = true,
                             stock = 100,
                             brand = ProductBrandUiData(
-                                id = index+2,
+                                id = index + 2,
                                 name = "Brand",
                                 logoUrl = "https://www.example.com/image.jpg"
                             ),
