@@ -36,12 +36,15 @@ object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponse
 
     private fun transformBrands(brands: List<ProductBrandEntity>?): List<ProductBrandModel> =
         brands?.map {
-            ProductBrandModel(
-                id = it.id,
-                name = it.name,
-                logoUrl = it.logoUrl
-            )
+            transformBrand(it)
         }.orEmpty()
+
+    private fun transformBrand(brand: ProductBrandEntity): ProductBrandModel =
+        ProductBrandModel(
+            id = brand.id,
+            name = brand.name,
+            logoUrl = brand.logoUrl
+        )
 
     private fun transformProducts(products: List<ProductEntity>?): List<ProductModel> =
         products?.map {
@@ -56,8 +59,9 @@ object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponse
                 sellingPrice = it.productPrice?.selling,
                 costPrice = it.productPrice?.cost,
                 currencyId = it.productPrice?.currencyId,
-                brandName = it.brand?.name,
-                brandLogoUrl = it.brand?.logoUrl
+                brand = it.brand?.let { brand ->
+                    transformBrand(brand)
+                }
             )
         }.orEmpty()
 

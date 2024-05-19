@@ -34,8 +34,7 @@ fun CategoryScreenContentBrands(
         Column {
             Text(
                 text = stringResource(id = R.string.title_brands),
-                style = AppTheme.typography.bodyLarge,
-                fontWeight = FontWeight.Bold,
+                style = AppTheme.typography.titleLarge,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()

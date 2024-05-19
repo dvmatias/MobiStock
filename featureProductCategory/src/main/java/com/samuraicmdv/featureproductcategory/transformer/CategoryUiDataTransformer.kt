@@ -5,6 +5,7 @@ import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
 import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.common.R
+import com.samuraicmdv.domain.model.ProductBrandModel
 import com.samuraicmdv.featureproductcategory.state.CategoryScreenState
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
@@ -17,7 +18,7 @@ object CategoryUiDataTransformer {
         return CategoryScreenState(
             category = transformCategory(model.category),
             products = transformProducts(model.products),
-            brands = null //TODO: implement brand transformation
+            brands = transformBrands(model.brands)
         )
     }
 
@@ -42,7 +43,7 @@ object CategoryUiDataTransformer {
                 description = it.description ?: "",
                 model = it.model ?: "",
                 code = it.code ?: "",
-                imageUrl = it.brandLogoUrl ?: "",
+                imageUrl = "",
                 price = ProductPriceUiData(
                     sellingPrice = it.sellingPrice?.toDouble() ?: 0.0,
                     costPrice = it.costPrice?.toDouble() ?: 0.0,
@@ -53,9 +54,9 @@ object CategoryUiDataTransformer {
                 reviews = 0,
                 isFavorite = false,
                 brand = ProductBrandUiData(
-                    id = it.id ?: -1,
-                    name = it.brandName ?: "",
-                    logoUrl = it.brandLogoUrl ?: ""
+                    id = it.brand?.id ?: -1,
+                    name = it.brand?.name ?: "",
+                    logoUrl = it.brand?.logoUrl ?: ""
                 )
             )
         }.orEmpty()
@@ -95,4 +96,15 @@ object CategoryUiDataTransformer {
             ProductCategory.OTHER -> R.string.product_category_other_name
             null -> R.string.product_category_unknown_name
         }
+
+    private fun transformBrands(brands: List<ProductBrandModel>?): List<ProductBrandUiData>? =
+        brands?.map {
+            ProductBrandUiData(
+                id = it.id ?: -1,
+                name = it.name ?: "",
+                logoUrl = it.logoUrl ?: ""
+            )
+        }
+
+
 }

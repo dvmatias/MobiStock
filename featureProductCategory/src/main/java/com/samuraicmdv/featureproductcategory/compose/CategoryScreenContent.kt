@@ -21,9 +21,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.samuraicmdv.featureproductcategory.R
-import com.samuraicmdv.featureproductcategory.event.OrderName
-import com.samuraicmdv.featureproductcategory.event.OrderType
-import com.samuraicmdv.featureproductcategory.event.ProductsOrder
+import com.samuraicmdv.featureproductcategory.event.ProductsSortName
+import com.samuraicmdv.featureproductcategory.event.ProductsSortType
+import com.samuraicmdv.featureproductcategory.event.ProductsSort
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
@@ -42,9 +42,9 @@ fun CategoryScreenContent(
     category?.run {
         var selectedOrder by remember {
             mutableStateOf(
-                ProductsOrder(
-                    name = OrderName.BY_NAME_ALPHABETICALLY,
-                    type = OrderType.ASCENDING
+                ProductsSort(
+                    name = ProductsSortName.BY_NAME_ALPHABETICALLY,
+                    type = ProductsSortType.ASCENDING
                 )
             )
         }
@@ -53,12 +53,12 @@ fun CategoryScreenContent(
             selectedBrandId == -1 || product.brand.id == selectedBrandId
         }?.sortedBy { product ->
             when (selectedOrder.name) {
-                OrderName.BY_NAME_ALPHABETICALLY -> product.name.lowercase()
-                OrderName.BY_COST_PRICE_AMOUNT -> product.price.costPrice.toString()
-                OrderName.BY_SELLING_PRICE_AMOUNT -> product.price.sellingPrice.toString()
+                ProductsSortName.BY_NAME_ALPHABETICALLY -> product.name.lowercase()
+                ProductsSortName.BY_COST_PRICE_AMOUNT -> product.price.costPrice.toString()
+                ProductsSortName.BY_SELLING_PRICE_AMOUNT -> product.price.sellingPrice.toString()
             }
         }.let { products ->
-            if (selectedOrder.type == OrderType.DESCENDING) {
+            if (selectedOrder.type == ProductsSortType.DESCENDING) {
                 products?.reversed()
             } else {
                 products
@@ -97,11 +97,11 @@ fun CategoryScreenContent(
                         )
                         Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_1))
                         Row {
-                            OrderProductsMenu(
+                            SortProductsMenu(
                                 { event ->
-                                    selectedOrder = event.order
+                                    selectedOrder = event.productsSort
                                 },
-                                productsOrder = selectedOrder,
+                                productsSort = selectedOrder,
                                 Modifier.weight(1F)
                             )
                             FilterProductsByBrandPill(

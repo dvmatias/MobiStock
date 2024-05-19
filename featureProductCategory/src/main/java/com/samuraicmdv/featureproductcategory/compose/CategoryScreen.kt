@@ -1,14 +1,29 @@
 package com.samuraicmdv.featureproductcategory.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.R
 import com.samuraicmdv.featureproductcategory.state.CategoryScreenState
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
@@ -18,6 +33,7 @@ import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryScreen(
     uiState: CategoryScreenState,
@@ -29,19 +45,40 @@ fun CategoryScreen(
 
     if (!uiState.isLoading) {
         Scaffold(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(horizontal = AppTheme.dimens.dimen_2)
+            topBar = {
+               Column {
+                   TopAppBar(
+                       title = {
+                           Text(text = uiState.category?.nameResId?.let { stringResId ->
+                               stringResource(id = stringResId)
+                           } ?: "")
+                       },
+                       navigationIcon = {
+                           IconButton(onClick = { /* TODO Handle navigation icon click */ }) {
+                               Icon(
+                                   Icons.AutoMirrored.Filled.ArrowBack,
+                                   contentDescription = null,
+                                   tint = AppTheme.colors.primary
+                               )
+                           }
+                       }
+                   )
+                   Spacer(modifier = Modifier.alpha(0.1f).height(0.75.dp).fillMaxWidth().background(AppTheme.colors.textPrimary))
+               }
+            },
+            modifier = modifier.fillMaxSize()
         ) { paddingValues ->
             CategoryScreenContent(
                 category = category,
                 brands = brands,
                 products = products,
-                modifier = Modifier.padding(paddingValues)
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .padding(horizontal = AppTheme.dimens.dimen_2)
             )
         }
     } else {
-        /// Show loading if ui state is loading
+        // Show loading if ui state is loading
         Box(
             contentAlignment = Alignment.Center,
             modifier = modifier.fillMaxSize()

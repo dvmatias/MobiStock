@@ -39,6 +39,5 @@ data class ProductModel(
     val sellingPrice: String? = null,
     val costPrice: String? = null,
     val currencyId: String? = null,
-    val brandName: String? = null,
-    val brandLogoUrl: String? = null,
+    val brand: ProductBrandModel? = null,
 )
