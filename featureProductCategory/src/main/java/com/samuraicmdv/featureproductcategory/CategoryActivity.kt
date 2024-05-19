@@ -9,8 +9,8 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.samuraicmdv.common.BUNDLE_KEY_CATEGORY_ID
 import com.samuraicmdv.common.BUNDLE_KEY_STORE_ID
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.compose.CategoryScreen
-import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,7 +25,7 @@ class CategoryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppTheme {
+            MobiTheme {
                 viewModel = hiltViewModel(
                     creationCallback = { factory: CategoryViewModel.Factory ->
                         factory.create(storeId, categoryId)

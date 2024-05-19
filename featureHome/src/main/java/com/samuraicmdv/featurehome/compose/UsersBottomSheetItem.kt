@@ -24,7 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberImagePainter
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.data.BranchType
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.event.HomeEvent
@@ -38,8 +38,8 @@ fun UsersBottomSheetItem(
 ) {
     Column(
         modifier = modifier.padding(
-            horizontal = MobiStockTheme.spaces.grid_3,
-            vertical = MobiStockTheme.spaces.grid_1
+            horizontal = MobiTheme.dimens.dimen_3,
+            vertical = MobiTheme.dimens.dimen_1
         ),
     ) {
         Row(
@@ -48,58 +48,58 @@ fun UsersBottomSheetItem(
                 .fillMaxWidth()
                 .clickable { /*TODO*/ }
                 .padding(
-                    horizontal = MobiStockTheme.spaces.grid_1,
-                    vertical = MobiStockTheme.spaces.grid_1
+                    horizontal = MobiTheme.dimens.dimen_1,
+                    vertical = MobiTheme.dimens.dimen_1
                 ),
         ) {
-            Canvas(modifier = Modifier.size(MobiStockTheme.spaces.grid_1)) {
+            Canvas(modifier = Modifier.size(MobiTheme.dimens.dimen_1)) {
                 drawCircle(
                     color = if (user.isCurrentSelected) Color.Red else Color.Transparent,
                     radius = 12f,
                     center = center
                 )
             }
-            Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_0_5))
+            Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_5))
             Row(modifier = Modifier.weight(1F)) {
                 Image(
                     painter = rememberImagePainter(user.logoUrl),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(MobiStockTheme.spaces.grid_5)
+                        .size(MobiTheme.dimens.dimen_5)
                         .clip(CircleShape)
-                        .background(MobiStockTheme.colors.foregroundDisabled)
+                        .background(MobiTheme.colors.onDisabledContainerColor)
                 )
-                Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
+                Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
                 Column {
                     Text(
                         text = user.name.uppercase(),
-                        style = MobiStockTheme.typography.mediumBold,
-                        color = MobiStockTheme.colors.foregroundPrimary,
+                        style = MobiTheme.typography.bodyMediumBold,
+                        color = MobiTheme.colors.textPrimary,
                     )
                     Text(
                         text = user.address,
-                        style = MobiStockTheme.typography.bodyRegular,
-                        color = MobiStockTheme.colors.foregroundPrimary
+                        style = MobiTheme.typography.bodyMedium,
+                        color = MobiTheme.colors.textPrimary
                     )
                 }
-                Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
+                Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
             }
             Icon(
                 Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                tint = MobiStockTheme.colors.foregroundPrimary,
+                tint = MobiTheme.colors.textPrimary,
                 contentDescription = "",
             )
         }
 //        if (userUiData.isCurrent) {
 //            Text(
 //                text = "Edit".uppercase(),
-//                style = MobiStockTheme.typography.bodyBold,
-//                color = MobiStockTheme.colors.linkEnabled,
+//                style = MobiTheme.typography.bodyBold,
+//                color = MobiTheme.colors.linkEnabled,
 //                modifier = Modifier
 //                    .padding(
-//                        horizontal = MobiStockTheme.spaces.grid_2,
-//                        vertical = MobiStockTheme.spaces.grid_1
+//                        horizontal = MobiTheme.spaces.grid_2,
+//                        vertical = MobiTheme.spaces.grid_1
 //                    )
 //                    .align(Alignment.End)
 //                    .clickable { /*TODO*/ }
@@ -111,8 +111,8 @@ fun UsersBottomSheetItem(
 @ThemePreviews
 @Composable
 fun PreviewUsersBottomSheetItem(modifier: Modifier = Modifier) {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             UsersBottomSheetItem(
                 user = UserUiData(
                     id = 1,

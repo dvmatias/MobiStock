@@ -24,7 +24,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurelogin.event.LoginEvent
 import com.samuraicmdv.featurelogin.state.LoginScreenState
 import com.samuraicmdv.ui.widget.LinearLoadingIndicator
@@ -44,27 +44,27 @@ fun LoginScreen(
             .paint(
                 painterResource(id = com.samuraicmdv.featurelogin.R.drawable.login_screen_bgr),
                 contentScale = ContentScale.FillHeight,
-                colorFilter = ColorFilter.tint(MobiStockTheme.colors.backgroundTertiary),
-                alpha = 0.3F
+                colorFilter = ColorFilter.tint(MobiTheme.colors.tertiary),
+                alpha = 0.1F
             )
     ) {
         if (uiState.isLoading) {
             LinearLoadingIndicator(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(MobiStockTheme.spaces.grid_2)
+                    .height(MobiTheme.dimens.dimen_2)
             )
         }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    horizontal = MobiStockTheme.spaces.grid_2,
-                    vertical = MobiStockTheme.spaces.grid_2
+                    horizontal = MobiTheme.dimens.dimen_2,
+                    vertical = MobiTheme.dimens.dimen_2
                 ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_5))
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_5))
             Image(
                 painterResource(com.samuraicmdv.featurelogin.R.drawable.logo_1),
                 contentDescription = "",
@@ -95,8 +95,8 @@ fun LoginScreen(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewLoginScreen() {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             LoginScreen(uiState = LoginScreenState(true)) {}
         }
     }

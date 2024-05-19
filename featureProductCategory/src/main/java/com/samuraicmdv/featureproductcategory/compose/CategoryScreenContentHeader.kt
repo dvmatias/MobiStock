@@ -16,8 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
-import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -34,27 +34,40 @@ fun CategoryScreenContentHeader(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = AppTheme.dimens.dimen_2)
+            .padding(vertical = MobiTheme.dimens.dimen_2)
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier
                 .weight(1F)
-                .padding(end = AppTheme.dimens.dimen_2)
+                .padding(end = MobiTheme.dimens.dimen_2)
         ) {
             name?.let {
-                Text(text = it, style = AppTheme.typography.headlineLarge, modifier = Modifier.fillMaxWidth())
+                Text(text = it, style = MobiTheme.typography.headlineLarge, modifier = Modifier.fillMaxWidth())
             }
-            Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_1))
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
             description?.let {
-                Text(text = it, style = AppTheme.typography.bodyLarge, lineHeight = 18.sp, modifier = Modifier.fillMaxWidth())
+                Text(
+                    text = it,
+                    style = MobiTheme.typography.bodyLarge,
+                    lineHeight = 18.sp,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
-            Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_1))
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
             productsCount?.let {
-                Text(text = "Products count: $it", style = AppTheme.typography.bodyMedium, modifier = Modifier.fillMaxWidth()) // TODO
+                Text(
+                    text = "Products count: $it",
+                    style = MobiTheme.typography.bodyMedium,
+                    modifier = Modifier.fillMaxWidth()
+                ) // TODO
             }
             productsQuantity?.let {
-                Text(text = "Products quantity: $it", style = AppTheme.typography.bodyMedium, modifier = Modifier.fillMaxWidth()) // TODO
+                Text(
+                    text = "Products quantity: $it",
+                    style = MobiTheme.typography.bodyMedium,
+                    modifier = Modifier.fillMaxWidth()
+                ) // TODO
             }
         }
         Image(
@@ -70,7 +83,7 @@ fun CategoryScreenContentHeader(
 @ThemePreviews
 @Composable
 fun PreviewCategoryHeader(modifier: Modifier = Modifier) {
-    AppTheme {
+    MobiTheme {
         Surface {
             CategoryScreenContentHeader(
                 name = "Category Name",
@@ -78,7 +91,7 @@ fun PreviewCategoryHeader(modifier: Modifier = Modifier) {
                 imageUrl = "https://www.example.com/image.jpg",
                 productsCount = 10,
                 productsQuantity = 100,
-                modifier = Modifier.padding(horizontal = AppTheme.dimens.dimen_2)
+                modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
             )
         }
     }

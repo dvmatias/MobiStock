@@ -8,7 +8,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.event.HomePresentationEvent
@@ -47,8 +47,8 @@ fun UsersBottomSheetContent(
 @ThemePreviews
 @Composable
 fun PreviewHomeUsersBottomSheetContent(modifier: Modifier = Modifier) {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             UsersBottomSheetContent(getBottomSheetUsersForPreview(), true) {}
         }
     }

@@ -21,7 +21,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.ui.widget.SegmentColors.Companion.getNextColor
 import kotlin.random.Random
 import kotlin.random.nextInt
@@ -180,9 +180,9 @@ private class SegmentColors {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewLinearLoadingIndicator() {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
-            LinearLoadingIndicator(Modifier.fillMaxWidth().height(MobiStockTheme.spaces.grid_3))
+    MobiTheme {
+        Surface {
+            LinearLoadingIndicator(Modifier.fillMaxWidth().height(MobiTheme.dimens.dimen_3))
         }
     }
 }

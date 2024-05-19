@@ -28,7 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurelogin.R
 import com.samuraicmdv.ui.widget.MobiTextField
 
@@ -64,11 +64,11 @@ fun PasswordFieldContent(
     ) {
         Text(
             text = stringResource(id = R.string.label_password_input_field).uppercase(),
-            style = MobiStockTheme.typography.smallBold,
-            color = MobiStockTheme.colors.foregroundSecondary,
+            style = MobiTheme.typography.labelSmallBold,
+            color = MobiTheme.colors.textSecondary,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_5))
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
         MobiTextField(
             value = value,
             isError = passwordError != null,
@@ -87,7 +87,7 @@ fun PasswordFieldContent(
                     keyboardController?.hide()
                 }
             ),
-            placeholder = { Text(placeholder, color = MobiStockTheme.colors.foregroundTertiary) },
+            placeholder = { Text(placeholder, color = MobiTheme.colors.tertiary) },
             singleLine = true,
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
         )
@@ -98,8 +98,8 @@ fun PasswordFieldContent(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewPasswordFieldContent() {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             PasswordFieldContent(
                 value = "Value",
                 onChange = { },

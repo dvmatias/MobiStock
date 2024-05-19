@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.data.BranchType
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -29,8 +29,8 @@ fun UsersBottomSheetList(
 @ThemePreviews
 @Composable
 fun PreviewUsersList(modifier: Modifier = Modifier) {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             UsersBottomSheetList(
                 getBottomSheetUsersForPreview()
             )

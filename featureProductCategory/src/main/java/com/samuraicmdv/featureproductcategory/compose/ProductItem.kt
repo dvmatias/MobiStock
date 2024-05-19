@@ -25,11 +25,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
-import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -39,47 +39,46 @@ fun ProductItem(
 ) {
 
     Surface(
-        color = AppTheme.colors.surfaceContainer,
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(AppTheme.dimens.dimen_2))
+        color = MobiTheme.colors.surfaceContainer,
+        shape = RoundedCornerShape(MobiTheme.dimens.dimen_2),
+        modifier = modifier.fillMaxWidth()
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(120.dp)
-                .padding(horizontal = AppTheme.dimens.dimen_1, vertical = AppTheme.dimens.dimen_1)
+                .padding(horizontal = MobiTheme.dimens.dimen_1, vertical = MobiTheme.dimens.dimen_1)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_1),
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(1F)
-                    .clip(RoundedCornerShape(AppTheme.dimens.dimen_2))
-                    .background(AppTheme.colors.onPrimary)
+                    .clip(RoundedCornerShape(MobiTheme.dimens.dimen_2))
+                    .background(MobiTheme.colors.onPrimary)
             )
             Column(
                 modifier = Modifier
                     .weight(1F)
                     .wrapContentHeight()
-                    .padding(horizontal = AppTheme.dimens.dimen_1),
+                    .padding(horizontal = MobiTheme.dimens.dimen_1),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = product.name,
-                    style = AppTheme.typography.bodyMediumBold,
+                    style = MobiTheme.typography.bodyMediumBold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
                     text = product.description,
-                    style = AppTheme.typography.bodySmall,
+                    style = MobiTheme.typography.bodySmall,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                 )
 
-                Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_1))
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -87,17 +86,17 @@ fun ProductItem(
                     Image(
                         painter = painterResource(id = R.drawable.in_stock_ic),
                         contentDescription = null,
-                        colorFilter = ColorFilter.tint(color = AppTheme.colors.onSurface),
+                        colorFilter = ColorFilter.tint(color = MobiTheme.colors.onSurface),
                         modifier = Modifier.size(20.dp)
                     )
-                    Spacer(modifier = Modifier.width(AppTheme.dimens.dimen_0_5))
-                    Text(text = product.stock.toString(), style = AppTheme.typography.bodyMedium)
+                    Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_5))
+                    Text(text = product.stock.toString(), style = MobiTheme.typography.bodyMedium)
                 }
 
                 Spacer(modifier = Modifier.weight(1F))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimens.dimen_1),
+                    horizontalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_1),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
@@ -105,10 +104,10 @@ fun ProductItem(
                             id = R.string.product_item_earnings_placeholder,
                             product.price.sellingPrice / product.price.costPrice
                         ),
-                        style = AppTheme.typography.labelSmallBold,
+                        style = MobiTheme.typography.labelSmallBold,
                     )
-                    Text(text = "$${product.price.costPrice}", style = AppTheme.typography.bodyMedium)
-                    Text(text = "$${product.price.sellingPrice}", style = AppTheme.typography.bodyMediumBold)
+                    Text(text = "$${product.price.costPrice}", style = MobiTheme.typography.bodyMedium)
+                    Text(text = "$${product.price.sellingPrice}", style = MobiTheme.typography.bodyMediumBold)
                 }
             }
         }
@@ -118,7 +117,7 @@ fun ProductItem(
 @ThemePreviews
 @Composable
 fun PreviewProductItem() {
-    AppTheme {
+    MobiTheme {
         Surface {
             ProductItem(
                 product = ProductUiData(

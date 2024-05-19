@@ -29,8 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.samuraicmdv.common.theme.MobiStockTheme
-import com.samuraicmdv.featurehome.R
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.event.HomeNavigationEvent
 import com.samuraicmdv.featurehome.state.ProductCategoryUiData
@@ -43,14 +42,14 @@ fun ProductCategoryItem(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        shadowElevation = MobiStockTheme.elevations.card,
-        shape = RoundedCornerShape(MobiStockTheme.spaces.grid_1),
+        shadowElevation = MobiTheme.elevations.card,
+        shape = RoundedCornerShape(MobiTheme.dimens.dimen_2),
         modifier = modifier
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MobiStockTheme.colors.backgroundPrimary)
+                .background(MobiTheme.colors.surfaceContainer)
                 .clickable {
                     handleEvent(HomeNavigationEvent.NavigateProductCategory(category.id))
                 }
@@ -70,14 +69,14 @@ fun ProductCategoryItem(
                             .aspectRatio(1F)
                             .background(Color.LightGray)
                     )
-                    Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_75))
                 }
                 category.nameResId?.let { stringResource ->
                     Text(
                         text = stringResource(stringResource),
                         textAlign = TextAlign.Center,
                         maxLines = 2,
-                        style = MobiStockTheme.typography.smallRegular,
+                        style = MobiTheme.typography.labelSmallBold,
                         onTextLayout = {
                             val isMultiLine = it.lineCount > 1
                             val height = (it.size.height / density).dp
@@ -89,14 +88,14 @@ fun ProductCategoryItem(
                         },
                         modifier = Modifier
                             .padding(
-                                start = MobiStockTheme.spaces.grid_0_5,
-                                end = MobiStockTheme.spaces.grid_0_5,
+                                start = MobiTheme.dimens.dimen_0_5,
+                                end = MobiTheme.dimens.dimen_0_5,
                                 top = textPadding,
                                 bottom = textPadding
                             )
                             .fillMaxWidth()
                     )
-                    Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_75))
                 }
 
             }
@@ -110,7 +109,7 @@ fun ProductCategoryItem(
 @ThemePreviews
 @Composable
 fun PreviewProductCategoryItem(modifier: Modifier = Modifier) {
-    MobiStockTheme {
+    MobiTheme {
         Surface {
             ProductCategoryItem(
                 ProductCategoryUiData(

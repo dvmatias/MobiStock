@@ -23,10 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
 import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
-import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -48,27 +48,27 @@ fun FilterProductsByBrandPill(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = modifier
                     .clip(RoundedCornerShape(100))
-                    .background(AppTheme.colors.primary)
-                    .padding(start = AppTheme.dimens.dimen_2, end = AppTheme.dimens.dimen_1)
+                    .background(MobiTheme.colors.primary)
+                    .padding(start = MobiTheme.dimens.dimen_2, end = MobiTheme.dimens.dimen_1)
                     .clickable { expanded = true }
             ) {
                 Text(
                     text = selectedOption.uppercase(),
-                    color = AppTheme.colors.onPrimary,
-                    style = AppTheme.typography.labelMediumBlack,
+                    color = MobiTheme.colors.onPrimary,
+                    style = MobiTheme.typography.labelMediumBlack,
                 )
                 Icon(
                     imageVector = Icons.Default.ArrowDropDown,
                     contentDescription = null,
-                    tint = AppTheme.colors.onPrimary,
-                    modifier = Modifier.width(AppTheme.dimens.dimen_3)
+                    tint = MobiTheme.colors.onPrimary,
+                    modifier = Modifier.width(MobiTheme.dimens.dimen_3)
                 )
             }
 
             DropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
-                modifier = Modifier.background(AppTheme.colors.surface)
+                modifier = Modifier.background(MobiTheme.colors.surface)
             ) {
                 options.forEach { option ->
                     DropdownMenuItem(
@@ -86,7 +86,7 @@ fun FilterProductsByBrandPill(
                         text = {
                             Text(
                                 text = option,
-                                style = AppTheme.typography.bodyLargeBold,
+                                style = MobiTheme.typography.bodyLargeBold,
                             )
                         }
                     )
@@ -99,7 +99,7 @@ fun FilterProductsByBrandPill(
 @ThemePreviews
 @Composable
 fun PreviewFilterProductsByBrandPill() {
-    AppTheme {
+    MobiTheme {
         Surface {
             FilterProductsByBrandPill(
                 brands = listOf(

@@ -20,6 +20,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
 import com.samuraicmdv.featureproductcategory.event.ProductsSortName
 import com.samuraicmdv.featureproductcategory.event.ProductsSortType
@@ -28,7 +29,6 @@ import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
-import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -77,7 +77,7 @@ fun CategoryScreenContent(
             }
             brands?.let {
                 item {
-                    Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_2))
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     CategoryScreenContentBrands(
                         brands = brands
                     )
@@ -87,15 +87,15 @@ fun CategoryScreenContent(
                 stickyHeader {
                     Column(
                         modifier = Modifier
-                            .background(AppTheme.colors.surface)
+                            .background(MobiTheme.colors.surface)
                             .fillMaxWidth()
                     ) {
-                        Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_2))
+                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                         Text(
                             text = stringResource(id = R.string.title_products),
-                            style = AppTheme.typography.titleLarge,
+                            style = MobiTheme.typography.titleLarge,
                         )
-                        Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_1))
+                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                         Row {
                             SortProductsMenu(
                                 { event ->
@@ -109,13 +109,13 @@ fun CategoryScreenContent(
                                 { event -> selectedBrandId = event.brandId }
                             )
                         }
-                        Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_2))
+                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     }
                 }
 
                 items(products, { it.id }) { product ->
                     ProductItem(product = product)
-                    Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_1))
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                 }
             }
         }
@@ -125,7 +125,7 @@ fun CategoryScreenContent(
 @ThemePreviews
 @Composable
 fun PreviewCategoryContent(modifier: Modifier = Modifier) {
-    AppTheme {
+    MobiTheme {
         Surface {
             CategoryScreenContent(
                 category = CategoryUiData(
@@ -168,7 +168,7 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                         logoUrl = "https://www.example.com/image.jpg"
                     )
                 },
-                modifier = Modifier.padding(horizontal = AppTheme.dimens.dimen_2)
+                modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
             )
         }
     }

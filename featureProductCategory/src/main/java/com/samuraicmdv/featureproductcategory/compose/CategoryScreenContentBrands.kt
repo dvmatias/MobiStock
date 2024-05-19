@@ -13,11 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
-import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -26,25 +25,25 @@ fun CategoryScreenContentBrands(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        color = AppTheme.colors.surfaceContainer,
+        color = MobiTheme.colors.surfaceContainer,
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(AppTheme.dimens.dimen_2))
+            .clip(RoundedCornerShape(MobiTheme.dimens.dimen_2))
     ) {
         Column {
             Text(
                 text = stringResource(id = R.string.title_brands),
-                style = AppTheme.typography.titleLarge,
+                style = MobiTheme.typography.titleLarge,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = AppTheme.dimens.dimen_1_5)
+                    .padding(top = MobiTheme.dimens.dimen_1_5)
             )
             LazyRow(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 contentPadding = PaddingValues(
-                    horizontal = AppTheme.dimens.dimen_2,
-                    vertical = AppTheme.dimens.dimen_2
+                    horizontal = MobiTheme.dimens.dimen_2,
+                    vertical = MobiTheme.dimens.dimen_2
                 ),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -62,7 +61,7 @@ fun CategoryScreenContentBrands(
 @ThemePreviews
 @Composable
 fun PreviewProductCategoryBrands(modifier: Modifier = Modifier) {
-    AppTheme {
+    MobiTheme {
         Surface {
             CategoryScreenContentBrands(
                 brands = List(13) { index ->

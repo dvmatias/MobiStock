@@ -6,15 +6,15 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Stable
-class MobiStockElevations(
+class MobiElevations(
     val card: Dp,
 )
 
-private val mobiStockElevations = MobiStockElevations(
+private val mobiElevations = MobiElevations(
     card = 1.dp,
 )
 
-val LocalMobiStockElevations = staticCompositionLocalOf {
-    mobiStockElevations
+val LocalMobiElevations = staticCompositionLocalOf {
+    mobiElevations
 }
 
