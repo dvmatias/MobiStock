@@ -17,6 +17,7 @@ data class AppTypography(
     val labelSmallBold: TextStyle,
     val labelMedium: TextStyle,
     val labelMediumBold: TextStyle,
+    val labelMediumBlack: TextStyle,
     val labelLarge: TextStyle,
     val labelLargeBold: TextStyle,
     val bodySmall: TextStyle,
@@ -102,6 +103,10 @@ fun defaultAppTypography() = appTypography()
 fun appTypography(): AppTypography {
     val fontSizes = AppTypographyFontSizes()
     val lineHeights = AppTypographyLineHeight()
+    val blackBody = TextStyle(
+        fontFamily = bodyFontFamily,
+        fontWeight = FontWeight.Black
+    )
     val boldBody = TextStyle(
         fontFamily = bodyFontFamily,
         fontWeight = FontWeight.Bold
@@ -133,6 +138,10 @@ fun appTypography(): AppTypography {
             lineHeight = lineHeights.regular
         ),
         labelMediumBold = boldBody.copy(
+            fontSize = fontSizes.regular,
+            lineHeight = lineHeights.regular
+        ),
+        labelMediumBlack = blackBody.copy(
             fontSize = fontSizes.regular,
             lineHeight = lineHeights.regular
         ),
