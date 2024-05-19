@@ -14,7 +14,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import com.samuraicmdv.common.BUNDLE_KEY_USER_ID
 import com.samuraicmdv.common.navigation.Navigator
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurelogin.compose.LoginScreen
 import com.samuraicmdv.featurelogin.event.LoginEvent
 import com.samuraicmdv.featurelogin.event.LoginNavigationEvent
@@ -38,12 +38,9 @@ class LoginActivity : ComponentActivity() {
             }
         }
         setContent {
-            MobiStockTheme {
+            MobiTheme {
                 val uiState by viewModel.uiState.collectAsState()
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MobiStockTheme.colors.backgroundPrimary
-                ) {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     LoginScreen(uiState) { event ->
                         handelEvent(event)
                     }

@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -32,7 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.common.theme.NEUTRAL_300
 import com.samuraicmdv.common.theme.NEUTRAL_500
 import com.samuraicmdv.common.theme.NEUTRAL_800
@@ -64,7 +65,7 @@ fun MobiTextField(
 ) {
     val updatedTextStyle = textStyle.copy(fontSize = 15.sp)
     val updatedLabel = label.apply { textStyle.copy(fontSize = 15.sp) }
-    val updatedShape = shape ?: RoundedCornerShape(MobiStockTheme.spaces.grid_0_5)
+    val updatedShape = shape ?: RoundedCornerShape(MobiTheme.dimens.dimen_0_5)
     val updatedColors = updateColors(colors)
     val updatedModifier = modifier.height(52.dp)
 
@@ -95,13 +96,13 @@ fun MobiTextField(
             errorMessage?.let {
                 Text(
                     text = it,
-                    color = MobiStockTheme.colors.foregroundError,
+                    color = MobiTheme.colors.error,
                     textAlign = TextAlign.End,
                     maxLines = 2,
-                    style = MobiStockTheme.typography.smallBold,
+                    style = MobiTheme.typography.labelSmallBold,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = MobiStockTheme.spaces.grid_0_25)
+                        .padding(top = MobiTheme.dimens.unit)
                 )
             }
         }
@@ -133,7 +134,7 @@ fun MobiTextField(
     shape: Shape? = null,
     colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
 ) {
-    val updatedShape = shape ?: RoundedCornerShape(MobiStockTheme.spaces.grid_1)
+    val updatedShape = shape ?: RoundedCornerShape(MobiTheme.dimens.dimen_1)
 
     TextField(
         value = value,
@@ -164,69 +165,82 @@ private fun updateColors(colors: TextFieldColors?): TextFieldColors =
     colors ?: OutlinedTextFieldDefaults.colors(
         cursorColor = NEUTRAL_800,
         disabledBorderColor = NEUTRAL_300,
-        disabledContainerColor = MobiStockTheme.colors.backgroundTertiary,
-        disabledLabelColor = MobiStockTheme.colors.foregroundSecondary,
-        disabledLeadingIconColor = MobiStockTheme.colors.foregroundTertiary,
+        disabledContainerColor = MobiTheme.colors.disabledContainerColor,
+        disabledLabelColor = MobiTheme.colors.textDisable,
+        disabledLeadingIconColor = MobiTheme.colors.textDisable,
         disabledPlaceholderColor = Green,
         disabledPrefixColor = Green,
         disabledSuffixColor = Green,
         disabledSupportingTextColor = Green,
-        disabledTextColor = MobiStockTheme.colors.foregroundSecondary,
-        disabledTrailingIconColor = MobiStockTheme.colors.foregroundTertiary,
-        errorBorderColor = MobiStockTheme.colors.foregroundError,
-        errorContainerColor = MobiStockTheme.colors.backgroundSecondary,
-        errorCursorColor = RED_400,
-        errorLabelColor = RED_400,
-        errorLeadingIconColor = MobiStockTheme.colors.foregroundError,
-        errorPlaceholderColor = RED_400,
-        errorPrefixColor = RED_400,
-        errorSuffixColor = RED_400,
-        errorSupportingTextColor = RED_400,
-        errorTextColor = RED_400,
-        errorTrailingIconColor = MobiStockTheme.colors.foregroundSecondary,
-        focusedBorderColor = NEUTRAL_500,
-        focusedContainerColor = MobiStockTheme.colors.backgroundSecondary,
-        focusedLabelColor = MobiStockTheme.colors.foregroundSecondary,
-        focusedLeadingIconColor = MobiStockTheme.colors.foregroundSecondary,
+        disabledTextColor = MobiTheme.colors.textDisable,
+        disabledTrailingIconColor = MobiTheme.colors.textDisable,
+        errorBorderColor = MobiTheme.colors.error,
+        errorContainerColor = MobiTheme.colors.errorContainer,
+        errorCursorColor = MobiTheme.colors.error,
+        errorLabelColor = MobiTheme.colors.error,
+        errorLeadingIconColor = MobiTheme.colors.error,
+        errorPlaceholderColor = MobiTheme.colors.error,
+        errorPrefixColor = MobiTheme.colors.error,
+        errorSuffixColor = MobiTheme.colors.error,
+        errorSupportingTextColor = MobiTheme.colors.error,
+        errorTextColor = MobiTheme.colors.error,
+        errorTrailingIconColor = MobiTheme.colors.error,
+        focusedBorderColor = MobiTheme.colors.secondary,
+        focusedContainerColor = MobiTheme.colors.secondaryContainer,
+        focusedLabelColor = MobiTheme.colors.onSecondaryContainer,
+        focusedLeadingIconColor = MobiTheme.colors.onSecondaryContainer,
         focusedPlaceholderColor = Green,
         focusedPrefixColor = Green,
         focusedSuffixColor = Green,
         focusedSupportingTextColor = Green,
-        focusedTextColor = MobiStockTheme.colors.foregroundPrimary,
-        focusedTrailingIconColor = MobiStockTheme.colors.foregroundSecondary,
+        focusedTextColor = MobiTheme.colors.onPrimary,
+        focusedTrailingIconColor = MobiTheme.colors.onSecondary,
         selectionColors = null,
-        unfocusedBorderColor = MobiStockTheme.colors.backgroundSecondary,
-        unfocusedContainerColor = MobiStockTheme.colors.backgroundSecondary,
-        unfocusedLabelColor = MobiStockTheme.colors.foregroundSecondary,
-        unfocusedLeadingIconColor = MobiStockTheme.colors.foregroundSecondary,
+        unfocusedBorderColor = MobiTheme.colors.secondary,
+        unfocusedContainerColor = MobiTheme.colors.secondaryContainer,
+        unfocusedLabelColor = MobiTheme.colors.onSecondaryContainer,
+        unfocusedLeadingIconColor = MobiTheme.colors.onSecondaryContainer,
         unfocusedPlaceholderColor = Green,
         unfocusedPrefixColor = Green,
         unfocusedSuffixColor = Green,
         unfocusedSupportingTextColor = Green,
-        unfocusedTextColor = MobiStockTheme.colors.foregroundPrimary,
-        unfocusedTrailingIconColor = MobiStockTheme.colors.foregroundSecondary,
+        unfocusedTextColor = MobiTheme.colors.onSecondaryContainer,
+        unfocusedTrailingIconColor = MobiTheme.colors.onSecondaryContainer,
     )
 
 @Preview()
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewMobiTextField() {
-    MobiStockTheme {
+    MobiTheme {
         Surface(
-            color = MobiStockTheme.colors.backgroundPrimary
+            color = MobiTheme.colors.surface
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(MobiStockTheme.spaces.grid_2),
+                verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_2),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
-                        horizontal = MobiStockTheme.spaces.grid_1,
-                        vertical = MobiStockTheme.spaces.grid_1
+                        horizontal = MobiTheme.dimens.dimen_1,
+                        vertical = MobiTheme.dimens.dimen_1
                     )
             ) {
                 val value = "value"
                 val error = "error"
                 val placeHolder = "placeholder"
+
+                MobiTextField(
+                    value = "",
+                    isError = false,
+                    errorMessage = error,
+                    onValueChange = {},
+                    enabled = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    placeholder = { Text(placeHolder) },
+                    singleLine = true,
+                    visualTransformation = VisualTransformation.None,
+                    modifier = Modifier.fillMaxWidth()
+                )
 
                 MobiTextField(
                     value = "",

@@ -22,12 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import com.samuraicmdv.common.ERROR_LOGIN_PASSWORD_EMPTY
-import com.samuraicmdv.common.ERROR_LOGIN_UNKNOWN
-import com.samuraicmdv.common.ERROR_LOGIN_USER_EMPTY
-import com.samuraicmdv.common.ERROR_LOGIN_USER_NOT_FOUND
-import com.samuraicmdv.common.ERROR_LOGIN_INCORRECT_PASSWORD
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurelogin.R
 import com.samuraicmdv.ui.widget.MobiTextField
 
@@ -61,11 +56,11 @@ fun UserFieldContent(
     ) {
         Text(
             text = stringResource(id = R.string.label_user_name_input_field).uppercase(),
-            style = MobiStockTheme.typography.smallBold,
-            color = MobiStockTheme.colors.foregroundSecondary,
+            style = MobiTheme.typography.labelMediumBlack,
+            color = MobiTheme.colors.textSecondary,
             modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_5))
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
         MobiTextField(
             value = value,
             isError = userError != null,
@@ -78,7 +73,7 @@ fun UserFieldContent(
             keyboardActions = KeyboardActions(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
-            placeholder = { Text(placeholder, color = MobiStockTheme.colors.foregroundTertiary) },
+            placeholder = { Text(placeholder, color = MobiTheme.colors.tertiary) },
             singleLine = true,
             visualTransformation = VisualTransformation.None,
             modifier = modifier.fillMaxWidth()
@@ -90,8 +85,8 @@ fun UserFieldContent(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewUserFieldContent() {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             UserFieldContent(
                 value = "Value",
                 onChange = { },

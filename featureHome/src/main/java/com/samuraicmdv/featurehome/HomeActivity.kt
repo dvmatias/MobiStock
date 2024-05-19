@@ -14,7 +14,7 @@ import com.samuraicmdv.common.BUNDLE_KEY_CATEGORY_ID
 import com.samuraicmdv.common.BUNDLE_KEY_STORE_ID
 import com.samuraicmdv.common.BUNDLE_KEY_USER_ID
 import com.samuraicmdv.common.navigation.Navigator
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.compose.HomeScreen
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.event.HomeNavigationEvent
@@ -36,7 +36,7 @@ class HomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MobiStockTheme {
+            MobiTheme {
                 viewModel = hiltViewModel(
                     creationCallback = { factory: HomeViewModel.Factory ->
                         factory.create(storeId)
@@ -44,10 +44,7 @@ class HomeActivity : ComponentActivity() {
                 )
 
                 val uiState by viewModel.uiState.collectAsState()
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MobiStockTheme.colors.backgroundSecondary
-                ) {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     HomeScreen(
                         uiState = uiState,
                         handleEvent = ::handelEvent

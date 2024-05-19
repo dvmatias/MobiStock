@@ -18,7 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import coil.compose.rememberImagePainter
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.event.HomePresentationEvent
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -41,30 +41,30 @@ fun HomeScreenTopBarUserContent(
             painter = rememberImagePainter(userLogoUrl),
             contentDescription = null,
             modifier = Modifier
-                .size(MobiStockTheme.spaces.grid_5)
+                .size(MobiTheme.dimens.dimen_5)
                 .clip(CircleShape)
         )
-        Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
+        Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
         Column {
             userName?.let { name ->
                 Text(
                     text = name.uppercase(),
-                    style = MobiStockTheme.typography.mediumBold,
-                    color = MobiStockTheme.colors.foregroundPrimary,
+                    style = MobiTheme.typography.bodyLargeBold,
+                    color = MobiTheme.colors.textPrimary,
                 )
             }
             userAddress?.let { address ->
                 Text(
                     text = address,
-                    style = MobiStockTheme.typography.smallRegular,
-                    color = MobiStockTheme.colors.foregroundPrimary,
+                    style = MobiTheme.typography.labelSmallBold,
+                    color = MobiTheme.colors.textPrimary,
                 )
             }
         }
-        Spacer(modifier = Modifier.width(MobiStockTheme.spaces.grid_1))
+        Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
         Icon(
             Icons.Default.KeyboardArrowDown,
-            tint = MobiStockTheme.colors.foregroundPrimary,
+            tint = MobiTheme.colors.textPrimary,
             contentDescription = "",
         )
     }
@@ -73,8 +73,8 @@ fun HomeScreenTopBarUserContent(
 @ThemePreviews
 @Composable
 fun PreviewHomeScreenTopBarUserContent(modifier: Modifier = Modifier) {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             HomeScreenTopBarUserContent(
                 userName = "User Name",
                 userAddress = "User Address 123",

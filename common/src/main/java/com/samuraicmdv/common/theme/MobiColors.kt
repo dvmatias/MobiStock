@@ -1,6 +1,6 @@
-@file:Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate", "unused")
 
-package com.samuraicmdv.featureproductcategory.theme
+package com.samuraicmdv.common.theme
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -9,9 +9,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-@Suppress("unused")
 @Stable
-class AppColors(
+class MobiColors(
     primary: Color,
     onPrimary: Color,
     primaryContainer: Color,
@@ -50,7 +49,10 @@ class AppColors(
     textPrimary: Color,
     textSecondary: Color,
     textDisable: Color,
-    textAccent: Color
+    textAccent: Color,
+    textLink: Color,
+    disabledContainerColor: Color,
+    onDisabledContainerColor: Color,
 ) {
     var primary by mutableStateOf(primary)
         private set
@@ -130,8 +132,14 @@ class AppColors(
         private set
     var textAccent by mutableStateOf(textAccent)
         private set
+    var textLink by mutableStateOf(textLink)
+        private set
+    var disabledContainerColor by mutableStateOf(disabledContainerColor)
+        private set
+    var onDisabledContainerColor by mutableStateOf(onDisabledContainerColor)
+        private set
 
-    fun copy() = AppColors(
+    fun copy() = MobiColors(
         primary = primary,
         onPrimary = onPrimary,
         primaryContainer = primaryContainer,
@@ -170,11 +178,14 @@ class AppColors(
         textPrimary = onBackground,
         textSecondary = onSurfaceVariant,
         textDisable = outline,
-        textAccent = primary
+        textAccent = primary,
+        textLink = textLink,
+        disabledContainerColor = disabledContainerColor,
+        onDisabledContainerColor = onDisabledContainerColor
     )
 
-    fun update(other: AppColors) = other.also {
-        AppColors(
+    fun update(other: MobiColors) = other.also {
+        MobiColors(
             primary = primary,
             onPrimary = onPrimary,
             primaryContainer = primaryContainer,
@@ -213,12 +224,15 @@ class AppColors(
             textPrimary = onBackground,
             textSecondary = onSurfaceVariant,
             textDisable = outline,
-            textAccent = primary
+            textAccent = primary,
+            textLink = textLink,
+            disabledContainerColor = disabledContainerColor,
+            onDisabledContainerColor = onDisabledContainerColor
         )
     }
 }
 
-val lightAppColors = AppColors(
+val lightMobiColors = MobiColors(
     primary = primaryLight,
     onPrimary = onPrimaryLight,
     primaryContainer = primaryContainerLight,
@@ -257,10 +271,13 @@ val lightAppColors = AppColors(
     textPrimary = onBackgroundLight,
     textSecondary = onSurfaceVariantLight,
     textDisable = outlineLight,
-    textAccent = primaryLight
+    textAccent = primaryLight,
+    textLink = primaryLight,
+    disabledContainerColor = NEUTRAL_600,
+    onDisabledContainerColor = NEUTRAL_800
 )
 
-val darkAppColors = AppColors(
+val darkMobiColors = MobiColors(
     primary = primaryDark,
     onPrimary = onPrimaryDark,
     primaryContainer = primaryContainerDark,
@@ -299,9 +316,12 @@ val darkAppColors = AppColors(
     textPrimary = onBackgroundDark,
     textSecondary = onSurfaceVariantDark,
     textDisable = outlineDark,
-    textAccent = primaryDark
+    textAccent = primaryDark,
+    textLink = primaryDark,
+    disabledContainerColor = NEUTRAL_800,
+    onDisabledContainerColor = NEUTRAL_600
 )
 
-val LocalAppColors = staticCompositionLocalOf<AppColors> {
-    error("No AppColors provided")
+val LocalMobiColors = staticCompositionLocalOf<MobiColors> {
+    error("No MobiColors provided")
 }

@@ -6,7 +6,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.data.BranchType
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.event.HomeEvent
@@ -45,9 +45,9 @@ fun HomeScreen(
 @ThemePreviews
 @Composable
 fun PreviewHomeScreen() {
-    MobiStockTheme {
+    MobiTheme {
         // A surface container using the 'background' color from the theme
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+        Surface {
             HomeScreen(
                 uiState = HomeScreenState(
                     profile = UserProfileUiData(

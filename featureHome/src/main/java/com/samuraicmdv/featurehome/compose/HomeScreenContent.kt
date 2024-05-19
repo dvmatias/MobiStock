@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.common.R
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.state.HomeScreenState
@@ -27,13 +27,13 @@ fun HomeScreenContent(
     LazyVerticalGrid(
         columns = GridCells.Fixed(COLUMNS_COUNT),
         contentPadding = PaddingValues(
-            start = MobiStockTheme.spaces.grid_2,
-            end = MobiStockTheme.spaces.grid_2,
-            top = MobiStockTheme.spaces.grid_2,
-            bottom = MobiStockTheme.spaces.grid_2,
+            start = MobiTheme.dimens.dimen_2,
+            end = MobiTheme.dimens.dimen_2,
+            top = MobiTheme.dimens.dimen_2,
+            bottom = MobiTheme.dimens.dimen_2,
         ),
-        verticalArrangement = Arrangement.spacedBy(MobiStockTheme.spaces.grid_1),
-        horizontalArrangement = Arrangement.spacedBy(MobiStockTheme.spaces.grid_1),
+        verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_2),
+        horizontalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_2),
         modifier = modifier
             .fillMaxSize()
     ) {
@@ -50,7 +50,7 @@ fun HomeScreenContent(
 @ThemePreviews
 @Composable
 fun PreviewHomeScreenContent() {
-    MobiStockTheme {
+    MobiTheme {
         val categories = mutableListOf<ProductCategoryUiData>().apply {
             repeat(2) {
                 add(
@@ -93,7 +93,7 @@ fun PreviewHomeScreenContent() {
                 )
             }
         }
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+        Surface {
             HomeScreenContent(
                 uiState = HomeScreenState(
                     productCategories = ProductCategoriesUiData(

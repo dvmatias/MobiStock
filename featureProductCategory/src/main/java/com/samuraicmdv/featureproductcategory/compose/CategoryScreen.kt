@@ -25,12 +25,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.R
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.state.CategoryScreenState
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
-import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,12 +58,12 @@ fun CategoryScreen(
                                Icon(
                                    Icons.AutoMirrored.Filled.ArrowBack,
                                    contentDescription = null,
-                                   tint = AppTheme.colors.primary
+                                   tint = MobiTheme.colors.primary
                                )
                            }
                        }
                    )
-                   Spacer(modifier = Modifier.alpha(0.1f).height(0.75.dp).fillMaxWidth().background(AppTheme.colors.textPrimary))
+                   Spacer(modifier = Modifier.alpha(0.1f).height(0.75.dp).fillMaxWidth().background(MobiTheme.colors.textPrimary))
                }
             },
             modifier = modifier.fillMaxSize()
@@ -74,7 +74,7 @@ fun CategoryScreen(
                 products = products,
                 modifier = Modifier
                     .padding(paddingValues)
-                    .padding(horizontal = AppTheme.dimens.dimen_2)
+                    .padding(horizontal = MobiTheme.dimens.dimen_2)
             )
         }
     } else {
@@ -92,7 +92,7 @@ fun CategoryScreen(
 @ThemePreviews
 @Composable
 fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
-    AppTheme {
+    MobiTheme {
         Surface {
             CategoryScreen(
                 uiState = CategoryScreenState(

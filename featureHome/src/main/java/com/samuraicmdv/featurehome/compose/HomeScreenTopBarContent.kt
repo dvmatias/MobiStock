@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.ui.util.ThemePreviews
 
@@ -22,12 +22,12 @@ fun HomeScreenTopBarContent(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(MobiStockTheme.colors.backgroundPrimary)
+            .background(MobiTheme.colors.background)
             .padding(
-                top = MobiStockTheme.spaces.grid_1_5,
-                bottom = MobiStockTheme.spaces.grid_1_5,
-                start = MobiStockTheme.spaces.grid_3,
-                end = MobiStockTheme.spaces.grid_3
+                top = MobiTheme.dimens.dimen_1_5,
+                bottom = MobiTheme.dimens.dimen_1_5,
+                start = MobiTheme.dimens.dimen_3,
+                end = MobiTheme.dimens.dimen_3
             )
     ) {
         HomeScreenTopBarUserContent(
@@ -42,8 +42,8 @@ fun HomeScreenTopBarContent(
 @ThemePreviews
 @Composable
 fun PreviewHomeScreenTopBarContent(modifier: Modifier = Modifier) {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             HomeScreenTopBarContent(
                 userName = "User Name",
                 userAddress = "User Address 123",

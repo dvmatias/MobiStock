@@ -1,4 +1,4 @@
-package com.samuraicmdv.featureproductcategory.theme
+package com.samuraicmdv.common.theme
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 
 @Suppress("unused")
 @Stable
-class AppDimens(
+class MobiDimens(
     val unit: Dp = 1.dp,
     val two: Dp = 2.dp,
     val dimen_0_5: Dp = 4.dp,
@@ -23,7 +23,8 @@ class AppDimens(
     val dimen_8: Dp = 64.dp,
 )
 
-val LocalAppDimens = staticCompositionLocalOf {
-    AppDimens()
+val LocalMobiDimens = staticCompositionLocalOf {
+    MobiDimens()
 }
+
 

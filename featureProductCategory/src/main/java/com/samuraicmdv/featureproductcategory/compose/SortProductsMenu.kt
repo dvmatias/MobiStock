@@ -21,13 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
 import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent
+import com.samuraicmdv.featureproductcategory.event.ProductsSort
 import com.samuraicmdv.featureproductcategory.event.ProductsSortName
 import com.samuraicmdv.featureproductcategory.event.ProductsSortType.ASCENDING
 import com.samuraicmdv.featureproductcategory.event.ProductsSortType.DESCENDING
-import com.samuraicmdv.featureproductcategory.event.ProductsSort
-import com.samuraicmdv.featureproductcategory.theme.AppTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -41,14 +41,14 @@ fun SortProductsMenu(
         val sortName = productsSort.name
         val selectedModifier = Modifier
             .clip(RoundedCornerShape(100))
-            .background(AppTheme.colors.primary)
+            .background(MobiTheme.colors.primary)
         val unselectedModifier = Modifier
-            .border(AppTheme.dimens.unit, AppTheme.colors.primary, RoundedCornerShape(50))
+            .border(MobiTheme.dimens.unit, MobiTheme.colors.primary, RoundedCornerShape(50))
             .clip(RoundedCornerShape(50))
         val keyboardArrowDown = Icons.Default.KeyboardArrowDown
         val keyboardArrowUp = Icons.Default.KeyboardArrowUp
-        val selectedColor = AppTheme.colors.onPrimary
-        val unselectedColor = AppTheme.colors.primary
+        val selectedColor = MobiTheme.colors.onPrimary
+        val unselectedColor = MobiTheme.colors.primary
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -66,12 +66,12 @@ fun SortProductsMenu(
                         )
                     )
                 }
-                .padding(start = AppTheme.dimens.dimen_2, end = AppTheme.dimens.dimen_1)
+                .padding(start = MobiTheme.dimens.dimen_2, end = MobiTheme.dimens.dimen_1)
         ) {
             Text(
                 text = stringResource(id = R.string.label_alphabetical_sort_pill),
                 color = if (sortName == ProductsSortName.BY_NAME_ALPHABETICALLY) selectedColor else unselectedColor,
-                style = AppTheme.typography.labelMediumBlack,
+                style = MobiTheme.typography.labelMediumBlack,
                 modifier = Modifier
             )
             Icon(
@@ -80,7 +80,7 @@ fun SortProductsMenu(
                 tint = if (sortName == ProductsSortName.BY_NAME_ALPHABETICALLY) selectedColor else unselectedColor,
             )
         }
-        Spacer(modifier = Modifier.width(AppTheme.dimens.dimen_1))
+        Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -97,12 +97,12 @@ fun SortProductsMenu(
                         )
                     )
                 }
-                .padding(start = AppTheme.dimens.dimen_2, end = AppTheme.dimens.dimen_1)
+                .padding(start = MobiTheme.dimens.dimen_2, end = MobiTheme.dimens.dimen_1)
         ) {
             Text(
                 text = stringResource(id = R.string.label_price_sort_pill),
                 color = if (sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT) selectedColor else unselectedColor,
-                style = AppTheme.typography.labelMediumBlack,
+                style = MobiTheme.typography.labelMediumBlack,
             )
             Icon(
                 imageVector = if (srtType == ASCENDING && sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT) keyboardArrowDown else keyboardArrowUp,
@@ -116,7 +116,7 @@ fun SortProductsMenu(
 @ThemePreviews
 @Composable
 fun PreviewSortProductsMenu() {
-    AppTheme {
+    MobiTheme {
         Surface {
             Column {
                 SortProductsMenu(
@@ -126,7 +126,7 @@ fun PreviewSortProductsMenu() {
                         type = ASCENDING
                     )
                 )
-                Spacer(modifier = Modifier.height(AppTheme.dimens.dimen_2))
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                 SortProductsMenu(
                     handelEvent = {},
                     productsSort = ProductsSort(

@@ -20,7 +20,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 
 @Composable
 fun ProductCategoryItemProductsCount(
@@ -35,23 +35,20 @@ fun ProductCategoryItemProductsCount(
         }
         .sizeIn(minWidth = with(LocalDensity.current) { size.height.toDp() })
         .clip(
-            RoundedCornerShape(
-                topStart = MobiStockTheme.spaces.grid_1,
-                bottomEnd = MobiStockTheme.spaces.grid_1
-            )
+            RoundedCornerShape(bottomStart = MobiTheme.dimens.dimen_2)
         )
-        .background(MobiStockTheme.colors.brandPrimary)
+        .background(MobiTheme.colors.secondaryContainer)
         .padding(
-            start = MobiStockTheme.spaces.grid_0_75,
-            end = MobiStockTheme.spaces.grid_0_75,
-            top = MobiStockTheme.spaces.grid_0_75,
-            bottom = MobiStockTheme.spaces.grid_0_75
+            start = MobiTheme.dimens.dimen_2,
+            end = MobiTheme.dimens.dimen_2,
+            top = MobiTheme.dimens.dimen_0_5,
+            bottom = MobiTheme.dimens.dimen_0_5
         )
     ) {
         Text(
             text = productsCount.toString(),
-            style = MobiStockTheme.typography.smallBold,
-            color = Color.White,
+            style = MobiTheme.typography.labelMediumBlack,
+            color = MobiTheme.colors.onSecondaryContainer,
             textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.Center)
         )

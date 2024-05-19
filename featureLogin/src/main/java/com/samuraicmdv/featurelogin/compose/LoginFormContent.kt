@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.samuraicmdv.common.ERROR_LOGIN_USER_EMPTY
-import com.samuraicmdv.common.theme.MobiStockTheme
+import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurelogin.event.LoginBusinessEvent
 import com.samuraicmdv.featurelogin.event.LoginEvent
 
@@ -47,7 +47,7 @@ fun LoginFormContent(
             userError = userError,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_2))
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
         PasswordFieldContent(
             value = password,
             onChange = { password -> onPasswordChange(password) },
@@ -55,32 +55,29 @@ fun LoginFormContent(
             passwordError = passwordError,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_0_75))
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_75))
         Text(
             "Forgot password?",
-            fontSize = 14.sp,
-            color = MobiStockTheme.colors.linkEnabled,
+            style = MobiTheme.typography.labelMediumBold,
+            color = MobiTheme.colors.textLink,
             modifier = Modifier
                 .clickable(enabled = !isLoading) { handleEvent(LoginBusinessEvent.ForgotPassword) }
         )
-        Spacer(modifier = Modifier.height(MobiStockTheme.spaces.grid_4))
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_4))
         Button(
             onClick = {
                 handleEvent(LoginBusinessEvent.Login(user, password))
             },
             enabled = !isLoading,
-            shape = RoundedCornerShape(MobiStockTheme.spaces.grid_0_5),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MobiStockTheme.colors.brandPrimary,
-                disabledContainerColor = MobiStockTheme.colors.backgroundDisabled,
-                contentColor = Color.White,
-                disabledContentColor = MobiStockTheme.colors.foregroundDisabled
-            ),
+            shape = RoundedCornerShape(MobiTheme.dimens.dimen_1_5),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp)
         ) {
-            Text("Login", color = Color.White)
+            Text(
+                text = "Login".uppercase(),
+                style = MobiTheme.typography.buttonLabel
+            )
         }
     }
 }
@@ -90,8 +87,8 @@ fun LoginFormContent(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewLoginFormContent() {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             LoginFormContent(
                 user = "user",
                 onUserChange = { },
@@ -110,8 +107,8 @@ fun PreviewLoginFormContent() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewLoginFormContent_UserError() {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             LoginFormContent(
                 user = "user",
                 onUserChange = { },
@@ -129,8 +126,8 @@ fun PreviewLoginFormContent_UserError() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewLoginFormContent_PasswordError() {
-    MobiStockTheme {
-        Surface(color = MobiStockTheme.colors.backgroundPrimary) {
+    MobiTheme {
+        Surface {
             LoginFormContent(
                 user = "user",
                 onUserChange = { },
