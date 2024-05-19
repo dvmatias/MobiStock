@@ -1,0 +1,10 @@
+package com.samuraicmdv.featurehome.event
+
+/**
+ * Declares all the navigation events in Home flow. A navigation event ends in the launch of a new
+ * Activity (internal or external to this module). All the events declared in here are finally
+ * handled by a implementation of [com.samuraicmdv.common.navigation.Navigator].
+ */
+sealed interface HomeNavigationEvent : HomeEvent {
+    data class NavigateProductCategory(val categoryId: Int) : HomeNavigationEvent
+}

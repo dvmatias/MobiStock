@@ -2,6 +2,7 @@ package com.samuraicmdv.featurehome.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,12 +31,15 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.samuraicmdv.common.theme.MobiStockTheme
 import com.samuraicmdv.featurehome.R
+import com.samuraicmdv.featurehome.event.HomeEvent
+import com.samuraicmdv.featurehome.event.HomeNavigationEvent
 import com.samuraicmdv.featurehome.state.ProductCategoryUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
 fun ProductCategoryItem(
     category: ProductCategoryUiData,
+    handleEvent: (HomeEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -48,6 +51,9 @@ fun ProductCategoryItem(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MobiStockTheme.colors.backgroundPrimary)
+                .clickable {
+                    handleEvent(HomeNavigationEvent.NavigateProductCategory(category.id))
+                }
         ) {
             Column {
                 var textPadding by remember {
@@ -109,10 +115,11 @@ fun PreviewProductCategoryItem(modifier: Modifier = Modifier) {
             ProductCategoryItem(
                 ProductCategoryUiData(
                     id = 0,
-                    nameResId = R.string.product_category_other_name,
+                    nameResId = com.samuraicmdv.common.R.string.product_category_other_name,
                     imageUrl = "",
                     productsCount = 1245
                 ),
+                handleEvent = {},
                 modifier = modifier.size(100.dp, 140.dp)
             )
         }

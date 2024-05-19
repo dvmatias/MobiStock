@@ -1,11 +1,11 @@
 package com.samuraicmdv.featurehome.transformer
 
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
-import com.samuraicmdv.domain.model.ProductCategory
-import com.samuraicmdv.domain.model.ProductCategory.*
+import com.samuraicmdv.common.utils.ProductCategory
+import com.samuraicmdv.common.utils.ProductCategory.*
 import com.samuraicmdv.domain.model.UserModel
 import com.samuraicmdv.domain.model.UserProfileResponseModel
-import com.samuraicmdv.featurehome.R
+import com.samuraicmdv.common.R
 import com.samuraicmdv.featurehome.data.BranchType
 import com.samuraicmdv.featurehome.data.UserUiData
 import com.samuraicmdv.featurehome.state.ProductCategoriesUiData

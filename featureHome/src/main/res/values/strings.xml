@@ -1,35 +1,3 @@
 <resources>
     <string name="title_activity_home">HomeActivity</string>
-
-    <string name="product_category_unknown_name"> </string>
-    <string name="product_category_headphone_name">Headphones</string>
-    <string name="product_category_charger_phone_name">Chargers</string>
-    <string name="product_category_charger_car_name">Car Chargers</string>
-    <string name="product_category_armband_name">Armbands</string>
-    <string name="product_category_headphone_bt_name">Wireless Headphones</string>
-    <string name="product_category_headset_name">Headsets</string>
-    <string name="product_category_cable_usb_name">USB Cable</string>
-    <string name="product_category_cable_data_name">Data Cables</string>
-    <string name="product_category_cable_auxiliary_name">Auxiliary Cables</string>
-    <string name="product_category_cable_adapter_name">Adapter Cables</string>
-    <string name="product_category_phone_holder_car_name">Car Holders</string>
-    <string name="product_category_phone_holder_desktop_name">Desktop Holders</string>
-    <string name="product_category_phone_holder_case_name">Case Holders</string>
-    <string name="product_category_tripod_name">Tripods</string>
-    <string name="product_category_cable_protector_name">Cable Protectors</string>
-    <string name="product_category_charger_protector_name">Charger Protectors</string>
-    <string name="product_category_storage_name">Storage</string>
-    <string name="product_category_informatics_name">Informatics</string>
-    <string name="product_category_speaker_name">Speakers</string>
-    <string name="product_category_charger_portable_name">Portable Chargers</string>
-    <string name="product_category_stick_name">Sticks</string>
-    <string name="product_category_light_name">Lights</string>
-    <string name="product_category_screen_protector_name">Screen Protectors</string>
-    <string name="product_category_camera_protector_name">Camera Protectors</string>
-    <string name="product_category_strap_name">Straps</string>
-    <string name="product_category_battery_name">Batteries</string>
-    <string name="product_category_microphone_name">Mics</string>
-    <string name="product_category_home_name">Home</string>
-    <string name="product_category_game_name">Games</string>
-    <string name="product_category_other_name">Others</string>
 </resources>
