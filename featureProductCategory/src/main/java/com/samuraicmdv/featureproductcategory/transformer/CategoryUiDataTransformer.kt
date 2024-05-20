@@ -40,7 +40,8 @@ object CategoryUiDataTransformer {
             ProductUiData(
                 id = it.id ?: -1,
                 name = it.name ?: "",
-                description = it.description ?: "",
+                shortDescription = it.shortDescription ?: "",
+                longDescription = it.longDescription ?: "",
                 model = it.model ?: "",
                 code = it.code ?: "",
                 sku = it.sku ?: "",

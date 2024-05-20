@@ -199,10 +199,21 @@ fun ProductDataStatic(
             Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
         }
         Text(
-            text = "Description",
+            text = "Short description",
             style = MobiTheme.typography.titleMediumBold
         )
-        product.description?.let {
+        product.shortDescription?.let {
+            Text(
+                text = it,
+                style = MobiTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+        }
+        Text(
+            text = "Long description",
+            style = MobiTheme.typography.titleMediumBold
+        )
+        product.longDescription?.let {
             Text(
                 text = it,
                 style = MobiTheme.typography.bodyMedium
@@ -277,7 +288,8 @@ fun PreviewProductDetailsBottomSheetContentAdminStatic() {
                 product = ProductUiData(
                     id = 0,
                     name = "Product name",
-                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
+                    shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
                     model = "Product model",
                     code = "Product code",
                     sku = "ABCD-00000001",
@@ -314,7 +326,8 @@ fun PreviewProductDetailsBottomSheetContentAdminEdit() {
                 product = ProductUiData(
                     id = 0,
                     name = "Product name",
-                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
+                    shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
                     model = "Product model",
                     code = "Product code",
                     sku = "ABCD-00000001",
@@ -351,7 +364,8 @@ fun PreviewProductDetailsBottomSheetContentNoAdmin() {
                 product = ProductUiData(
                     id = 0,
                     name = "Product name",
-                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
+                    shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
                     model = "Product model",
                     code = "Product code",
                     sku = "ABCD-00000001",

@@ -30,7 +30,8 @@ data class CategoryEntity(
 data class ProductEntity(
     @SerializedName("id") val id: Int? = null,
     @SerializedName("name") val name: String? = null,
-    @SerializedName("description") val description: String? = null,
+    @SerializedName("short_description") val shortDescription: String? = null,
+    @SerializedName("long_description") val longDescription: String? = null,
     @SerializedName("model") val model: String? = null,
     @SerializedName("code") val code: String? = null,
     @SerializedName("sku") val sku: String? = null,

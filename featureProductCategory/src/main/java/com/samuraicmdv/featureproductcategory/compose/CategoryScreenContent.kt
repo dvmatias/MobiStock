@@ -152,7 +152,8 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                     ProductUiData(
                         id = index,
                         name = "Product $index",
-                        description = "Product Description",
+                        shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
                         imageUrl = "https://www.example.com/image.jpg",
                         price = ProductPriceUiData(
                             sellingPrice = 100.0,

@@ -3,7 +3,8 @@ package com.samuraicmdv.featureproductcategory.state
 data class ProductUiData(
     val id: Int,
     val name: String? = null,
-    val description: String? = null,
+    val shortDescription: String? = null,
+    val longDescription: String? = null,
     val model: String? = null,
     val code: String? = null,
     val sku: String? = null,

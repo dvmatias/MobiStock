@@ -31,7 +31,8 @@ data class ProductBrandModel(
 data class ProductModel(
     val id: Int? = null,
     val name: String? = null,
-    val description: String? = null,
+    val shortDescription: String? = null,
+    val longDescription: String? = null,
     val model: String? = null,
     val code: String? = null,
     val sku: String? = null,

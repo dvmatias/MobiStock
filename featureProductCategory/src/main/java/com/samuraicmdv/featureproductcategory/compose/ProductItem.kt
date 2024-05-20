@@ -81,7 +81,7 @@ fun ProductItem(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                product.description?.let {
+                product.shortDescription?.let {
                     Text(
                         text = it,
                         style = MobiTheme.typography.bodySmall,
@@ -142,7 +142,7 @@ fun PreviewProductItem() {
                 product = ProductUiData(
                     id = 1,
                     name = "Product Name",
-                    description = "Product Description",
+                    shortDescription = "Product Description",
                     imageUrl = "https://www.example.com/image.jpg",
                     price = ProductPriceUiData(
                         sellingPrice = 100.0,
