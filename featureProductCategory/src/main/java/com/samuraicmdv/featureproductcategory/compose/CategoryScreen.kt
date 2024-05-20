@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.R
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.featureproductcategory.event.CategoryEvent
 import com.samuraicmdv.featureproductcategory.state.CategoryScreenState
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
@@ -37,34 +38,42 @@ import com.samuraicmdv.ui.util.ThemePreviews
 @Composable
 fun CategoryScreen(
     uiState: CategoryScreenState,
+    handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val category = uiState.category
     val brands = uiState.brands
     val products = uiState.products
+    val showProductDetailsBottomSheet = uiState.showProductDetailsBottomSheet
 
     if (!uiState.isLoading) {
         Scaffold(
             topBar = {
-               Column {
-                   TopAppBar(
-                       title = {
-                           Text(text = uiState.category?.nameResId?.let { stringResId ->
-                               stringResource(id = stringResId)
-                           } ?: "")
-                       },
-                       navigationIcon = {
-                           IconButton(onClick = { /* TODO Handle navigation icon click */ }) {
-                               Icon(
-                                   Icons.AutoMirrored.Filled.ArrowBack,
-                                   contentDescription = null,
-                                   tint = MobiTheme.colors.primary
-                               )
-                           }
-                       }
-                   )
-                   Spacer(modifier = Modifier.alpha(0.1f).height(0.75.dp).fillMaxWidth().background(MobiTheme.colors.textPrimary))
-               }
+                Column {
+                    TopAppBar(
+                        title = {
+                            Text(text = uiState.category?.nameResId?.let { stringResId ->
+                                stringResource(id = stringResId)
+                            } ?: "")
+                        },
+                        navigationIcon = {
+                            IconButton(onClick = { /* TODO Handle navigation icon click */ }) {
+                                Icon(
+                                    Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = null,
+                                    tint = MobiTheme.colors.primary
+                                )
+                            }
+                        }
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .alpha(0.1f)
+                            .height(0.75.dp)
+                            .fillMaxWidth()
+                            .background(MobiTheme.colors.textPrimary)
+                    )
+                }
             },
             modifier = modifier.fillMaxSize()
         ) { paddingValues ->
@@ -72,9 +81,15 @@ fun CategoryScreen(
                 category = category,
                 brands = brands,
                 products = products,
+                handleEvent = handleEvent,
                 modifier = Modifier
                     .padding(paddingValues)
                     .padding(horizontal = MobiTheme.dimens.dimen_2)
+            )
+            // Product Bottom Sheet
+            ProductDetailsBottomSheet(
+                showBottomSheet = showProductDetailsBottomSheet,
+                handleEvent = handleEvent
             )
         }
     } else {
@@ -137,6 +152,7 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                         )
                     },
                 ),
+                handleEvent = {},
                 modifier = modifier
             )
         }

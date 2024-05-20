@@ -2,6 +2,7 @@ package com.samuraicmdv.featureproductcategory.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
+import com.samuraicmdv.featureproductcategory.event.CategoryEvent
+import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
@@ -35,13 +38,18 @@ import com.samuraicmdv.ui.util.ThemePreviews
 @Composable
 fun ProductItem(
     product: ProductUiData,
+    handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
     Surface(
         color = MobiTheme.colors.surfaceContainer,
         shape = RoundedCornerShape(MobiTheme.dimens.dimen_2),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable {
+                handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product.id))
+            }
     ) {
         Row(
             modifier = Modifier
@@ -142,6 +150,7 @@ fun PreviewProductItem() {
                     model = "Model",
                     code = "Code"
                 ),
+                handleEvent = {},
             )
         }
     }

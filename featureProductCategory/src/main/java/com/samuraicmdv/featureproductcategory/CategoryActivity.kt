@@ -11,6 +11,8 @@ import com.samuraicmdv.common.BUNDLE_KEY_CATEGORY_ID
 import com.samuraicmdv.common.BUNDLE_KEY_STORE_ID
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.compose.CategoryScreen
+import com.samuraicmdv.featureproductcategory.event.CategoryEvent
+import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,10 +38,20 @@ class CategoryActivity : ComponentActivity() {
 
                 Surface {
                     CategoryScreen(
-                        uiState = uiState
+                        uiState = uiState,
+                        handleEvent = { event -> handleEvent(event) }
                     )
                 }
             }
+        }
+    }
+
+    private fun handleEvent(event: CategoryEvent) {
+        when (event) {
+            is CategoryPresentationEvent.HandleProductDetailsBottomSheetState ->
+                viewModel.updateProductDetailsBottomSheetState(event.show)
+
+            else -> {}
         }
     }
 }

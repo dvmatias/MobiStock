@@ -22,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
+import com.samuraicmdv.featureproductcategory.event.CategoryEvent
+import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent
+import com.samuraicmdv.featureproductcategory.event.ProductsSort
 import com.samuraicmdv.featureproductcategory.event.ProductsSortName
 import com.samuraicmdv.featureproductcategory.event.ProductsSortType
-import com.samuraicmdv.featureproductcategory.event.ProductsSort
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
@@ -37,6 +39,7 @@ fun CategoryScreenContent(
     category: CategoryUiData?,
     brands: List<ProductBrandUiData>?,
     products: List<ProductUiData>?,
+    handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     category?.run {
@@ -90,6 +93,7 @@ fun CategoryScreenContent(
                             .background(MobiTheme.colors.surface)
                             .fillMaxWidth()
                     ) {
+                        // TODO Extract this out
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                         Text(
                             text = stringResource(id = R.string.title_products),
@@ -106,7 +110,11 @@ fun CategoryScreenContent(
                             )
                             FilterProductsByBrandPill(
                                 brands = brands,
-                                { event -> selectedBrandId = event.brandId }
+                                { event ->
+                                    (event as? CategoryPresentationEvent.FilterProductsByBrand)?.let {
+                                        selectedBrandId = it.brandId
+                                    }
+                                }
                             )
                         }
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
@@ -114,7 +122,10 @@ fun CategoryScreenContent(
                 }
 
                 items(products, { it.id }) { product ->
-                    ProductItem(product = product)
+                    ProductItem(
+                        product = product,
+                        handleEvent = handleEvent
+                    )
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                 }
             }
@@ -168,6 +179,7 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                         logoUrl = "https://www.example.com/image.jpg"
                     )
                 },
+                handleEvent = {},
                 modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
             )
         }
