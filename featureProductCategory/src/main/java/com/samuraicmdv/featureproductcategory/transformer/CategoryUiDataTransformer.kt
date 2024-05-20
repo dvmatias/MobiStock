@@ -43,6 +43,7 @@ object CategoryUiDataTransformer {
                 description = it.description ?: "",
                 model = it.model ?: "",
                 code = it.code ?: "",
+                sku = it.sku ?: "",
                 imageUrl = "",
                 price = ProductPriceUiData(
                     sellingPrice = it.sellingPrice?.toDouble() ?: 0.0,

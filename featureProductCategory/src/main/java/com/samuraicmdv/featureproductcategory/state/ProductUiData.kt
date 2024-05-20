@@ -6,6 +6,7 @@ data class ProductUiData(
     val description: String,
     val model: String,
     val code: String,
+    val sku: String,
     val imageUrl: String,
     val price: ProductPriceUiData,
     val stock: Int,

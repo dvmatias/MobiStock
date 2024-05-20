@@ -34,6 +34,7 @@ data class ProductModel(
     val description: String? = null,
     val model: String? = null,
     val code: String? = null,
+    val sku: String? = null,
     val categoryId: Int? = null,
     val stock: Int? = null,
     val sellingPrice: String? = null,

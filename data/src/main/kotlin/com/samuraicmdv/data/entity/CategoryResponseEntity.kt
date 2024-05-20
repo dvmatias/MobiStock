@@ -33,6 +33,7 @@ data class ProductEntity(
     @SerializedName("description") val description: String? = null,
     @SerializedName("model") val model: String? = null,
     @SerializedName("code") val code: String? = null,
+    @SerializedName("sku") val sku: String? = null,
     @SerializedName("brand") val brand: ProductBrandEntity? = null,
     @SerializedName("category_id") val categoryId: Int? = null,
     @SerializedName("stock") val stock: Int? = null,

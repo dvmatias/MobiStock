@@ -88,6 +88,7 @@ fun CategoryScreen(
             )
             // Product Bottom Sheet
             ProductDetailsBottomSheet(
+                product = uiState.selectedProduct,
                 showBottomSheet = showProductDetailsBottomSheet,
                 handleEvent = handleEvent
             )
@@ -141,7 +142,8 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                                 logoUrl = "https://www.example.com/image.jpg"
                             ),
                             model = "Model",
-                            code = "Code"
+                            code = "Code",
+                            sku = "ABCD-00000001"
                         )
                     },
                     brands = List(5) { index ->

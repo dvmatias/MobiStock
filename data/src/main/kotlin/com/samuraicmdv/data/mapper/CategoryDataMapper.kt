@@ -54,6 +54,7 @@ object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponse
                 description = it.description,
                 model = it.model,
                 code = it.code,
+                sku = it.sku,
                 categoryId = it.categoryId,
                 stock = it.stock,
                 sellingPrice = it.productPrice?.selling,

@@ -2,23 +2,32 @@ package com.samuraicmdv.featureproductcategory.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.event.CategoryEvent
 import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent.HandleProductDetailsBottomSheetState
+import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
+import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
+import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)

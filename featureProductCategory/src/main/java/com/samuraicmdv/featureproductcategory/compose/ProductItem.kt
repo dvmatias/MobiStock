@@ -148,7 +148,8 @@ fun PreviewProductItem() {
                         logoUrl = "https://www.example.com/image.jpg"
                     ),
                     model = "Model",
-                    code = "Code"
+                    code = "Code",
+                    sku = "ABCD-00000001",
                 ),
                 handleEvent = {},
             )
