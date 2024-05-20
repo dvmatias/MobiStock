@@ -87,7 +87,7 @@ val provider = GoogleFont.Provider(
 
 val bodyFontFamily = FontFamily(
     Font(
-        googleFont = GoogleFont("Oxygen"),
+        googleFont = GoogleFont("Open Sans"),
         fontProvider = provider,
     )
 )

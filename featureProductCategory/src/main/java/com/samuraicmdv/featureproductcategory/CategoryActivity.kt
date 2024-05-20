@@ -49,7 +49,7 @@ class CategoryActivity : ComponentActivity() {
     private fun handleEvent(event: CategoryEvent) {
         when (event) {
             is CategoryPresentationEvent.HandleProductDetailsBottomSheetState ->
-                viewModel.updateProductDetailsBottomSheetState(event.show)
+                viewModel.updateProductDetailsBottomSheetState(event.show, event.product)
 
             else -> {}
         }

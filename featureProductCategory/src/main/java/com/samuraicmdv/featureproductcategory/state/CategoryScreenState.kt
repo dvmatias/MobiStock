@@ -5,6 +5,7 @@ data class CategoryScreenState(
     val category: CategoryUiData? = null,
     val brands: List<ProductBrandUiData>? = null,
     val products: List<ProductUiData>? = null,
+    val selectedProduct: ProductUiData? = null,
     val showProductDetailsBottomSheet: Boolean = false,
 ) {
 }

@@ -53,12 +53,12 @@ fun CategoryScreenContent(
         }
         var selectedBrandId by rememberSaveable { mutableStateOf(-1) } // -1 means all brands are selected
         val filteredProducts = products?.filter { product ->
-            selectedBrandId == -1 || product.brand.id == selectedBrandId
+            selectedBrandId == -1 || product.brand?.id == selectedBrandId
         }?.sortedBy { product ->
             when (selectedOrder.name) {
-                ProductsSortName.BY_NAME_ALPHABETICALLY -> product.name.lowercase()
-                ProductsSortName.BY_COST_PRICE_AMOUNT -> product.price.costPrice.toString()
-                ProductsSortName.BY_SELLING_PRICE_AMOUNT -> product.price.sellingPrice.toString()
+                ProductsSortName.BY_NAME_ALPHABETICALLY -> product.name?.lowercase()
+                ProductsSortName.BY_COST_PRICE_AMOUNT -> product.price?.costPrice.toString()
+                ProductsSortName.BY_SELLING_PRICE_AMOUNT -> product.price?.sellingPrice.toString()
             }
         }.let { products ->
             if (selectedOrder.type == ProductsSortType.DESCENDING) {

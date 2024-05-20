@@ -48,7 +48,7 @@ fun ProductItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable {
-                handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product.id))
+                handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product))
             }
     ) {
         Row(
@@ -72,19 +72,23 @@ fun ProductItem(
                     .padding(horizontal = MobiTheme.dimens.dimen_1),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    text = product.name,
-                    style = MobiTheme.typography.bodyMediumBold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Text(
-                    text = product.description,
-                    style = MobiTheme.typography.bodySmall,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                )
+                product.name?.let {
+                    Text(
+                        text = it,
+                        style = MobiTheme.typography.bodyMediumBold,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                product.description?.let {
+                    Text(
+                        text = it,
+                        style = MobiTheme.typography.bodySmall,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
 
@@ -107,15 +111,22 @@ fun ProductItem(
                     horizontalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_1),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        text = stringResource(
-                            id = R.string.product_item_earnings_placeholder,
-                            product.price.sellingPrice / product.price.costPrice
-                        ),
-                        style = MobiTheme.typography.labelSmallBold,
-                    )
-                    Text(text = "$${product.price.costPrice}", style = MobiTheme.typography.bodyMedium)
-                    Text(text = "$${product.price.sellingPrice}", style = MobiTheme.typography.bodyMediumBold)
+                    product.price?.sellingPrice?.let { sellingPrice ->
+                        product.price.costPrice?.let { costPrice ->
+                            Text(
+                                text = stringResource(
+                                    id = R.string.product_item_earnings_placeholder,
+                                    sellingPrice / costPrice
+                                ),
+                                style = MobiTheme.typography.labelSmallBold,
+                            )
+                        }
+                    }
+
+                    product.price?.let { price ->
+                        Text(text = "$${price.costPrice}", style = MobiTheme.typography.bodyMedium)
+                        Text(text = "$${price.sellingPrice}", style = MobiTheme.typography.bodyMediumBold)
+                    }
                 }
             }
         }

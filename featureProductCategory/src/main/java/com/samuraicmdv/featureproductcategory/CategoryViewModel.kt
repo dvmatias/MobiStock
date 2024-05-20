@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.samuraicmdv.domain.usecase.GetCategoryUseCase
 import com.samuraicmdv.featureproductcategory.state.CategoryScreenState
+import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.featureproductcategory.transformer.CategoryUiDataTransformer
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -46,9 +47,9 @@ class CategoryViewModel @AssistedInject constructor(
         }
     }
 
-    fun updateProductDetailsBottomSheetState(show: Boolean) {
+    fun updateProductDetailsBottomSheetState(show: Boolean, selectedProduct: ProductUiData?) {
         _uiState.update { currentState ->
-            currentState.copy(showProductDetailsBottomSheet = show)
+            currentState.copy(showProductDetailsBottomSheet = show, selectedProduct = selectedProduct)
         }
     }
 

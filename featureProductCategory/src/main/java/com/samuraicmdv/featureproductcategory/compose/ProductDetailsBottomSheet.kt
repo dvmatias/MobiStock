@@ -1,16 +1,23 @@
 package com.samuraicmdv.featureproductcategory.compose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Surface
@@ -18,69 +25,356 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.samuraicmdv.common.theme.KIWI_600
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.common.theme.RED_600
+import com.samuraicmdv.featureproductcategory.R
 import com.samuraicmdv.featureproductcategory.event.CategoryEvent
 import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent.HandleProductDetailsBottomSheetState
+import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent.SetProductDetailsEditMode
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
-import com.samuraicmdv.ui.util.ThemePreviews
+import com.samuraicmdv.ui.widget.IconLabelValue
+import com.samuraicmdv.ui.widget.LabelValue
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailsBottomSheet(
+    product: ProductUiData?,
     showBottomSheet: Boolean,
     handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
-    LaunchedEffect(key1 = showBottomSheet) {
-        if (showBottomSheet) sheetState.show()
-        else sheetState.hide()
-    }
+    product?.let { selectedProduct ->
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        var isInEditMode by rememberSaveable {
+            mutableStateOf(false)
+        }
 
-    LaunchedEffect(sheetState.currentValue) {
-        if (sheetState.currentValue == SheetValue.Expanded &&
-            sheetState.targetValue == SheetValue.PartiallyExpanded
-        )
-            sheetState.hide()
-    }
+        LaunchedEffect(key1 = showBottomSheet) {
+            if (showBottomSheet) sheetState.show()
+            else sheetState.hide()
+        }
 
-    if (showBottomSheet) {
-        ModalBottomSheet(
-            sheetState = sheetState,
-            onDismissRequest = {
-                handleEvent(HandleProductDetailsBottomSheetState(show = false))
-            },
-            dragHandle = { BottomSheetDefaults.DragHandle() },
-            modifier = modifier.padding(top = 48.dp)
-        ) {
-            ProductDetailsBottomSheetContent()
+        LaunchedEffect(sheetState.currentValue) {
+            if (sheetState.currentValue == SheetValue.Expanded &&
+                sheetState.targetValue == SheetValue.PartiallyExpanded
+            )
+                sheetState.hide()
+        }
+
+        if (showBottomSheet) {
+            ModalBottomSheet(
+                sheetState = sheetState,
+                onDismissRequest = {
+                    handleEvent(HandleProductDetailsBottomSheetState(show = false))
+                },
+                dragHandle = { BottomSheetDefaults.DragHandle() },
+                modifier = modifier.padding(top = 48.dp)
+            ) {
+                ProductDetailsBottomSheetContent(
+                    product = selectedProduct,
+                    isAdmin = true, // TODO replace with real value,
+                    isInEditMode = isInEditMode,
+                    handleEvent = { event ->
+                        if (event is SetProductDetailsEditMode)
+                            isInEditMode = event.isInEditMode
+                    }
+                )
+            }
         }
     }
 }
 
 @Composable
-fun ProductDetailsBottomSheetContent(modifier: Modifier = Modifier) {
+fun ProductDetailsBottomSheetContent(
+    product: ProductUiData,
+    isAdmin: Boolean,
+    isInEditMode: Boolean,
+    handleEvent: (CategoryEvent) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Red)
     ) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.TopCenter)
+        ) {
+            item {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(MobiTheme.dimens.dimen_3)
+                ) {
+                    Text(
+                        text = "Product details",
+                        style = MobiTheme.typography.titleMediumBold,
+                        modifier = Modifier
+                            .padding(horizontal = MobiTheme.dimens.dimen_2)
+                            .weight(1F)
+                    )
+                    if (isInEditMode) {
+                        Text(
+                            text = "Save",
+                            style = MobiTheme.typography.labelLargeBold,
+                            color = MobiTheme.colors.primary,
+                            modifier = Modifier
+                                .padding(end = MobiTheme.dimens.dimen_2)
+                                .clickable {
+                                    handleEvent(SetProductDetailsEditMode(false))
+                                }
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = null,
+                            tint = if (isAdmin) MobiTheme.colors.primary else MobiTheme.colors.textDisable,
+                            modifier = Modifier
+                                .padding(end = MobiTheme.dimens.dimen_2)
+                                .clickable {
+                                    if (isAdmin)
+                                        handleEvent(SetProductDetailsEditMode(true))
+                                }
+                        )
+                    }
+
+                }
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+            }
+            item {
+                Box( // TODO Images carousel
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1.3F)
+                        .background(Color.Gray)
+                )
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+            }
+            item {
+                if (isInEditMode) {
+
+                } else {
+                    ProductDataStatic(product)
+                }
+            }
+        }
     }
 }
 
-@ThemePreviews
 @Composable
-fun PreviewProductDetailsBottomSheetContent() {
+fun ProductDataStatic(
+    product: ProductUiData,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = MobiTheme.dimens.dimen_2)
+    ) {
+        Text(
+            text = "Title",
+            style = MobiTheme.typography.titleMediumBold
+        )
+        product.name?.let {
+            Text(
+                text = it,
+                style = MobiTheme.typography.titleLarge
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+        }
+        Text(
+            text = "Description",
+            style = MobiTheme.typography.titleMediumBold
+        )
+        product.description?.let {
+            Text(
+                text = it,
+                style = MobiTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+        }
+        product.brand?.let {
+            LabelValue(
+                label = "Brand",
+                value = it.name
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        }
+        LabelValue(
+            label = "Model",
+            value = product.model
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        LabelValue(
+            label = "SKU",
+            value = product.sku
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        IconLabelValue(
+            label = "Stock",
+            value = "${product.stock}",
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.in_stock_ic),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        product.price?.let { price ->
+            IconLabelValue(
+                label = "Cost Price",
+                value = "$${price.costPrice}",
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.pricing_cost_in_arrow_24),
+                        contentDescription = null,
+                        tint = RED_600,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+            IconLabelValue(
+                label = "Selling Price",
+                value = "$${price.sellingPrice}",
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.pricing_selling_out_arrow_24),
+                        contentDescription = null,
+                        tint = KIWI_600,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProductDetailsBottomSheetContentAdminStatic() {
     MobiTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            ProductDetailsBottomSheetContent()
+            ProductDetailsBottomSheetContent(
+                product = ProductUiData(
+                    id = 0,
+                    name = "Product name",
+                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
+                    model = "Product model",
+                    code = "Product code",
+                    sku = "ABCD-00000001",
+                    imageUrl = "Product image url",
+                    price = ProductPriceUiData(
+                        sellingPrice = 100.0,
+                        costPrice = 50.0,
+                        currency = "USD"
+                    ),
+                    stock = 10,
+                    rating = 4.5,
+                    reviews = 100,
+                    isFavorite = false,
+                    brand = ProductBrandUiData(
+                        id = 0,
+                        name = "Brand name",
+                        logoUrl = "Brand logo url"
+                    )
+                ),
+                isAdmin = true,
+                isInEditMode = false,
+                handleEvent = {}
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProductDetailsBottomSheetContentAdminEdit() {
+    MobiTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            ProductDetailsBottomSheetContent(
+                product = ProductUiData(
+                    id = 0,
+                    name = "Product name",
+                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
+                    model = "Product model",
+                    code = "Product code",
+                    sku = "ABCD-00000001",
+                    imageUrl = "Product image url",
+                    price = ProductPriceUiData(
+                        sellingPrice = 100.0,
+                        costPrice = 50.0,
+                        currency = "USD"
+                    ),
+                    stock = 10,
+                    rating = 4.5,
+                    reviews = 100,
+                    isFavorite = false,
+                    brand = ProductBrandUiData(
+                        id = 0,
+                        name = "Brand name",
+                        logoUrl = "Brand logo url"
+                    )
+                ),
+                isAdmin = true,
+                isInEditMode = true,
+                handleEvent = {}
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewProductDetailsBottomSheetContentNoAdmin() {
+    MobiTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            ProductDetailsBottomSheetContent(
+                product = ProductUiData(
+                    id = 0,
+                    name = "Product name",
+                    description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
+                    model = "Product model",
+                    code = "Product code",
+                    sku = "ABCD-00000001",
+                    imageUrl = "Product image url",
+                    price = ProductPriceUiData(
+                        sellingPrice = 100.0,
+                        costPrice = 50.0,
+                        currency = "USD"
+                    ),
+                    stock = 10,
+                    rating = 4.5,
+                    reviews = 100,
+                    isFavorite = false,
+                    brand = ProductBrandUiData(
+                        id = 0,
+                        name = "Brand name",
+                        logoUrl = "Brand logo url"
+                    )
+                ),
+                isAdmin = false,
+                isInEditMode = false,
+                handleEvent = {}
+            )
         }
     }
 }

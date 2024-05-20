@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_label_value_label_placeholder">%1$s:</string>
+</resources>
