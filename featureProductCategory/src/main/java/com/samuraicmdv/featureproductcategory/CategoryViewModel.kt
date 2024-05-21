@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.samuraicmdv.domain.usecase.GetCategoryUseCase
 import com.samuraicmdv.featureproductcategory.state.CategoryScreenState
+import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.featureproductcategory.transformer.CategoryUiDataTransformer
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -13,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -42,6 +44,12 @@ class CategoryViewModel @AssistedInject constructor(
                 _uiState.value = this.copy(isLoading = false)
             }
 
+        }
+    }
+
+    fun updateProductDetailsBottomSheetState(show: Boolean, selectedProduct: ProductUiData?) {
+        _uiState.update { currentState ->
+            currentState.copy(showProductDetailsBottomSheet = show, selectedProduct = selectedProduct)
         }
     }
 

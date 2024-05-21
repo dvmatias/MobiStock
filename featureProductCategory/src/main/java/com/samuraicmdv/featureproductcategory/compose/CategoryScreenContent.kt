@@ -22,12 +22,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
+import com.samuraicmdv.featureproductcategory.event.CategoryEvent
+import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent
+import com.samuraicmdv.featureproductcategory.event.ProductsSort
 import com.samuraicmdv.featureproductcategory.event.ProductsSortName
 import com.samuraicmdv.featureproductcategory.event.ProductsSortType
-import com.samuraicmdv.featureproductcategory.event.ProductsSort
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
+import com.samuraicmdv.featureproductcategory.state.ProductStockUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
@@ -37,6 +40,7 @@ fun CategoryScreenContent(
     category: CategoryUiData?,
     brands: List<ProductBrandUiData>?,
     products: List<ProductUiData>?,
+    handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     category?.run {
@@ -50,12 +54,12 @@ fun CategoryScreenContent(
         }
         var selectedBrandId by rememberSaveable { mutableStateOf(-1) } // -1 means all brands are selected
         val filteredProducts = products?.filter { product ->
-            selectedBrandId == -1 || product.brand.id == selectedBrandId
+            selectedBrandId == -1 || product.brand?.id == selectedBrandId
         }?.sortedBy { product ->
             when (selectedOrder.name) {
-                ProductsSortName.BY_NAME_ALPHABETICALLY -> product.name.lowercase()
-                ProductsSortName.BY_COST_PRICE_AMOUNT -> product.price.costPrice.toString()
-                ProductsSortName.BY_SELLING_PRICE_AMOUNT -> product.price.sellingPrice.toString()
+                ProductsSortName.BY_NAME_ALPHABETICALLY -> product.name?.lowercase()
+                ProductsSortName.BY_COST_PRICE_AMOUNT -> product.price?.costPrice.toString()
+                ProductsSortName.BY_SELLING_PRICE_AMOUNT -> product.price?.sellingPrice.toString()
             }
         }.let { products ->
             if (selectedOrder.type == ProductsSortType.DESCENDING) {
@@ -90,6 +94,7 @@ fun CategoryScreenContent(
                             .background(MobiTheme.colors.surface)
                             .fillMaxWidth()
                     ) {
+                        // TODO Extract this out
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                         Text(
                             text = stringResource(id = R.string.title_products),
@@ -106,7 +111,11 @@ fun CategoryScreenContent(
                             )
                             FilterProductsByBrandPill(
                                 brands = brands,
-                                { event -> selectedBrandId = event.brandId }
+                                { event ->
+                                    (event as? CategoryPresentationEvent.FilterProductsByBrand)?.let {
+                                        selectedBrandId = it.brandId
+                                    }
+                                }
                             )
                         }
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
@@ -114,7 +123,10 @@ fun CategoryScreenContent(
                 }
 
                 items(products, { it.id }) { product ->
-                    ProductItem(product = product)
+                    ProductItem(
+                        product = product,
+                        handleEvent = handleEvent
+                    )
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                 }
             }
@@ -141,7 +153,8 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                     ProductUiData(
                         id = index,
                         name = "Product $index",
-                        description = "Product Description",
+                        shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
                         imageUrl = "https://www.example.com/image.jpg",
                         price = ProductPriceUiData(
                             sellingPrice = 100.0,
@@ -151,14 +164,19 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                         rating = 4.5,
                         reviews = 100,
                         isFavorite = true,
-                        stock = 100,
+                        stock = ProductStockUiData(
+                            quantity = 100,
+                            low = 10,
+                            min = 5
+                        ),
                         brand = ProductBrandUiData(
                             id = index + 2,
                             name = "Brand",
                             logoUrl = "https://www.example.com/image.jpg"
                         ),
                         model = "Model",
-                        code = "Code"
+                        code = "Code",
+                        sku = "ABCD-00000001",
                     )
                 },
                 brands = List(5) { index ->
@@ -168,6 +186,7 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                         logoUrl = "https://www.example.com/image.jpg"
                     )
                 },
+                handleEvent = {},
                 modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
             )
         }

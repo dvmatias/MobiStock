@@ -6,10 +6,12 @@ import com.samuraicmdv.domain.model.CategoryResponseModel
 import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.common.R
 import com.samuraicmdv.domain.model.ProductBrandModel
+import com.samuraicmdv.domain.model.ProductStockModel
 import com.samuraicmdv.featureproductcategory.state.CategoryScreenState
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
+import com.samuraicmdv.featureproductcategory.state.ProductStockUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
 
 object CategoryUiDataTransformer {
@@ -40,16 +42,22 @@ object CategoryUiDataTransformer {
             ProductUiData(
                 id = it.id ?: -1,
                 name = it.name ?: "",
-                description = it.description ?: "",
+                shortDescription = it.shortDescription ?: "",
+                longDescription = it.longDescription ?: "",
                 model = it.model ?: "",
                 code = it.code ?: "",
+                sku = it.sku ?: "",
                 imageUrl = "",
                 price = ProductPriceUiData(
                     sellingPrice = it.sellingPrice?.toDouble() ?: 0.0,
                     costPrice = it.costPrice?.toDouble() ?: 0.0,
                     currency = it.currencyId ?: ""
                 ),
-                stock = it.stock ?: 0,
+                stock = ProductStockUiData(
+                    quantity = it.stock?.quantity,
+                    low = it.stock?.low,
+                    min = it.stock?.min
+                ),
                 rating = 0.0,
                 reviews = 0,
                 isFavorite = false,

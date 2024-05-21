@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductcategory.R
+import com.samuraicmdv.featureproductcategory.event.CategoryEvent
 import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -32,7 +33,7 @@ import com.samuraicmdv.ui.util.ThemePreviews
 @Composable
 fun FilterProductsByBrandPill(
     brands: List<ProductBrandUiData>?,
-    handelEvent: (CategoryPresentationEvent.FilterProductsByBrand) -> Unit,
+    handelEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     brands?.let {

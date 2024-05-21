@@ -1,8 +1,16 @@
 package com.samuraicmdv.featureproductcategory.event
 
-sealed class CategoryPresentationEvent {
+import com.samuraicmdv.featureproductcategory.state.ProductUiData
+
+sealed class CategoryPresentationEvent : CategoryEvent {
     data class FilterProductsByBrand(val brandId: Int) : CategoryPresentationEvent()
+
     data class SortProducts(val productsSort: ProductsSort) : CategoryPresentationEvent()
+
+    data class HandleProductDetailsBottomSheetState(val show: Boolean, val product: ProductUiData? = null) :
+        CategoryPresentationEvent()
+
+    class SetProductDetailsEditMode(val isInEditMode: Boolean) : CategoryPresentationEvent()
 }
 
 data class ProductsSort(
