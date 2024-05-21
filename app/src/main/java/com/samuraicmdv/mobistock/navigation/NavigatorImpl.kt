@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.samuraicmdv.common.extension.navigate
 import com.samuraicmdv.common.navigation.Navigator
 import com.samuraicmdv.featurehome.HomeActivity
-import com.samuraicmdv.featureproductcategory.CategoryActivity
+import com.samuraicmdv.featurecategory.CategoryActivity
 
 /**
  * Implementation - This class implements the contract declared on [Navigator]. It implements all
