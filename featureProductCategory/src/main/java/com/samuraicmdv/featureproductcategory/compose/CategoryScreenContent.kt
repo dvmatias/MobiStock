@@ -95,12 +95,12 @@ fun CategoryScreenContent(
                             .fillMaxWidth()
                     ) {
                         // TODO Extract this out
-                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
                         Text(
                             text = stringResource(id = R.string.title_products),
-                            style = MobiTheme.typography.titleLarge,
+                            style = MobiTheme.typography.titleMediumBold,
                         )
-                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                         Row {
                             SortProductsMenu(
                                 { event ->
