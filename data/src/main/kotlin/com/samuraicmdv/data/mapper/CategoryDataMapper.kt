@@ -10,6 +10,7 @@ import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
 import com.samuraicmdv.domain.model.ProductBrandModel
 import com.samuraicmdv.domain.model.ProductModel
+import com.samuraicmdv.domain.model.ProductStockModel
 
 object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponseModel?> {
     override fun entityToModel(entity: CategoryResponseEntity?): CategoryResponseModel? {
@@ -57,7 +58,11 @@ object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponse
                 code = it.code,
                 sku = it.sku,
                 categoryId = it.categoryId,
-                stock = it.stock,
+                stock = ProductStockModel(
+                    quantity = it.stock?.quantity,
+                    low = it.stock?.low,
+                    min = it.stock?.min
+                ),
                 sellingPrice = it.productPrice?.selling,
                 costPrice = it.productPrice?.cost,
                 currencyId = it.productPrice?.currencyId,

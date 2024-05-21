@@ -37,7 +37,7 @@ data class ProductEntity(
     @SerializedName("sku") val sku: String? = null,
     @SerializedName("brand") val brand: ProductBrandEntity? = null,
     @SerializedName("category_id") val categoryId: Int? = null,
-    @SerializedName("stock") val stock: Int? = null,
+    @SerializedName("stock") val stock: ProductStockEntity? = null,
     @SerializedName("price") val productPrice: ProductPriceEntity? = null,
 )
 
@@ -57,4 +57,10 @@ data class ProductPriceEntity(
     @SerializedName("selling") val selling: String? = null,
     @SerializedName("cost") val cost: String? = null,
     @SerializedName("f_currency_id") val currencyId: String? = null,
+)
+
+data class ProductStockEntity(
+    @SerializedName("quantity") val quantity: Int? = null,
+    @SerializedName("low") val low: Int? = null,
+    @SerializedName("min") val min: Int? = null,
 )

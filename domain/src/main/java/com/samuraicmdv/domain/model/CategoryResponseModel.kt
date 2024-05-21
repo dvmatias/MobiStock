@@ -11,6 +11,22 @@ data class CategoryResponseModel(
     val products: List<ProductModel>? = null,
 )
 
+data class ProductModel(
+    val id: Int? = null,
+    val name: String? = null,
+    val shortDescription: String? = null,
+    val longDescription: String? = null,
+    val model: String? = null,
+    val code: String? = null,
+    val sku: String? = null,
+    val categoryId: Int? = null,
+    val stock: ProductStockModel? = null,
+    val sellingPrice: String? = null,
+    val costPrice: String? = null,
+    val currencyId: String? = null,
+    val brand: ProductBrandModel? = null,
+)
+
 data class CategoryModel(
     val id: Int?,
     val type: ProductCategory? = null,
@@ -28,18 +44,8 @@ data class ProductBrandModel(
     val logoUrl: String? = null,
 )
 
-data class ProductModel(
-    val id: Int? = null,
-    val name: String? = null,
-    val shortDescription: String? = null,
-    val longDescription: String? = null,
-    val model: String? = null,
-    val code: String? = null,
-    val sku: String? = null,
-    val categoryId: Int? = null,
-    val stock: Int? = null,
-    val sellingPrice: String? = null,
-    val costPrice: String? = null,
-    val currencyId: String? = null,
-    val brand: ProductBrandModel? = null,
+data class ProductStockModel(
+    val quantity: Int? = null,
+    val low: Int? = null,
+    val min: Int? = null,
 )

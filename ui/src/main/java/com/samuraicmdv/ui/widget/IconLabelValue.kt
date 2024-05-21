@@ -18,7 +18,7 @@ import com.samuraicmdv.ui.util.ThemePreviews
 @Composable
 fun IconLabelValue(
     label: String?,
-    value: String?,
+    value: String? = null,
     icon: @Composable () -> Unit,
     modifier: Modifier = Modifier
 ) {

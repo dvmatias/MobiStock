@@ -32,6 +32,7 @@ import com.samuraicmdv.featureproductcategory.event.CategoryEvent
 import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
+import com.samuraicmdv.featureproductcategory.state.ProductStockUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
@@ -47,6 +48,7 @@ fun ProductItem(
         shape = RoundedCornerShape(MobiTheme.dimens.dimen_2),
         modifier = modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(MobiTheme.dimens.dimen_2))
             .clickable {
                 handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product))
             }
@@ -102,7 +104,7 @@ fun ProductItem(
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_5))
-                    Text(text = product.stock.toString(), style = MobiTheme.typography.bodyMedium)
+                    Text(text = product.stock?.quantity.toString(), style = MobiTheme.typography.bodyMedium)
                 }
 
                 Spacer(modifier = Modifier.weight(1F))
@@ -115,7 +117,7 @@ fun ProductItem(
                         product.price.costPrice?.let { costPrice ->
                             Text(
                                 text = stringResource(
-                                    id = R.string.product_item_earnings_placeholder,
+                                    id = R.string.product_item_markup_placeholder,
                                     sellingPrice / costPrice
                                 ),
                                 style = MobiTheme.typography.labelSmallBold,
@@ -152,7 +154,11 @@ fun PreviewProductItem() {
                     rating = 4.5,
                     reviews = 100,
                     isFavorite = true,
-                    stock = 100,
+                    stock = ProductStockUiData(
+                        quantity = 100,
+                        low = 10,
+                        min = 5
+                    ),
                     brand = ProductBrandUiData(
                         id = 1,
                         name = "Brand",

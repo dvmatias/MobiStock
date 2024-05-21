@@ -24,9 +24,11 @@ fun LabelValue(
         modifier = modifier
     ) {
         label?.let {
+            val labelString =
+                if (value != null) stringResource(id = R.string.ui_label_value_label_placeholder, it) else it
             Text(
-                text = stringResource(id = R.string.ui_label_value_label_placeholder, it),
-                style = MobiTheme.typography.titleMediumBold,
+                text = labelString,
+                style = MobiTheme.typography.bodyLargeBold,
                 modifier = Modifier.then(modifier)
             )
             Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_75))

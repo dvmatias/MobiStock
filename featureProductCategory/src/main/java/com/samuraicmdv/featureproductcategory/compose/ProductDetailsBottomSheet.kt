@@ -1,5 +1,6 @@
 package com.samuraicmdv.featureproductcategory.compose
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.BottomSheetDefaults
@@ -32,10 +34,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.KIWI_600
+import com.samuraicmdv.common.theme.MARIGOLD_500
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.common.theme.RED_600
 import com.samuraicmdv.featureproductcategory.R
@@ -44,6 +50,7 @@ import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent.Ha
 import com.samuraicmdv.featureproductcategory.event.CategoryPresentationEvent.SetProductDetailsEditMode
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
+import com.samuraicmdv.featureproductcategory.state.ProductStockUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.ui.widget.IconLabelValue
 import com.samuraicmdv.ui.widget.LabelValue
@@ -82,7 +89,9 @@ fun ProductDetailsBottomSheet(
                     handleEvent(HandleProductDetailsBottomSheetState(show = false))
                 },
                 dragHandle = { BottomSheetDefaults.DragHandle() },
-                modifier = modifier.padding(top = 48.dp)
+                modifier = modifier
+                    .padding(top = 48.dp)
+                    .nestedScroll(rememberNestedScrollInteropConnection())
             ) {
                 ProductDetailsBottomSheetContent(
                     product = selectedProduct,
@@ -91,13 +100,27 @@ fun ProductDetailsBottomSheet(
                     handleEvent = { event ->
                         if (event is SetProductDetailsEditMode)
                             isInEditMode = event.isInEditMode
-                    }
+                    },
                 )
+                /*val lazyListState = rememberLazyListState(initialFirstVisibleItemIndex = 0)
+                LazyColumn(
+                    userScrollEnabled = true,
+                    state = lazyListState,
+                    modifier = Modifier.nestedScroll(rememberNestedScrollInteropConnection()).fillMaxSize()
+                ) {
+                    val i = List(200) {
+                        it
+                    }
+                    items(i.size) {
+                        Text(text = it.toString())
+                    }
+                }*/
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ProductDetailsBottomSheetContent(
     product: ProductUiData,
@@ -106,75 +129,83 @@ fun ProductDetailsBottomSheetContent(
     handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(
+    val lazyListState = rememberLazyListState(initialFirstVisibleItemIndex = 0)
+
+    LazyColumn(
+        userScrollEnabled = true,
+        state = lazyListState,
         modifier = modifier
             .fillMaxSize()
+            .nestedScroll(rememberNestedScrollInteropConnection())
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.TopCenter)
-        ) {
-            item {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(MobiTheme.dimens.dimen_3)
-                ) {
-                    Text(
-                        text = "Product details",
-                        style = MobiTheme.typography.titleMediumBold,
+        stickyHeader {
+            Surface() {
+                Column {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
-                            .padding(horizontal = MobiTheme.dimens.dimen_2)
-                            .weight(1F)
-                    )
-                    if (isInEditMode) {
+                            .fillMaxWidth()
+                            .height(MobiTheme.dimens.dimen_3)
+                    ) {
                         Text(
-                            text = "Save",
-                            style = MobiTheme.typography.labelLargeBold,
-                            color = MobiTheme.colors.primary,
+                            text = "Product details",
+                            style = MobiTheme.typography.titleLargeBold,
                             modifier = Modifier
-                                .padding(end = MobiTheme.dimens.dimen_2)
-                                .clickable {
-                                    handleEvent(SetProductDetailsEditMode(false))
-                                }
+                                .padding(horizontal = MobiTheme.dimens.dimen_2)
+                                .weight(1F)
                         )
-                    } else {
-                        Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = null,
-                            tint = if (isAdmin) MobiTheme.colors.primary else MobiTheme.colors.textDisable,
-                            modifier = Modifier
-                                .padding(end = MobiTheme.dimens.dimen_2)
-                                .clickable {
-                                    if (isAdmin)
-                                        handleEvent(SetProductDetailsEditMode(true))
-                                }
-                        )
+                        if (isInEditMode) {
+                            Text(
+                                text = "Save",
+                                style = MobiTheme.typography.labelLargeBold,
+                                color = MobiTheme.colors.primary,
+                                modifier = Modifier
+                                    .padding(end = MobiTheme.dimens.dimen_2)
+                                    .clickable {
+                                        handleEvent(SetProductDetailsEditMode(false))
+                                    }
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = null,
+                                tint = if (isAdmin) MobiTheme.colors.primary else MobiTheme.colors.textDisable,
+                                modifier = Modifier
+                                    .padding(end = MobiTheme.dimens.dimen_2)
+                                    .clickable {
+                                        if (isAdmin)
+                                            handleEvent(SetProductDetailsEditMode(true))
+                                    }
+                            )
+                        }
                     }
-
-                }
-                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
-            }
-            item {
-                Box( // TODO Images carousel
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1.3F)
-                        .background(Color.Gray)
-                )
-                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
-            }
-            item {
-                if (isInEditMode) {
-
-                } else {
-                    ProductDataStatic(product)
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                 }
             }
         }
+        item {
+            Box( // TODO Images carousel
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1.3F)
+                    .background(Color.Gray)
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+        }
+        item {
+            if (isInEditMode) {
+                Box(modifier = Modifier
+                    .background(Color.Red)
+                    .fillParentMaxSize())
+            } else {
+                ProductDataStatic(product)
+            }
+        }
+        item {
+            Spacer(modifier = Modifier.height(200.dp))
+        }
     }
+
 }
 
 @Composable
@@ -183,70 +214,25 @@ fun ProductDataStatic(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = MobiTheme.dimens.dimen_2)
     ) {
         Text(
             text = "Title",
-            style = MobiTheme.typography.titleMediumBold
+            style = MobiTheme.typography.titleLarge
         )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
         product.name?.let {
             Text(
                 text = it,
-                style = MobiTheme.typography.titleLarge
-            )
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
-        }
-        Text(
-            text = "Short description",
-            style = MobiTheme.typography.titleMediumBold
-        )
-        product.shortDescription?.let {
-            Text(
-                text = it,
                 style = MobiTheme.typography.bodyMedium
             )
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
         }
         Text(
-            text = "Long description",
-            style = MobiTheme.typography.titleMediumBold
-        )
-        product.longDescription?.let {
-            Text(
-                text = it,
-                style = MobiTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
-        }
-        product.brand?.let {
-            LabelValue(
-                label = "Brand",
-                value = it.name
-            )
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
-        }
-        LabelValue(
-            label = "Model",
-            value = product.model
-        )
-        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
-        LabelValue(
-            label = "SKU",
-            value = product.sku
-        )
-        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
-        IconLabelValue(
-            label = "Stock",
-            value = "${product.stock}",
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.in_stock_ic),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+            text = "Prices",
+            style = MobiTheme.typography.titleLarge
         )
         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
         product.price?.let { price ->
@@ -275,7 +261,104 @@ fun ProductDataStatic(
                     )
                 }
             )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+            if (price.sellingPrice != null && price.costPrice != null) {
+                val markup = stringResource(
+                    id = R.string.product_item_markup_placeholder,
+                    ((price.sellingPrice - price.costPrice) / price.costPrice) * 100
+                )
+                LabelValue(label = "Markup", value = markup)
+            }
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
         }
+        Text(
+            text = "Short description",
+            style = MobiTheme.typography.titleLarge
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        product.shortDescription?.let {
+            Text(
+                text = it,
+                style = MobiTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
+        }
+        Text(
+            text = "Long description",
+            style = MobiTheme.typography.titleLarge
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        product.longDescription?.let {
+            Text(
+                text = it,
+                style = MobiTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+        }
+        product.brand?.let {
+            LabelValue(
+                label = "Brand",
+                value = it.name
+            )
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        }
+        LabelValue(
+            label = "Model",
+            value = product.model
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        LabelValue(
+            label = "SKU",
+            value = product.sku
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
+        Text(
+            text = "Stock",
+            style = MobiTheme.typography.titleLarge
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        IconLabelValue(
+            label = "Quantity",
+            value = product.stock?.quantity?.toString(),
+            icon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.in_stock_ic),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        IconLabelValue(
+            label = "Minimum",
+            value = product.stock?.min?.toString(),
+            icon = {
+                androidx.compose.foundation.Canvas(modifier = Modifier.size(MobiTheme.dimens.dimen_3)) {
+                    drawCircle(
+                        color = MARIGOLD_500,
+                        radius = 24f,
+                        center = center
+                    )
+                }
+            }
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        IconLabelValue(
+            label = "Low",
+            value = product.stock?.low?.toString(),
+            icon = {
+                androidx.compose.foundation.Canvas(modifier = Modifier.size(MobiTheme.dimens.dimen_3)) {
+                    drawCircle(
+                        color = RED_600,
+                        radius = 24f,
+                        center = center
+                    )
+                }
+            }
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
     }
 }
 
@@ -299,7 +382,11 @@ fun PreviewProductDetailsBottomSheetContentAdminStatic() {
                         costPrice = 50.0,
                         currency = "USD"
                     ),
-                    stock = 10,
+                    stock = ProductStockUiData(
+                        quantity = 100,
+                        low = 10,
+                        min = 5
+                    ),
                     rating = 4.5,
                     reviews = 100,
                     isFavorite = false,
@@ -337,7 +424,11 @@ fun PreviewProductDetailsBottomSheetContentAdminEdit() {
                         costPrice = 50.0,
                         currency = "USD"
                     ),
-                    stock = 10,
+                    stock = ProductStockUiData(
+                        quantity = 100,
+                        low = 10,
+                        min = 5
+                    ),
                     rating = 4.5,
                     reviews = 100,
                     isFavorite = false,
@@ -375,7 +466,11 @@ fun PreviewProductDetailsBottomSheetContentNoAdmin() {
                         costPrice = 50.0,
                         currency = "USD"
                     ),
-                    stock = 10,
+                    stock = ProductStockUiData(
+                        quantity = 100,
+                        low = 10,
+                        min = 5
+                    ),
                     rating = 4.5,
                     reviews = 100,
                     isFavorite = false,

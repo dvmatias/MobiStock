@@ -30,6 +30,7 @@ import com.samuraicmdv.featureproductcategory.event.ProductsSortType
 import com.samuraicmdv.featureproductcategory.state.CategoryUiData
 import com.samuraicmdv.featureproductcategory.state.ProductBrandUiData
 import com.samuraicmdv.featureproductcategory.state.ProductPriceUiData
+import com.samuraicmdv.featureproductcategory.state.ProductStockUiData
 import com.samuraicmdv.featureproductcategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
@@ -163,7 +164,11 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                         rating = 4.5,
                         reviews = 100,
                         isFavorite = true,
-                        stock = 100,
+                        stock = ProductStockUiData(
+                            quantity = 100,
+                            low = 10,
+                            min = 5
+                        ),
                         brand = ProductBrandUiData(
                             id = index + 2,
                             name = "Brand",
