@@ -72,5 +72,5 @@ dependencies {
     // Optional - Integration with activities
     implementation("androidx.activity:activity-compose:1.9.0")
     // Optional - Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
 }
