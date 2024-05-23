@@ -8,7 +8,8 @@ data class ProductUiData(
     val model: String? = null,
     val code: String? = null,
     val sku: String? = null,
-    val imageUrl: String? = null,
+    val thumbnailUrl: String? = null,
+    val imageUrls: List<String>? = null,
     val price: ProductPriceUiData? = null,
     val stock: ProductStockUiData? = null,
     val rating: Double? = null,
@@ -16,7 +17,6 @@ data class ProductUiData(
     val isFavorite: Boolean? = null,
     val brand: ProductBrandUiData? = null,
 )
-
 data class ProductPriceUiData(
     val sellingPrice: Double? = null,
     val costPrice: Double? = null,

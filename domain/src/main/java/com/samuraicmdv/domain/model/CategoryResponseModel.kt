@@ -19,6 +19,8 @@ data class ProductModel(
     val model: String? = null,
     val code: String? = null,
     val sku: String? = null,
+    val thumbnailUrl: String? = null,
+    val imageUrls: List<String>? = null,
     val categoryId: Int? = null,
     val stock: ProductStockModel? = null,
     val sellingPrice: String? = null,

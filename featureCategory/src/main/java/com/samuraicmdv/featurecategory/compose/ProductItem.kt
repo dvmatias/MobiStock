@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -42,25 +43,23 @@ fun ProductItem(
     handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Surface(
-        color = MobiTheme.colors.surfaceContainer,
+        shadowElevation = 1.dp,
         shape = RoundedCornerShape(MobiTheme.dimens.dimen_2),
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(MobiTheme.dimens.dimen_2))
-            .clickable {
-                handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product))
-            }
     ) {
         Row(
             modifier = Modifier
+                .clickable {
+                    handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product))
+                }
                 .fillMaxWidth()
                 .height(120.dp)
                 .padding(horizontal = MobiTheme.dimens.dimen_1, vertical = MobiTheme.dimens.dimen_1)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo_1),
+                painter = rememberAsyncImagePainter(model = product.thumbnailUrl),
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(1F)
@@ -145,7 +144,7 @@ fun PreviewProductItem() {
                     id = 1,
                     name = "Product Name",
                     shortDescription = "Product Description",
-                    imageUrl = "https://www.example.com/image.jpg",
+                    imageUrls = listOf(),
                     price = ProductPriceUiData(
                         sellingPrice = 100.0,
                         costPrice = 50.0,
@@ -169,6 +168,7 @@ fun PreviewProductItem() {
                     sku = "ABCD-00000001",
                 ),
                 handleEvent = {},
+                modifier = Modifier.padding(8.dp)
             )
         }
     }

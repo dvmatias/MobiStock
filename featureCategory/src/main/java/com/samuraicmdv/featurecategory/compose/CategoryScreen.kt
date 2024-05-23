@@ -83,9 +83,7 @@ fun CategoryScreen(
                 brands = brands,
                 products = products,
                 handleEvent = handleEvent,
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .padding(horizontal = MobiTheme.dimens.dimen_2)
+                modifier = Modifier.padding(paddingValues)
             )
             // Product Bottom Sheet
             ProductDetailsBottomSheet(
@@ -128,7 +126,7 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                             name = "Product $index",
                             shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
-                            imageUrl = "https://www.example.com/image.jpg",
+                            imageUrls = listOf(),
                             price = ProductPriceUiData(
                                 sellingPrice = 100.0,
                                 costPrice = 100.0,

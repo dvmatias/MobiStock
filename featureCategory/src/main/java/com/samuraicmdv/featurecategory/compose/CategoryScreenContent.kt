@@ -2,6 +2,7 @@ package com.samuraicmdv.featurecategory.compose
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -52,7 +54,7 @@ fun CategoryScreenContent(
                 )
             )
         }
-        var selectedBrandId by rememberSaveable { mutableStateOf(-1) } // -1 means all brands are selected
+        var selectedBrandId by rememberSaveable { mutableIntStateOf(-1) } // -1 means all brands are selected
         val filteredProducts = products?.filter { product ->
             selectedBrandId == -1 || product.brand?.id == selectedBrandId
         }?.sortedBy { product ->
@@ -76,56 +78,62 @@ fun CategoryScreenContent(
                     description = description,
                     imageUrl = imageUrl,
                     productsCount = productsCount,
-                    productsQuantity = productsQuantity
+                    productsQuantity = productsQuantity,
+                    modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                 )
             }
-            brands?.let {
+           /* brands?.let { TODO show??? or NOT
                 item {
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     CategoryScreenContentBrands(
                         brands = brands
                     )
                 }
-            }
+            }*/
             filteredProducts?.let { products ->
                 stickyHeader {
-                    Column(
-                        modifier = Modifier
-                            .background(MobiTheme.colors.surface)
-                            .fillMaxWidth()
-                    ) {
-                        // TODO Extract this out
-                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
-                        Text(
-                            text = stringResource(id = R.string.title_products),
-                            style = MobiTheme.typography.titleMediumBold,
-                        )
-                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
-                        Row {
-                            SortProductsMenu(
-                                { event ->
-                                    selectedOrder = event.productsSort
-                                },
-                                productsSort = selectedOrder,
-                                Modifier.weight(1F)
+                    Surface(color = MobiTheme.colors.background) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = MobiTheme.dimens.dimen_2)
+                        ) {
+                            // TODO Extract this out
+                            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+                            Text(
+                                text = stringResource(id = R.string.title_products),
+                                style = MobiTheme.typography.titleMediumBold,
                             )
-                            FilterProductsByBrandPill(
-                                brands = brands,
-                                { event ->
-                                    (event as? CategoryPresentationEvent.FilterProductsByBrand)?.let {
-                                        selectedBrandId = it.brandId
+                            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+                            Row {
+                                SortProductsMenu(
+                                    { event ->
+                                        selectedOrder = event.productsSort
+                                    },
+                                    productsSort = selectedOrder,
+                                    Modifier.weight(1F)
+                                )
+                                FilterProductsByBrandPill(
+                                    brands = brands,
+                                    { event ->
+                                        (event as? CategoryPresentationEvent.FilterProductsByBrand)?.let {
+                                            selectedBrandId = it.brandId
+                                        }
                                     }
-                                }
-                            )
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                         }
-                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     }
                 }
-
+                item {
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+                }
                 items(products, { it.id }) { product ->
                     ProductItem(
                         product = product,
-                        handleEvent = handleEvent
+                        handleEvent = handleEvent,
+                        modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                     )
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                 }
@@ -136,7 +144,7 @@ fun CategoryScreenContent(
 
 @ThemePreviews
 @Composable
-fun PreviewCategoryContent(modifier: Modifier = Modifier) {
+fun PreviewCategoryContent() {
     MobiTheme {
         Surface {
             CategoryScreenContent(
@@ -155,7 +163,7 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                         name = "Product $index",
                         shortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                         longDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at tempus nulla, eget vestibulum tortor. Etiam quis nisl justo.",
-                        imageUrl = "https://www.example.com/image.jpg",
+                        imageUrls = listOf(),
                         price = ProductPriceUiData(
                             sellingPrice = 100.0,
                             costPrice = 100.0,
@@ -186,8 +194,7 @@ fun PreviewCategoryContent(modifier: Modifier = Modifier) {
                         logoUrl = "https://www.example.com/image.jpg"
                     )
                 },
-                handleEvent = {},
-                modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                handleEvent = {}
             )
         }
     }

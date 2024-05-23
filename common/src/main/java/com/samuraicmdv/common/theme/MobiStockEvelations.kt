@@ -7,11 +7,15 @@ import androidx.compose.ui.unit.dp
 
 @Stable
 class MobiElevations(
-    val card: Dp,
+    val unit: Dp,
+    val two: Dp,
+    val three: Dp,
 )
 
 private val mobiElevations = MobiElevations(
-    card = 1.dp,
+    unit = 1.dp,
+    two = 2.dp,
+    three = 3.dp,
 )
 
 val LocalMobiElevations = staticCompositionLocalOf {
