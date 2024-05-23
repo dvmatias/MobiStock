@@ -1,8 +1,6 @@
 package com.samuraicmdv.featurecategory.compose
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -57,17 +55,16 @@ fun CategoryScreenContent(
         var selectedBrandId by rememberSaveable { mutableIntStateOf(-1) } // -1 means all brands are selected
         val filteredProducts = products?.filter { product ->
             selectedBrandId == -1 || product.brand?.id == selectedBrandId
-        }?.sortedBy { product ->
+        }?.run {
             when (selectedOrder.name) {
-                ProductsSortName.BY_NAME_ALPHABETICALLY -> product.name?.lowercase()
-                ProductsSortName.BY_COST_PRICE_AMOUNT -> product.price?.costPrice.toString()
-                ProductsSortName.BY_SELLING_PRICE_AMOUNT -> product.price?.sellingPrice.toString()
-            }
-        }.let { products ->
-            if (selectedOrder.type == ProductsSortType.DESCENDING) {
-                products?.reversed()
-            } else {
-                products
+                ProductsSortName.BY_NAME_ALPHABETICALLY -> this.sortedBy { it.name?.lowercase() }
+                ProductsSortName.BY_SELLING_PRICE_AMOUNT -> this.sortedBy { it.price?.sellingPrice?.toInt() }
+            }.let { products ->
+                if (selectedOrder.type == ProductsSortType.DESCENDING) {
+                    products.reversed()
+                } else {
+                    products
+                }
             }
         }
 
@@ -82,14 +79,14 @@ fun CategoryScreenContent(
                     modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                 )
             }
-           /* brands?.let { TODO show??? or NOT
-                item {
-                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
-                    CategoryScreenContentBrands(
-                        brands = brands
-                    )
-                }
-            }*/
+            /* brands?.let { TODO show??? or NOT
+                 item {
+                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+                     CategoryScreenContentBrands(
+                         brands = brands
+                     )
+                 }
+             }*/
             filteredProducts?.let { products ->
                 stickyHeader {
                     Surface(color = MobiTheme.colors.background) {

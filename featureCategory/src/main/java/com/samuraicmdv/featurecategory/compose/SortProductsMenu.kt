@@ -1,5 +1,6 @@
 package com.samuraicmdv.featurecategory.compose
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent
@@ -42,13 +44,17 @@ fun SortProductsMenu(
         val selectedModifier = Modifier
             .clip(RoundedCornerShape(100))
             .background(MobiTheme.colors.primary)
+            .animateContentSize()
         val unselectedModifier = Modifier
-            .border(MobiTheme.dimens.unit, MobiTheme.colors.primary, RoundedCornerShape(50))
+            .border(MobiTheme.dimens.unit, MobiTheme.colors.outline, RoundedCornerShape(50))
             .clip(RoundedCornerShape(50))
+            .height(24.dp)
+            .padding(end = MobiTheme.dimens.dimen_1)
+            .animateContentSize()
         val keyboardArrowDown = Icons.Default.KeyboardArrowDown
         val keyboardArrowUp = Icons.Default.KeyboardArrowUp
         val selectedColor = MobiTheme.colors.onPrimary
-        val unselectedColor = MobiTheme.colors.primary
+        val unselectedColor = MobiTheme.colors.outline
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -57,11 +63,16 @@ fun SortProductsMenu(
                     if (sortName == ProductsSortName.BY_NAME_ALPHABETICALLY) selectedModifier else unselectedModifier
                 )
                 .clickable {
+                    val orderType = if (productsSort.name == ProductsSortName.BY_NAME_ALPHABETICALLY) {
+                        if (srtType == ASCENDING) DESCENDING else ASCENDING
+                    } else {
+                        ASCENDING
+                    }
                     handelEvent(
                         CategoryPresentationEvent.SortProducts(
                             ProductsSort(
                                 name = ProductsSortName.BY_NAME_ALPHABETICALLY,
-                                type = if (srtType == ASCENDING) DESCENDING else ASCENDING
+                                type = orderType
                             )
                         )
                     )
@@ -74,11 +85,12 @@ fun SortProductsMenu(
                 style = MobiTheme.typography.labelMediumBlack,
                 modifier = Modifier
             )
-            Icon(
-                imageVector = if (srtType == ASCENDING && sortName == ProductsSortName.BY_NAME_ALPHABETICALLY) keyboardArrowDown else keyboardArrowUp,
-                contentDescription = null,
-                tint = if (sortName == ProductsSortName.BY_NAME_ALPHABETICALLY) selectedColor else unselectedColor,
-            )
+            if (sortName == ProductsSortName.BY_NAME_ALPHABETICALLY)
+                Icon(
+                    imageVector = if (srtType == DESCENDING) keyboardArrowUp else keyboardArrowDown,
+                    contentDescription = null,
+                    tint = selectedColor,
+                )
         }
         Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
         Row(
@@ -88,11 +100,16 @@ fun SortProductsMenu(
                     if (sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT) selectedModifier else unselectedModifier
                 )
                 .clickable {
+                    val orderType = if (productsSort.name == ProductsSortName.BY_SELLING_PRICE_AMOUNT) {
+                        if (srtType == ASCENDING) DESCENDING else ASCENDING
+                    } else {
+                        ASCENDING
+                    }
                     handelEvent(
                         CategoryPresentationEvent.SortProducts(
                             ProductsSort(
                                 name = ProductsSortName.BY_SELLING_PRICE_AMOUNT,
-                                type = if (srtType == ASCENDING) DESCENDING else ASCENDING
+                                type = orderType
                             )
                         )
                     )
@@ -104,11 +121,12 @@ fun SortProductsMenu(
                 color = if (sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT) selectedColor else unselectedColor,
                 style = MobiTheme.typography.labelMediumBlack,
             )
-            Icon(
-                imageVector = if (srtType == ASCENDING && sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT) keyboardArrowDown else keyboardArrowUp,
-                contentDescription = null,
-                tint = if (sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT) selectedColor else unselectedColor,
-            )
+            if (sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT)
+                Icon(
+                    imageVector = if (srtType == DESCENDING) keyboardArrowUp else keyboardArrowDown,
+                    contentDescription = null,
+                    tint = selectedColor,
+                )
         }
     }
 }

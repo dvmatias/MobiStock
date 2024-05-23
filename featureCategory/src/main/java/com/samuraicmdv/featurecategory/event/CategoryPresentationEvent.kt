@@ -9,8 +9,6 @@ sealed class CategoryPresentationEvent : CategoryEvent {
 
     data class HandleProductDetailsBottomSheetState(val show: Boolean, val product: ProductUiData? = null) :
         CategoryPresentationEvent()
-
-    class SetProductDetailsEditMode(val isInEditMode: Boolean) : CategoryPresentationEvent()
 }
 
 data class ProductsSort(
@@ -20,7 +18,6 @@ data class ProductsSort(
 
 enum class ProductsSortName {
     BY_NAME_ALPHABETICALLY,
-    BY_COST_PRICE_AMOUNT,
     BY_SELLING_PRICE_AMOUNT,
 }
 
