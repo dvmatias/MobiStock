@@ -40,7 +40,7 @@ import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.samuraicmdv.common.theme.KIWI_600
+import com.samuraicmdv.common.extension.toDisplayPrice
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -159,13 +159,14 @@ fun ProductDetailsBottomSheetContent(
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                         product.price?.sellingPrice?.let { price ->
                             Text(
-                                text = "$ $price",
-                                color = KIWI_600,
+                                text = price.toDisplayPrice(),
+                                color = MobiTheme.colors.textPositive,
                                 style = MobiTheme.typography.titleMediumBold,
                                 modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                             )
                         }
 
+                        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                         LazyRow(
                             contentPadding = PaddingValues(
                                 horizontal = MobiTheme.dimens.dimen_2,

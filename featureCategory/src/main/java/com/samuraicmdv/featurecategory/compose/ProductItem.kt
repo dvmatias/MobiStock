@@ -20,13 +20,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.samuraicmdv.common.extension.toDisplayPrice
+import com.samuraicmdv.common.theme.KIWI_600
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -107,28 +110,13 @@ fun ProductItem(
                 }
 
                 Spacer(modifier = Modifier.weight(1F))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_1),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    product.price?.sellingPrice?.let { sellingPrice ->
-                        product.price.costPrice?.let { costPrice ->
-                            Text(
-                                text = stringResource(
-                                    id = R.string.product_item_markup_placeholder,
-                                    sellingPrice / costPrice
-                                ),
-                                style = MobiTheme.typography.labelSmallBold,
-                            )
-                        }
-                    }
-
-                    product.price?.let { price ->
-                        Text(text = "$${price.costPrice}", style = MobiTheme.typography.bodyMedium)
-                        Text(text = "$${price.sellingPrice}", style = MobiTheme.typography.bodyMediumBold)
-                    }
-                }
+                Text(
+                    text = product.price?.sellingPrice.toDisplayPrice(),
+                    style = MobiTheme.typography.bodyMediumBold,
+                    color = MobiTheme.colors.textPositive,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }

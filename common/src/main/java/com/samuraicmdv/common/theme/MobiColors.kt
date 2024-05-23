@@ -46,6 +46,7 @@ class MobiColors(
     surfaceContainer: Color,
     surfaceContainerHigh: Color,
     surfaceContainerHighest: Color,
+    textPositive: Color,
     textPrimary: Color,
     textSecondary: Color,
     textDisable: Color,
@@ -124,6 +125,8 @@ class MobiColors(
         private set
     var surfaceContainerHighest by mutableStateOf(surfaceContainerHighest)
         private set
+    var textPositive by mutableStateOf(textPositive)
+        private set
     var textPrimary by mutableStateOf(textPrimary)
         private set
     var textSecondary by mutableStateOf(textSecondary)
@@ -175,10 +178,11 @@ class MobiColors(
         surfaceContainer = surfaceContainer,
         surfaceContainerHigh = surfaceContainerHigh,
         surfaceContainerHighest = surfaceContainerHighest,
-        textPrimary = onBackground,
-        textSecondary = onSurfaceVariant,
-        textDisable = outline,
-        textAccent = primary,
+        textPositive = textPositive,
+        textPrimary = textPrimary,
+        textSecondary = textSecondary,
+        textDisable = textDisable,
+        textAccent = textAccent,
         textLink = textLink,
         disabledContainerColor = disabledContainerColor,
         onDisabledContainerColor = onDisabledContainerColor
@@ -221,10 +225,11 @@ class MobiColors(
             surfaceContainer = surfaceContainer,
             surfaceContainerHigh = surfaceContainerHigh,
             surfaceContainerHighest = surfaceContainerHighest,
-            textPrimary = onBackground,
-            textSecondary = onSurfaceVariant,
-            textDisable = outline,
-            textAccent = primary,
+            textPositive = textPositive,
+            textPrimary = textPrimary,
+            textSecondary = textSecondary,
+            textDisable = textDisable,
+            textAccent = textAccent,
             textLink = textLink,
             disabledContainerColor = disabledContainerColor,
             onDisabledContainerColor = onDisabledContainerColor
@@ -268,6 +273,7 @@ val lightMobiColors = MobiColors(
     surfaceContainer = surfaceContainerLight,
     surfaceContainerHigh = surfaceContainerHighLight,
     surfaceContainerHighest = surfaceContainerHighestLight,
+    textPositive = KIWI_600,
     textPrimary = onBackgroundLight,
     textSecondary = onSurfaceVariantLight,
     textDisable = outlineLight,
@@ -313,6 +319,7 @@ val darkMobiColors = MobiColors(
     surfaceContainer = surfaceContainerDark,
     surfaceContainerHigh = surfaceContainerHighDark,
     surfaceContainerHighest = surfaceContainerHighestDark,
+    textPositive = KIWI_400,
     textPrimary = onBackgroundDark,
     textSecondary = onSurfaceVariantDark,
     textDisable = outlineDark,
