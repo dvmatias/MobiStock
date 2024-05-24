@@ -1,5 +1,6 @@
 package com.samuraicmdv.featurecategory.compose
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -36,8 +37,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.extension.toDisplayPrice
@@ -108,6 +111,7 @@ fun ProductDetailsBottomSheetContent(
     modifier: Modifier = Modifier
 ) {
     val lazyListState = rememberLazyListState(initialFirstVisibleItemIndex = 0)
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -207,7 +211,7 @@ fun ProductDetailsBottomSheetContent(
 
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     Text(
-                        text = "Description",
+                        text = stringResource(id = R.string.title_product_description),
                         style = MobiTheme.typography.titleSmallBold
                     )
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
@@ -219,25 +223,25 @@ fun ProductDetailsBottomSheetContent(
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     }
                     LabelValue(
-                        label = "Model",
+                        label = stringResource(id = R.string.title_product_model),
                         value = product.model
                     )
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     product.code?.let { productCode ->
                         LabelValue(
-                            label = "Code",
+                            label = stringResource(id = R.string.title_product_code),
                             value = productCode
                         )
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     }
                     LabelValue(
-                        label = "SKU",
+                        label = stringResource(id = R.string.title_product_sku),
                         value = product.sku
                     )
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
 
                     IconLabelValue(
-                        label = "Quantity",
+                        label = stringResource(id = R.string.title_product_quantity),
                         value = product.stock?.quantity?.toString(),
                         icon = {
                             Icon(
@@ -259,6 +263,7 @@ fun ProductDetailsBottomSheetContent(
         Button(
             onClick = {
                 /*handleEvent(LoginBusinessEvent.Login(user, password))*/
+                Toast.makeText(context, "Not implemented yet!", Toast.LENGTH_SHORT).show()
             },
             enabled = isAdmin,
             shape = RoundedCornerShape(MobiTheme.dimens.dimen_1_5),
@@ -273,7 +278,7 @@ fun ProductDetailsBottomSheetContent(
                 .height(48.dp)
         ) {
             Text(
-                text = "product details".uppercase(),
+                text = stringResource(id = R.string.label_product_details_button).uppercase(),
                 style = MobiTheme.typography.buttonLabel
             )
         }
