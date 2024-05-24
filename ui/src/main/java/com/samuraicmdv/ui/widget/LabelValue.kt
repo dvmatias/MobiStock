@@ -8,7 +8,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.ui.R
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -17,7 +19,9 @@ import com.samuraicmdv.ui.util.ThemePreviews
 fun LabelValue(
     label: String?,
     value: String?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    valueStyle: TextStyle = MobiTheme.typography.bodyMedium,
+    valueColor: Color = MobiTheme.colors.textPrimary
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -28,7 +32,7 @@ fun LabelValue(
                 if (value != null) stringResource(id = R.string.ui_label_value_label_placeholder, it) else it
             Text(
                 text = labelString,
-                style = MobiTheme.typography.bodyLargeBold,
+                style = MobiTheme.typography.titleSmallBold,
                 modifier = Modifier.then(modifier)
             )
             Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_75))
@@ -36,8 +40,9 @@ fun LabelValue(
         value?.let {
             Text(
                 text = it,
-                style = MobiTheme.typography.bodyMedium,
-                modifier = Modifier.then(modifier)
+                style = valueStyle,
+                modifier = Modifier.then(modifier),
+                color = valueColor
             )
         }
     }

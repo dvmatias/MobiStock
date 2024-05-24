@@ -1,5 +1,6 @@
 package com.samuraicmdv.featurecategory.compose
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -52,6 +53,8 @@ fun FilterProductsByBrandPill(
                     .background(MobiTheme.colors.primary)
                     .padding(start = MobiTheme.dimens.dimen_2, end = MobiTheme.dimens.dimen_1)
                     .clickable { expanded = true }
+                    .animateContentSize()
+
             ) {
                 Text(
                     text = selectedOption.uppercase(),

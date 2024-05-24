@@ -23,9 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
+import com.samuraicmdv.common.extension.toDisplayPrice
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -42,25 +44,22 @@ fun ProductItem(
     handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Surface(
-        color = MobiTheme.colors.surfaceContainer,
+        shadowElevation = 1.dp,
         shape = RoundedCornerShape(MobiTheme.dimens.dimen_2),
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(MobiTheme.dimens.dimen_2))
-            .clickable {
-                handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product))
-            }
+        modifier = modifier.fillMaxWidth()
     ) {
         Row(
             modifier = Modifier
+                .clickable {
+                    handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product))
+                }
                 .fillMaxWidth()
                 .height(120.dp)
                 .padding(horizontal = MobiTheme.dimens.dimen_1, vertical = MobiTheme.dimens.dimen_1)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.logo_1),
+                painter = rememberAsyncImagePainter(model = product.thumbnailUrl),
                 contentDescription = null,
                 modifier = Modifier
                     .aspectRatio(1F)
@@ -108,28 +107,13 @@ fun ProductItem(
                 }
 
                 Spacer(modifier = Modifier.weight(1F))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_1),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    product.price?.sellingPrice?.let { sellingPrice ->
-                        product.price.costPrice?.let { costPrice ->
-                            Text(
-                                text = stringResource(
-                                    id = R.string.product_item_markup_placeholder,
-                                    sellingPrice / costPrice
-                                ),
-                                style = MobiTheme.typography.labelSmallBold,
-                            )
-                        }
-                    }
-
-                    product.price?.let { price ->
-                        Text(text = "$${price.costPrice}", style = MobiTheme.typography.bodyMedium)
-                        Text(text = "$${price.sellingPrice}", style = MobiTheme.typography.bodyMediumBold)
-                    }
-                }
+                Text(
+                    text = product.price?.sellingPrice.toDisplayPrice(),
+                    style = MobiTheme.typography.bodyMediumBold,
+                    color = MobiTheme.colors.textPositive,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }
@@ -145,7 +129,7 @@ fun PreviewProductItem() {
                     id = 1,
                     name = "Product Name",
                     shortDescription = "Product Description",
-                    imageUrl = "https://www.example.com/image.jpg",
+                    imageUrls = listOf(),
                     price = ProductPriceUiData(
                         sellingPrice = 100.0,
                         costPrice = 50.0,
@@ -169,6 +153,7 @@ fun PreviewProductItem() {
                     sku = "ABCD-00000001",
                 ),
                 handleEvent = {},
+                modifier = Modifier.padding(8.dp)
             )
         }
     }

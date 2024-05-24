@@ -42,7 +42,7 @@ fun ProductCategoryItem(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        shadowElevation = MobiTheme.elevations.card,
+        shadowElevation = MobiTheme.elevations.unit,
         shape = RoundedCornerShape(MobiTheme.dimens.dimen_2),
         modifier = modifier
     ) {

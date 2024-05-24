@@ -47,9 +47,10 @@ data class MobiTypography(
 private data class MobiTypographyFontSizes(
     val smallest: TextUnit = 10.sp,
     val small: TextUnit = 11.sp,
-    val regular: TextUnit = 12.sp,
-    val medium1: TextUnit = 14.sp,
-    val medium2: TextUnit = 16.sp,
+    val regular1: TextUnit = 12.sp,
+    val regular2: TextUnit = 14.sp,
+    val medium1: TextUnit = 16.sp,
+    val medium2: TextUnit = 18.sp,
     val large1: TextUnit = 22.sp,
     val large2: TextUnit = 24.sp,
     val large3: TextUnit = 28.sp,
@@ -63,9 +64,10 @@ private data class MobiTypographyFontSizes(
 private data class MobiTypographyLineHeight(
     val smallest: TextUnit = 12.sp,
     val small: TextUnit = 14.sp,
-    val regular: TextUnit = 16.sp,
+    val regular1: TextUnit = 16.sp,
+    val regular2: TextUnit = 18.sp,
     val medium1: TextUnit = 20.sp,
-    val medium2: TextUnit = 24.sp,
+    val medium2: TextUnit = 26.sp,
     val large1: TextUnit = 30.sp,
     val large2: TextUnit = 32.sp,
     val large3: TextUnit = 36.sp,
@@ -135,16 +137,16 @@ fun mobiTypography(): MobiTypography {
             lineHeight = lineHeights.small
         ),
         labelMedium = regularBody.copy(
-            fontSize = fontSizes.regular,
-            lineHeight = lineHeights.regular
+            fontSize = fontSizes.regular1,
+            lineHeight = lineHeights.regular1
         ),
         labelMediumBold = boldBody.copy(
-            fontSize = fontSizes.regular,
-            lineHeight = lineHeights.regular
+            fontSize = fontSizes.regular1,
+            lineHeight = lineHeights.regular1
         ),
         labelMediumBlack = blackBody.copy(
-            fontSize = fontSizes.regular,
-            lineHeight = lineHeights.regular
+            fontSize = fontSizes.regular1,
+            lineHeight = lineHeights.regular1
         ),
         labelLarge = regularBody.copy(
             fontSize = fontSizes.medium1,
@@ -155,28 +157,28 @@ fun mobiTypography(): MobiTypography {
             lineHeight = lineHeights.medium1
         ),
         bodySmall = regularBody.copy(
-            fontSize = fontSizes.regular,
-            lineHeight = lineHeights.regular
+            fontSize = fontSizes.regular1,
+            lineHeight = lineHeights.regular1
         ),
         bodySmallBold = boldBody.copy(
-            fontSize = fontSizes.regular,
-            lineHeight = lineHeights.regular
+            fontSize = fontSizes.regular1,
+            lineHeight = lineHeights.regular1
         ),
         bodyMedium = regularBody.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.regular2,
+            lineHeight = lineHeights.regular2
         ),
         bodyMediumBold = boldBody.copy(
+            fontSize = fontSizes.regular2,
+            lineHeight = lineHeights.regular2
+        ),
+        bodyLarge = regularBody.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        bodyLarge = regularBody.copy(
-            fontSize = fontSizes.medium2,
-            lineHeight = lineHeights.medium2
-        ),
         bodyLargeBold = boldBody.copy(
-            fontSize = fontSizes.medium2,
-            lineHeight = lineHeights.medium2
+            fontSize = fontSizes.medium1,
+            lineHeight = lineHeights.medium1
         ),
         titleSmall = regularDisplay.copy(
             fontSize = fontSizes.medium1,

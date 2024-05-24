@@ -56,7 +56,9 @@ object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponse
                 longDescription = it.longDescription,
                 model = it.model,
                 code = it.code,
+                thumbnailUrl = it.thumbnailUrl,
                 sku = it.sku,
+                imageUrls = it.imageUrls,
                 categoryId = it.categoryId,
                 stock = ProductStockModel(
                     quantity = it.stock?.quantity,

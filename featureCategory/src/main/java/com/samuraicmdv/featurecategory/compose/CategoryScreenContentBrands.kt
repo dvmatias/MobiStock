@@ -33,7 +33,7 @@ fun CategoryScreenContentBrands(
         Column {
             Text(
                 text = stringResource(id = R.string.title_brands),
-                style = MobiTheme.typography.titleLarge,
+                style = MobiTheme.typography.titleMediumBold,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -35,6 +35,8 @@ data class ProductEntity(
     @SerializedName("model") val model: String? = null,
     @SerializedName("code") val code: String? = null,
     @SerializedName("sku") val sku: String? = null,
+    @SerializedName("thumbnail_url") val thumbnailUrl: String? = null,
+    @SerializedName("image_urls") val imageUrls: List<String>? = null,
     @SerializedName("brand") val brand: ProductBrandEntity? = null,
     @SerializedName("category_id") val categoryId: Int? = null,
     @SerializedName("stock") val stock: ProductStockEntity? = null,
