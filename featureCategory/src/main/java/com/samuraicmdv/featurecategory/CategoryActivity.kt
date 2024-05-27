@@ -51,6 +51,9 @@ class CategoryActivity : ComponentActivity() {
             is CategoryPresentationEvent.HandleProductDetailsBottomSheetState ->
                 viewModel.updateProductDetailsBottomSheetState(event.show, event.product)
 
+            is CategoryPresentationEvent.OnCategoryTitleAlphaChange ->
+                viewModel.updateCategoryTitleAlpha(event.categoryTitleAlpha)
+
             else -> {}
         }
     }

@@ -53,8 +53,8 @@ fun CategoryScreenContent(
     category: CategoryUiData?,
     brands: List<ProductBrandUiData>?,
     products: List<ProductUiData>?,
+    categoryTitleAlpha: Float,
     handleEvent: (CategoryEvent) -> Unit,
-    onCategoryTitleAlphaChange: (Float) -> Unit,
     modifier: Modifier = Modifier
 ) {
     category?.run {
@@ -105,7 +105,8 @@ fun CategoryScreenContent(
                     imageUrl = imageUrl,
                     productsCount = productsCount,
                     productsQuantity = productsQuantity,
-                    onCategoryTitleAlphaChange = onCategoryTitleAlphaChange,
+                    categoryTitleAlpha = categoryTitleAlpha,
+                    handleEvent = handleEvent,
                     modifier = Modifier
                         .background(color = headerBackgroundColor)
                         .padding(horizontal = MobiTheme.dimens.dimen_2)
@@ -236,8 +237,8 @@ fun PreviewCategoryContent() {
                         logoUrl = "https://www.example.com/image.jpg"
                     )
                 },
-                handleEvent = {},
-                onCategoryTitleAlphaChange = {}
+                categoryTitleAlpha = 1F,
+                handleEvent = {}
             )
         }
     }

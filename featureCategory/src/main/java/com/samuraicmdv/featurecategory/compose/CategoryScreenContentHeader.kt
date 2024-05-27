@@ -12,10 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -29,6 +25,8 @@ import com.samuraicmdv.common.ALPHA_FULL
 import com.samuraicmdv.common.ALPHA_ZERO
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
+import com.samuraicmdv.featurecategory.event.CategoryEvent
+import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -38,13 +36,11 @@ fun CategoryScreenContentHeader(
     imageUrl: String?,
     productsCount: Int?,
     productsQuantity: Int?,
-    onCategoryTitleAlphaChange: (Float) -> Unit,
+    categoryTitleAlpha: Float,
+    handleEvent: (CategoryEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val density = LocalDensity.current
-    var titleAlpha by remember {
-        mutableFloatStateOf(ALPHA_FULL)
-    }
     Row(
         horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically,
@@ -64,22 +60,26 @@ fun CategoryScreenContentHeader(
                     style = MobiTheme.typography.headlineLarge,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .alpha(titleAlpha)
-                        .padding(start = MobiTheme.dimens.dimen_1 * (ALPHA_FULL - titleAlpha))
+                        .alpha(categoryTitleAlpha)
+                        .padding(start = MobiTheme.dimens.dimen_1 * (ALPHA_FULL - categoryTitleAlpha))
                         .onGloballyPositioned { layoutCoordinates ->
                             val height = layoutCoordinates.size.height
                             val topPosition = layoutCoordinates.positionInRoot().y
                             val bottomLeftPosition =
                                 topPosition + height - with(density) { 64.dp.toPx() } // 64 dp represents the top app bar height
 
-                            titleAlpha = when {
+                            val titleAlpha = when {
                                 bottomLeftPosition in 0f..height.toFloat() ->
                                     (bottomLeftPosition / height).coerceIn(ALPHA_ZERO, ALPHA_FULL)
 
                                 bottomLeftPosition <= 0 -> ALPHA_ZERO
                                 else -> ALPHA_FULL
                             }
-                            onCategoryTitleAlphaChange(titleAlpha)
+                            CategoryPresentationEvent
+                                .OnCategoryTitleAlphaChange(titleAlpha)
+                                .run {
+                                    handleEvent(this)
+                                }
                         }
                 )
             }
@@ -129,7 +129,8 @@ fun PreviewCategoryHeader(modifier: Modifier = Modifier) {
                 imageUrl = "https://www.example.com/image.jpg",
                 productsCount = 10,
                 productsQuantity = 100,
-                onCategoryTitleAlphaChange = {},
+                handleEvent = {},
+                categoryTitleAlpha = 1F,
                 modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
             )
         }

@@ -17,16 +17,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
-import com.samuraicmdv.common.ALPHA_FULL
-import com.samuraicmdv.common.ALPHA_ZERO
 import com.samuraicmdv.common.EMPTY_STRING
 import com.samuraicmdv.common.R
 import com.samuraicmdv.common.theme.MobiTheme
@@ -50,9 +44,8 @@ fun CategoryScreen(
     val brands = uiState.brands
     val products = uiState.products
     val showProductDetailsBottomSheet = uiState.showProductDetailsBottomSheet
-    var topAppBarTitleAlpha by remember {
-        mutableFloatStateOf(ALPHA_ZERO)
-    }
+    val topAppBarTitleAlpha = uiState.topAppBarTitleAlpha
+    val categoryTitleAlpha = uiState.categoryTitleAlpha
 
     if (!uiState.isLoading) {
         Scaffold(
@@ -92,10 +85,8 @@ fun CategoryScreen(
                 category = category,
                 brands = brands,
                 products = products,
+                categoryTitleAlpha,
                 handleEvent = handleEvent,
-                onCategoryTitleAlphaChange = { titleAlpha ->
-                    topAppBarTitleAlpha = ALPHA_FULL - titleAlpha
-                },
                 modifier = Modifier
                     .padding(paddingValues)
             )
