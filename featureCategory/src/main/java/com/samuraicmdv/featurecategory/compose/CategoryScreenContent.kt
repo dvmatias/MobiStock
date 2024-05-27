@@ -85,7 +85,7 @@ fun CategoryScreenContent(
             animationSpec = TweenSpec(durationMillis = 1000)
         )
         val headerShadowElevation by animateValueAsState(
-            targetValue = if (isHeaderPinned) 4.dp else 0.dp,
+            targetValue = if (isHeaderPinned) MobiTheme.elevations.topBar else 0.dp,
             label = "",
             typeConverter = Dp.VectorConverter,
             animationSpec = tween(durationMillis = 300)

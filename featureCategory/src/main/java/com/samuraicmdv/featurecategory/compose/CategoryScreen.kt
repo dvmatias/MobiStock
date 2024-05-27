@@ -79,7 +79,7 @@ fun CategoryScreen(
                             Icon(imageVector = Icons.Default.Add, contentDescription = null)
                         }
                     },
-                    modifier = Modifier.bottomShadow(if (isStickyHeaderPinned) 0.dp else 2.dp)
+                    modifier = Modifier.bottomShadow(if (isStickyHeaderPinned) 0.dp else MobiTheme.elevations.topBar)
                 )
             },
             modifier = modifier.fillMaxSize()

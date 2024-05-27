@@ -10,12 +10,14 @@ class MobiElevations(
     val unit: Dp,
     val two: Dp,
     val three: Dp,
+    val topBar: Dp,
 )
 
 private val mobiElevations = MobiElevations(
     unit = 1.dp,
     two = 2.dp,
     three = 3.dp,
+    topBar = 4.dp,
 )
 
 val LocalMobiElevations = staticCompositionLocalOf {
