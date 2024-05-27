@@ -1,12 +1,8 @@
 package com.samuraicmdv.featurecategory.compose
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -21,11 +17,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import com.samuraicmdv.common.ALPHA_FULL
+import com.samuraicmdv.common.ALPHA_ZERO
+import com.samuraicmdv.common.EMPTY_STRING
 import com.samuraicmdv.common.R
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -48,6 +50,9 @@ fun CategoryScreen(
     val brands = uiState.brands
     val products = uiState.products
     val showProductDetailsBottomSheet = uiState.showProductDetailsBottomSheet
+    var topAppBarTitleAlpha by remember {
+        mutableFloatStateOf(ALPHA_ZERO)
+    }
 
     if (!uiState.isLoading) {
         Scaffold(
@@ -55,9 +60,11 @@ fun CategoryScreen(
                 Column {
                     TopAppBar(
                         title = {
-                            Text(text = uiState.category?.nameResId?.let { stringResId ->
-                                stringResource(id = stringResId)
-                            } ?: "")
+                            Text(
+                                text = uiState.category?.nameResId?.let { stringResId ->
+                                    stringResource(id = stringResId)
+                                } ?: EMPTY_STRING,
+                                modifier = Modifier.alpha(topAppBarTitleAlpha))
                         },
                         navigationIcon = {
                             IconButton(
@@ -86,6 +93,9 @@ fun CategoryScreen(
                 brands = brands,
                 products = products,
                 handleEvent = handleEvent,
+                onCategoryTitleAlphaChange = { titleAlpha ->
+                    topAppBarTitleAlpha = ALPHA_FULL - titleAlpha
+                },
                 modifier = Modifier
                     .padding(paddingValues)
             )
