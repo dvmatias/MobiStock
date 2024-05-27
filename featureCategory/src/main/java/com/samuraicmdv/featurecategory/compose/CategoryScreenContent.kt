@@ -1,5 +1,10 @@
 package com.samuraicmdv.featurecategory.compose
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.core.VectorConverter
+import androidx.compose.animation.core.animateValueAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -10,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +26,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -68,8 +80,23 @@ fun CategoryScreenContent(
                 }
             }
         }
+        var isHeaderPinned by remember { mutableStateOf(false) }
+        val headerBackgroundColor by animateColorAsState(
+            targetValue = if (isHeaderPinned) MobiTheme.colors.surface else MobiTheme.colors.background, label = "",
+            animationSpec = TweenSpec(durationMillis = 1000)
+        )
+        val headerShadowElevation by animateValueAsState(
+            targetValue = if (isHeaderPinned) 4.dp else 0.dp,
+            label = "",
+            typeConverter = Dp.VectorConverter,
+            animationSpec = tween(durationMillis = 300)
+        )
 
-        LazyColumn(modifier = modifier.fillMaxWidth()) {
+        LazyColumn(
+            modifier = modifier
+                .fillMaxWidth()
+        ) {
+            // Header
             item {
                 CategoryScreenContentHeader(
                     name = stringResource(id = nameResId),
@@ -77,22 +104,36 @@ fun CategoryScreenContent(
                     imageUrl = imageUrl,
                     productsCount = productsCount,
                     productsQuantity = productsQuantity,
-                    modifier = Modifier.background(MobiTheme.colors.surface).padding(horizontal = MobiTheme.dimens.dimen_2)
+                    modifier = Modifier
+                        .background(color = headerBackgroundColor)
+                        .padding(horizontal = MobiTheme.dimens.dimen_2)
                 )
             }
+            // Title products section
+            item {
+                Text(
+                    text = stringResource(id = R.string.title_products),
+                    style = MobiTheme.typography.titleMediumBold,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = headerBackgroundColor)
+                        .padding(horizontal = MobiTheme.dimens.dimen_2)
+                        .padding(top = MobiTheme.dimens.dimen_2)
+                )
+            }
+            // Order and filter menu
             stickyHeader {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(MobiTheme.colors.surface)
+                        .bottomShadow(headerShadowElevation)
+                        .background(color = headerBackgroundColor)
                         .padding(horizontal = MobiTheme.dimens.dimen_2)
+                        .onGloballyPositioned { layoutCoordinates ->
+                            val headerPosition = layoutCoordinates.positionInParent().y
+                            isHeaderPinned = headerPosition <= 0f
+                        }
                 ) {
-                    // TODO Extract this out
-                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
-                    Text(
-                        text = stringResource(id = R.string.title_products),
-                        style = MobiTheme.typography.titleMediumBold,
-                    )
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     Row {
                         SortProductsMenu(
@@ -117,6 +158,7 @@ fun CategoryScreenContent(
             item {
                 Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
             }
+            // Products list
             filteredProducts?.let { products ->
                 items(products, { it.id }) { product ->
                     ProductItem(
@@ -130,6 +172,15 @@ fun CategoryScreenContent(
         }
     }
 }
+
+fun Modifier.bottomShadow(shadow: Dp) =
+    this
+        .clip(GenericShape { size, _ ->
+            lineTo(size.width, 0f)
+            lineTo(size.width, Float.MAX_VALUE)
+            lineTo(0f, Float.MAX_VALUE)
+        })
+        .shadow(shadow)
 
 @ThemePreviews
 @Composable

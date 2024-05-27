@@ -77,13 +77,6 @@ fun CategoryScreen(
                             }
                         }
                     )
-                    Spacer(
-                        modifier = Modifier
-                            .alpha(0.1f)
-                            .height(0.75.dp)
-                            .fillMaxWidth()
-                            .background(MobiTheme.colors.textPrimary)
-                    )
                 }
             },
             modifier = modifier.fillMaxSize()

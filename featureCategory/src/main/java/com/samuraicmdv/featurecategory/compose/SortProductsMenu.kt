@@ -89,7 +89,7 @@ fun SortProductsMenu(
                 Icon(
                     imageVector = if (srtType == DESCENDING) keyboardArrowUp else keyboardArrowDown,
                     contentDescription = null,
-                    tint = selectedColor,
+                    tint = selectedColor
                 )
         }
         Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
