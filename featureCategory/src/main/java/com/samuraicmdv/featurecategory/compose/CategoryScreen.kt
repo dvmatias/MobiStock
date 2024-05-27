@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,12 +60,20 @@ fun CategoryScreen(
                             } ?: "")
                         },
                         navigationIcon = {
-                            IconButton(onClick = { /* TODO Handle navigation icon click */ }) {
+                            IconButton(
+                                onClick = { /* TODO Handle navigation icon click */ }
+                            ) {
                                 Icon(
                                     Icons.AutoMirrored.Filled.ArrowBack,
                                     contentDescription = null,
                                     tint = MobiTheme.colors.primary
                                 )
+                            }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(actionIconContentColor = MobiTheme.colors.primary),
+                        actions = {
+                            IconButton(onClick = { /*TODO*/ }) {
+                                Icon(imageVector = Icons.Default.Add, contentDescription = null)
                             }
                         }
                     )
@@ -83,7 +93,8 @@ fun CategoryScreen(
                 brands = brands,
                 products = products,
                 handleEvent = handleEvent,
-                modifier = Modifier.padding(paddingValues)
+                modifier = Modifier
+                    .padding(paddingValues)
             )
             // Product Bottom Sheet
             ProductDetailsBottomSheet(
@@ -120,7 +131,7 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                         productsQuantity = 547,
                         logoUrl = "https://www.example.com/image.jpg"
                     ),
-                    products = List(5) { index ->
+                    products = List(10) { index ->
                         ProductUiData(
                             id = index,
                             name = "Product $index",
