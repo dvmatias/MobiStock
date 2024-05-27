@@ -63,6 +63,12 @@ class CategoryViewModel @AssistedInject constructor(
         }
     }
 
+    fun updateStickyHeaderPinned(headerPinned: Boolean) {
+        _uiState.update { currentState ->
+            currentState.copy(isStickyHeaderPinned = headerPinned)
+        }
+    }
+
     @AssistedFactory
     interface Factory {
         fun create(

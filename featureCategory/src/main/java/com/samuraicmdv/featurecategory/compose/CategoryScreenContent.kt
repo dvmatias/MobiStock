@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,13 +25,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.samuraicmdv.common.extension.bottomShadow
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -135,6 +133,12 @@ fun CategoryScreenContent(
                         .onGloballyPositioned { layoutCoordinates ->
                             val headerPosition = layoutCoordinates.positionInParent().y
                             isHeaderPinned = headerPosition <= 0f
+
+                            handleEvent(
+                                CategoryPresentationEvent.OnStickyHeaderPinned(
+                                    isHeaderPinned
+                                )
+                            )
                         }
                 ) {
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
@@ -176,14 +180,6 @@ fun CategoryScreenContent(
     }
 }
 
-fun Modifier.bottomShadow(shadow: Dp) =
-    this
-        .clip(GenericShape { size, _ ->
-            lineTo(size.width, 0f)
-            lineTo(size.width, Float.MAX_VALUE)
-            lineTo(0f, Float.MAX_VALUE)
-        })
-        .shadow(shadow)
 
 @ThemePreviews
 @Composable

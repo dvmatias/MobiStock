@@ -11,6 +11,8 @@ sealed class CategoryPresentationEvent : CategoryEvent {
         CategoryPresentationEvent()
 
     data class OnCategoryTitleAlphaChange(val categoryTitleAlpha: Float) : CategoryPresentationEvent()
+
+    data class OnStickyHeaderPinned(val isHeaderPinned: Boolean) : CategoryPresentationEvent()
 }
 
 data class ProductsSort(

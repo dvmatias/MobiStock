@@ -54,6 +54,9 @@ class CategoryActivity : ComponentActivity() {
             is CategoryPresentationEvent.OnCategoryTitleAlphaChange ->
                 viewModel.updateCategoryTitleAlpha(event.categoryTitleAlpha)
 
+            is CategoryPresentationEvent.OnStickyHeaderPinned ->
+                viewModel.updateStickyHeaderPinned(event.isHeaderPinned)
+
             else -> {}
         }
     }

@@ -1,7 +1,6 @@
 package com.samuraicmdv.featurecategory.compose
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -21,8 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.EMPTY_STRING
 import com.samuraicmdv.common.R
+import com.samuraicmdv.common.extension.bottomShadow
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.event.CategoryEvent
 import com.samuraicmdv.featurecategory.state.CategoryScreenState
@@ -46,38 +47,40 @@ fun CategoryScreen(
     val showProductDetailsBottomSheet = uiState.showProductDetailsBottomSheet
     val topAppBarTitleAlpha = uiState.topAppBarTitleAlpha
     val categoryTitleAlpha = uiState.categoryTitleAlpha
+    val isStickyHeaderPinned = uiState.isStickyHeaderPinned
 
     if (!uiState.isLoading) {
         Scaffold(
             topBar = {
-                Column {
-                    TopAppBar(
-                        title = {
-                            Text(
-                                text = uiState.category?.nameResId?.let { stringResId ->
-                                    stringResource(id = stringResId)
-                                } ?: EMPTY_STRING,
-                                modifier = Modifier.alpha(topAppBarTitleAlpha))
-                        },
-                        navigationIcon = {
-                            IconButton(
-                                onClick = { /* TODO Handle navigation icon click */ }
-                            ) {
-                                Icon(
-                                    Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = null,
-                                    tint = MobiTheme.colors.primary
-                                )
-                            }
-                        },
-                        colors = TopAppBarDefaults.topAppBarColors(actionIconContentColor = MobiTheme.colors.primary),
-                        actions = {
-                            IconButton(onClick = { /*TODO*/ }) {
-                                Icon(imageVector = Icons.Default.Add, contentDescription = null)
-                            }
+                TopAppBar(
+                    title = {
+                        Text(
+                            text = uiState.category?.nameResId?.let { stringResId ->
+                                stringResource(id = stringResId)
+                            } ?: EMPTY_STRING,
+                            modifier = Modifier.alpha(topAppBarTitleAlpha))
+                    },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = { /* TODO Handle navigation icon click */ }
+                        ) {
+                            Icon(
+                                Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = null,
+                                tint = MobiTheme.colors.primary
+                            )
                         }
-                    )
-                }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(actionIconContentColor = MobiTheme.colors.primary),
+                    actions = {
+                        IconButton(
+                            onClick = { /*TODO*/ }
+                        ) {
+                            Icon(imageVector = Icons.Default.Add, contentDescription = null)
+                        }
+                    },
+                    modifier = Modifier.bottomShadow(if (isStickyHeaderPinned) 0.dp else 2.dp)
+                )
             },
             modifier = modifier.fillMaxSize()
         ) { paddingValues ->

@@ -11,6 +11,7 @@ data class CategoryScreenState(
     val selectedProduct: ProductUiData? = null,
     val showProductDetailsBottomSheet: Boolean = false,
     val topAppBarTitleAlpha: Float = ALPHA_ZERO,
-    val categoryTitleAlpha: Float = ALPHA_FULL
+    val categoryTitleAlpha: Float = ALPHA_FULL,
+    val isStickyHeaderPinned: Boolean = false,
 ) {
 }
