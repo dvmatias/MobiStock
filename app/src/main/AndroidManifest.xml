@@ -43,6 +43,11 @@
             android:exported="false"
             android:label="@string/title_activity_product_category"
             android:theme="@style/Theme.MobiStock" />
+        <activity
+            android:name="com.samuraicmdv.featureproductdetails.ProductDetailsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_product_details"
+            android:theme="@style/Theme.MobiStock" />
     </application>
 
 </manifest>

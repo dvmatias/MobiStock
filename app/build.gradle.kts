@@ -75,6 +75,7 @@ dependencies {
     implementation(project(mapOf("path" to ":featureLogin")))
     implementation(project(mapOf("path" to ":featureHome")))
     implementation(project(mapOf("path" to ":featureCategory")))
+    implementation(project(mapOf("path" to ":featureProductDetails")))
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.work:work-runtime-ktx:2.9.0")
