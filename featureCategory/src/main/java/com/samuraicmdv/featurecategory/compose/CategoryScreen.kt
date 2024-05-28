@@ -26,6 +26,7 @@ import com.samuraicmdv.common.R
 import com.samuraicmdv.common.extension.bottomShadow
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.event.CategoryEvent
+import com.samuraicmdv.featurecategory.event.CategoryNavigationEvent
 import com.samuraicmdv.featurecategory.state.CategoryScreenState
 import com.samuraicmdv.featurecategory.state.CategoryUiData
 import com.samuraicmdv.featurecategory.state.ProductBrandUiData
@@ -74,7 +75,9 @@ fun CategoryScreen(
                     colors = TopAppBarDefaults.topAppBarColors(actionIconContentColor = MobiTheme.colors.primary),
                     actions = {
                         IconButton(
-                            onClick = { /*TODO*/ }
+                            onClick = {
+                                handleEvent(CategoryNavigationEvent.NavigateProductDetails(true, -1))
+                            }
                         ) {
                             Icon(imageVector = Icons.Default.Add, contentDescription = null)
                         }
