@@ -3,10 +3,10 @@ package com.samuraicmdv.common.theme
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.googlefonts.Font
-import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.samuraicmdv.common.R
@@ -78,10 +78,10 @@ private data class MobiTypographyLineHeight(
 )
 
 val LocalMobiTypography = staticCompositionLocalOf {
-    defaultMobiTypography()
+    defaultMobiTypography(lightMobiColors)
 }
 
-val provider = GoogleFont.Provider(
+/*val provider = GoogleFont.Provider(
     providerAuthority = "com.google.android.gms.fonts",
     providerPackage = "com.google.android.gms",
     certificates = R.array.com_google_android_gms_fonts_certs
@@ -89,152 +89,158 @@ val provider = GoogleFont.Provider(
 
 val bodyFontFamily = FontFamily(
     Font(
-        googleFont = GoogleFont("Open Sans"),
+        googleFont = GoogleFont("Outfit"),
         fontProvider = provider,
     )
 )
 
 val displayFontFamily = FontFamily(
     Font(
-        googleFont = GoogleFont("Rubik"),
+        googleFont = GoogleFont("Outfit"),
         fontProvider = provider,
     )
+)*/
+
+val fonts = FontFamily(
+    Font(R.font.gibson_light, weight = FontWeight.Light, style = FontStyle.Normal),
+    Font(R.font.gibson_regular, weight = FontWeight.Normal, style = FontStyle.Normal),
+    Font(R.font.gibson_bold, weight = FontWeight.Bold, style = FontStyle.Normal),
+    Font(R.font.gibson_semi_bold, weight = FontWeight.SemiBold, style = FontStyle.Normal)
 )
 
-fun defaultMobiTypography() = mobiTypography()
 
-fun mobiTypography(): MobiTypography {
+fun defaultMobiTypography(colors: MobiColors) = mobiTypography(colors)
+
+fun mobiTypography(mobiColors: MobiColors): MobiTypography {
     val fontSizes = MobiTypographyFontSizes()
+
     val lineHeights = MobiTypographyLineHeight()
-    val blackBody = TextStyle(
-        fontFamily = bodyFontFamily,
-        fontWeight = FontWeight.Black
+
+    val primaryFont = TextStyle(
+        color = mobiColors.textPrimary
     )
-    val boldBody = TextStyle(
-        fontFamily = bodyFontFamily,
-        fontWeight = FontWeight.Bold
+
+    val boldFont = primaryFont.copy(
+        fontFamily = fonts,
+        fontWeight = FontWeight.SemiBold, // weight set as SEMI BOLD since Gibson Semi Bold is too thick and can act as Bold
+        color = mobiColors.textPrimary
     )
-    val boldDisplay = TextStyle(
-        fontFamily = displayFontFamily,
-        fontWeight = FontWeight.Bold
-    )
-    val regularBody = TextStyle(
-        fontFamily = bodyFontFamily,
-        fontWeight = FontWeight.Normal
-    )
-    val regularDisplay = TextStyle(
-        fontFamily = displayFontFamily,
-        fontWeight = FontWeight.Normal
+
+    val regularFont = primaryFont.copy(
+        fontFamily = fonts,
+        fontWeight = FontWeight.Normal,
+        color = mobiColors.textPrimary
     )
 
     return MobiTypography(
-        labelSmall = regularBody.copy(
+        labelSmall = regularFont.copy(
             fontSize = fontSizes.small,
             lineHeight = lineHeights.small
         ),
-        labelSmallBold = boldBody.copy(
+        labelSmallBold = boldFont.copy(
             fontSize = fontSizes.small,
             lineHeight = lineHeights.small
         ),
-        labelMedium = regularBody.copy(
+        labelMedium = regularFont.copy(
             fontSize = fontSizes.regular1,
             lineHeight = lineHeights.regular1
         ),
-        labelMediumBold = boldBody.copy(
+        labelMediumBold = boldFont.copy(
             fontSize = fontSizes.regular1,
             lineHeight = lineHeights.regular1
         ),
-        labelMediumBlack = blackBody.copy(
+        labelMediumBlack = boldFont.copy(
             fontSize = fontSizes.regular1,
             lineHeight = lineHeights.regular1
         ),
-        labelLarge = regularBody.copy(
+        labelLarge = regularFont.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        labelLargeBold = boldBody.copy(
+        labelLargeBold = boldFont.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        bodySmall = regularBody.copy(
+        bodySmall = regularFont.copy(
             fontSize = fontSizes.regular1,
             lineHeight = lineHeights.regular1
         ),
-        bodySmallBold = boldBody.copy(
+        bodySmallBold = boldFont.copy(
             fontSize = fontSizes.regular1,
             lineHeight = lineHeights.regular1
         ),
-        bodyMedium = regularBody.copy(
+        bodyMedium = regularFont.copy(
             fontSize = fontSizes.regular2,
             lineHeight = lineHeights.regular2
         ),
-        bodyMediumBold = boldBody.copy(
+        bodyMediumBold = boldFont.copy(
             fontSize = fontSizes.regular2,
             lineHeight = lineHeights.regular2
         ),
-        bodyLarge = regularBody.copy(
+        bodyLarge = regularFont.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        bodyLargeBold = boldBody.copy(
+        bodyLargeBold = boldFont.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        titleSmall = regularDisplay.copy(
+        titleSmall = regularFont.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        titleSmallBold = boldDisplay.copy(
+        titleSmallBold = boldFont.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
-        titleMedium = regularDisplay.copy(
+        titleMedium = regularFont.copy(
             fontSize = fontSizes.medium2,
             lineHeight = lineHeights.medium2
         ),
-        titleMediumBold = boldDisplay.copy(
+        titleMediumBold = boldFont.copy(
             fontSize = fontSizes.medium2,
             lineHeight = lineHeights.medium2
         ),
-        titleLarge = regularDisplay.copy(
+        titleLarge = regularFont.copy(
             fontSize = fontSizes.large1,
             lineHeight = lineHeights.large2
         ),
-        titleLargeBold = boldDisplay.copy(
+        titleLargeBold = boldFont.copy(
             fontSize = fontSizes.large1,
             lineHeight = lineHeights.large2
         ),
-        headlineSmall = regularDisplay.copy(
+        headlineSmall = regularFont.copy(
             fontSize = fontSizes.large2,
             lineHeight = lineHeights.large2
         ),
-        headlineSmallBold = boldDisplay.copy(
+        headlineSmallBold = boldFont.copy(
             fontSize = fontSizes.large2,
             lineHeight = lineHeights.large2
         ),
-        headlineMedium = boldDisplay.copy(
+        headlineMedium = boldFont.copy(
             fontSize = fontSizes.large3,
             lineHeight = lineHeights.large3
         ),
-        headlineLarge = regularDisplay.copy(
+        headlineLarge = regularFont.copy(
             fontSize = fontSizes.giant1,
             lineHeight = lineHeights.giant1
         ),
-        displaySmall = regularDisplay.copy(
+        displaySmall = regularFont.copy(
             fontSize = fontSizes.giant2,
             lineHeight = lineHeights.giant2
         ),
-        displayMedium = regularDisplay.copy(
+        displayMedium = regularFont.copy(
             fontSize = fontSizes.giant3,
             lineHeight = lineHeights.giant3
         ),
-        displayLarge = regularDisplay.copy(
+        displayLarge = regularFont.copy(
             fontSize = fontSizes.giant4,
             lineHeight = lineHeights.giant4
         ),
-        buttonLabel = boldBody.copy(
+        buttonLabel = boldFont.copy(
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1,
+            color = mobiColors.onPrimary
         )
     )
 }

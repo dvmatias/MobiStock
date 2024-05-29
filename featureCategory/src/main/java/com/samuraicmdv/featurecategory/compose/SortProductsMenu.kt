@@ -82,7 +82,7 @@ fun SortProductsMenu(
             Text(
                 text = stringResource(id = R.string.label_alphabetical_sort_pill),
                 color = if (sortName == ProductsSortName.BY_NAME_ALPHABETICALLY) selectedColor else unselectedColor,
-                style = MobiTheme.typography.labelMediumBlack,
+                style = MobiTheme.typography.labelMediumBold,
                 modifier = Modifier
             )
             if (sortName == ProductsSortName.BY_NAME_ALPHABETICALLY)
@@ -119,7 +119,7 @@ fun SortProductsMenu(
             Text(
                 text = stringResource(id = R.string.label_price_sort_pill),
                 color = if (sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT) selectedColor else unselectedColor,
-                style = MobiTheme.typography.labelMediumBlack,
+                style = MobiTheme.typography.labelMediumBold,
             )
             if (sortName == ProductsSortName.BY_SELLING_PRICE_AMOUNT)
                 Icon(
