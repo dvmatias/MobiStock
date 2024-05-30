@@ -40,7 +40,7 @@ fun ProductBrandItem(
                 .background(MobiTheme.colors.onPrimary)
         )
         Spacer(modifier = Modifier.size(MobiTheme.dimens.dimen_1))
-        Text(text = brand.name.uppercase(), style = MobiTheme.typography.bodySmall, fontWeight = FontWeight.Bold)
+        Text(text = brand.name.uppercase(), style = MobiTheme.typography.labelSmallBold, fontWeight = FontWeight.Bold)
     }
 }
 

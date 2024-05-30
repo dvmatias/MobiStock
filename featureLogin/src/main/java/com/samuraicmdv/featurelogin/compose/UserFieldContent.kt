@@ -73,7 +73,7 @@ fun UserFieldContent(
             keyboardActions = KeyboardActions(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
-            placeholder = { Text(placeholder, color = MobiTheme.colors.tertiary) },
+            placeholder = { Text(text = placeholder) },
             singleLine = true,
             visualTransformation = VisualTransformation.None,
             modifier = modifier.fillMaxWidth()
