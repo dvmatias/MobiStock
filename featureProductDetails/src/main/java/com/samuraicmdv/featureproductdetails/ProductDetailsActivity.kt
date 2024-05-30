@@ -34,7 +34,9 @@ class ProductDetailsActivity : ComponentActivity() {
         setContent {
             MobiTheme {
                 Surface {
-                    ProductDetailsScreen(isEditMode = isEditMode)
+                    ProductDetailsScreen(
+                        isEditMode = isEditMode
+                    )
                 }
             }
         }
