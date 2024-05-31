@@ -1,6 +1,6 @@
 package com.samuraicmdv.domain.repository
 
-import com.samuraicmdv.domain.model.ProductBrandsResponseModel
+import com.samuraicmdv.domain.model.GetBrandsResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
 interface BrandRepository {
@@ -10,5 +10,5 @@ interface BrandRepository {
      *
      * @param storeId Store's unique identifier.
      */
-    suspend fun getProductBrands(storeId: Int): ResponseWrapper<ProductBrandsResponseModel>
+    suspend fun getBrands(storeId: Int): ResponseWrapper<GetBrandsResponseModel>
 }

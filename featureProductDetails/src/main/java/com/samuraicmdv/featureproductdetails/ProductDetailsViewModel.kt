@@ -2,7 +2,7 @@ package com.samuraicmdv.featureproductdetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.samuraicmdv.domain.usecase.GetProductBrandsUseCase
+import com.samuraicmdv.domain.usecase.GetBrandsUseCase
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiState
@@ -23,7 +23,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     @Assisted("productId") val productId: Int,
     @Assisted("isEditMode") val isEditMode: Boolean,
     private val getProductCategoriesUseCase: GetProductCategoriesUseCase,
-    private val getProductBrandsUseCase: GetProductBrandsUseCase,
+    private val getBrandsUseCase: GetBrandsUseCase,
     private val transformer: ProductDetailsUiDataTransformer,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(ProductDetailsUiState(isLoading = true))
@@ -81,7 +81,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     }
 
     private suspend fun getBrands() {
-        getProductBrandsUseCase(GetProductBrandsUseCase.Params(storeId = storeId)).let {
+        getBrandsUseCase(GetBrandsUseCase.Params(storeId = storeId)).let {
             _uiState.value = _uiState.value.copy(brandsUiData = transformer.transformBrands(it))
         }
     }

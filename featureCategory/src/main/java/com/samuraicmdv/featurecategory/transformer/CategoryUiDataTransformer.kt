@@ -5,7 +5,7 @@ import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
 import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.common.R
-import com.samuraicmdv.domain.model.ProductBrandModel
+import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.featurecategory.state.CategoryScreenState
 import com.samuraicmdv.featurecategory.state.CategoryUiData
 import com.samuraicmdv.featurecategory.state.ProductBrandUiData
@@ -105,7 +105,7 @@ object CategoryUiDataTransformer {
             null -> R.string.product_category_unknown_name
         }
 
-    private fun transformBrands(brands: List<ProductBrandModel>?): List<ProductBrandUiData>? =
+    private fun transformBrands(brands: List<BrandModel>?): List<ProductBrandUiData>? =
         brands?.map {
             ProductBrandUiData(
                 id = it.id ?: -1,

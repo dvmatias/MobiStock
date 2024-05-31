@@ -2,15 +2,15 @@ package com.samuraicmdv.data.mapper
 
 import com.samuraicmdv.data.entity.UserAddressEntity
 import com.samuraicmdv.data.entity.UserEntity
-import com.samuraicmdv.data.entity.UserProfileResponseEntity
+import com.samuraicmdv.data.entity.GetUserProfileResponseEntity
 import com.samuraicmdv.domain.base.DataMapper
 import com.samuraicmdv.domain.model.UserAddressModel
 import com.samuraicmdv.domain.model.UserModel
 import com.samuraicmdv.domain.model.UserProfileResponseModel
 
-object UserProfileDataMapper : DataMapper<UserProfileResponseEntity, UserProfileResponseModel> {
+object UserProfileDataMapper : DataMapper<GetUserProfileResponseEntity, UserProfileResponseModel> {
 
-    override fun entityToModel(entity: UserProfileResponseEntity?): UserProfileResponseModel =
+    override fun entityToModel(entity: GetUserProfileResponseEntity?): UserProfileResponseModel =
         UserProfileResponseModel(
             user = transformUser(entity?.user, entity?.user?.id)
         )

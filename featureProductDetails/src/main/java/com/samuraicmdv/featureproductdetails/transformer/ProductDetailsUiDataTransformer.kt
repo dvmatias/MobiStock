@@ -2,7 +2,7 @@ package com.samuraicmdv.featureproductdetails.transformer
 
 import com.samuraicmdv.common.R
 import com.samuraicmdv.common.utils.ProductCategory
-import com.samuraicmdv.domain.model.ProductBrandsResponseModel
+import com.samuraicmdv.domain.model.GetBrandsResponseModel
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
 import com.samuraicmdv.featureproductdetails.data.ProductBrandUiData
 import com.samuraicmdv.featureproductdetails.data.ProductCategoryUiData
@@ -24,7 +24,7 @@ object ProductDetailsUiDataTransformer {
         }
 
     fun transformBrands(
-        productBrandsModel: ProductBrandsResponseModel
+        productBrandsModel: GetBrandsResponseModel
     ): List<ProductBrandUiData>? =
         productBrandsModel.brands?.map {
             ProductBrandUiData(

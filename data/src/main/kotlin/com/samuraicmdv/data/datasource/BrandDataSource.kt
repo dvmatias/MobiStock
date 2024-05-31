@@ -1,6 +1,6 @@
 package com.samuraicmdv.data.datasource
 
-import com.samuraicmdv.domain.model.ProductBrandsResponseModel
+import com.samuraicmdv.domain.model.GetBrandsResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
 /**
@@ -8,11 +8,11 @@ import com.samuraicmdv.domain.util.ResponseWrapper
  */
 interface BrandDataSource {
     /**
-     * Gets the product brands.
+     * Gets all brands from a store.
      *
      * @param storeId Store's unique identifier.
      */
-    suspend fun getProductBrands(
+    suspend fun getBrands(
         storeId: Int,
-    ): ResponseWrapper<ProductBrandsResponseModel>
+    ): ResponseWrapper<GetBrandsResponseModel>
 }

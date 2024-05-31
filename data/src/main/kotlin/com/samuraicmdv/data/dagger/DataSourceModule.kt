@@ -2,15 +2,15 @@ package com.samuraicmdv.data.dagger
 
 import com.samuraicmdv.data.api.BrandApi
 import com.samuraicmdv.data.api.CategoryApi
-import com.samuraicmdv.data.api.HomeApi
+import com.samuraicmdv.data.api.UserApi
 import com.samuraicmdv.data.api.LoginApi
 import com.samuraicmdv.data.datasource.BrandDataSource
 import com.samuraicmdv.data.datasource.CategoryDataSource
-import com.samuraicmdv.data.datasource.HomeDataSource
+import com.samuraicmdv.data.datasource.UserDataSource
 import com.samuraicmdv.data.datasource.LoginDataSource
 import com.samuraicmdv.data.datasource.retrofit.BrandDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.CategoryDataSourceRetrofitImpl
-import com.samuraicmdv.data.datasource.retrofit.HomeDataSourceRetrofitImpl
+import com.samuraicmdv.data.datasource.retrofit.UserDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
 import com.samuraicmdv.data.mapper.BrandDataMapper
 import com.samuraicmdv.data.mapper.CategoryDataMapper
@@ -32,11 +32,11 @@ object DataSourceModule {
     ): LoginDataSource = LoginDataSourceRetrofitImpl(loginApi, dataMapper)
 
     @Provides
-    fun provideHomeDataSourceRetrofit(
-        homeApi: HomeApi,
+    fun provideUserDataSourceRetrofit(
+        userApi: UserApi,
         userProfileDataMapper: UserProfileDataMapper,
-    ): HomeDataSource =
-        HomeDataSourceRetrofitImpl(homeApi, userProfileDataMapper)
+    ): UserDataSource =
+        UserDataSourceRetrofitImpl(userApi, userProfileDataMapper)
 
     @Provides
     fun provideCategoryDataSource(

@@ -15,5 +15,5 @@ data class ProductModel(
     val sellingPrice: String? = null,
     val costPrice: String? = null,
     val currencyId: String? = null,
-    val brand: ProductBrandModel? = null,
+    val brand: BrandModel? = null,
 )

@@ -19,7 +19,7 @@ class CategoryDataSourceRetrofitImpl @Inject constructor(
 ) : CategoryDataSource {
     override suspend fun getCategory(storeId: Int, categoryId: Int): ResponseWrapper<CategoryResponseModel> =
         withContext(Dispatchers.IO) {
-            categoryApi.getCategory(storeId, categoryId).let { serviceResponse ->
+            categoryApi.getCategoryByCategoryId(storeId, categoryId).let { serviceResponse ->
                 if (serviceResponse.isSuccessful) {
                     ResponseWrapper.success(
                         data = categoryDataMapper.entityToModel(serviceResponse.body())

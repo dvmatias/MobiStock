@@ -1,7 +1,7 @@
 package com.samuraicmdv.domain.dagger
 
 import com.samuraicmdv.domain.repository.CategoryRepository
-import com.samuraicmdv.domain.repository.HomeRepository
+import com.samuraicmdv.domain.repository.UserRepository
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
 import com.samuraicmdv.domain.usecase.GetUserProfileUseCase
 import dagger.Module
@@ -13,8 +13,8 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object HomeModule {
     @Provides
-    fun provideGetUserProfileUseCase(homeRepository: HomeRepository): GetUserProfileUseCase =
-        GetUserProfileUseCase(homeRepository)
+    fun provideGetUserProfileUseCase(userRepository: UserRepository): GetUserProfileUseCase =
+        GetUserProfileUseCase(userRepository)
 
     @Provides
     fun provideGetProductCategoriesUseCase(
