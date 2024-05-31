@@ -18,12 +18,10 @@ import javax.inject.Inject
  *
  * @param homeApi Retrofit Service interface. Provides Login service operations.
  * @param userProfileMapper Mapper class for transforming service data later response into model layer response.
- * @param productCategoryMapper Mapper class for transforming service data later response into model layer response.
  */
 class HomeDataSourceRetrofitImpl @Inject constructor(
     private val homeApi: HomeApi,
     private val userProfileMapper: UserProfileDataMapper,
-    private val productCategoryMapper: ProductCategoryMapper,
 ) : HomeDataSource {
     override suspend fun getUserProfile(userId: Int) =
         withContext(Dispatchers.IO) {
@@ -38,27 +36,6 @@ class HomeDataSourceRetrofitImpl @Inject constructor(
                             responseFailure = ResponseFailure.ServerError("Get user profile failure")
                         )
                     }
-                }
-            }
-        }
-
-    override suspend fun getProductCategories(
-        storeId: Int,
-        all: Boolean,
-    ): ResponseWrapper<ProductCategoriesResponseModel> =
-        withContext(Dispatchers.IO) {
-            homeApi.getCategories(
-                storeId = storeId,
-                all = all
-            ).let { serviceResponse ->
-                if (serviceResponse.isSuccessful) {
-                    ResponseWrapper.success(
-                        data = productCategoryMapper.entityToModel(serviceResponse.body())
-                    )
-                } else {
-                    ResponseWrapper.error(
-                        responseFailure = ResponseFailure.ServerError("Get product categories failure")
-                    )
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.samuraicmdv.domain.dagger
 
+import com.samuraicmdv.domain.repository.CategoryRepository
 import com.samuraicmdv.domain.repository.HomeRepository
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
 import com.samuraicmdv.domain.usecase.GetUserProfileUseCase
@@ -17,7 +18,7 @@ object HomeModule {
 
     @Provides
     fun provideGetProductCategoriesUseCase(
-        homeRepository: HomeRepository,
+        categoryRepository: CategoryRepository,
     ): GetProductCategoriesUseCase =
-        GetProductCategoriesUseCase(homeRepository)
+        GetProductCategoriesUseCase(categoryRepository)
 }

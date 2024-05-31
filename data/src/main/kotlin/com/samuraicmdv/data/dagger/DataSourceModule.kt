@@ -31,14 +31,14 @@ object DataSourceModule {
     fun provideHomeDataSourceRetrofit(
         homeApi: HomeApi,
         userProfileDataMapper: UserProfileDataMapper,
-        productCategoryMapper: ProductCategoryMapper,
     ): HomeDataSource =
-        HomeDataSourceRetrofitImpl(homeApi, userProfileDataMapper, productCategoryMapper)
+        HomeDataSourceRetrofitImpl(homeApi, userProfileDataMapper)
 
     @Provides
     fun provideCategoryDataSource(
         categoryApi: CategoryApi,
         categoryDataMapper: CategoryDataMapper,
+        productCategoryMapper: ProductCategoryMapper,
     ): CategoryDataSource =
-        CategoryDataSourceRetrofitImpl(categoryApi, categoryDataMapper)
+        CategoryDataSourceRetrofitImpl(categoryApi, categoryDataMapper, productCategoryMapper)
 }

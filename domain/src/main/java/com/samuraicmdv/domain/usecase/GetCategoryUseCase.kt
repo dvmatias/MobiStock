@@ -9,7 +9,7 @@ class GetCategoryUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(storeId: Int, categoryId: Int): CategoryResponseModel {
-        return repository.getCategory(storeId, categoryId)
+        return repository.getProductCategory(storeId, categoryId)
             .let { responseWrapper ->
                 responseWrapper.getOrNull()
                     ?: CategoryResponseModel() // TODO handle failure scenario

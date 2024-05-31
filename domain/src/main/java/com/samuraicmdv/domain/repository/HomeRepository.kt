@@ -1,6 +1,5 @@
 package com.samuraicmdv.domain.repository
 
-import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
 import com.samuraicmdv.domain.model.UserProfileResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
@@ -15,14 +14,4 @@ interface HomeRepository {
      */
     suspend fun getProfile(userId: Int): ResponseWrapper<UserProfileResponseModel>
 
-    /**
-     * Gets the product categories.
-     *
-     * @param storeId Store's unique identifier.
-     * @param all Boolean flag to get all categories.
-     */
-    suspend fun getProductCategories(
-        storeId: Int,
-        all: Boolean,
-    ): ResponseWrapper<ProductCategoriesResponseModel>
 }

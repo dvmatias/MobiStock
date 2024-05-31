@@ -12,10 +12,4 @@ class HomeRepositoryImpl @Inject constructor(
 ) : HomeRepository {
     override suspend fun getProfile(userId: Int): ResponseWrapper<UserProfileResponseModel> =
         homeDataSource.getUserProfile(userId)
-
-    override suspend fun getProductCategories(
-        storeId: Int,
-        all: Boolean,
-    ): ResponseWrapper<ProductCategoriesResponseModel> =
-        homeDataSource.getProductCategories(storeId, all)
 }
