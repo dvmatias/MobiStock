@@ -69,13 +69,14 @@ class CategoryActivity : ComponentActivity() {
 
             is CategoryNavigationEvent.NavigateProductDetails -> {
                 bundleOf(
+                    BUNDLE_KEY_STORE_ID to storeId,
                     BUNDLE_KEY_PRODUCT_ID to event.productId,
                     BUNDLE_KEY_IS_EDIT_MODE to event.isEditMode
                 ).also { data ->
                     navigator.toProductDetails(this, data)
                 }
             }
-            
+
             else -> {}
         }
     }

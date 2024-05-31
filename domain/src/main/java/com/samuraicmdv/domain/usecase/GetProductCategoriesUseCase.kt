@@ -7,11 +7,11 @@ import java.util.Locale.Category
 import javax.inject.Inject
 
 class GetProductCategoriesUseCase @Inject constructor(
-    private val homeRepository: CategoryRepository,
+    private val repository: CategoryRepository,
 ) {
 
     suspend operator fun invoke(params: Params): ProductCategoriesResponseModel {
-        return homeRepository.getProductCategories(params.storeId, params.all)
+        return repository.getProductCategories(params.storeId, params.all)
             .let { responseWrapper ->
                 responseWrapper.getOrNull()
                     ?: ProductCategoriesResponseModel() // TODO handle failure scenario

@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.samuraicmdv.common.BUNDLE_KEY_IS_EDIT_MODE
 import com.samuraicmdv.common.BUNDLE_KEY_PRODUCT_ID
+import com.samuraicmdv.common.BUNDLE_KEY_STORE_ID
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.compose.ProductDetailsScreen
 import com.samuraicmdv.featureproductdetails.data.ProductUiData
@@ -22,6 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProductDetailsActivity : ComponentActivity() {
+    private val storeId: Int
+        get() = intent.getIntExtra(BUNDLE_KEY_STORE_ID, -1)
+
     /**
      * The ID of the product to display details for or edit. If this param is not provided in the Intent, the screen
      * will show an error message.
@@ -46,7 +50,7 @@ class ProductDetailsActivity : ComponentActivity() {
                 // Create the view model instance
                 viewModel = hiltViewModel(
                     creationCallback = { factory: ProductDetailsViewModel.Factory ->
-                        factory.create(productId, isEditMode)
+                        factory.create(storeId, productId, isEditMode)
                     }
                 )
 

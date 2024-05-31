@@ -1,14 +1,18 @@
 package com.samuraicmdv.data.dagger
 
+import com.samuraicmdv.data.api.BrandApi
 import com.samuraicmdv.data.api.CategoryApi
 import com.samuraicmdv.data.api.HomeApi
 import com.samuraicmdv.data.api.LoginApi
+import com.samuraicmdv.data.datasource.BrandDataSource
 import com.samuraicmdv.data.datasource.CategoryDataSource
 import com.samuraicmdv.data.datasource.HomeDataSource
 import com.samuraicmdv.data.datasource.LoginDataSource
+import com.samuraicmdv.data.datasource.retrofit.BrandDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.CategoryDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.HomeDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
+import com.samuraicmdv.data.mapper.BrandDataMapper
 import com.samuraicmdv.data.mapper.CategoryDataMapper
 import com.samuraicmdv.data.mapper.LoginDataMapper
 import com.samuraicmdv.data.mapper.ProductCategoryMapper
@@ -41,4 +45,11 @@ object DataSourceModule {
         productCategoryMapper: ProductCategoryMapper,
     ): CategoryDataSource =
         CategoryDataSourceRetrofitImpl(categoryApi, categoryDataMapper, productCategoryMapper)
+
+    @Provides
+    fun provideBrandDataSource(
+        brandApi: BrandApi,
+        brandDataMapper: BrandDataMapper,
+    ): BrandDataSource =
+        BrandDataSourceRetrofitImpl(brandApi, brandDataMapper)
 }
