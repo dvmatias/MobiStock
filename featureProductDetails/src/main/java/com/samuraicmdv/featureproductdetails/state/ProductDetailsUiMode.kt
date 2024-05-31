@@ -3,7 +3,7 @@ package com.samuraicmdv.featureproductdetails.state
 /**
  * Represents the mode of the product details screen.
  */
-enum class ProductDetailsScreenMode {
+enum class ProductDetailsUiMode {
     // Display the details of a specific product.
     VIEW,
 

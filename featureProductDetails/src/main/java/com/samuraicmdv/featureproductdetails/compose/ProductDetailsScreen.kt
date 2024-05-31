@@ -22,70 +22,75 @@ import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.EMPTY_STRING
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.R
-import com.samuraicmdv.featureproductdetails.state.ProductDetailsScreenMode.CREATE
-import com.samuraicmdv.featureproductdetails.state.ProductDetailsScreenMode.EDIT
-import com.samuraicmdv.featureproductdetails.state.ProductDetailsScreenMode.VIEW
-import com.samuraicmdv.featureproductdetails.state.ProductDetailsScreenState
+import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.CREATE
+import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.EDIT
+import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.VIEW
+import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiState
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDetailsScreen(
-    uiState: ProductDetailsScreenState,
+    uiState: ProductDetailsUiState,
     modifier: Modifier = Modifier
 ) {
-    if (isEditMode) {
-        ProductDetailsScreenContentEdit(modifier)
-    } else {
-        ProductDetailsScreenContentView(modifier)
     val isScreenLoading = uiState.isLoading
     val screenMode = uiState.screenMode
-    Scaffold(
-        topBar = {
-            Surface(
-                shadowElevation = 0.dp // Added in case I want to have a bottom shadow in the top app bar
-            ) {
-                TopAppBar(
-                    title = {
-                        val title =
-                            when (screenMode) {
-                                VIEW -> uiState.productDetails?.name ?: EMPTY_STRING
-                                EDIT -> stringResource(id = R.string.title_app_bar_edit)
-                                CREATE -> EMPTY_STRING
-                            }
-                        Text(
-                            text = title,
-                            style = MobiTheme.typography.titleLargeBold
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = { /* TODO Handle navigation icon click */ }
-                        ) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = null,
-                                tint = MobiTheme.colors.primary
+    val product = uiState.product
+
+    if (isScreenLoading) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier.fillMaxSize()
+        ) {
+            CircularProgressIndicator()
+        }
+    } else
+        Scaffold(
+            topBar = {
+                Surface(
+                    shadowElevation = 0.dp // Added in case I want to have a bottom shadow in the top app bar
+                ) {
+                    TopAppBar(
+                        title = {
+                            val title =
+                                when (screenMode) {
+                                    VIEW -> uiState.product?.name ?: EMPTY_STRING
+                                    EDIT -> stringResource(id = R.string.title_app_bar_edit)
+                                    CREATE -> EMPTY_STRING
+                                }
+                            Text(
+                                text = title,
+                                style = MobiTheme.typography.titleLargeBold
                             )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MobiTheme.colors.background
+                        },
+                        navigationIcon = {
+                            IconButton(
+                                onClick = { /* TODO Handle navigation icon click */ }
+                            ) {
+                                Icon(
+                                    Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = null,
+                                    tint = MobiTheme.colors.primary
+                                )
+                            }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MobiTheme.colors.background
+                        )
                     )
+                }
+            }
+        ) { paddingValues ->
+            when (screenMode) {
+                VIEW -> ProductDetailsScreenContentView(modifier.padding(paddingValues))
+                EDIT,
+                CREATE -> ProductDetailsScreenContentEdit(
+                    product = uiState.product,
+                    modifier.padding(paddingValues)
                 )
             }
         }
-    ) { paddingValues ->
-        if (!isScreenLoading) {
-        } else {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = modifier.fillMaxSize()
-            ) {
-                CircularProgressIndicator()
-            }
-        }
-    }
 }
 
 @ThemePreviews
@@ -94,7 +99,7 @@ fun PreviewProductDetailsScreenEdit() {
     MobiTheme {
         Surface {
             ProductDetailsScreen(
-                uiState = ProductDetailsScreenState(
+                uiState = ProductDetailsUiState(
                     screenMode = CREATE
                 )
             )
@@ -108,7 +113,7 @@ fun PreviewProductDetailsScreenView() {
     MobiTheme {
         Surface {
             ProductDetailsScreen(
-                uiState = ProductDetailsScreenState(
+                uiState = ProductDetailsUiState(
                     screenMode = CREATE
                 )
             )

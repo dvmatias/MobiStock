@@ -3,4 +3,13 @@
 
     <string name="title_app_bar_edit">Product Details</string>
 
+    <string name="title_product_details_screen_content_edit">Create new product</string>
+
+    <string name="mandatory_field_indicator">*</string>
+    <string name="field_label_name">Name</string>
+    <string name="field_label_model">Model</string>
+    <string name="field_label_code">Internal code</string>
+    <string name="field_label_sku">SKU code</string>
+    <string name="field_label_cost_price">Cost price</string>
+    <string name="field_label_selling_price">Selling price</string>
 </resources>

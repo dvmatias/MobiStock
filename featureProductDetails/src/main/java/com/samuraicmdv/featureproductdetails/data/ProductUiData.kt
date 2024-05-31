@@ -15,7 +15,7 @@ package com.samuraicmdv.featureproductdetails.data
  * @param price The price object of the product.
  * @param brand The brand object of the product.
  */
-data class ProductDetailsUiData(
+data class ProductUiData(
     val id: Int,
     val name: String? = null,
     val shortDescription: String? = null,
@@ -27,4 +27,5 @@ data class ProductDetailsUiData(
     val imageUrls: List<String>? = null,
     val price: ProductPriceUiData? = null,
     val brand: ProductBrandUiData? = null,
+    val category: ProductCategoryUiData? = null,
 )

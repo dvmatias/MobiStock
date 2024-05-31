@@ -76,7 +76,7 @@ fun CategoryScreen(
                     actions = {
                         IconButton(
                             onClick = {
-                                handleEvent(CategoryNavigationEvent.NavigateProductDetails(true, -1))
+                                handleEvent(CategoryNavigationEvent.NavigateProductDetails(false, -1))
                             }
                         ) {
                             Icon(imageVector = Icons.Default.Add, contentDescription = null)

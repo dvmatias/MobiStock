@@ -7,5 +7,5 @@ import androidx.compose.ui.Modifier
 fun ProductDetailsScreenContentView(
     modifier: Modifier = Modifier
 ) {
-    TODO("Not yet implemented")
+
 }

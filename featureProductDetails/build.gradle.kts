@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
@@ -81,4 +83,20 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.7")
     implementation("androidx.compose.material:material-icons-extended:1.6.7")
+    // hilt
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.05.00"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    annotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
+    testAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
+    androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
+    testImplementation("com.google.dagger:hilt-android-testing:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
