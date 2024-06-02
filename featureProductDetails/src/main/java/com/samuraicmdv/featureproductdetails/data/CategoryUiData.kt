@@ -1,6 +1,6 @@
 package com.samuraicmdv.featureproductdetails.data
 
-data class ProductCategoryUiData(
+data class CategoryUiData(
     val id: Int,
     val nameResId: Int,
     val description: String,

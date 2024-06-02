@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.EMPTY_STRING
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.R
+import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.CREATE
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.EDIT
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.VIEW
@@ -32,6 +33,7 @@ import com.samuraicmdv.ui.util.ThemePreviews
 @Composable
 fun ProductDetailsScreen(
     uiState: ProductDetailsUiState,
+    handleEvent: (ProductDetailsEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val isScreenLoading = uiState.isLoading
@@ -87,8 +89,12 @@ fun ProductDetailsScreen(
                 EDIT,
                 CREATE -> ProductDetailsScreenContentEdit(
                     product = uiState.product,
-                    modifier.padding(paddingValues)
-                )
+                    categories = uiState.categories,
+                    brands = uiState.brands,
+                    handleEvent = handleEvent,
+                    modifier = modifier.padding(paddingValues),
+
+                    )
             }
         }
 }
@@ -101,7 +107,8 @@ fun PreviewProductDetailsScreenEdit() {
             ProductDetailsScreen(
                 uiState = ProductDetailsUiState(
                     screenMode = CREATE
-                )
+                ),
+                handleEvent = {},
             )
         }
     }
@@ -115,7 +122,8 @@ fun PreviewProductDetailsScreenView() {
             ProductDetailsScreen(
                 uiState = ProductDetailsUiState(
                     screenMode = CREATE
-                )
+                ),
+                handleEvent = {},
             )
         }
     }

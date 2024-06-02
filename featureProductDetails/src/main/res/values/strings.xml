@@ -7,9 +7,31 @@
 
     <string name="mandatory_field_indicator">*</string>
     <string name="field_label_name">Name</string>
+    <string name="field_placeholder_name">Enter product name</string>
+    <string name="field_supporting_text_name">Do not include brand, model or technical specifications</string>
+
+    <string name="field_label_short_description">Short Description</string>
+    <string name="field_supporting_text_short_description">Essential information. This is for showing on small contexts and items</string>
+
+    <string name="field_label_long_description">Long Description</string>
+    <string name="field_supporting_text_long_description">Essential and specific information. This is for showing on large contexts and detail screens.</string>
+
     <string name="field_label_model">Model</string>
+    <string name="field_placeholder_model">Product model</string>
+
     <string name="field_label_code">Internal code</string>
+    <string name="field_placeholder_code">Internal code</string>
+
     <string name="field_label_sku">SKU code</string>
+    <string name="field_placeholder_sku">Stock keeping unit (SKU)</string>
+
+    <string name="field_label_category">Category</string>
+    <string name="field_label_brand">Brand</string>
+    <string name="option_dropdown_menu_default">Select an option</string>
+
     <string name="field_label_cost_price">Cost price</string>
+    <string name="field_placeholder_cost_price">Cost value</string>
+
     <string name="field_label_selling_price">Selling price</string>
+    <string name="field_placeholder_selling_price">Retail value</string>
 </resources>

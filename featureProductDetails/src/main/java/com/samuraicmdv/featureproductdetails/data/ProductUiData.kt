@@ -26,6 +26,6 @@ data class ProductUiData(
     val thumbnailUrl: String? = null,
     val imageUrls: List<String>? = null,
     val price: ProductPriceUiData? = null,
-    val brand: ProductBrandUiData? = null,
-    val category: ProductCategoryUiData? = null,
+    val brand: BrandUiData? = null,
+    val category: CategoryUiData? = null,
 )

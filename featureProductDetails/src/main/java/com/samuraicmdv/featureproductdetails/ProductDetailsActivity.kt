@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -15,14 +15,15 @@ import com.samuraicmdv.common.BUNDLE_KEY_PRODUCT_ID
 import com.samuraicmdv.common.BUNDLE_KEY_STORE_ID
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.compose.ProductDetailsScreen
-import com.samuraicmdv.featureproductdetails.data.ProductUiData
-import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode
-import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiState
-import com.samuraicmdv.ui.util.ThemePreviews
+import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
+import com.samuraicmdv.featureproductdetails.event.ProductDetailsPresentationEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProductDetailsActivity : ComponentActivity() {
+    /**
+     * The ID of the store to which the product belongs.
+     */
     private val storeId: Int
         get() = intent.getIntExtra(BUNDLE_KEY_STORE_ID, -1)
 
@@ -53,31 +54,24 @@ class ProductDetailsActivity : ComponentActivity() {
                         factory.create(storeId, productId, isEditMode)
                     }
                 )
-
+                // Get the state for the screen
                 val uiState by viewModel.uiState.collectAsState()
-                Surface {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     ProductDetailsScreen(
-                        uiState = uiState
+                        uiState = uiState,
+                        handleEvent = ::handleEvent
                     )
                 }
             }
         }
     }
-}
 
-@ThemePreviews
-@Composable
-fun PreviewProductDetailsScreen(modifier: Modifier = Modifier) {
-    MobiTheme {
-        Surface {
-            ProductDetailsScreen(
-                uiState = ProductDetailsUiState(
-                    screenMode = ProductDetailsUiMode.VIEW,
-                    product = ProductUiData(
-                        id = 1,
-                    )
-                )
-            )
+    private fun handleEvent(event: ProductDetailsEvent) {
+        when (event) {
+            ProductDetailsPresentationEvent.CancelProductEdition -> TODO()
+            ProductDetailsPresentationEvent.EditProduct -> TODO()
+            ProductDetailsPresentationEvent.CreateNewProduct -> TODO()
+            else -> {}
         }
     }
 }

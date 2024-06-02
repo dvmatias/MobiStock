@@ -4,6 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.samuraicmdv.domain.usecase.GetBrandsUseCase
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
+import com.samuraicmdv.featureproductdetails.data.BrandUiData
+import com.samuraicmdv.featureproductdetails.data.CategoryUiData
+import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
+import com.samuraicmdv.featureproductdetails.data.ProductUiData
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiState
 import com.samuraicmdv.featureproductdetails.transformer.ProductDetailsUiDataTransformer
@@ -26,6 +30,9 @@ class ProductDetailsViewModel @AssistedInject constructor(
     private val getBrandsUseCase: GetBrandsUseCase,
     private val transformer: ProductDetailsUiDataTransformer,
 ) : ViewModel() {
+    /**
+     * The state of the UI for the product details screen. Initially is loading.
+     */
     private val _uiState = MutableStateFlow(ProductDetailsUiState(isLoading = true))
     val uiState: StateFlow<ProductDetailsUiState>
         get() = _uiState.asStateFlow()
@@ -45,27 +52,27 @@ class ProductDetailsViewModel @AssistedInject constructor(
             coroutineScope {
                 when (screenMode) {
                     ProductDetailsUiMode.VIEW -> {
-                        // TODO
                         // Fetch the product details
-                        launch { /* Fetch the product details */ }
+                        launch { fetchProductDetails() }
                     }
 
                     ProductDetailsUiMode.EDIT -> {
-                        // TODO
                         // Fetch the product details
-                        launch { /* Fetch the product details */ }
+                        launch { fetchProductDetails() }
                         // Fetch the available categories
-                        launch { getCategories() }
+                        launch { fetchCategories() }
                         // Fetch the available brands
-                        launch { getBrands() }
+                        launch { fetchBrands() }
 
                     }
 
                     ProductDetailsUiMode.CREATE -> {
                         // Fetch the available categories
-                        launch { getCategories() }
+                        launch { fetchCategories() }
                         // Fetch the available brands
-                        launch { getBrands() }
+                        launch { fetchBrands() }
+                        // When creating a new product, initialized the product UI data
+                        _uiState.value = _uiState.value.copy(product = getEmptyProduct())
                     }
                 }
             }
@@ -74,17 +81,54 @@ class ProductDetailsViewModel @AssistedInject constructor(
         }
     }
 
-    private suspend fun getCategories() {
+    /**
+     * Fetches the product details. This is only needed when the screen is in view mode or edit mode.
+     */
+    private suspend fun fetchProductDetails() {
+        // TODO
+    }
+
+    /**
+     * Fetches the available categories. This is only needed when the screen is in edit mode or create mode.
+     */
+    private suspend fun fetchCategories() {
         getProductCategoriesUseCase(GetProductCategoriesUseCase.Params(storeId = storeId, all = true)).let {
-            _uiState.value = _uiState.value.copy(categoriesUiData = transformer.transformCategories(it))
+            _uiState.value = _uiState.value.copy(categories = transformer.transformCategories(it))
         }
     }
 
-    private suspend fun getBrands() {
+    /**
+     * Fetches the available brands. This is only needed when the screen is in edit mode or create mode.
+     */
+    private suspend fun fetchBrands() {
         getBrandsUseCase(GetBrandsUseCase.Params(storeId = storeId)).let {
-            _uiState.value = _uiState.value.copy(brandsUiData = transformer.transformBrands(it))
+            _uiState.value = _uiState.value.copy(brands = transformer.transformBrands(it))
         }
     }
+
+    private fun getEmptyProduct() = ProductUiData(
+        id = -1,
+        name = "",
+        shortDescription = "",
+        longDescription = "",
+        model = "",
+        code = "",
+        sku = "",
+        thumbnailUrl = "",
+        imageUrls = emptyList(),
+        price = ProductPriceUiData(),
+        brand = BrandUiData(
+            id = -1,
+            name = "",
+            logoUrl = "",
+        ),
+        category = CategoryUiData(
+            id = -1,
+            nameResId = -1,
+            description = "",
+            logoUrl = "",
+        ),
+    )
 
     @AssistedFactory
     interface Factory {

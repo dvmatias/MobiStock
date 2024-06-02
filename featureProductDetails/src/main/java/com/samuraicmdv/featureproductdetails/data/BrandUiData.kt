@@ -7,7 +7,7 @@ package com.samuraicmdv.featureproductdetails.data
  * @param name The name of the brand.
  * @param logoUrl The URL of the logo of the brand.
  */
-data class ProductBrandUiData(
+data class BrandUiData(
     val id: Int,
     val name: String,
     val logoUrl: String,

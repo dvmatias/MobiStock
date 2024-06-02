@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 @Stable
 class MobiDimens(
     val unit: Dp = 1.dp,
-    val two: Dp = 2.dp,
+    val dimen_0_25: Dp = 2.dp,
     val dimen_0_5: Dp = 4.dp,
     val dimen_0_75: Dp = 6.dp,
     val dimen_1: Dp = 8.dp,

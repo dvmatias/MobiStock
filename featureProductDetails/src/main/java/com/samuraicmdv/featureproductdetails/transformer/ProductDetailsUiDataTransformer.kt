@@ -4,30 +4,29 @@ import com.samuraicmdv.common.R
 import com.samuraicmdv.common.utils.ProductCategory
 import com.samuraicmdv.domain.model.GetBrandsResponseModel
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
-import com.samuraicmdv.featureproductdetails.data.ProductBrandUiData
-import com.samuraicmdv.featureproductdetails.data.ProductCategoryUiData
+import com.samuraicmdv.featureproductdetails.data.BrandUiData
+import com.samuraicmdv.featureproductdetails.data.CategoryUiData
 
 object ProductDetailsUiDataTransformer {
 
     // TODO extract this out is also used in home transformer
     fun transformCategories(
         productCategoriesModel: ProductCategoriesResponseModel,
-    ): List<ProductCategoryUiData>? =
+    ): List<CategoryUiData>? =
         productCategoriesModel.productCategories?.map { category ->
-            ProductCategoryUiData(
+            CategoryUiData(
                 id = category.id ?: -1,
                 nameResId = getProductCategoryNameResource(category.type),
                 description = category.imageUrl ?: "",
                 logoUrl = category.logoUrl ?: "",
-
-                )
+            )
         }
 
     fun transformBrands(
         productBrandsModel: GetBrandsResponseModel
-    ): List<ProductBrandUiData>? =
+    ): List<BrandUiData>? =
         productBrandsModel.brands?.map {
-            ProductBrandUiData(
+            BrandUiData(
                 id = it.id ?: -1,
                 name = it.name ?: "",
                 logoUrl = it.logoUrl ?: "",

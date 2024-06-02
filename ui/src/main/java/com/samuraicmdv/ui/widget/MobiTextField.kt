@@ -1,11 +1,16 @@
 package com.samuraicmdv.ui.widget
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -21,9 +26,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Cyan
 import androidx.compose.ui.graphics.Color.Companion.Green
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
@@ -38,6 +45,7 @@ fun MobiTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    mobiLabel: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -74,10 +82,12 @@ fun MobiTextField(
     val updatedColors = updateColors(colors)
 
     Column {
+        mobiLabel?.invoke()
+
         CompositionLocalProvider(LocalTextStyle provides updatedTextStyle) {
             BasicTextField(
                 value = value,
-                modifier = modifier,
+                modifier = modifier.heightIn(40.dp),
                 onValueChange = onValueChange,
                 enabled = enabled,
                 readOnly = readOnly,
@@ -109,7 +119,7 @@ fun MobiTextField(
                         isError = isError,
                         interactionSource = interactionSource,
                         colors = updatedColors,
-                        contentPadding = PaddingValues(start = 0.dp, end = 0.dp, top = 0.dp, bottom = 2.dp)
+                        contentPadding = PaddingValues(start = 0.dp, end = 0.dp, top = 8.dp, bottom = 8.dp)
                     )
                 }
             )
