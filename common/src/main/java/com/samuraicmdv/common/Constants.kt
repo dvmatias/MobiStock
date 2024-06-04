@@ -16,3 +16,4 @@ const val ALPHA_ZERO = 0F
 
 // Strings
 const val EMPTY_STRING = ""
+const val SPACE_STRING = " "

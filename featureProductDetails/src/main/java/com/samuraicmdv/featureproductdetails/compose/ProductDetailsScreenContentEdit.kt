@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +24,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -31,7 +34,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -49,7 +52,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.samuraicmdv.common.extension.toDisplayPrice
+import com.samuraicmdv.common.EMPTY_STRING
+import com.samuraicmdv.common.SPACE_STRING
+import com.samuraicmdv.common.extension.getMargin
 import com.samuraicmdv.common.extension.toDoublePrice
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.R
@@ -61,6 +66,7 @@ import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsPresentationEvent
 import com.samuraicmdv.ui.util.ThemePreviews
 import com.samuraicmdv.ui.widget.MobiTextField
+import java.util.Locale
 
 private const val SHORT_DESCRIPTION_MAX_LENGTH = 128
 private const val LONG_DESCRIPTION_MAX_LENGTH = 256
@@ -79,19 +85,22 @@ fun ProductDetailsScreenContentEdit(
 ) {
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
-    var name by remember { mutableStateOf(product?.name ?: "") }
-    var model by remember { mutableStateOf(product?.model ?: "") }
-    var code by remember { mutableStateOf(product?.code ?: "") }
-    var sku by remember { mutableStateOf(product?.sku ?: "") }
-    var shortDescription by remember { mutableStateOf(product?.shortDescription ?: "") }
-    var longDescription by remember { mutableStateOf(product?.longDescription ?: "") }
+    var name by remember { mutableStateOf(product?.name ?: EMPTY_STRING) }
+    var model by remember { mutableStateOf(product?.model ?: EMPTY_STRING) }
+    var code by remember { mutableStateOf(product?.code ?: EMPTY_STRING) }
+    var sku by remember { mutableStateOf(product?.sku ?: EMPTY_STRING) }
+    var shortDescription by remember { mutableStateOf(product?.shortDescription ?: EMPTY_STRING) }
+    var longDescription by remember { mutableStateOf(product?.longDescription ?: EMPTY_STRING) }
     var category by remember { mutableStateOf(product?.category) }
     var brand by remember { mutableStateOf(product?.brand) }
+    var margin by remember {
+        mutableIntStateOf(65) // TODO product?.price?.preferredMargin with 65 as default
+    }
     var costPrice by remember {
-        mutableDoubleStateOf(product?.price?.costPrice ?: 0.0)
+        mutableStateOf(product?.price?.costPrice?.toString() ?: EMPTY_STRING)
     }
     var sellingPrice by remember {
-        mutableDoubleStateOf(product?.price?.sellingPrice ?: 0.0)
+        mutableStateOf(product?.price?.sellingPrice?.toString() ?: EMPTY_STRING)
     }
 
     Surface(color = MobiTheme.colors.background) {
@@ -115,7 +124,7 @@ fun ProductDetailsScreenContentEdit(
                 Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_4))
 
                 Text(
-                    text = "General".uppercase(),
+                    text = stringResource(id = R.string.title_general).uppercase(),
                     style = MobiTheme.typography.titleSmallBold,
                 )
 
@@ -132,7 +141,7 @@ fun ProductDetailsScreenContentEdit(
                             text = buildAnnotatedString {
                                 append(stringResource(id = R.string.field_label_name))
                                 withStyle(style = SpanStyle(MobiTheme.colors.error)) {
-                                    append(" ")
+                                    append(SPACE_STRING)
                                     append(stringResource(id = R.string.mandatory_field_indicator))
                                 }
                             }.toUpperCase(),
@@ -164,7 +173,7 @@ fun ProductDetailsScreenContentEdit(
                     text = buildAnnotatedString {
                         append(stringResource(id = R.string.field_label_short_description))
                         withStyle(style = SpanStyle(MobiTheme.colors.error)) {
-                            append(" ")
+                            append(SPACE_STRING)
                             append(stringResource(id = R.string.mandatory_field_indicator))
                         }
                     }.toUpperCase(),
@@ -208,7 +217,7 @@ fun ProductDetailsScreenContentEdit(
                     text = buildAnnotatedString {
                         append(stringResource(id = R.string.field_label_long_description))
                         withStyle(style = SpanStyle(MobiTheme.colors.error)) {
-                            append(" ")
+                            append(SPACE_STRING)
                             append(stringResource(id = R.string.mandatory_field_indicator))
                         }
                     }.toUpperCase(),
@@ -304,7 +313,7 @@ fun ProductDetailsScreenContentEdit(
 
                 Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_4))
                 Text(
-                    text = "Product specifics".uppercase(),
+                    text = stringResource(id = R.string.title_product_specifics).uppercase(),
                     style = MobiTheme.typography.titleSmallBold,
                 )
 
@@ -315,7 +324,7 @@ fun ProductDetailsScreenContentEdit(
                         text = buildAnnotatedString {
                             append(stringResource(id = R.string.field_label_category))
                             withStyle(style = SpanStyle(MobiTheme.colors.error)) {
-                                append(" ")
+                                append(SPACE_STRING)
                                 append(stringResource(id = R.string.mandatory_field_indicator))
                             }
                         }.toUpperCase(),
@@ -330,7 +339,8 @@ fun ProductDetailsScreenContentEdit(
                                 title = stringResource(id = category.nameResId),
                                 item = category
                             )
-                        }
+                        },
+                        defaultOptionTitle = stringResource(id = R.string.option_dropdown_menu_category_default)
                     ) { selectedCategory ->
                         category = selectedCategory
                     }
@@ -343,7 +353,7 @@ fun ProductDetailsScreenContentEdit(
                         text = buildAnnotatedString {
                             append(stringResource(id = R.string.field_label_brand))
                             withStyle(style = SpanStyle(MobiTheme.colors.error)) {
-                                append(" ")
+                                append(SPACE_STRING)
                                 append(stringResource(id = R.string.mandatory_field_indicator))
                             }
                         }.toUpperCase(),
@@ -358,7 +368,8 @@ fun ProductDetailsScreenContentEdit(
                                 title = brand.name,
                                 item = brand
                             )
-                        }
+                        },
+                        defaultOptionTitle = stringResource(id = R.string.option_dropdown_menu_brand_default)
                     ) { selectedBrand ->
                         brand = selectedBrand
                     }
@@ -396,7 +407,7 @@ fun ProductDetailsScreenContentEdit(
                 Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_4))
 
                 Text(
-                    text = "Prices".uppercase(),
+                    text = stringResource(id = R.string.title_price).uppercase(),
                     style = MobiTheme.typography.titleSmallBold,
                 )
 
@@ -404,20 +415,28 @@ fun ProductDetailsScreenContentEdit(
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_2),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Max)
                 ) {
                     Box(modifier = Modifier.weight(1F)) {
                         MobiTextField(
-                            value = costPrice.toDisplayPrice(),
+                            value = if (costPrice != "null") costPrice else EMPTY_STRING,
                             onValueChange = {
-                                costPrice = it.toDoublePrice()
+                                costPrice = it
+                            },
+                            prefix = {
+                                Text(
+                                    text = "$",
+                                    style = MobiTheme.typography.bodyLargeBold
+                                )
                             },
                             mobiLabel = {
                                 Text(
                                     text = buildAnnotatedString {
                                         append(stringResource(id = R.string.field_label_cost_price))
                                         withStyle(style = SpanStyle(MobiTheme.colors.error)) {
-                                            append(" ")
+                                            append(SPACE_STRING)
                                             append(stringResource(id = R.string.mandatory_field_indicator))
                                         }
                                     }.toUpperCase(),
@@ -442,46 +461,138 @@ fun ProductDetailsScreenContentEdit(
                             modifier = Modifier.fillMaxWidth()
                         )
                     }
-                    Box(modifier = Modifier.weight(1F)) {
-                        MobiTextField(
-                            value = sellingPrice.toDisplayPrice(),
-                            onValueChange = {
-                                sellingPrice = it.toDoublePrice()
-                            },
-                            mobiLabel = {
-                                Text(
-                                    text = buildAnnotatedString {
-                                        append(stringResource(id = R.string.field_label_selling_price))
-                                        withStyle(style = SpanStyle(MobiTheme.colors.error)) {
-                                            append(" ")
-                                            append(stringResource(id = R.string.mandatory_field_indicator))
-                                        }
-                                    }.toUpperCase(),
-                                    style = MobiTheme.typography.labelMediumBold,
-                                )
-                            }, keyboardOptions = KeyboardOptions(
-                                imeAction = ImeAction.Next,
-                                keyboardType = KeyboardType.Decimal
-                            ),
-                            keyboardActions = KeyboardActions(
-                                onNext = { focusManager.moveFocus(FocusDirection.Down) }
-                            ),
-                            placeholder = {
-                                Text(
-                                    text = stringResource(id = R.string.field_placeholder_selling_price),
-                                    style = MobiTheme.typography.bodyLarge,
-                                    color = MobiTheme.colors.textSecondary
-                                )
-                            },
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                    Box(
+                        modifier = Modifier
+                            .weight(1F)
+                            .fillMaxHeight()
+                    ) {
+                        val cost = costPrice.toDoublePrice()
+                        val revenue = sellingPrice.toDoublePrice()
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.field_label_preferred_margin).uppercase(),
+                                style = MobiTheme.typography.labelMediumBold,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+
+                            Spacer(modifier = Modifier.weight(1f))
+
+                            val dropdownItems = (1..99)
+                            ProductEditDropDownMenu(
+                                items = dropdownItems.map { margin ->
+                                    ItemMenu(
+                                        title = margin.toString(),
+                                        item = margin
+                                    )
+                                },
+                                selectedIndexDefault = dropdownItems.indexOfFirst { it == margin },
+                                modifier = Modifier.fillMaxWidth()
+                            ) { selectedMargin ->
+                                margin = selectedMargin
+                            }
+                        }
                     }
                 }
 
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
+                MobiTextField(
+                    value = if (sellingPrice != "null") sellingPrice else EMPTY_STRING,
+                    onValueChange = {
+                        sellingPrice = it
+                    },
+                    prefix = {
+                        Text(
+                            text = "$",
+                            style = MobiTheme.typography.bodyLargeBold
+                        )
+                    },
+                    mobiLabel = {
+                        Text(
+                            text = buildAnnotatedString {
+                                append(stringResource(id = R.string.field_label_selling_price))
+                                withStyle(style = SpanStyle(MobiTheme.colors.error)) {
+                                    append(SPACE_STRING)
+                                    append(stringResource(id = R.string.mandatory_field_indicator))
+                                }
+                            }.toUpperCase(),
+                            style = MobiTheme.typography.labelMediumBold,
+                        )
+                    }, keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next,
+                        keyboardType = KeyboardType.Decimal
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                    ),
+                    placeholder = {
+                        Text(
+                            text = stringResource(id = R.string.field_placeholder_selling_price),
+                            style = MobiTheme.typography.bodyLarge,
+                            color = MobiTheme.colors.textSecondary
+                        )
+                    },
+                    supportingText = {
+                        val cost = costPrice.toDoublePrice()
+                        val revenue = sellingPrice.toDoublePrice()
+                        val currentMargin = (cost to revenue).getMargin(2)
+
+                        Column(
+                            horizontalAlignment = Alignment.End,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            // Render selling price recommendation supporting text only if there is a suggested price to show
+                            if (cost > 0.0) {
+                                Text(
+                                    text = String.format(
+                                        Locale.getDefault(),
+                                        stringResource(id = R.string.supporting_text_suggested_price_placeholder),
+                                        margin,
+                                        String.format(
+                                            Locale.getDefault(),
+                                            "%.2f",
+                                            (costPrice.toDoublePrice().div((100 - margin)) * 100)
+                                        )
+                                    ),
+                                    textAlign = TextAlign.End
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
+                            if (cost > 0.0 && revenue > 0.0 && currentMargin < margin) {
+                                Row {
+                                    Icon(
+                                        imageVector = Icons.Default.Warning,
+                                        contentDescription = null,
+                                        tint = MobiTheme.colors.error,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
+                                    Text(
+                                        text = if (currentMargin > 0) "Selling price has a low margin: $currentMargin %" else "Invalid price, margin is negative",
+                                        textAlign = TextAlign.End,
+                                        color = if (currentMargin > 0) MobiTheme.colors.textPrimary else MobiTheme.colors.error,
+                                        modifier = Modifier
+                                    )
+                                }
+                            }
+                        }
+                    },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
+
+
                 Spacer(
                     modifier = Modifier.height(
-                        MobiTheme.dimens.dimen_5
+                        MobiTheme.dimens.dimen_8
                     )
                 )
             }
@@ -516,14 +627,17 @@ fun ProductDetailsScreenContentEdit(
 fun <T> ProductEditDropDownMenu(
     items: List<ItemMenu<T>>,
     modifier: Modifier = Modifier,
+    defaultOptionTitle: String? = null,
+    selectedIndexDefault: Int? = null,
     onItemSelected: (T) -> Unit
 ) {
-    val defaultOption = stringResource(id = R.string.option_dropdown_menu_default)
-    val options: List<ItemMenu<T>> = items.sortedBy { it.title }.toMutableList().apply {
-        add(0, ItemMenu(title = defaultOption))
+    val options: List<ItemMenu<T>> = items.toMutableList().apply {
+        defaultOptionTitle?.let { add(0, ItemMenu(title = it)) }
     }.toList()
     var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf(options[0]) }
+    var selectedOption by remember {
+        mutableStateOf(options[selectedIndexDefault ?: 0])
+    }
 
     Box(
         modifier = Modifier
@@ -610,40 +724,40 @@ fun PreviewProductDetailsScreenContentEdit() {
             ProductDetailsScreenContentEdit(
                 product = ProductUiData(
                     id = -1,
-                    name = "",
-                    shortDescription = "",
-                    longDescription = "",
-                    model = "",
-                    code = "",
-                    sku = "",
-                    thumbnailUrl = "",
+                    name = EMPTY_STRING,
+                    shortDescription = EMPTY_STRING,
+                    longDescription = EMPTY_STRING,
+                    model = EMPTY_STRING,
+                    code = EMPTY_STRING,
+                    sku = EMPTY_STRING,
+                    thumbnailUrl = EMPTY_STRING,
                     imageUrls = emptyList(),
                     price = ProductPriceUiData(),
                     brand = BrandUiData(
                         id = -1,
-                        name = "",
-                        logoUrl = "",
+                        name = EMPTY_STRING,
+                        logoUrl = EMPTY_STRING,
                     ),
                     category = CategoryUiData(
                         id = -1,
                         nameResId = -1,
-                        description = "",
-                        logoUrl = "",
+                        description = EMPTY_STRING,
+                        logoUrl = EMPTY_STRING,
                     ),
                 ),
                 categories = List(5) {
                     CategoryUiData(
                         id = it,
                         nameResId = R.string.field_label_category,
-                        description = "",
-                        logoUrl = "",
+                        description = EMPTY_STRING,
+                        logoUrl = EMPTY_STRING,
                     )
                 },
                 brands = List(5) {
                     BrandUiData(
                         id = it,
-                        name = "",
-                        logoUrl = "",
+                        name = EMPTY_STRING,
+                        logoUrl = EMPTY_STRING,
                     )
                 },
                 handleEvent = {}
@@ -651,3 +765,22 @@ fun PreviewProductDetailsScreenContentEdit() {
         }
     }
 }
+
+/*
+if (cost > 0.0 && revenue > 0.0) {
+                                    buildAnnotatedString {
+                                        append("Margin: ")
+                                        val margin = (cost to revenue).getMargin(2, suffix = " %")
+                                        withStyle(
+                                            style = SpanStyle(MobiTheme.colors.primary)
+                                        ) {
+                                            append(margin)
+                                        }
+                                    }
+                                } else {
+                                    buildAnnotatedString {
+                                        append("Margin: ")
+                                        append("0 %")
+                                    }
+                                } TODO
+ */
