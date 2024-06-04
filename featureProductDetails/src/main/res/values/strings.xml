@@ -35,13 +35,13 @@
     <string name="option_dropdown_menu_category_default">Select a category</string>
     <string name="option_dropdown_menu_brand_default">Select a brand</string>
 
-    <string name="field_label_cost_price">Cost price</string>
+    <string name="field_label_cost_price">Cost</string>
     <string name="field_placeholder_cost_price">Cost value</string>
 
     <string name="field_label_preferred_margin">Preferred Margin</string>
 
 
-    <string name="field_label_selling_price">Selling price</string>
+    <string name="field_label_selling_price">Selling</string>
     <string name="field_placeholder_selling_price">Retail value</string>
     <string name="supporting_text_suggested_price_placeholder">Suggested price based on a %1d%% margin: $%2s</string>
 </resources>
