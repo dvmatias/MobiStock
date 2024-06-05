@@ -43,15 +43,20 @@ import com.samuraicmdv.ui.util.ThemePreviews
 import com.samuraicmdv.ui.widget.MobiTextField
 import java.util.Locale
 
+private const val MARGIN_MIN = 30
+private const val MARGIN_MAX = 99
+
 @Composable
 fun ProductDetailsScreenContentEditPriceSection(
     focusManager: FocusManager,
-    costPrice: String,
-    onCostPriceChange: (String) -> Unit,
-    sellingPrice: String,
+    cost: String,
+    onCostChange: (String) -> Unit,
+    costError: String,
+    revenue: String,
+    onRevenueChange: (String) -> Unit,
+    revenueError: String,
     margin: Int,
     onMarginChange: (Int) -> Unit,
-    onSellingPriceChange: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val costPriceInputLabel = buildAnnotatedString {
@@ -89,8 +94,8 @@ fun ProductDetailsScreenContentEditPriceSection(
             Box(modifier = Modifier.weight(1F)) {
                 
                 MobiTextField(
-                    value = if (costPrice != "null") costPrice else EMPTY_STRING,
-                    onValueChange = { onCostPriceChange(it) },
+                    value = if (cost != "null") cost else EMPTY_STRING,
+                    onValueChange = { onCostChange(it) },
                     prefix = {
                         Text(
                             text = "$",
@@ -103,6 +108,8 @@ fun ProductDetailsScreenContentEditPriceSection(
                             style = MobiTheme.typography.labelMediumBold,
                         )
                     },
+                    isError = costError.isNotEmpty(),
+                    errorMessage = costError,
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
                         keyboardType = KeyboardType.Decimal
@@ -138,7 +145,7 @@ fun ProductDetailsScreenContentEditPriceSection(
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    val dropdownItems = (1..99)
+                    val dropdownItems = (MARGIN_MIN..MARGIN_MAX)
                     ProductEditDropDownMenu(
                         items = dropdownItems.map { margin ->
                             ItemMenu(
@@ -156,8 +163,8 @@ fun ProductDetailsScreenContentEditPriceSection(
         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
 
         MobiTextField(
-            value = if (sellingPrice != "null") sellingPrice else EMPTY_STRING,
-            onValueChange = { onSellingPriceChange(it) },
+            value = if (revenue != "null") revenue else EMPTY_STRING,
+            onValueChange = { onRevenueChange(it) },
             prefix = {
                 Text(
                     text = "$",
@@ -169,7 +176,10 @@ fun ProductDetailsScreenContentEditPriceSection(
                     text = sellingPriceInputLabel,
                     style = MobiTheme.typography.labelMediumBold,
                 )
-            }, keyboardOptions = KeyboardOptions(
+            },
+            isError = revenueError.isNotEmpty(),
+            errorMessage = revenueError,
+            keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
                 keyboardType = KeyboardType.Decimal
             ),
@@ -184,16 +194,16 @@ fun ProductDetailsScreenContentEditPriceSection(
                 )
             },
             supportingText = {
-                val cost = costPrice.toDoublePrice()
-                val revenue = sellingPrice.toDoublePrice()
-                val currentMargin = (cost to revenue).getMargin(2)
+                val costDouble = cost.toDoublePrice()
+                val revenueDouble = revenue.toDoublePrice()
+                val currentMargin = (costDouble to revenueDouble).getMargin(2)
 
                 Column(
                     horizontalAlignment = Alignment.End,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     // Render selling price recommendation supporting text only if there is a suggested price to show
-                    if (cost > 0.0) {
+                    if (costDouble > 0.0) {
                         Text(
                             text = String.format(
                                 Locale.getDefault(),
@@ -202,7 +212,7 @@ fun ProductDetailsScreenContentEditPriceSection(
                                 String.format(
                                     Locale.getDefault(),
                                     "%.2f",
-                                    (costPrice.toDoublePrice().div((100 - margin)) * 100)
+                                    (cost.toDoublePrice().div((100 - margin)) * 100)
                                 )
                             ),
                             textAlign = TextAlign.End
@@ -210,7 +220,7 @@ fun ProductDetailsScreenContentEditPriceSection(
                     }
 
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
-                    if (cost > 0.0 && revenue > 0.0 && currentMargin < margin) {
+                    if (costDouble > 0.0 && revenueDouble > 0.0 && currentMargin < margin) {
                         Row {
                             Icon(
                                 imageVector = Icons.Default.Warning,
@@ -242,12 +252,14 @@ fun PreviewProductDetailsScreenContentEditPriceSection() {
         Surface {
             ProductDetailsScreenContentEditPriceSection(
                 focusManager = LocalFocusManager.current,
-                costPrice = "100.00",
-                onCostPriceChange = {},
-                sellingPrice = "200.00",
+                cost = "100.00",
+                onCostChange = {},
+                costError = EMPTY_STRING,
+                revenue = "200.00",
+                revenueError = EMPTY_STRING,
                 margin = 50,
                 onMarginChange = {},
-                onSellingPriceChange = {}
+                onRevenueChange = {}
             )
         }
     }

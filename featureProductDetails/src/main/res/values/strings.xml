@@ -44,4 +44,15 @@
     <string name="field_label_selling_price">Selling</string>
     <string name="field_placeholder_selling_price">Retail value</string>
     <string name="supporting_text_suggested_price_placeholder">Suggested price based on a %1d%% margin: $%2s</string>
+
+    <!-- Errors -->
+    <string name="field_error_required">This field is required</string>
+    <string name="field_error_name_short">This name is too short</string>
+    <string name="field_error_cost_invalid_amount">The cost price must be a positive number</string>
+    <string name="field_error_revenue_invalid_amount">The selling price must be a positive number</string>
+    <string name="field_error_revenue_low">This price is too low, check the selling price or the cost price</string>
+
+    <!-- Buttons -->
+    <string name="button_label_save">save</string>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.samuraicmdv.featureproductdetails.compose
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,16 +14,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import com.samuraicmdv.common.EMPTY_STRING
+import com.samuraicmdv.common.extension.getMargin
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.R
 import com.samuraicmdv.featureproductdetails.data.BrandUiData
@@ -47,8 +53,12 @@ fun ProductDetailsScreenContentEdit(
 ) {
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
     var name by remember {
         mutableStateOf(product?.name ?: EMPTY_STRING)
+    }
+    var nameError by remember {
+        mutableStateOf(EMPTY_STRING)
     }
     var model by remember {
         mutableStateOf(product?.model ?: EMPTY_STRING)
@@ -74,12 +84,35 @@ fun ProductDetailsScreenContentEdit(
     var margin by remember {
         mutableIntStateOf(65) // TODO product?.price?.preferredMargin with 65 as default
     }
-    var costPrice by remember {
+    var cost by remember {
         mutableStateOf(product?.price?.costPrice?.toString() ?: EMPTY_STRING)
     }
-    var sellingPrice by remember {
+    var costError by remember { mutableStateOf(EMPTY_STRING) }
+    var revenue by remember {
         mutableStateOf(product?.price?.sellingPrice?.toString() ?: EMPTY_STRING)
     }
+    var revenueError by remember { mutableStateOf(EMPTY_STRING) }
+
+
+    var isValidatingForm by rememberSaveable {
+        mutableStateOf(false)
+    }
+    var isFormValid by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    LaunchedEffect(key1 = isValidatingForm) {
+        if (isValidatingForm) {
+            val isValidName = validateName(context, name) { error -> nameError = error }
+            val isValidCost = validateCost(context, cost) { error -> costError = error }
+            val isValidRevenue = validateRevenue(context, revenue, cost, margin) { error -> revenueError = error }
+
+            isFormValid = isValidName && isValidRevenue && isValidCost
+            // Form validations ended up
+            isValidatingForm = false
+        }
+    }
+
 
     Surface(color = MobiTheme.colors.background) {
         Column(
@@ -107,7 +140,9 @@ fun ProductDetailsScreenContentEdit(
                     name = name,
                     onNameChange = { newName ->
                         name = newName
+                        nameError = EMPTY_STRING
                     },
+                    nameError = nameError,
                     model = model,
                     onModelChange = { newModel ->
                         model = newModel
@@ -123,13 +158,17 @@ fun ProductDetailsScreenContentEdit(
                 // Prices section
                 ProductDetailsScreenContentEditPriceSection(
                     focusManager = focusManager,
-                    costPrice = costPrice,
-                    onCostPriceChange = { newCostPrice ->
-                        costPrice = newCostPrice
+                    cost = cost,
+                    onCostChange = {
+                        cost = it
+                        costError = EMPTY_STRING
                     },
-                    sellingPrice = sellingPrice,
-                    onSellingPriceChange = { newSellingPrice ->
-                        sellingPrice = newSellingPrice
+                    costError = costError,
+                    revenue = revenue,
+                    revenueError = revenueError,
+                    onRevenueChange = {
+                        revenue = it
+                        revenueError = EMPTY_STRING
                     },
                     margin = margin,
                     onMarginChange = { newMargin ->
@@ -171,8 +210,10 @@ fun ProductDetailsScreenContentEdit(
             // Create Product/Save button
             Button(
                 onClick = {
-                    // TODO
-                    handleEvent(ProductDetailsPresentationEvent.CreateNewProduct)
+                    isValidatingForm = true
+                    if (isFormValid)
+                        handleEvent(ProductDetailsPresentationEvent.CreateNewProduct)
+
                 },
                 enabled = true,
                 shape = RoundedCornerShape(MobiTheme.dimens.dimen_1_5),
@@ -187,7 +228,7 @@ fun ProductDetailsScreenContentEdit(
                     .height(48.dp)
             ) {
                 Text(
-                    text = "save".uppercase(),
+                    text = stringResource(id = R.string.button_label_save).uppercase(),
                     style = MobiTheme.typography.buttonLabel
                 )
             }
@@ -195,10 +236,65 @@ fun ProductDetailsScreenContentEdit(
     }
 }
 
-data class ItemMenu<T>(
-    val title: String,
-    val item: T? = null,
-)
+private fun validateName(
+    context: Context,
+    name: String,
+    onNameError: (String) -> Unit,
+): Boolean {
+    if (name.isEmpty()) {
+        onNameError(ContextCompat.getString(context, R.string.field_error_required))
+        return false
+    }
+    if (name.length < 4) {
+        onNameError(ContextCompat.getString(context, R.string.field_error_name_short))
+        return false
+    }
+    return true
+}
+
+private fun validateCost(
+    context: Context,
+    cost: String,
+    onCostError: (String) -> Unit,
+): Boolean {
+    if (cost.isEmpty()) {
+        onCostError(ContextCompat.getString(context, R.string.field_error_required))
+        return false
+    }
+    if (cost.toDouble() <= 0.0) {
+        onCostError(ContextCompat.getString(context, R.string.field_error_cost_invalid_amount))
+        return false
+    }
+    return true
+}
+
+/**
+ * @param revenue The selling price of the product set in the form.
+ * @param cost The cost price of the product set in the form.
+ * @param margin The selected margin in the form.
+ */
+private fun validateRevenue(
+    context: Context,
+    revenue: String,
+    cost: String,
+    margin: Int,
+    onRevenueError: (String) -> Unit,
+): Boolean {
+    if (revenue.isEmpty()) {
+        onRevenueError(ContextCompat.getString(context, R.string.field_error_required))
+        return false
+    }
+    if (revenue.toDouble() <= 0.0) {
+        onRevenueError(ContextCompat.getString(context, R.string.field_error_revenue_invalid_amount))
+        return false
+    }
+    val realMargin = (cost.toDouble() to revenue.toDouble()).getMargin(2)
+    if (realMargin < margin) {
+        onRevenueError(ContextCompat.getString(context, R.string.field_error_revenue_low))
+        return false
+    }
+    return true
+}
 
 @ThemePreviews
 @Composable

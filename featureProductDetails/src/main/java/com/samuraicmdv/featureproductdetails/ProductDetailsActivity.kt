@@ -68,9 +68,9 @@ class ProductDetailsActivity : ComponentActivity() {
 
     private fun handleEvent(event: ProductDetailsEvent) {
         when (event) {
-            ProductDetailsPresentationEvent.CancelProductEdition -> TODO()
-            ProductDetailsPresentationEvent.EditProduct -> TODO()
-            ProductDetailsPresentationEvent.CreateNewProduct -> TODO()
+            ProductDetailsPresentationEvent.CancelProductEdition -> {}// TODO()
+            ProductDetailsPresentationEvent.EditProduct -> {}// TODO()
+            ProductDetailsPresentationEvent.CreateNewProduct -> {}// TODO()
             else -> {}
         }
     }

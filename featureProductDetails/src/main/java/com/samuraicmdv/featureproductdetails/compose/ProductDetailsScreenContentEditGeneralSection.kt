@@ -17,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.text.withStyle
 import com.samuraicmdv.common.SPACE_STRING
@@ -30,6 +31,7 @@ fun ProductDetailsScreenContentEditGeneralSection(
     focusManager: FocusManager,
     name: String,
     onNameChange: (String) -> Unit,
+    nameError: String,
     model: String,
     onModelChange: (String) -> Unit,
     code: String,
@@ -64,6 +66,8 @@ fun ProductDetailsScreenContentEditGeneralSection(
                     style = MobiTheme.typography.labelMediumBold,
                 )
             },
+            isError = nameError.isNotEmpty(),
+            errorMessage = nameError,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             keyboardActions = KeyboardActions(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
@@ -77,7 +81,11 @@ fun ProductDetailsScreenContentEditGeneralSection(
             },
             singleLine = true,
             supportingText = {
-                Text(text = stringResource(id = R.string.field_supporting_text_name))
+                Text(
+                    text = stringResource(id = R.string.field_supporting_text_name),
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.fillMaxWidth()
+                )
             },
             modifier = Modifier.fillMaxWidth()
         )
@@ -151,6 +159,7 @@ fun PreviewProductDetailsScreenContentEditGeneralSection() {
                 focusManager = LocalFocusManager.current,
                 name = "Product Name",
                 onNameChange = {},
+                nameError = "",
                 model = "Product Model",
                 onModelChange = {},
                 code = "Product Code",
