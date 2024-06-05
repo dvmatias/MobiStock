@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
 fun <T> ProductEditDropDownMenu(
@@ -36,6 +38,7 @@ fun <T> ProductEditDropDownMenu(
     modifier: Modifier = Modifier,
     defaultOptionTitle: String? = null,
     selectedIndexDefault: Int? = null,
+    error: String? = null,
     onItemSelected: (T) -> Unit
 ) {
     val options: List<ItemMenu<T>> = items.toMutableList().apply {
@@ -111,9 +114,48 @@ fun <T> ProductEditDropDownMenu(
             Spacer(
                 modifier = Modifier
                     .height(1.dp)
-                    .background(MobiTheme.colors.textDisable)
+                    .background(error?.run { MobiTheme.colors.error } ?: MobiTheme.colors.textDisable)
                     .fillMaxWidth()
             )
+            error?.let {
+                Text(
+                    text = it,
+                    style = MobiTheme.typography.labelSmallBold,
+                    color = MobiTheme.colors.error,
+                    modifier = Modifier.padding(top = MobiTheme.dimens.dimen_0_5)
+                )
+            }
+        }
+    }
+}
+
+@ThemePreviews
+@Composable
+fun PreviewProductEditDropDownMenu() {
+    MobiTheme {
+        Surface {
+            Column {
+                ProductEditDropDownMenu(
+                    items = listOf(
+                        ItemMenu(title = "Option 1", item = "Option 1"),
+                        ItemMenu(title = "Option 2", item = "Option 2"),
+                        ItemMenu(title = "Option 3", item = "Option 3"),
+                    ),
+                    defaultOptionTitle = "Select an option",
+                    onItemSelected = { }
+                )
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+                ProductEditDropDownMenu(
+                    items = listOf(
+                        ItemMenu(title = "Option 1", item = "Option 1"),
+                        ItemMenu(title = "Option 2", item = "Option 2"),
+                        ItemMenu(title = "Option 3", item = "Option 3"),
+                    ),
+                    defaultOptionTitle = "Select an option",
+                    error = "This is an error message",
+                    onItemSelected = { }
+                )
+            }
         }
     }
 }

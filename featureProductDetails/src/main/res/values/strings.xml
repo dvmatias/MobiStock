@@ -51,6 +51,8 @@
     <string name="field_error_cost_invalid_amount">The cost price must be a positive number</string>
     <string name="field_error_revenue_invalid_amount">The selling price must be a positive number</string>
     <string name="field_error_revenue_low">This price is too low, check the selling price or the cost price</string>
+    <string name="field_error_category_required">Required</string>
+    <string name="field_error_brand_required">Required</string>
 
     <!-- Buttons -->
     <string name="button_label_save">save</string>

@@ -57,8 +57,8 @@ fun ProductDetailsScreenContentEdit(
     var name by remember {
         mutableStateOf(product?.name ?: EMPTY_STRING)
     }
-    var nameError by remember {
-        mutableStateOf(EMPTY_STRING)
+    var nameError: String? by remember {
+        mutableStateOf(null)
     }
     var model by remember {
         mutableStateOf(product?.model ?: EMPTY_STRING)
@@ -78,8 +78,14 @@ fun ProductDetailsScreenContentEdit(
     var category by remember {
         mutableStateOf(product?.category)
     }
+    var categoryError: String? by remember {
+        mutableStateOf(null)
+    }
     var brand by remember {
         mutableStateOf(product?.brand)
+    }
+    var brandError: String? by remember {
+        mutableStateOf(null)
     }
     var margin by remember {
         mutableIntStateOf(65) // TODO product?.price?.preferredMargin with 65 as default
@@ -87,11 +93,15 @@ fun ProductDetailsScreenContentEdit(
     var cost by remember {
         mutableStateOf(product?.price?.costPrice?.toString() ?: EMPTY_STRING)
     }
-    var costError by remember { mutableStateOf(EMPTY_STRING) }
+    var costError: String? by remember {
+        mutableStateOf(null)
+    }
     var revenue by remember {
         mutableStateOf(product?.price?.sellingPrice?.toString() ?: EMPTY_STRING)
     }
-    var revenueError by remember { mutableStateOf(EMPTY_STRING) }
+    var revenueError: String? by remember {
+        mutableStateOf(null)
+    }
 
 
     var isValidatingForm by rememberSaveable {
@@ -106,8 +116,10 @@ fun ProductDetailsScreenContentEdit(
             val isValidName = validateName(context, name) { error -> nameError = error }
             val isValidCost = validateCost(context, cost) { error -> costError = error }
             val isValidRevenue = validateRevenue(context, revenue, cost, margin) { error -> revenueError = error }
+            val isValidCategory = validateCategory(context, category) { error -> categoryError = error }
+            val isValidBrand = validateBrand(context, brand) { error -> brandError = error }
 
-            isFormValid = isValidName && isValidRevenue && isValidCost
+            isFormValid = isValidName && isValidRevenue && isValidCost && isValidCategory && isValidBrand
             // Form validations ended up
             isValidatingForm = false
         }
@@ -185,11 +197,15 @@ fun ProductDetailsScreenContentEdit(
                     categories = categories,
                     onSelectedCategory = { newCategory ->
                         category = newCategory
+                        categoryError = null
                     },
+                    categoryError = categoryError,
                     brands = brands,
                     onSelectedBrand = { newBrand ->
                         brand = newBrand
+                        brandError = null
                     },
+                    brandError = brandError,
                     sku = sku,
                     onSkuChange = { newSku ->
                         sku = newSku
@@ -291,6 +307,30 @@ private fun validateRevenue(
     val realMargin = (cost.toDouble() to revenue.toDouble()).getMargin(2)
     if (realMargin < margin) {
         onRevenueError(ContextCompat.getString(context, R.string.field_error_revenue_low))
+        return false
+    }
+    return true
+}
+
+private fun validateCategory(
+    context: Context,
+    category: CategoryUiData?,
+    onCategoryError: (String) -> Unit,
+): Boolean {
+    if (category?.id == -1) {
+        onCategoryError(ContextCompat.getString(context, R.string.field_error_category_required))
+        return false
+    }
+    return true
+}
+
+private fun validateBrand(
+    context: Context,
+    brand: BrandUiData?,
+    onBrandError: (String) -> Unit,
+): Boolean {
+    if (brand?.id == -1) {
+        onBrandError(ContextCompat.getString(context, R.string.field_error_brand_required))
         return false
     }
     return true

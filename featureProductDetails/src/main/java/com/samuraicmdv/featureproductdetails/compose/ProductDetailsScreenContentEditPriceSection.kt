@@ -51,10 +51,10 @@ fun ProductDetailsScreenContentEditPriceSection(
     focusManager: FocusManager,
     cost: String,
     onCostChange: (String) -> Unit,
-    costError: String,
+    costError: String?,
     revenue: String,
     onRevenueChange: (String) -> Unit,
-    revenueError: String,
+    revenueError: String?,
     margin: Int,
     onMarginChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
@@ -108,7 +108,7 @@ fun ProductDetailsScreenContentEditPriceSection(
                             style = MobiTheme.typography.labelMediumBold,
                         )
                     },
-                    isError = costError.isNotEmpty(),
+                    isError = !costError.isNullOrEmpty(),
                     errorMessage = costError,
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -177,7 +177,7 @@ fun ProductDetailsScreenContentEditPriceSection(
                     style = MobiTheme.typography.labelMediumBold,
                 )
             },
-            isError = revenueError.isNotEmpty(),
+            isError = !revenueError.isNullOrEmpty(),
             errorMessage = revenueError,
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
@@ -254,9 +254,9 @@ fun PreviewProductDetailsScreenContentEditPriceSection() {
                 focusManager = LocalFocusManager.current,
                 cost = "100.00",
                 onCostChange = {},
-                costError = EMPTY_STRING,
+                costError = null,
                 revenue = "200.00",
-                revenueError = EMPTY_STRING,
+                revenueError = null,
                 margin = 50,
                 onMarginChange = {},
                 onRevenueChange = {}

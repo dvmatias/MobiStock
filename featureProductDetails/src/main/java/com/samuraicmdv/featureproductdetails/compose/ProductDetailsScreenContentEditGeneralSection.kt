@@ -31,7 +31,7 @@ fun ProductDetailsScreenContentEditGeneralSection(
     focusManager: FocusManager,
     name: String,
     onNameChange: (String) -> Unit,
-    nameError: String,
+    nameError: String?,
     model: String,
     onModelChange: (String) -> Unit,
     code: String,
@@ -66,7 +66,7 @@ fun ProductDetailsScreenContentEditGeneralSection(
                     style = MobiTheme.typography.labelMediumBold,
                 )
             },
-            isError = nameError.isNotEmpty(),
+            isError = !nameError.isNullOrEmpty(),
             errorMessage = nameError,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             keyboardActions = KeyboardActions(

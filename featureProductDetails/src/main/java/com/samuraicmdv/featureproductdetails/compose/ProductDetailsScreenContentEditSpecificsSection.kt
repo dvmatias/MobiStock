@@ -41,8 +41,10 @@ fun ProductDetailsScreenContentEditSpecificsSection(
     focusManager: FocusManager,
     categories: List<CategoryUiData>?,
     onSelectedCategory: (CategoryUiData) -> Unit,
+    categoryError: String?,
     brands: List<BrandUiData>?,
     onSelectedBrand: (BrandUiData) -> Unit,
+    brandError: String?,
     sku: String,
     onSkuChange: (String) -> Unit,
     shortDescription: String,
@@ -72,9 +74,7 @@ fun ProductDetailsScreenContentEditSpecificsSection(
                 }.toUpperCase(),
                 style = MobiTheme.typography.labelMediumBold,
             )
-
             Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
-
             ProductEditDropDownMenu(
                 items = it.map { category ->
                     ItemMenu(
@@ -82,7 +82,8 @@ fun ProductDetailsScreenContentEditSpecificsSection(
                         item = category
                     )
                 },
-                defaultOptionTitle = stringResource(id = R.string.option_dropdown_menu_category_default)
+                defaultOptionTitle = stringResource(id = R.string.option_dropdown_menu_category_default),
+                error = categoryError
             ) { selectedCategory ->
                 onSelectedCategory(selectedCategory)
             }
@@ -111,6 +112,7 @@ fun ProductDetailsScreenContentEditSpecificsSection(
                         item = brand
                     )
                 },
+                error = brandError,
                 defaultOptionTitle = stringResource(id = R.string.option_dropdown_menu_brand_default)
             ) { selectedBrand ->
                 onSelectedBrand(selectedBrand)
@@ -244,6 +246,7 @@ fun PreviewProductDetailsScreenContentEditSpecificsSection() {
                     )
                 },
                 onSelectedCategory = {},
+                categoryError = null,
                 brands = List(5) {
                     BrandUiData(
                         id = it,
@@ -251,6 +254,7 @@ fun PreviewProductDetailsScreenContentEditSpecificsSection() {
                         logoUrl = EMPTY_STRING,
                     )
                 },
+                brandError = null,
                 onSelectedBrand = {},
                 sku = EMPTY_STRING,
                 onSkuChange = {},
