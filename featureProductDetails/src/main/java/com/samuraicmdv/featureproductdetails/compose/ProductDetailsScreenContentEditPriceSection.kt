@@ -1,14 +1,11 @@
 package com.samuraicmdv.featureproductdetails.compose
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
@@ -85,82 +82,68 @@ fun ProductDetailsScreenContentEditPriceSection(
 
         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_2),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Max)
+        Column(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Box(modifier = Modifier.weight(1F)) {
-                
-                MobiTextField(
-                    value = if (cost != "null") cost else EMPTY_STRING,
-                    onValueChange = { onCostChange(it) },
-                    prefix = {
-                        Text(
-                            text = "$",
-                            style = MobiTheme.typography.bodyLargeBold
-                        )
-                    },
-                    mobiLabel = {
-                        Text(
-                            text = costPriceInputLabel,
-                            style = MobiTheme.typography.labelMediumBold,
-                        )
-                    },
-                    isError = !costError.isNullOrEmpty(),
-                    errorMessage = costError,
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.Next,
-                        keyboardType = KeyboardType.Decimal
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onNext = { focusManager.moveFocus(FocusDirection.Down) }
-                    ),
-                    placeholder = {
-                        Text(
-                            text = stringResource(id = R.string.field_placeholder_cost_price),
-                            style = MobiTheme.typography.bodyLarge,
-                            color = MobiTheme.colors.textSecondary
-                        )
-                    },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .weight(1F)
-                    .fillMaxHeight()
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.field_label_preferred_margin).uppercase(),
-                        style = MobiTheme.typography.labelMediumBold,
-                        modifier = Modifier.fillMaxWidth()
+            Text(
+                text = stringResource(id = R.string.field_label_preferred_margin).uppercase(),
+                style = MobiTheme.typography.labelMediumBold,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+
+            val dropdownItems = (MARGIN_MIN..MARGIN_MAX)
+            ProductEditDropDownMenu(
+                items = dropdownItems.map { margin ->
+                    ItemMenu(
+                        title = margin.toString(),
+                        item = margin
                     )
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    val dropdownItems = (MARGIN_MIN..MARGIN_MAX)
-                    ProductEditDropDownMenu(
-                        items = dropdownItems.map { margin ->
-                            ItemMenu(
-                                title = margin.toString(),
-                                item = margin
-                            )
-                        },
-                        selectedIndexDefault = dropdownItems.indexOfFirst { it == margin },
-                        modifier = Modifier.fillMaxWidth()
-                    ) { onMarginChange(it) }
-                }
-            }
+                },
+                selectedIndexDefault = dropdownItems.indexOfFirst { it == margin },
+                modifier = Modifier.fillMaxWidth()
+            ) { onMarginChange(it) }
         }
 
-        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
+
+        MobiTextField(
+            value = if (cost != "null") cost else EMPTY_STRING,
+            onValueChange = { onCostChange(it) },
+            prefix = {
+                Text(
+                    text = "$",
+                    style = MobiTheme.typography.bodyLargeBold
+                )
+            },
+            mobiLabel = {
+                Text(
+                    text = costPriceInputLabel,
+                    style = MobiTheme.typography.labelMediumBold,
+                )
+            },
+            isError = !costError.isNullOrEmpty(),
+            errorMessage = costError,
+            keyboardOptions = KeyboardOptions(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Decimal
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+            ),
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.field_placeholder_cost_price),
+                    style = MobiTheme.typography.bodyLarge,
+                    color = MobiTheme.colors.textSecondary
+                )
+            },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth(0.5F)
+        )
+
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
 
         MobiTextField(
             value = if (revenue != "null") revenue else EMPTY_STRING,
@@ -240,7 +223,7 @@ fun ProductDetailsScreenContentEditPriceSection(
                 }
             },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(0.5F)
         )
     }
 }
@@ -256,10 +239,11 @@ fun PreviewProductDetailsScreenContentEditPriceSection() {
                 onCostChange = {},
                 costError = null,
                 revenue = "200.00",
-                revenueError = null,
+                revenueError = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet",
                 margin = 50,
                 onMarginChange = {},
-                onRevenueChange = {}
+                onRevenueChange = {},
+                modifier = Modifier.padding(MobiTheme.dimens.dimen_2)
             )
         }
     }
