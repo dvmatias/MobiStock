@@ -104,15 +104,15 @@ fun ProductDetailsScreenContentEdit(
     }
 
 
-    var isValidatingForm by rememberSaveable {
+    var validateFormToCreateProduct by rememberSaveable {
         mutableStateOf(false)
     }
     var isFormValid by rememberSaveable {
         mutableStateOf(false)
     }
 
-    LaunchedEffect(key1 = isValidatingForm) {
-        if (isValidatingForm) {
+    LaunchedEffect(key1 = validateFormToCreateProduct) {
+        if (validateFormToCreateProduct) {
             val isValidName = validateName(context, name) { error -> nameError = error }
             val isValidCost = validateCost(context, cost) { error -> costError = error }
             val isValidRevenue = validateRevenue(context, revenue, cost, margin) { error -> revenueError = error }
@@ -120,8 +120,32 @@ fun ProductDetailsScreenContentEdit(
             val isValidBrand = validateBrand(context, brand) { error -> brandError = error }
 
             isFormValid = isValidName && isValidRevenue && isValidCost && isValidCategory && isValidBrand
+
+            if (isFormValid)
+                handleEvent(
+                    ProductDetailsPresentationEvent.CreateNewProduct(
+                        product = ProductUiData(
+                            id = -1, // When creating a product there is no ID associated with it
+                            name = name,
+                            shortDescription = shortDescription,
+                            longDescription = longDescription,
+                            model = model,
+                            code = code,
+                            sku = sku,
+                            thumbnailUrl = EMPTY_STRING,
+                            imageUrls = emptyList(),
+                            price = ProductPriceUiData(
+                                sellingPrice = revenue.toDouble(),
+                                costPrice = cost.toDouble(),
+                                preferredMargin = margin
+                            ),
+                            brand = brand,
+                            category = category
+                        )
+                    )
+                )
             // Form validations ended up
-            isValidatingForm = false
+            validateFormToCreateProduct = false
         }
     }
 
@@ -226,10 +250,7 @@ fun ProductDetailsScreenContentEdit(
             // Create Product/Save button
             Button(
                 onClick = {
-                    isValidatingForm = true
-                    if (isFormValid)
-                        handleEvent(ProductDetailsPresentationEvent.CreateNewProduct)
-
+                    validateFormToCreateProduct = true
                 },
                 enabled = true,
                 shape = RoundedCornerShape(MobiTheme.dimens.dimen_1_5),

@@ -13,10 +13,10 @@ interface ProductRepository {
         categoryId: Int,
         brandId: Int,
         sku: String?,
-        selling: String?,
-        cost: String?,
-        currencyId: String?,
-        storeId: String?,
+        selling: Double?,
+        cost: Double?,
+        currencyId: Int?,
+        storeId: Int?,
         preferredMargin: Int?
     ): ResponseWrapper<CreateProductResponseModel>
 }

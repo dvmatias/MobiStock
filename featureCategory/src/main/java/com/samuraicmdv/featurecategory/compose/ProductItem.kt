@@ -134,7 +134,7 @@ fun PreviewProductItem() {
                     price = ProductPriceUiData(
                         sellingPrice = 100.0,
                         costPrice = 50.0,
-                        currency = "$",
+                        currency = "ARS",
                     ),
                     rating = 4.5,
                     reviews = 100,

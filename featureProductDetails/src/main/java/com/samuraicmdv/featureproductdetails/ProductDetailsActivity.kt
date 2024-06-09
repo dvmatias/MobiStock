@@ -68,9 +68,10 @@ class ProductDetailsActivity : ComponentActivity() {
 
     private fun handleEvent(event: ProductDetailsEvent) {
         when (event) {
-            ProductDetailsPresentationEvent.CancelProductEdition -> {}// TODO()
-            ProductDetailsPresentationEvent.EditProduct -> {}// TODO()
-            ProductDetailsPresentationEvent.CreateNewProduct -> {}// TODO()
+            is ProductDetailsPresentationEvent.CancelProductEdition -> {}// TODO()
+            is ProductDetailsPresentationEvent.EditProduct -> {}// TODO()
+            is ProductDetailsPresentationEvent.CreateNewProduct ->
+                viewModel.createProduct(event.product)
             else -> {}
         }
     }

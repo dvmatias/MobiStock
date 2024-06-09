@@ -35,10 +35,10 @@ class CreateProductUseCase @Inject constructor(
         val categoryId: Int,
         val brandId: Int,
         val sku: String?,
-        val selling: String?,
-        val cost: String?,
-        val currencyId: String?,
-        val storeId: String?,
+        val selling: Double?,
+        val cost: Double?,
+        val currencyId: Int?,
+        val storeId: Int?,
         val preferredMargin: Int?
     )
 

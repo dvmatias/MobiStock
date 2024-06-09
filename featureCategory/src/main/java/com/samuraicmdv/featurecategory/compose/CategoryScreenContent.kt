@@ -206,7 +206,7 @@ fun PreviewCategoryContent() {
                         price = ProductPriceUiData(
                             sellingPrice = 100.0,
                             costPrice = 100.0,
-                            currency = "USD",
+                            currency = "ARS",
                         ),
                         rating = 4.5,
                         reviews = 100,

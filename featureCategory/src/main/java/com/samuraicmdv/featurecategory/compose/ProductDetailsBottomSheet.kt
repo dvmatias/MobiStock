@@ -306,7 +306,7 @@ fun PreviewProductDetailsBottomSheetContentAdminStatic() {
                     price = ProductPriceUiData(
                         sellingPrice = 100.0,
                         costPrice = 50.0,
-                        currency = "USD"
+                        currency = "ARS"
                     ),
                     stock = ProductStockUiData(
                         quantity = 100,
@@ -347,7 +347,7 @@ fun PreviewProductDetailsBottomSheetContentAdminEdit() {
                     price = ProductPriceUiData(
                         sellingPrice = 100.0,
                         costPrice = 50.0,
-                        currency = "USD"
+                        currency = "ARS"
                     ),
                     stock = ProductStockUiData(
                         quantity = 100,
@@ -388,7 +388,7 @@ fun PreviewProductDetailsBottomSheetContentNoAdmin() {
                     price = ProductPriceUiData(
                         sellingPrice = 100.0,
                         costPrice = 50.0,
-                        currency = "USD"
+                        currency = "ARS"
                     ),
                     stock = ProductStockUiData(
                         quantity = 100,

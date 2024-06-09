@@ -1,7 +1,10 @@
 package com.samuraicmdv.featureproductdetails
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.samuraicmdv.common.LOG_TAG
+import com.samuraicmdv.domain.usecase.CreateProductUseCase
 import com.samuraicmdv.domain.usecase.GetBrandsUseCase
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
 import com.samuraicmdv.featureproductdetails.data.BrandUiData
@@ -28,6 +31,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     @Assisted("isEditMode") val isEditMode: Boolean,
     private val getProductCategoriesUseCase: GetProductCategoriesUseCase,
     private val getBrandsUseCase: GetBrandsUseCase,
+    private val createProductUseCase: CreateProductUseCase,
     private val transformer: ProductDetailsUiDataTransformer,
 ) : ViewModel() {
     /**
@@ -103,6 +107,35 @@ class ProductDetailsViewModel @AssistedInject constructor(
     private suspend fun fetchBrands() {
         getBrandsUseCase(GetBrandsUseCase.Params(storeId = storeId)).let {
             _uiState.value = _uiState.value.copy(brands = transformer.transformBrands(it))
+        }
+    }
+
+    /**
+     * Creates a new product.
+     */
+    fun createProduct(product: ProductUiData) {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true)
+            createProductUseCase(
+                CreateProductUseCase.Params(
+                    name = product.name!!,
+                    shortDescription = product.shortDescription!!,
+                    longDescription = product.longDescription!!,
+                    code = product.code,
+                    model = product.model,
+                    categoryId = product.category?.id!!,
+                    brandId = product.brand?.id!!,
+                    sku = product.sku,
+                    selling = product.price!!.sellingPrice,
+                    cost = product.price.costPrice,
+                    currencyId = 1,
+                    storeId = storeId,
+                    preferredMargin = product.price.preferredMargin,
+                )
+            ).let {
+                Log.d(LOG_TAG, "$it")
+                _uiState.value = _uiState.value.copy(isLoading = false)
+            }
         }
     }
 

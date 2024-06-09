@@ -16,10 +16,10 @@ interface ProductDataSource {
         categoryId: Int,
         brandId: Int,
         sku: String? = null,
-        selling: String? = null,
-        cost: String? = null,
-        currencyId: String? = null,
-        storeId: String? = null,
+        selling: Double? = null,
+        cost: Double? = null,
+        currencyId: Int? = null,
+        storeId: Int? = null,
         preferredMargin: Int? = null,
     ): ResponseWrapper<CreateProductResponseModel>
 }
