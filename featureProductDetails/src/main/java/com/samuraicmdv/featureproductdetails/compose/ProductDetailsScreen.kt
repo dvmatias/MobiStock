@@ -24,6 +24,7 @@ import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.R
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.CREATE
+import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.CREATE_SUCCESS
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.EDIT
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode.VIEW
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiState
@@ -50,37 +51,40 @@ fun ProductDetailsScreen(
     } else
         Scaffold(
             topBar = {
-                Surface(
-                    shadowElevation = 0.dp // Added in case I want to have a bottom shadow in the top app bar
-                ) {
-                    TopAppBar(
-                        title = {
-                            val title =
-                                when (screenMode) {
-                                    VIEW -> uiState.product?.name ?: EMPTY_STRING
-                                    EDIT -> stringResource(id = R.string.title_app_bar_edit)
-                                    CREATE -> EMPTY_STRING
-                                }
-                            Text(
-                                text = title,
-                                style = MobiTheme.typography.titleLargeBold
-                            )
-                        },
-                        navigationIcon = {
-                            IconButton(
-                                onClick = { /* TODO Handle navigation icon click */ }
-                            ) {
-                                Icon(
-                                    Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = null,
-                                    tint = MobiTheme.colors.primary
+                if (screenMode != CREATE_SUCCESS) { // Hide the top app bar in case of create success
+                    Surface(
+                        shadowElevation = 0.dp // Added in case I want to have a bottom shadow in the top app bar
+                    ) {
+                        TopAppBar(
+                            title = {
+                                val title =
+                                    when (screenMode) {
+                                        VIEW -> uiState.product?.name ?: EMPTY_STRING
+                                        EDIT -> stringResource(id = R.string.title_app_bar_edit)
+                                        CREATE -> EMPTY_STRING
+                                        CREATE_SUCCESS -> EMPTY_STRING
+                                    }
+                                Text(
+                                    text = title,
+                                    style = MobiTheme.typography.titleLargeBold
                                 )
-                            }
-                        },
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = MobiTheme.colors.background
+                            },
+                            navigationIcon = {
+                                IconButton(
+                                    onClick = { /* TODO Handle navigation icon click */ }
+                                ) {
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.ArrowBack,
+                                        contentDescription = null,
+                                        tint = MobiTheme.colors.primary
+                                    )
+                                }
+                            },
+                            colors = TopAppBarDefaults.topAppBarColors(
+                                containerColor = MobiTheme.colors.background
+                            )
                         )
-                    )
+                    }
                 }
             }
         ) { paddingValues ->
@@ -88,13 +92,17 @@ fun ProductDetailsScreen(
                 VIEW -> ProductDetailsScreenContentView(modifier.padding(paddingValues))
                 EDIT,
                 CREATE -> ProductDetailsScreenContentEdit(
-                    product = uiState.product,
+                    product = product,
                     categories = uiState.categories,
                     brands = uiState.brands,
                     handleEvent = handleEvent,
                     modifier = modifier.padding(paddingValues),
-
-                    )
+                )
+                CREATE_SUCCESS -> ProductDetailsScreenCreateSuccessView(
+                    productId = product?.id,
+                    handleEvent = handleEvent,
+                    modifier = modifier.padding(paddingValues),
+                )
             }
         }
 }
@@ -121,7 +129,7 @@ fun PreviewProductDetailsScreenView() {
         Surface {
             ProductDetailsScreen(
                 uiState = ProductDetailsUiState(
-                    screenMode = CREATE
+                    screenMode = CREATE_SUCCESS
                 ),
                 handleEvent = {},
             )

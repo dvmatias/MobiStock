@@ -11,5 +11,8 @@ enum class ProductDetailsUiMode {
     EDIT,
 
     // Create a new product.
-    CREATE
+    CREATE,
+
+    // Create a new product.
+    CREATE_SUCCESS
 }

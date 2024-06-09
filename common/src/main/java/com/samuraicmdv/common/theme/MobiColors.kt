@@ -27,6 +27,10 @@ class MobiColors(
     onError: Color,
     errorContainer: Color,
     onErrorContainer: Color,
+    success: Color,
+    onSuccess: Color,
+    successContainer: Color,
+    onSuccessContainer: Color,
     background: Color,
     onBackground: Color,
     surface: Color,
@@ -86,6 +90,14 @@ class MobiColors(
     var errorContainer by mutableStateOf(errorContainer)
         private set
     var onErrorContainer by mutableStateOf(onErrorContainer)
+        private set
+    var success by mutableStateOf(success)
+        private set
+    var onSuccess by mutableStateOf(onSuccess)
+        private set
+    var successContainer by mutableStateOf(successContainer)
+        private set
+    var onSuccessContainer by mutableStateOf(onSuccessContainer)
         private set
     var background by mutableStateOf(background)
         private set
@@ -159,6 +171,10 @@ class MobiColors(
         onError = onError,
         errorContainer = errorContainer,
         onErrorContainer = onErrorContainer,
+        success = success,
+        onSuccess = onSuccess,
+        successContainer = successContainer,
+        onSuccessContainer = onSuccessContainer,
         background = background,
         onBackground = onBackground,
         surface = surface,
@@ -206,6 +222,10 @@ class MobiColors(
             onError = onError,
             errorContainer = errorContainer,
             onErrorContainer = onErrorContainer,
+            success = success,
+            onSuccess = onSuccess,
+            successContainer = successContainer,
+            onSuccessContainer = onSuccessContainer,
             background = background,
             onBackground = onBackground,
             surface = surface,
@@ -254,6 +274,10 @@ val lightMobiColors = MobiColors(
     onError = onErrorLight,
     errorContainer = errorContainerLight,
     onErrorContainer = onErrorContainerLight,
+    success = successLight,
+    onSuccess = onSuccessLight,
+    successContainer = successContainerLight,
+    onSuccessContainer = onSuccessContainerLight,
     background = backgroundLight,
     onBackground = onBackgroundLight,
     surface = surfaceLight,
@@ -300,6 +324,10 @@ val darkMobiColors = MobiColors(
     onError = onErrorDark,
     errorContainer = errorContainerDark,
     onErrorContainer = onErrorContainerDark,
+    success = successDark,
+    onSuccess = onSuccessDark,
+    successContainer = successContainerDark,
+    onSuccessContainer = onSuccessContainerDark,
     background = backgroundDark,
     onBackground = onBackgroundDark,
     surface = surfaceDark,

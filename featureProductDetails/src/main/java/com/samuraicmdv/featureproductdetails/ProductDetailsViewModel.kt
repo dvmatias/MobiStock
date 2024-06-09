@@ -1,9 +1,7 @@
 package com.samuraicmdv.featureproductdetails
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.samuraicmdv.common.LOG_TAG
 import com.samuraicmdv.domain.usecase.CreateProductUseCase
 import com.samuraicmdv.domain.usecase.GetBrandsUseCase
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
@@ -78,6 +76,10 @@ class ProductDetailsViewModel @AssistedInject constructor(
                         // When creating a new product, initialized the product UI data
                         _uiState.value = _uiState.value.copy(product = getEmptyProduct())
                     }
+
+                    else -> {
+                        // Do nothing
+                    }
                 }
             }
             // Update the loading status once all the initial needed calls are done.
@@ -133,8 +135,14 @@ class ProductDetailsViewModel @AssistedInject constructor(
                     preferredMargin = product.price.preferredMargin,
                 )
             ).let {
-                Log.d(LOG_TAG, "$it")
-                _uiState.value = _uiState.value.copy(isLoading = false)
+                it.id?.let { producId ->
+                    _uiState.value = _uiState.value.copy(
+                        screenMode = ProductDetailsUiMode.CREATE_SUCCESS, // Update screen state to show success screen
+                        product = ProductUiData(id = producId) // Update the product with the newly created product id
+                    )
+                } ?: run {
+                    // TODO Error
+                }
             }
         }
     }
