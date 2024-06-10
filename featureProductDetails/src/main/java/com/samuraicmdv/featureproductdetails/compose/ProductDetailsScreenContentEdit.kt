@@ -265,7 +265,7 @@ fun ProductDetailsScreenContentEdit(
                     .height(48.dp)
             ) {
                 Text(
-                    text = stringResource(id = R.string.button_label_save).uppercase(),
+                    text = stringResource(id = R.string.product_details_screen_save_button_label).uppercase(),
                     style = MobiTheme.typography.buttonLabel
                 )
             }

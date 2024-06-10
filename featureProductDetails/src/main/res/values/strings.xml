@@ -45,6 +45,9 @@
     <string name="field_placeholder_selling_price">Retail value</string>
     <string name="supporting_text_suggested_price_placeholder">Suggested price based on a %1d%% margin: $%2s</string>
 
+    <!-- Titles -->
+    <string name="product_details_screen_create_success_title">Product created!</string>
+
     <!-- Errors -->
     <string name="field_error_required">This field is required</string>
     <string name="field_error_name_short">This name is too short</string>
@@ -55,6 +58,9 @@
     <string name="field_error_brand_required">Required</string>
 
     <!-- Buttons -->
-    <string name="button_label_save">save</string>
+    <string name="product_details_screen_save_button_label">save</string>
+    <string name="product_details_screen_close_button_label">Close</string>
+    <string name="product_details_screen_see_details_button_label">See details</string>
+    <string name="product_details_screen_create_another_button_label">Create another</string>
 
 </resources>
