@@ -49,9 +49,9 @@ object CategoryUiDataTransformer {
                 thumbnailUrl = it.thumbnailUrl,
                 imageUrls = it.imageUrls ?: emptyList(),
                 price = ProductPriceUiData(
-                    sellingPrice = it.sellingPrice ?: 0.0,
-                    costPrice = it.costPrice ?: 0.0,
-                    currency = (it.currencyId ?: 1).toString() // TODO transform currency ID into currency name/symbol
+                    sellingPrice = it.productPrice?.selling ?: 0.0,
+                    costPrice = it.productPrice?.cost ?: 0.0,
+                    currency = (it.productPrice?.currencyId ?: 1).toString() // TODO transform currency ID into currency name/symbol
                 ),
                 stock = ProductStockUiData(
                     quantity = it.stock?.quantity,

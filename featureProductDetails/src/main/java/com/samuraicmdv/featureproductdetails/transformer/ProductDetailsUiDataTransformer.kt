@@ -4,8 +4,10 @@ import com.samuraicmdv.common.R
 import com.samuraicmdv.common.utils.ProductCategory
 import com.samuraicmdv.domain.model.GetBrandsResponseModel
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
+import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.featureproductdetails.data.BrandUiData
 import com.samuraicmdv.featureproductdetails.data.CategoryUiData
+import com.samuraicmdv.featureproductdetails.data.ProductUiData
 
 object ProductDetailsUiDataTransformer {
 
@@ -33,6 +35,10 @@ object ProductDetailsUiDataTransformer {
             )
         }
 
+    fun transformProduct(product: ProductModel?): ProductUiData =
+        ProductUiData(
+            id = -1, // TODO: Update this with the actual product data
+        )
 
     private fun getProductCategoryNameResource(productCategory: ProductCategory?): Int =
         when (productCategory) {

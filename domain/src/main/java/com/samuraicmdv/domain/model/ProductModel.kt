@@ -12,8 +12,6 @@ data class ProductModel(
     val imageUrls: List<String>? = null,
     val categoryId: Int? = null,
     val stock: ProductStockModel? = null,
-    val sellingPrice: Double? = null,
-    val costPrice: Double? = null,
-    val currencyId: Int? = null,
+    val productPrice: PriceModel? = null,
     val brand: BrandModel? = null,
 )

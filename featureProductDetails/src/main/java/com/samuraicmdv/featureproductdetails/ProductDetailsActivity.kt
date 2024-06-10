@@ -15,6 +15,7 @@ import com.samuraicmdv.common.BUNDLE_KEY_PRODUCT_ID
 import com.samuraicmdv.common.BUNDLE_KEY_STORE_ID
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.compose.ProductDetailsScreen
+import com.samuraicmdv.featureproductdetails.event.ProductDetailsBusinessEvent
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsPresentationEvent
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,9 +71,14 @@ class ProductDetailsActivity : ComponentActivity() {
         when (event) {
             is ProductDetailsPresentationEvent.CancelProductEdition -> {}// TODO()
             is ProductDetailsPresentationEvent.EditProduct -> {}// TODO()
-            is ProductDetailsPresentationEvent.CreateNewProduct ->
+            is ProductDetailsBusinessEvent.CreateNewProduct ->
                 viewModel.createProduct(event.product)
-            else -> {}
+
+            is ProductDetailsBusinessEvent.ViewProductDetails -> {
+                viewModel.fetchProductDetails(event.productId)
+            }
+
+            is ProductDetailsPresentationEvent.ExitScreen -> finish()
         }
     }
 }

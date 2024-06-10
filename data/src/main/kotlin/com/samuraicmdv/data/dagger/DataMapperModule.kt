@@ -2,9 +2,10 @@ package com.samuraicmdv.data.dagger
 
 import com.samuraicmdv.data.mapper.BrandDataMapper
 import com.samuraicmdv.data.mapper.CategoryDataMapper
+import com.samuraicmdv.data.mapper.CreateProductDataMapper
+import com.samuraicmdv.data.mapper.GetProductDetailsDataMapper
 import com.samuraicmdv.data.mapper.LoginDataMapper
 import com.samuraicmdv.data.mapper.ProductCategoryMapper
-import com.samuraicmdv.data.mapper.ProductDataMapper
 import com.samuraicmdv.data.mapper.UserProfileDataMapper
 import dagger.Module
 import dagger.Provides
@@ -30,5 +31,9 @@ object DataMapperModule {
     fun provideBrandDataMapper(): BrandDataMapper = BrandDataMapper
 
     @Provides
-    fun provideProductDataMapper(): ProductDataMapper = ProductDataMapper
+    fun provideCreateProductDataMapper(): CreateProductDataMapper = CreateProductDataMapper
+
+    @Provides
+    fun provideGetProductDetailsDataMapper(): GetProductDetailsDataMapper =
+        GetProductDetailsDataMapper
 }

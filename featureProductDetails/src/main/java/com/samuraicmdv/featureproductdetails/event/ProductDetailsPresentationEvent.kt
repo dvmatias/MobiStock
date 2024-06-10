@@ -1,7 +1,5 @@
 package com.samuraicmdv.featureproductdetails.event
 
-import com.samuraicmdv.featureproductdetails.data.ProductUiData
-
 /**
  * Represents the events that can be triggered in the product details screen and that are handled by the presentation
  * layer.
@@ -18,7 +16,8 @@ sealed class ProductDetailsPresentationEvent : ProductDetailsEvent {
     data object CancelProductEdition : ProductDetailsPresentationEvent()
 
     /**
-     * Event triggered when the user wants to create a new product.
+     * Exit the screen.
      */
-    class CreateNewProduct(val product: ProductUiData) : ProductDetailsPresentationEvent()
+    data object ExitScreen : ProductDetailsPresentationEvent()
+
 }

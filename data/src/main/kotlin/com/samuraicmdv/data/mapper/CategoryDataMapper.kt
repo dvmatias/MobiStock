@@ -65,9 +65,7 @@ object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryRespo
                     low = it.stock?.low,
                     min = it.stock?.min
                 ),
-                sellingPrice = it.productPrice?.selling,
-                costPrice = it.productPrice?.cost,
-                currencyId = it.productPrice?.currencyId,
+                productPrice = it.productPrice?.toModel(),
                 brand = it.brand?.let { brand ->
                     transformBrand(brand)
                 }

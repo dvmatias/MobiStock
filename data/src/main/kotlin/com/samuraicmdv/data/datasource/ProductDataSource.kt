@@ -1,9 +1,13 @@
 package com.samuraicmdv.data.datasource
 
 import com.samuraicmdv.domain.model.CreateProductResponseModel
+import com.samuraicmdv.domain.model.GetProductDetailsResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
 interface ProductDataSource {
+
+    suspend fun getProductDetails(productId: Int): ResponseWrapper<GetProductDetailsResponseModel>
+
     /**
      * Triggers the service call to create a product.
      */

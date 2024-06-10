@@ -1,6 +1,5 @@
 package com.samuraicmdv.featurecategory.compose
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -47,6 +46,7 @@ import com.samuraicmdv.common.extension.toDisplayPrice
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
+import com.samuraicmdv.featurecategory.event.CategoryNavigationEvent
 import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent.HandleProductDetailsBottomSheetState
 import com.samuraicmdv.featurecategory.state.ProductBrandUiData
 import com.samuraicmdv.featurecategory.state.ProductPriceUiData
@@ -62,7 +62,7 @@ fun ProductDetailsBottomSheet(
     product: ProductUiData?,
     showBottomSheet: Boolean,
     handleEvent: (CategoryEvent) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     product?.let { selectedProduct ->
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -95,7 +95,7 @@ fun ProductDetailsBottomSheet(
                     product = selectedProduct,
                     isAdmin = true, // TODO replace with real value,
                     handleEvent = {
-                        /*TODO*/
+                        handleEvent(it)
                     },
                 )
             }
@@ -108,7 +108,7 @@ fun ProductDetailsBottomSheetContent(
     product: ProductUiData,
     isAdmin: Boolean,
     handleEvent: (CategoryEvent) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState(initialFirstVisibleItemIndex = 0)
     val context = LocalContext.current
@@ -262,8 +262,7 @@ fun ProductDetailsBottomSheetContent(
 
         Button(
             onClick = {
-                /*handleEvent(LoginBusinessEvent.Login(user, password))*/
-                Toast.makeText(context, "Not implemented yet!", Toast.LENGTH_SHORT).show()
+                handleEvent(CategoryNavigationEvent.NavigateProductDetails(false, product.id))
             },
             enabled = isAdmin,
             shape = RoundedCornerShape(MobiTheme.dimens.dimen_1_5),

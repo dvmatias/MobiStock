@@ -35,8 +35,8 @@ import com.samuraicmdv.featureproductdetails.data.BrandUiData
 import com.samuraicmdv.featureproductdetails.data.CategoryUiData
 import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
 import com.samuraicmdv.featureproductdetails.data.ProductUiData
+import com.samuraicmdv.featureproductdetails.event.ProductDetailsBusinessEvent
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
-import com.samuraicmdv.featureproductdetails.event.ProductDetailsPresentationEvent
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
@@ -123,7 +123,7 @@ fun ProductDetailsScreenContentEdit(
 
             if (isFormValid)
                 handleEvent(
-                    ProductDetailsPresentationEvent.CreateNewProduct(
+                    ProductDetailsBusinessEvent.CreateNewProduct(
                         product = ProductUiData(
                             id = -1, // When creating a product there is no ID associated with it
                             name = name,
