@@ -9,6 +9,10 @@ sealed class CategoryPresentationEvent : CategoryEvent {
 
     data class HandleProductDetailsBottomSheetState(val show: Boolean, val product: ProductUiData? = null) :
         CategoryPresentationEvent()
+
+    data class OnCategoryTitleAlphaChange(val categoryTitleAlpha: Float) : CategoryPresentationEvent()
+
+    data class OnStickyHeaderPinned(val isHeaderPinned: Boolean) : CategoryPresentationEvent()
 }
 
 data class ProductsSort(

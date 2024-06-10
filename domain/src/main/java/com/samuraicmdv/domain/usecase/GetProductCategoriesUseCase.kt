@@ -1,15 +1,15 @@
 package com.samuraicmdv.domain.usecase
 
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
-import com.samuraicmdv.domain.repository.HomeRepository
+import com.samuraicmdv.domain.repository.CategoryRepository
 import javax.inject.Inject
 
 class GetProductCategoriesUseCase @Inject constructor(
-    private val homeRepository: HomeRepository,
+    private val repository: CategoryRepository,
 ) {
 
     suspend operator fun invoke(params: Params): ProductCategoriesResponseModel {
-        return homeRepository.getProductCategories(params.storeId, params.all)
+        return repository.getProductCategories(params.storeId, params.all)
             .let { responseWrapper ->
                 responseWrapper.getOrNull()
                     ?: ProductCategoriesResponseModel() // TODO handle failure scenario

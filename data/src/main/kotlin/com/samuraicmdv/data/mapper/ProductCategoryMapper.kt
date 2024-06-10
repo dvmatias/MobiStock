@@ -1,23 +1,23 @@
 package com.samuraicmdv.data.mapper
 
-import com.samuraicmdv.data.entity.ProductCategoriesResponseEntity
-import com.samuraicmdv.data.entity.ProductCategoryEntity
+import com.samuraicmdv.data.entity.GetCategoriesResponseEntity
+import com.samuraicmdv.data.entity.CategoryEntity
 import com.samuraicmdv.domain.base.DataMapper
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
 import com.samuraicmdv.common.utils.ProductCategory
 import com.samuraicmdv.domain.model.ProductCategoryModel
 
 object ProductCategoryMapper :
-    DataMapper<ProductCategoriesResponseEntity, ProductCategoriesResponseModel> {
+    DataMapper<GetCategoriesResponseEntity, ProductCategoriesResponseModel> {
     override fun entityToModel(
-        entity: ProductCategoriesResponseEntity?,
+        entity: GetCategoriesResponseEntity?,
     ): ProductCategoriesResponseModel =
         ProductCategoriesResponseModel(
             productCategories = transformProductCategories(entity?.productCategories)
         )
 
     private fun transformProductCategories(
-        productCategories: List<ProductCategoryEntity>?,
+        productCategories: List<CategoryEntity>?,
     ): List<ProductCategoryModel> =
         productCategories?.map {
             ProductCategoryModel(

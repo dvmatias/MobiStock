@@ -90,7 +90,7 @@ fun FilterProductsByBrandPill(
                         text = {
                             Text(
                                 text = option,
-                                style = MobiTheme.typography.bodyLargeBold,
+                                style = MobiTheme.typography.bodyLarge,
                             )
                         }
                     )

@@ -2,6 +2,7 @@ package com.samuraicmdv.featurecategory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.samuraicmdv.common.ALPHA_FULL
 import com.samuraicmdv.domain.usecase.GetCategoryUseCase
 import com.samuraicmdv.featurecategory.state.CategoryScreenState
 import com.samuraicmdv.featurecategory.state.ProductUiData
@@ -50,6 +51,21 @@ class CategoryViewModel @AssistedInject constructor(
     fun updateProductDetailsBottomSheetState(show: Boolean, selectedProduct: ProductUiData?) {
         _uiState.update { currentState ->
             currentState.copy(showProductDetailsBottomSheet = show, selectedProduct = selectedProduct)
+        }
+    }
+
+    fun updateCategoryTitleAlpha(categoryTitleAlpha: Float) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                categoryTitleAlpha = categoryTitleAlpha,
+                topAppBarTitleAlpha = ALPHA_FULL - categoryTitleAlpha
+            )
+        }
+    }
+
+    fun updateStickyHeaderPinned(headerPinned: Boolean) {
+        _uiState.update { currentState ->
+            currentState.copy(isStickyHeaderPinned = headerPinned)
         }
     }
 

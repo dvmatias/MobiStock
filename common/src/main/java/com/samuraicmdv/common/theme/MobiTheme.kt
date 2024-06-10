@@ -8,6 +8,7 @@ object MobiTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalMobiElevations.current
+
     val colors: MobiColors
         @Composable
         @ReadOnlyComposable
@@ -17,7 +18,7 @@ object MobiTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalMobiTypography.current
-    
+
     val dimens: MobiDimens
         @Composable
         @ReadOnlyComposable

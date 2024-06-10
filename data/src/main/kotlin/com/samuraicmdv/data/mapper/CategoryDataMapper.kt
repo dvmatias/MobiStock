@@ -2,18 +2,18 @@ package com.samuraicmdv.data.mapper
 
 import com.samuraicmdv.common.utils.ProductCategory
 import com.samuraicmdv.data.entity.CategoryEntity
-import com.samuraicmdv.data.entity.CategoryResponseEntity
-import com.samuraicmdv.data.entity.ProductBrandEntity
+import com.samuraicmdv.data.entity.GetCategoryResponseEntity
+import com.samuraicmdv.data.entity.BrandEntity
 import com.samuraicmdv.data.entity.ProductEntity
 import com.samuraicmdv.domain.base.DataMapper
 import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
-import com.samuraicmdv.domain.model.ProductBrandModel
+import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.domain.model.ProductStockModel
 
-object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponseModel?> {
-    override fun entityToModel(entity: CategoryResponseEntity?): CategoryResponseModel? {
+object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryResponseModel?> {
+    override fun entityToModel(entity: GetCategoryResponseEntity?): CategoryResponseModel? {
         return entity?.let { e ->
             CategoryResponseModel(
                 category = transformCategory(e.category),
@@ -35,13 +35,13 @@ object CategoryDataMapper : DataMapper<CategoryResponseEntity?, CategoryResponse
             productsQuantity = category?.productsQuantity
         )
 
-    private fun transformBrands(brands: List<ProductBrandEntity>?): List<ProductBrandModel> =
+    private fun transformBrands(brands: List<BrandEntity>?): List<BrandModel> =
         brands?.map {
             transformBrand(it)
         }.orEmpty()
 
-    private fun transformBrand(brand: ProductBrandEntity): ProductBrandModel =
-        ProductBrandModel(
+    private fun transformBrand(brand: BrandEntity): BrandModel =
+        BrandModel(
             id = brand.id,
             name = brand.name,
             logoUrl = brand.logoUrl

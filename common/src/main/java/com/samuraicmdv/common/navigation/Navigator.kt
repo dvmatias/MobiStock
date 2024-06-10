@@ -11,4 +11,6 @@ interface Navigator {
     fun toHome(origin: Activity, data: Bundle? = null, finish: Boolean = false)
 
     fun toProductCategory(origin: Activity, data: Bundle? = null, finish: Boolean = false)
+
+    fun toProductDetails(origin: Activity, data: Bundle? = null, finish: Boolean = false)
 }

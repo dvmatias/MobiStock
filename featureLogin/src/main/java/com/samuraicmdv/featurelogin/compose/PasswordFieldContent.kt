@@ -87,7 +87,7 @@ fun PasswordFieldContent(
                     keyboardController?.hide()
                 }
             ),
-            placeholder = { Text(placeholder, color = MobiTheme.colors.tertiary) },
+            placeholder = { Text(text = placeholder) },
             singleLine = true,
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation()
         )

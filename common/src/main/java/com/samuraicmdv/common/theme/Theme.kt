@@ -125,7 +125,7 @@ fun MobiTheme(
     ) {
         CompositionLocalProvider(
             LocalMobiColors provides colors,
-            LocalMobiTypography provides typography
+            LocalMobiTypography provides mobiTypography(colors),
         ) {
             ProvideTextStyle(
                 value = typography.bodyMedium.copy(color = MobiTheme.colors.textPrimary),

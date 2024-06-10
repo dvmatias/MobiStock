@@ -1,49 +1,45 @@
 package com.samuraicmdv.ui.widget
 
-import android.content.res.Configuration
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Green
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.samuraicmdv.common.theme.MobiTheme
-import com.samuraicmdv.common.theme.NEUTRAL_300
-import com.samuraicmdv.common.theme.NEUTRAL_500
-import com.samuraicmdv.common.theme.NEUTRAL_800
-import com.samuraicmdv.common.theme.RED_400
+import com.samuraicmdv.ui.util.ThemePreviews
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MobiTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    mobiLabel: @Composable (() -> Unit)? = null,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -54,44 +50,74 @@ fun MobiTextField(
     supportingText: @Composable (() -> Unit)? = null,
     isError: Boolean = false,
     errorMessage: String? = null,
+    prefix: @Composable (() -> Unit)? = null,
+    suffix: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape? = null,
     colors: TextFieldColors? = null,
 ) {
-    val updatedTextStyle = textStyle.copy(fontSize = 15.sp)
-    val updatedLabel = label.apply { textStyle.copy(fontSize = 15.sp) }
-    val updatedShape = shape ?: RoundedCornerShape(MobiTheme.dimens.dimen_0_5)
+    val updatedTextStyle = MobiTheme.typography.bodyLarge.copy(
+        color =
+        when {
+            isError -> MobiTheme.colors.error
+            !enabled -> MobiTheme.colors.textDisable
+            enabled -> MobiTheme.colors.textPrimary
+            else -> MobiTheme.colors.textPrimary
+        }
+    )
+    /* val updatedLabel = label.apply { textStyle.copy(fontSize = 15.sp) }*/
+    val updatedShape = shape ?: RoundedCornerShape(MobiTheme.dimens.dimen_1)
     val updatedColors = updateColors(colors)
-    val updatedModifier = modifier.height(52.dp)
 
     Column {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            enabled = enabled,
-            readOnly = readOnly,
-            textStyle = updatedTextStyle,
-            label = updatedLabel,
-            placeholder = placeholder,
-            leadingIcon = leadingIcon,
-            trailingIcon = trailingIcon,
-            supportingText = supportingText,
-            isError = isError,
-            visualTransformation = visualTransformation,
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
-            singleLine = singleLine,
-            maxLines = maxLines,
-            interactionSource = interactionSource,
-            shape = updatedShape,
-            colors = updatedColors,
-            modifier = updatedModifier
-        )
+        mobiLabel?.invoke()
+
+        CompositionLocalProvider(LocalTextStyle provides updatedTextStyle) {
+            BasicTextField(
+                value = value,
+                modifier = modifier.heightIn(40.dp),
+                onValueChange = onValueChange,
+                enabled = enabled,
+                readOnly = readOnly,
+                textStyle = updatedTextStyle,
+                cursorBrush = SolidColor(MobiTheme.colors.primary),
+                visualTransformation = visualTransformation,
+                keyboardOptions = keyboardOptions,
+                keyboardActions = keyboardActions,
+                interactionSource = interactionSource,
+                singleLine = singleLine,
+                maxLines = maxLines,
+                minLines = minLines,
+                decorationBox = @Composable { innerTextField ->
+                    // places leading icon, text field with label and placeholder, trailing icon
+                    TextFieldDefaults.DecorationBox(
+                        value = value,
+                        visualTransformation = visualTransformation,
+                        innerTextField = innerTextField,
+                        placeholder = placeholder,
+                        label = label,
+                        leadingIcon = leadingIcon,
+                        trailingIcon = trailingIcon,
+                        prefix = prefix,
+                        suffix = suffix,
+                        supportingText = supportingText,
+                        shape = updatedShape,
+                        singleLine = singleLine,
+                        enabled = enabled,
+                        isError = isError,
+                        interactionSource = interactionSource,
+                        colors = updatedColors,
+                        contentPadding = PaddingValues(start = 0.dp, end = 0.dp, top = 8.dp, bottom = 8.dp)
+                    )
+                }
+            )
+        }
         if (isError) {
             errorMessage?.let {
                 Text(
@@ -109,63 +135,12 @@ fun MobiTextField(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MobiTextField(
-    value: TextFieldValue,
-    onValueChange: (TextFieldValue) -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    readOnly: Boolean = false,
-    textStyle: TextStyle = LocalTextStyle.current,
-    label: @Composable (() -> Unit)? = null,
-    placeholder: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null,
-    trailingIcon: @Composable (() -> Unit)? = null,
-    supportingText: @Composable (() -> Unit)? = null,
-    isError: Boolean = false,
-    error: String? = null,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
-    singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    shape: Shape? = null,
-    colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
-) {
-    val updatedShape = shape ?: RoundedCornerShape(MobiTheme.dimens.dimen_1)
-
-    TextField(
-        value = value,
-        onValueChange = onValueChange,
-        enabled = enabled,
-        readOnly = readOnly,
-        textStyle = textStyle,
-        label = label,
-        placeholder = placeholder,
-        leadingIcon = leadingIcon,
-        trailingIcon = trailingIcon,
-        supportingText = supportingText,
-        isError = isError,
-        visualTransformation = visualTransformation,
-        keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions,
-        singleLine = singleLine,
-        maxLines = maxLines,
-        interactionSource = interactionSource,
-        shape = updatedShape,
-        colors = colors,
-        modifier = modifier
-    )
-}
-
 @Composable
 private fun updateColors(colors: TextFieldColors?): TextFieldColors =
     colors ?: OutlinedTextFieldDefaults.colors(
-        cursorColor = NEUTRAL_800,
-        disabledBorderColor = NEUTRAL_300,
-        disabledContainerColor = MobiTheme.colors.disabledContainerColor,
+        cursorColor = MobiTheme.colors.onDisabledContainerColor,
+        disabledBorderColor = MobiTheme.colors.disabledContainerColor,
+        disabledContainerColor = MobiTheme.colors.background,
         disabledLabelColor = MobiTheme.colors.textDisable,
         disabledLeadingIconColor = MobiTheme.colors.textDisable,
         disabledPlaceholderColor = Green,
@@ -175,7 +150,7 @@ private fun updateColors(colors: TextFieldColors?): TextFieldColors =
         disabledTextColor = MobiTheme.colors.textDisable,
         disabledTrailingIconColor = MobiTheme.colors.textDisable,
         errorBorderColor = MobiTheme.colors.error,
-        errorContainerColor = MobiTheme.colors.errorContainer,
+        errorContainerColor = MobiTheme.colors.background,
         errorCursorColor = MobiTheme.colors.error,
         errorLabelColor = MobiTheme.colors.error,
         errorLeadingIconColor = MobiTheme.colors.error,
@@ -185,8 +160,8 @@ private fun updateColors(colors: TextFieldColors?): TextFieldColors =
         errorSupportingTextColor = MobiTheme.colors.error,
         errorTextColor = MobiTheme.colors.error,
         errorTrailingIconColor = MobiTheme.colors.error,
-        focusedBorderColor = MobiTheme.colors.secondary,
-        focusedContainerColor = MobiTheme.colors.secondaryContainer,
+        focusedBorderColor = MobiTheme.colors.primary,
+        focusedContainerColor = MobiTheme.colors.background,
         focusedLabelColor = MobiTheme.colors.onSecondaryContainer,
         focusedLeadingIconColor = MobiTheme.colors.onSecondaryContainer,
         focusedPlaceholderColor = Green,
@@ -196,8 +171,8 @@ private fun updateColors(colors: TextFieldColors?): TextFieldColors =
         focusedTextColor = MobiTheme.colors.onPrimary,
         focusedTrailingIconColor = MobiTheme.colors.onSecondary,
         selectionColors = null,
-        unfocusedBorderColor = MobiTheme.colors.secondary,
-        unfocusedContainerColor = MobiTheme.colors.secondaryContainer,
+        unfocusedBorderColor = MobiTheme.colors.textSecondary,
+        unfocusedContainerColor = MobiTheme.colors.background,
         unfocusedLabelColor = MobiTheme.colors.onSecondaryContainer,
         unfocusedLeadingIconColor = MobiTheme.colors.onSecondaryContainer,
         unfocusedPlaceholderColor = Green,
@@ -208,16 +183,15 @@ private fun updateColors(colors: TextFieldColors?): TextFieldColors =
         unfocusedTrailingIconColor = MobiTheme.colors.onSecondaryContainer,
     )
 
-@Preview()
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@ThemePreviews
 @Composable
 fun PreviewMobiTextField() {
     MobiTheme {
         Surface(
-            color = MobiTheme.colors.surface
+            color = MobiTheme.colors.background
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_2),
+                verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_1),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
@@ -225,31 +199,45 @@ fun PreviewMobiTextField() {
                         vertical = MobiTheme.dimens.dimen_1
                     )
             ) {
-                val value = "value"
+                val value = "Value tesgjy"
                 val error = "error"
-                val placeHolder = "placeholder"
 
                 MobiTextField(
                     value = "",
+                    label = { Text(text = "Label") },
                     isError = false,
+                    supportingText = { Text(text = "Supporting text") },
                     errorMessage = error,
                     onValueChange = {},
                     enabled = true,
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    placeholder = { Text(placeHolder) },
+                    placeholder = { Text(text = "Placeholder text") },
                     singleLine = true,
                     visualTransformation = VisualTransformation.None,
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 MobiTextField(
-                    value = "",
+                    value = "Some worong input",
                     isError = error.isNotEmpty(),
                     errorMessage = error,
                     onValueChange = {},
                     enabled = true,
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    placeholder = { Text(placeHolder) },
+                    placeholder = { Text(text = "Placeholder text") },
+                    singleLine = true,
+                    visualTransformation = VisualTransformation.None,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+
+                MobiTextField(
+                    value = "",
+                    isError = false,
+                    onValueChange = {},
+                    enabled = true,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    placeholder = { Text(text = "Placeholder text") },
                     singleLine = true,
                     visualTransformation = VisualTransformation.None,
                     modifier = Modifier.fillMaxWidth()
@@ -260,9 +248,9 @@ fun PreviewMobiTextField() {
                     value = value,
                     isError = false,
                     onValueChange = {},
-                    enabled = true,
+                    enabled = false,
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-                    placeholder = { Text(placeHolder) },
+                    placeholder = { Text(text = "Placeholder text") },
                     singleLine = true,
                     visualTransformation = VisualTransformation.None,
                     modifier = Modifier.fillMaxWidth()

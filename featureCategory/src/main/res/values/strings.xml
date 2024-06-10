@@ -5,7 +5,7 @@
     <string name="title_brands">Brands</string>
     <string name="product_item_markup_placeholder">%%%1$.2f</string>
     <string name="label_filter_by_brand_pill">All</string>
-    <string name="label_alphabetical_sort_pill">A-Z</string>
+    <string name="label_alphabetical_sort_pill">A - Z</string>
     <string name="label_price_sort_pill">PRICE</string>
     <string name="title_product_description">Description</string>
     <string name="title_product_model">Model</string>

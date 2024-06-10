@@ -6,6 +6,7 @@ import com.samuraicmdv.common.extension.navigate
 import com.samuraicmdv.common.navigation.Navigator
 import com.samuraicmdv.featurehome.HomeActivity
 import com.samuraicmdv.featurecategory.CategoryActivity
+import com.samuraicmdv.featureproductdetails.ProductDetailsActivity
 
 /**
  * Implementation - This class implements the contract declared on [Navigator]. It implements all
@@ -24,5 +25,12 @@ class NavigatorImpl: Navigator {
      */
     override fun toProductCategory(origin: Activity, data: Bundle?, finish: Boolean) {
         origin.navigate<CategoryActivity>(data, finish)
+    }
+
+    /**
+     * Navigates to [ProductDetailsActivity]
+     */
+    override fun toProductDetails(origin: Activity, data: Bundle?, finish: Boolean) {
+        origin.navigate<ProductDetailsActivity>(data, finish)
     }
 }
