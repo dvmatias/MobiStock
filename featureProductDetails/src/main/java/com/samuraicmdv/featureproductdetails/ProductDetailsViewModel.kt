@@ -92,12 +92,9 @@ class ProductDetailsViewModel @AssistedInject constructor(
     /**
      * Fetches the product details. This is only needed when the screen is in view mode or edit mode.
      */
-    fun fetchProductDetails(productId: Int) {
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true)
-            getProductDetailsUseCase(GetProductDetailsUseCase.Params(productId)).let {
-                _uiState.value = _uiState.value.copy(product = transformer.transformProduct(it))
-            }
+    private suspend fun fetchProductDetails(productId: Int) {
+        getProductDetailsUseCase(GetProductDetailsUseCase.Params(productId)).let {
+            _uiState.value = _uiState.value.copy(product = transformer.transformProduct(it))
         }
     }
 

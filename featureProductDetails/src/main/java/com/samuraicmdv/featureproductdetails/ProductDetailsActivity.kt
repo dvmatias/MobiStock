@@ -75,7 +75,7 @@ class ProductDetailsActivity : ComponentActivity() {
                 viewModel.createProduct(event.product)
 
             is ProductDetailsBusinessEvent.ViewProductDetails -> {
-                viewModel.fetchProductDetails(event.productId)
+                // TODO viewModel.fetchProductDetails(event.productId)
             }
 
             is ProductDetailsPresentationEvent.ExitScreen -> finish()
