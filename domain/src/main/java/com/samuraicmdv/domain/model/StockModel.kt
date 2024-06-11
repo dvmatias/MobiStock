@@ -1,6 +1,6 @@
 package com.samuraicmdv.domain.model
 
-data class ProductStockModel(
+data class StockModel(
     val quantity: Int? = null,
     val low: Int? = null,
     val min: Int? = null,

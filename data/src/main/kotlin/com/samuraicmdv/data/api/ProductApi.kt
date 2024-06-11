@@ -19,13 +19,15 @@ interface ProductApi {
         @Body body: CreateProductRequestEntity,
     ): Response<CreateProductResponseEntity>
 
-    @GET(PATH)
-    fun getProductDetails(
-        @Query("id") productId: Int
+    @GET("$PATH/$DETAILS_PATH")
+    suspend fun getProductDetails(
+        @Query("id") productId: Int,
+        @Query("store_id") storeId: Int? = null,
     ): Response<GetProductDetailsResponseEntity>
 
     companion object {
-        private const val PATH = "products"
+        private const val PATH = "product"
         private const val CREATE_PATH = "create"
+        private const val DETAILS_PATH = "details"
     }
 }
