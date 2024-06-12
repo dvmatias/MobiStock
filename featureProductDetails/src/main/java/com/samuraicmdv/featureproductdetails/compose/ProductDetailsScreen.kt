@@ -59,7 +59,7 @@ fun ProductDetailsScreen(
                             title = {
                                 val title =
                                     when (screenMode) {
-                                        VIEW -> uiState.product?.name ?: EMPTY_STRING
+                                        VIEW -> EMPTY_STRING
                                         EDIT -> stringResource(id = R.string.title_app_bar_edit)
                                         CREATE -> EMPTY_STRING
                                         CREATE_SUCCESS -> EMPTY_STRING
@@ -89,7 +89,10 @@ fun ProductDetailsScreen(
             }
         ) { paddingValues ->
             when (screenMode) {
-                VIEW -> ProductDetailsScreenContentView(modifier.padding(paddingValues))
+                VIEW -> ProductDetailsScreenContentView(
+                    product,
+                    modifier.padding(paddingValues)
+                )
                 EDIT,
                 CREATE -> ProductDetailsScreenContentEdit(
                     product = product,

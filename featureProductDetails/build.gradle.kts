@@ -94,6 +94,11 @@ dependencies {
     testImplementation("com.google.dagger:hilt-android-testing:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    // Pager
+    implementation("androidx.compose.foundation:foundation:1.6.7")
+    // Coil
+    implementation("io.coil-kt:coil:2.6.0")
+    implementation("io.coil-kt:coil-compose:2.6.0")
 }
 
 // Allow references to generated code
