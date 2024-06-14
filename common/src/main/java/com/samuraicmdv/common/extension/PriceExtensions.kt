@@ -30,7 +30,10 @@ fun String?.toDoublePrice(): Double {
  * @param suffix The suffix to add to the margin.
 
  */
-fun Pair<Double, Double>.getMargin(decimalsCount: Int, prefix: String? = null, suffix: String? = null): String {
+fun Pair<Double?, Double?>.getMargin(decimalsCount: Int, prefix: String? = null, suffix: String? = null): String {
+    if (this.first == null || this.second == null) {
+        return "0"
+    }
     val formattedMargin = this.getMargin(decimalsCount)
     val builder = StringBuilder()
     if (prefix != null) {
@@ -43,7 +46,10 @@ fun Pair<Double, Double>.getMargin(decimalsCount: Int, prefix: String? = null, s
     return builder.toString()
 }
 
-fun Pair<Double, Double>.getMargin(decimalsCount: Int): Double {
-    val margin = (1 - (this.first / this.second)) * 100
+fun Pair<Double?, Double?>.getMargin(decimalsCount: Int): Double {
+    this.first.takeUnless { it == null } ?: return 0.0
+    this.second.takeUnless { it == null } ?: return 0.0
+
+    val margin = (1 - (this.first!! / this.second!!)) * 100
     return String.format(Locale.getDefault(), "%.${decimalsCount}f", margin).toDouble()
 }

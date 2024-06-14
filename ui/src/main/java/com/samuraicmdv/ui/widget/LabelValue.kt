@@ -1,5 +1,6 @@
 package com.samuraicmdv.ui.widget
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
@@ -33,7 +34,7 @@ fun LabelValue(
             Text(
                 text = labelString,
                 style = MobiTheme.typography.titleSmallBold,
-                modifier = Modifier.then(modifier)
+                modifier = Modifier
             )
             Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_75))
         }
@@ -41,10 +42,26 @@ fun LabelValue(
             Text(
                 text = it,
                 style = valueStyle,
-                modifier = Modifier.then(modifier),
+                modifier = Modifier,
                 color = valueColor
             )
         }
+    }
+}
+
+@Composable
+fun LabelValue(
+    label: @Composable () -> Unit?,
+    value: @Composable () -> Unit?,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+    ) {
+        label.invoke()
+        Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_75))
+        value.invoke()
     }
 }
 
@@ -55,11 +72,18 @@ fun PreviewLabelValue(
 ) {
     MobiTheme {
         Surface {
-            LabelValue(
-                label = "Label",
-                value = "Value",
-                modifier = modifier
-            )
+            Column {
+                LabelValue(
+                    label = "Label",
+                    value = "Value",
+                    modifier = modifier
+                )
+                LabelValue(
+                    label = { Text(text = "Composable label") },
+                    value = { Text(text = "Composable value") },
+                    modifier = modifier
+                )
+            }
         }
     }
 }

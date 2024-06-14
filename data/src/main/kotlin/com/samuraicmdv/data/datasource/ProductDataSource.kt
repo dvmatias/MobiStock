@@ -6,7 +6,10 @@ import com.samuraicmdv.domain.util.ResponseWrapper
 
 interface ProductDataSource {
 
-    suspend fun getProductDetails(productId: Int): ResponseWrapper<GetProductDetailsResponseModel>
+    suspend fun getProductDetails(
+        productId: Int,
+        storeId: Int? = null,
+    ): ResponseWrapper<GetProductDetailsResponseModel>
 
     /**
      * Triggers the service call to create a product.

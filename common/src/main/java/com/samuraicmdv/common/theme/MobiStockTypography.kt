@@ -20,6 +20,7 @@ data class MobiTypography(
     val labelMediumBlack: TextStyle,
     val labelLarge: TextStyle,
     val labelLargeBold: TextStyle,
+    val bodySmall: TextStyle,
     val bodyMedium: TextStyle,
     val bodyMediumBold: TextStyle,
     val bodyLarge: TextStyle,
@@ -177,21 +178,25 @@ fun mobiTypography(mobiColors: MobiColors): MobiTypography {
             fontSize = fontSizes.medium1,
             lineHeight = lineHeights.medium1
         ),
+        bodySmall = bodyNormal.copy(
+            fontSize = fontSizes.smallest,
+            lineHeight = lineHeights.smallest
+        ),
         bodyMedium = bodyNormal.copy(
-            fontSize = fontSizes.regular2,
-            lineHeight = lineHeights.regular2
+            fontSize = fontSizes.medium1,
+            lineHeight = lineHeights.medium1
         ),
         bodyMediumBold = bodyBold.copy(
-            fontSize = fontSizes.regular2,
-            lineHeight = lineHeights.regular2
+            fontSize = fontSizes.medium1,
+            lineHeight = lineHeights.medium1
         ),
         bodyLarge = bodyNormal.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.medium2,
+            lineHeight = lineHeights.medium2
         ),
         bodyLargeBold = bodyBold.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.medium2,
+            lineHeight = lineHeights.medium2
         ),
         titleSmall = titleNormal.copy(
             fontSize = fontSizes.medium1,

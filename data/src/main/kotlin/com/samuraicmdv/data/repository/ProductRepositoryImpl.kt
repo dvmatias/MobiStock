@@ -13,8 +13,9 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun getProductDetails(
         productId: Int,
+        storeId: Int?,
     ): ResponseWrapper<GetProductDetailsResponseModel> =
-        productDataSource.getProductDetails(productId)
+        productDataSource.getProductDetails(productId, storeId)
 
     override suspend fun createProduct(
         name: String,

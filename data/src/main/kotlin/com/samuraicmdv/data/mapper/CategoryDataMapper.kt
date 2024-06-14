@@ -72,7 +72,7 @@ object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryRespo
             )
         }.orEmpty()
 
-    private fun getProductCategoryType(productCategoryName: String?): ProductCategory =
+    fun getProductCategoryType(productCategoryName: String?): ProductCategory =
         ProductCategory.entries.find {
             it.name == productCategoryName
         } ?: run {

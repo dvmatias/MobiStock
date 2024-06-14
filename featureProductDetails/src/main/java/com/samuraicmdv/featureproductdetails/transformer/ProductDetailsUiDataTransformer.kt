@@ -65,7 +65,7 @@ object ProductDetailsUiDataTransformer {
                 CategoryUiData(
                     id = it.id ?: -1,
                     nameResId = getProductCategoryNameResource(it.type),
-                    description = it.imageUrl ?: "",
+                    description = it.description ?: "",
                     logoUrl = it.logoUrl ?: "",
                 )
             },

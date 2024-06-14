@@ -59,7 +59,7 @@ fun ProductDetailsScreen(
                             title = {
                                 val title =
                                     when (screenMode) {
-                                        VIEW -> EMPTY_STRING
+                                        VIEW -> stringResource(id = R.string.title_app_bar_edit)
                                         EDIT -> stringResource(id = R.string.title_app_bar_edit)
                                         CREATE -> EMPTY_STRING
                                         CREATE_SUCCESS -> EMPTY_STRING

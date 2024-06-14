@@ -20,9 +20,12 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
     private val getProductDetailsDataMapper: GetProductDetailsDataMapper,
 ) : ProductDataSource {
 
-    override suspend fun getProductDetails(productId: Int): ResponseWrapper<GetProductDetailsResponseModel> =
+    override suspend fun getProductDetails(
+        productId: Int,
+        storeId: Int?
+    ): ResponseWrapper<GetProductDetailsResponseModel> =
         withContext(Dispatchers.IO) {
-            productApi.getProductDetails(productId).let { response ->
+            productApi.getProductDetails(productId, storeId).let { response ->
                 if (response.isSuccessful && response.body() != null) {
                     ResponseWrapper.success(getProductDetailsDataMapper.entityToModel(response.body()))
                 } else {

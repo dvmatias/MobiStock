@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.ui.util.ThemePreviews
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -48,8 +50,29 @@ fun ProductDetailsImageGallery(
 
             HorizontalPagerIndicator(
                 pagerState = pagerState,
-                modifier = Modifier.align(Alignment.BottomCenter)
-                    .padding(bottom = MobiTheme.dimens.dimen_2, top = MobiTheme.dimens.dimen_2)
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(
+                        vertical = MobiTheme.dimens.dimen_1,
+                        horizontal = MobiTheme.dimens.dimen_2
+                    )
+            )
+        }
+    }
+}
+
+@ThemePreviews
+@Composable
+fun PreviewProductDetailsImageGallery(modifier: Modifier = Modifier) {
+    MobiTheme {
+        Surface {
+            ProductDetailsImageGallery(
+                imageUrls = listOf(
+                    "https://images.unsplash.com/photo-1612838320302-4b3b3b3b3b3b",
+                    "https://images.unsplash.com/photo-1612838320302-4b3b3b3b3b3b",
+                    "https://images.unsplash.com/photo-1612838320302-4b3b3b3b3b3b"
+                ),
+                modifier = modifier
             )
         }
     }
