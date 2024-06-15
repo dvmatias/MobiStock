@@ -24,7 +24,7 @@ fun ActionText(
             Modifier
                 .clip(RoundedCornerShape(percent = 50))
                 .clickable {
-                    /*TODO*/
+                    action.handler.invoke(Unit)
                 }
                 .background(MobiTheme.colors.secondaryContainer.copy(alpha = 0.2F))
                 .padding(vertical = MobiTheme.dimens.dimen_0_5, horizontal = MobiTheme.dimens.dimen_1_5)

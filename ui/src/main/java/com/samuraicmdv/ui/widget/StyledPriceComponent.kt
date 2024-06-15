@@ -56,7 +56,7 @@ fun StyledPriceComponent(
     val text2 = buildAnnotatedString {
         withStyle(
             style = SpanStyle(
-                color =  MobiTheme.colors.textPrimary,
+                color = MobiTheme.colors.textPrimary,
                 fontSize = smallFontSize,
                 fontWeight = fontWeight,
                 fontFamily = fontFamily,
@@ -108,9 +108,9 @@ enum class PriceComponentStyle(val multiplier: Float) {
     LARGE(multiplier = 2F),
 }
 
-enum class PriceComponentWeight(val fontWeight: FontWeight) {
-    NORMAL(fontWeight = FontWeight.Normal),
-    BOLD(fontWeight = FontWeight.Bold),
+enum class PriceComponentWeight {
+    NORMAL,
+    BOLD,
 }
 
 @ThemePreviews

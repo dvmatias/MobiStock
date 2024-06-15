@@ -89,7 +89,7 @@ fun ProductDetailsScreen(
             }
         ) { paddingValues ->
             when (screenMode) {
-                VIEW -> ProductDetailsScreenContentView(
+                VIEW -> ProductDetailsScreenViewContent(
                     product,
                     modifier.padding(paddingValues)
                 )
