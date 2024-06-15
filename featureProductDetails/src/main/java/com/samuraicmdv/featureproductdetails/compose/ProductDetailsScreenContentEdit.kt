@@ -165,7 +165,7 @@ fun ProductDetailsScreenContentEdit(
                 Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                 Text(
                     text = stringResource(id = R.string.title_product_details_screen_content_edit),
-                    style = MobiTheme.typography.headlineMediumBold,
+                    style = MobiTheme.typography.titleLargeBold,
                 )
 
                 Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_4))

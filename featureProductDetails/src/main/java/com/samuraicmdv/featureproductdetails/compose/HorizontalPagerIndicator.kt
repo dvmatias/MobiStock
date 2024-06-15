@@ -29,7 +29,7 @@ fun HorizontalPagerIndicator(
     ) {
         Text(
             text = String.format("%d/%d", pagerState.currentPage + 1, pagerState.pageCount),
-            style = MobiTheme.typography.labelMediumBold,
+            style = MobiTheme.typography.labelLargeBold,
             modifier = Modifier
                 .padding(horizontal = MobiTheme.dimens.dimen_2, vertical = MobiTheme.dimens.dimen_0_5)
         )

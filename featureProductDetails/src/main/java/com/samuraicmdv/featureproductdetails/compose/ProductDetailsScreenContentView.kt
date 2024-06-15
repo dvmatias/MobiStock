@@ -1,6 +1,7 @@
 package com.samuraicmdv.featureproductdetails.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Error
@@ -24,8 +27,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
+import com.samuraicmdv.common.event.Action
 import com.samuraicmdv.common.extension.getMargin
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.R
@@ -34,6 +39,7 @@ import com.samuraicmdv.featureproductdetails.data.CategoryUiData
 import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
 import com.samuraicmdv.featureproductdetails.data.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
+import com.samuraicmdv.ui.widget.ActionText
 import com.samuraicmdv.ui.widget.IconLabelValue
 import com.samuraicmdv.ui.widget.LabelValue
 import com.samuraicmdv.ui.widget.PriceComponentLevel
@@ -46,14 +52,16 @@ fun ProductDetailsScreenContentView(
     product: ProductUiData?,
     modifier: Modifier = Modifier
 ) {
+    val scrollState = rememberScrollState()
     Box(
         modifier = modifier
             .fillMaxSize()
     ) {
         product?.run {
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_1)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState)
             ) {
                 // Display product images
                 ProductDetailsImageGallery(
@@ -61,16 +69,34 @@ fun ProductDetailsScreenContentView(
                     modifier = Modifier.fillMaxWidth()
                 )
 
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
                 name?.let {
-                    Text(
-                        text = it,
-                        style = MobiTheme.typography.headlineMediumBold,
+                    Row(
                         modifier = Modifier
-                            .padding(horizontal = MobiTheme.dimens.dimen_2)
                             .fillMaxWidth()
-                    )
+                            .padding(horizontal = MobiTheme.dimens.dimen_2)
+                    ) {
+                        Text(
+                            text = it,
+                            style = MobiTheme.typography.titleMediumBold,
+                            modifier = Modifier
+                                .weight(1F)
+                        )
+                        ActionText(
+                            action = Action(
+                                name = "Edit",
+                                label = "Edit",
+                                handler = {
+                                    /*TODO*/
+                                }
+                            ),
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                    }
                 }
 
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                 brand?.let { brand ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -94,6 +120,8 @@ fun ProductDetailsScreenContentView(
                     }
                 }
 
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+
                 category?.let {
                     LabelValue(
                         label = "Category",
@@ -102,25 +130,91 @@ fun ProductDetailsScreenContentView(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
 
                 price?.let {
                     ProductDetailsPriceContent(it)
                 }
 
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
                 shortDescription?.let {
+                    Text(
+                        text = "Short description",
+                        style = MobiTheme.typography.titleSmallBold,
+                        modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                    )
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                     Text(
                         text = it,
                         style = MobiTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                     )
                 }
 
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
                 longDescription?.let {
+                    Text(
+                        text = "Long description",
+                        style = MobiTheme.typography.titleSmallBold,
+                        modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                    )
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                     Text(
                         text = it,
                         style = MobiTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                     )
                 }
+
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
+                LabelValue(
+                    label = "Model",
+                    value = product.model,
+                    action = Action(
+                        name = "Edit",
+                        label = "Edit",
+                        handler = {
+                            /*TODO*/
+                        }
+                    ),
+                    modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                )
+
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+
+                product.code?.let { productCode ->
+                    LabelValue(
+                        label = "Code",
+                        value = productCode,
+                        action = Action(
+                            name = "Edit",
+                            label = "Edit",
+                            handler = {
+                                /*TODO*/
+                            }
+                        ),
+                        modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                    )
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+                }
+
+                LabelValue(
+                    label = "SKU",
+                    value = product.sku,
+                    action = Action(
+                        name = "Edit",
+                        label = "Edit",
+                        handler = {
+                            /*TODO*/
+                        }
+                    ),
+                    modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                )
+
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_8))
             }
         } ?: kotlin.run {
             Box {
@@ -131,7 +225,10 @@ fun ProductDetailsScreenContentView(
 }
 
 @Composable
-fun ProductDetailsPriceContent(price: ProductPriceUiData) {
+fun ProductDetailsPriceContent(
+    price: ProductPriceUiData,
+    modifier: Modifier = Modifier,
+) {
     val actualMargin: Double = (price.costPrice to price.sellingPrice).getMargin(2)
     val preferredMargin: Int = price.preferredMargin ?: 65
     val marginIcon = if (actualMargin > preferredMargin) {
@@ -144,25 +241,29 @@ fun ProductDetailsPriceContent(price: ProductPriceUiData) {
     } else {
         MobiTheme.colors.error
     }
-    val marginText = "${(price.costPrice to price.sellingPrice).getMargin(2, "", "%")} (preferred: $preferredMargin%)"
+    val preferredMarginCaption = "(preferred: $preferredMargin%)"
 
-    Column {
+    Column(
+        modifier = modifier
+            .background(MobiTheme.colors.disabledContainerColor)
+            .padding(vertical = MobiTheme.dimens.dimen_2, horizontal = MobiTheme.dimens.dimen_2)
+    ) {
         Text(
             text = "Pricing",
-            style = MobiTheme.typography.titleLargeBold,
+            style = MobiTheme.typography.titleSmallBold,
             modifier = Modifier
-                .padding(horizontal = MobiTheme.dimens.dimen_2)
                 .fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
 
         price.costPrice?.let { sellingPrice ->
             LabelValue(
                 label = {
                     Text(
                         text = "cost",
-                        style = MobiTheme.typography.titleSmallBold
+                        style = MobiTheme.typography.bodyMediumBold,
+                        modifier = Modifier.weight(1F)
                     )
                 },
                 value = {
@@ -170,11 +271,12 @@ fun ProductDetailsPriceContent(price: ProductPriceUiData) {
                         amount = sellingPrice,
                         priceComponentStyle = PriceComponentStyle.REGULAR,
                         priceComponentWeight = PriceComponentWeight.BOLD,
-                        priceComponentLevel = PriceComponentLevel.NEGATIVE,
+                        priceComponentLevel = PriceComponentLevel.DISPLAY,
                         modifier = Modifier
                     )
                 },
-                modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                modifier = Modifier
+                    .fillMaxWidth()
             )
         }
 
@@ -185,7 +287,8 @@ fun ProductDetailsPriceContent(price: ProductPriceUiData) {
                 label = {
                     Text(
                         text = "selling",
-                        style = MobiTheme.typography.titleSmallBold
+                        style = MobiTheme.typography.bodyMediumBold,
+                        modifier = Modifier.weight(1F)
                     )
                 },
                 value = {
@@ -197,25 +300,52 @@ fun ProductDetailsPriceContent(price: ProductPriceUiData) {
                         modifier = Modifier
                     )
                 },
-                modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
             )
         }
 
         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
 
         IconLabelValue(
-            label = "margin",
-            value = marginText,
+            label = {
+                Text(
+                    text = "margin",
+                    style = MobiTheme.typography.bodyMediumBold
+                )
+            },
+            value = {
+                Text(
+                    text = (price.costPrice to price.sellingPrice).getMargin(2, "", "%"),
+                    style = MobiTheme.typography.bodyMediumBold,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.weight(1F)
+                )
+            },
             icon = {
                 Icon(
                     imageVector = marginIcon,
-                    tint = marginIconColor,
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = marginIconColor
                 )
-            },
-            modifier = Modifier.padding(horizontal = 16.dp)
+            }
         )
+        Text(
+            text = preferredMarginCaption,
+            style = MobiTheme.typography.bodyMedium,
+            textAlign = TextAlign.End,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
 
+        ActionText(
+            action = Action(
+                name = "Edit",
+                label = "Edit",
+                handler = {
+                    /*TODO*/
+                }
+            ),
+            modifier = Modifier.align(Alignment.End)
+        )
     }
 }
 

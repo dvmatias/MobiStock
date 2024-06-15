@@ -18,8 +18,8 @@ import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.util.Locale
 
-private const val BASELINE_MULTIPLIER_CURRENCY_SYMBOL = 0.3F
-private const val BASELINE_MULTIPLIER_DECIMAL = 0.36F
+private const val BASELINE_MULTIPLIER_CURRENCY_SYMBOL = 0.4F
+private const val BASELINE_MULTIPLIER_DECIMAL = 0.4F
 
 @Composable
 fun StyledPriceComponent(
@@ -30,7 +30,7 @@ fun StyledPriceComponent(
     priceComponentLevel: PriceComponentLevel = PriceComponentLevel.DISPLAY,
 ) {
     val multiplier = priceComponentStyle.multiplier
-    val smallFontSize = MobiTheme.typography.bodySmall.fontSize * multiplier
+    val smallFontSize = (MobiTheme.typography.bodySmall.fontSize * multiplier) * 0.7F
     val largeFontSize = MobiTheme.typography.bodyLarge.fontSize * multiplier
     val fontFamily = MobiTheme.typography.bodyLarge.fontFamily
     val fontWeight = when (priceComponentWeight) {
@@ -102,6 +102,7 @@ enum class PriceComponentLevel {
 }
 
 enum class PriceComponentStyle(val multiplier: Float) {
+    SMALL(multiplier = 0.75F),
     REGULAR(multiplier = 1F),
     MEDIUM(multiplier = 1.5F),
     LARGE(multiplier = 2F),
@@ -120,6 +121,17 @@ fun PreviewStyledPriceComponent() {
             Column(
                 verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_2)
             ) {
+                StyledPriceComponent(
+                    amount = 1213.45,
+                    priceComponentStyle = PriceComponentStyle.SMALL,
+                    priceComponentWeight = PriceComponentWeight.NORMAL,
+                )
+                StyledPriceComponent(
+                    amount = 1256.04,
+                    priceComponentStyle = PriceComponentStyle.SMALL,
+                    priceComponentWeight = PriceComponentWeight.NORMAL,
+                    priceComponentLevel = PriceComponentLevel.NEGATIVE,
+                )
                 StyledPriceComponent(
                     amount = 1213.45,
                     priceComponentStyle = PriceComponentStyle.REGULAR,

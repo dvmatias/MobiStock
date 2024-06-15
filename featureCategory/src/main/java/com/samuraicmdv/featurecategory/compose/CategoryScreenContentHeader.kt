@@ -57,7 +57,7 @@ fun CategoryScreenContentHeader(
             name?.let {
                 Text(
                     text = it,
-                    style = MobiTheme.typography.headlineLarge,
+                    style = MobiTheme.typography.headline,
                     modifier = Modifier
                         .fillMaxWidth()
                         .alpha(categoryTitleAlpha)

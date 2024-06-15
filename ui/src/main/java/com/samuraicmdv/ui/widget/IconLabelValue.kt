@@ -36,6 +36,27 @@ fun IconLabelValue(
     }
 }
 
+@Composable
+fun IconLabelValue(
+    label: @Composable () -> Unit?,
+    value: @Composable () -> Unit?,
+    icon: @Composable () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        icon()
+        Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_5))
+        LabelValue(
+            label = label,
+            value = value,
+            modifier = Modifier
+        )
+    }
+}
+
 @ThemePreviews
 @Composable
 fun PreviewIconLabelValue(

@@ -34,7 +34,6 @@ fun ProductDetailsImageGallery(
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(1.3F)
-                        .background(MobiTheme.colors.disabledContainerColor)
                 ) {
                     Image(
                         painter = rememberAsyncImagePainter(model = imageUrls[page]),

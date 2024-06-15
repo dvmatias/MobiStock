@@ -66,7 +66,7 @@ fun ProductDetailsScreen(
                                     }
                                 Text(
                                     text = title,
-                                    style = MobiTheme.typography.titleLargeBold
+                                    style = MobiTheme.typography.titleMediumBold
                                 )
                             },
                             navigationIcon = {

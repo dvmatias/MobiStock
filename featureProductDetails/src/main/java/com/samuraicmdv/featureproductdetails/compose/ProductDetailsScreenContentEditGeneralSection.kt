@@ -42,7 +42,7 @@ fun ProductDetailsScreenContentEditGeneralSection(
         modifier = modifier
     ) {
         Text(
-            text = stringResource(id = R.string.title_general).uppercase(),
+            text = stringResource(id = R.string.title_general),
             style = MobiTheme.typography.titleSmallBold,
         )
 
