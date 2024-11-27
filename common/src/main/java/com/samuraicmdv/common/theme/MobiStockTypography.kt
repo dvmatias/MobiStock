@@ -20,6 +20,8 @@ data class MobiTypography(
     val labelMediumBlack: TextStyle,
     val labelLarge: TextStyle,
     val labelLargeBold: TextStyle,
+    val bodySmall: TextStyle,
+    val bodySmallBold: TextStyle,
     val bodyMedium: TextStyle,
     val bodyMediumBold: TextStyle,
     val bodyLarge: TextStyle,
@@ -30,11 +32,8 @@ data class MobiTypography(
     val titleMediumBold: TextStyle,
     val titleLarge: TextStyle,
     val titleLargeBold: TextStyle,
-    val headlineSmall: TextStyle,
-    val headlineSmallBold: TextStyle,
-    val headlineMedium: TextStyle,
-    val headlineMediumBold: TextStyle,
-    val headlineLarge: TextStyle,
+    val headline: TextStyle,
+    val headlineBold: TextStyle,
     val displaySmall: TextStyle,
     val displayMedium: TextStyle,
     val displayLarge: TextStyle,
@@ -46,34 +45,34 @@ data class MobiTypography(
 private data class MobiTypographyFontSizes(
     val smallest: TextUnit = 10.sp,
     val small: TextUnit = 11.sp,
-    val regular1: TextUnit = 12.sp,
-    val regular2: TextUnit = 14.sp,
-    val medium1: TextUnit = 16.sp,
-    val medium2: TextUnit = 18.sp,
-    val large1: TextUnit = 22.sp,
-    val large2: TextUnit = 24.sp,
-    val large3: TextUnit = 28.sp,
-    val giant1: TextUnit = 32.sp,
-    val giant2: TextUnit = 36.sp,
-    val giant3: TextUnit = 45.sp,
-    val giant4: TextUnit = 57.sp,
+    val caption: TextUnit =   12.sp,
+    val bodySmall: TextUnit =  14.sp,
+    val bodyMedium: TextUnit =  16.sp,
+    val bodyLarge: TextUnit =  18.sp,
+    val titleSmall: TextUnit =  20.sp,
+    val titleMedium: TextUnit =  24.sp,
+    val titleLarge: TextUnit =  28.sp,
+    val headline: TextUnit =  32.sp,
+    val displaySmall: TextUnit =  36.sp,
+    val displayMedium: TextUnit =  48.sp,
+    val displayLarge: TextUnit =  60.sp,
 )
 
 @Immutable
 private data class MobiTypographyLineHeight(
     val smallest: TextUnit = 12.sp,
     val small: TextUnit = 14.sp,
-    val regular1: TextUnit = 16.sp,
-    val regular2: TextUnit = 18.sp,
-    val medium1: TextUnit = 20.sp,
-    val medium2: TextUnit = 26.sp,
-    val large1: TextUnit = 30.sp,
-    val large2: TextUnit = 32.sp,
-    val large3: TextUnit = 36.sp,
-    val giant1: TextUnit = 42.sp,
-    val giant2: TextUnit = 46.sp,
-    val giant3: TextUnit = 56.sp,
-    val giant4: TextUnit = 66.sp,
+    val caption: TextUnit =   16.sp,
+    val bodySmall: TextUnit =  18.sp,
+    val bodyMedium: TextUnit =  20.sp,
+    val bodyLarge: TextUnit =  26.sp,
+    val titleSmall: TextUnit =  30.sp,
+    val titleMedium: TextUnit =  32.sp,
+    val titleLarge: TextUnit =  36.sp,
+    val headline: TextUnit =  42.sp,
+    val displaySmall: TextUnit =  46.sp,
+    val displayMedium: TextUnit =  56.sp,
+    val displayLarge: TextUnit =  66.sp,
 )
 
 val LocalMobiTypography = staticCompositionLocalOf {
@@ -150,108 +149,104 @@ fun mobiTypography(mobiColors: MobiColors): MobiTypography {
 
     return MobiTypography(
         labelSmall = titleNormal.copy(
-            fontSize = fontSizes.small,
-            lineHeight = lineHeights.small
+            fontSize = fontSizes.smallest,
+            lineHeight = lineHeights.smallest
         ),
         labelSmallBold = titleBold.copy(
+            fontSize = fontSizes.smallest,
+            lineHeight = lineHeights.smallest
+        ),
+        labelMedium = titleNormal.copy(
             fontSize = fontSizes.small,
             lineHeight = lineHeights.small
         ),
-        labelMedium = titleNormal.copy(
-            fontSize = fontSizes.regular1,
-            lineHeight = lineHeights.regular1
-        ),
         labelMediumBold = titleBold.copy(
-            fontSize = fontSizes.regular1,
-            lineHeight = lineHeights.regular1
+            fontSize = fontSizes.small,
+            lineHeight = lineHeights.small
         ),
         labelMediumBlack = titleBold.copy(
-            fontSize = fontSizes.regular1,
-            lineHeight = lineHeights.regular1
+            fontSize = fontSizes.small,
+            lineHeight = lineHeights.small
         ),
         labelLarge = titleNormal.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.caption,
+            lineHeight = lineHeights.caption
         ),
         labelLargeBold = titleBold.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.caption,
+            lineHeight = lineHeights.caption
+        ),
+        bodySmall = bodyNormal.copy(
+            fontSize = fontSizes.bodySmall,
+            lineHeight = lineHeights.bodySmall
+        ),
+        bodySmallBold = bodyBold.copy(
+            fontSize = fontSizes.bodySmall,
+            lineHeight = lineHeights.bodySmall
         ),
         bodyMedium = bodyNormal.copy(
-            fontSize = fontSizes.regular2,
-            lineHeight = lineHeights.regular2
+            fontSize = fontSizes.bodyMedium,
+            lineHeight = lineHeights.bodyMedium
         ),
         bodyMediumBold = bodyBold.copy(
-            fontSize = fontSizes.regular2,
-            lineHeight = lineHeights.regular2
+            fontSize = fontSizes.bodyMedium,
+            lineHeight = lineHeights.bodyMedium
         ),
         bodyLarge = bodyNormal.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.bodyLarge,
+            lineHeight = lineHeights.bodyLarge
         ),
         bodyLargeBold = bodyBold.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.bodyLarge,
+            lineHeight = lineHeights.bodyLarge
         ),
         titleSmall = titleNormal.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.titleSmall,
+            lineHeight = lineHeights.titleSmall
         ),
         titleSmallBold = titleBold.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1
+            fontSize = fontSizes.titleSmall,
+            lineHeight = lineHeights.titleSmall
         ),
         titleMedium = titleNormal.copy(
-            fontSize = fontSizes.medium2,
-            lineHeight = lineHeights.medium2
+            fontSize = fontSizes.titleMedium,
+            lineHeight = lineHeights.titleMedium
         ),
         titleMediumBold = titleBold.copy(
-            fontSize = fontSizes.medium2,
-            lineHeight = lineHeights.medium2
+            fontSize = fontSizes.titleMedium,
+            lineHeight = lineHeights.titleMedium
         ),
         titleLarge = titleNormal.copy(
-            fontSize = fontSizes.large1,
-            lineHeight = lineHeights.large2
+            fontSize = fontSizes.titleLarge,
+            lineHeight = lineHeights.titleLarge
         ),
         titleLargeBold = titleBold.copy(
-            fontSize = fontSizes.large1,
-            lineHeight = lineHeights.large2
+            fontSize = fontSizes.titleLarge,
+            lineHeight = lineHeights.titleLarge
         ),
-        headlineSmall = titleNormal.copy(
-            fontSize = fontSizes.large2,
-            lineHeight = lineHeights.large2
+        headline = titleNormal.copy(
+            fontSize = fontSizes.headline,
+            lineHeight = lineHeights.headline
         ),
-        headlineSmallBold = titleBold.copy(
-            fontSize = fontSizes.large2,
-            lineHeight = lineHeights.large2
-        ),
-        headlineMedium = titleNormal.copy(
-            fontSize = fontSizes.large3,
-            lineHeight = lineHeights.large3
-        ),
-        headlineMediumBold = titleBold.copy(
-            fontSize = fontSizes.large3,
-            lineHeight = lineHeights.large3
-        ),
-        headlineLarge = titleNormal.copy(
-            fontSize = fontSizes.giant1,
-            lineHeight = lineHeights.giant1
+        headlineBold = titleBold.copy(
+            fontSize = fontSizes.headline,
+            lineHeight = lineHeights.headline
         ),
         displaySmall = titleNormal.copy(
-            fontSize = fontSizes.giant2,
-            lineHeight = lineHeights.giant2
+            fontSize = fontSizes.displaySmall,
+            lineHeight = lineHeights.displaySmall
         ),
         displayMedium = titleNormal.copy(
-            fontSize = fontSizes.giant3,
-            lineHeight = lineHeights.giant3
+            fontSize = fontSizes.displayMedium,
+            lineHeight = lineHeights.displayMedium
         ),
         displayLarge = titleNormal.copy(
-            fontSize = fontSizes.giant4,
-            lineHeight = lineHeights.giant4
+            fontSize = fontSizes.displayLarge,
+            lineHeight = lineHeights.displayLarge
         ),
         buttonLabel = titleBold.copy(
-            fontSize = fontSizes.medium1,
-            lineHeight = lineHeights.medium1,
+            fontSize = fontSizes.bodyMedium,
+            lineHeight = lineHeights.bodyMedium,
             color = mobiColors.onPrimary
         )
     )

@@ -76,7 +76,7 @@ fun ProductDetailsScreenContentEditPriceSection(
         modifier = modifier
     ) {
         Text(
-            text = stringResource(id = R.string.title_price).uppercase(),
+            text = stringResource(id = R.string.title_price),
             style = MobiTheme.typography.titleSmallBold,
         )
 

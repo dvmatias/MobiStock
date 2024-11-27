@@ -1,6 +1,5 @@
 package com.samuraicmdv.featurecategory.compose
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,10 +42,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.samuraicmdv.common.extension.toDisplayPrice
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
+import com.samuraicmdv.featurecategory.event.CategoryNavigationEvent
 import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent.HandleProductDetailsBottomSheetState
 import com.samuraicmdv.featurecategory.state.ProductBrandUiData
 import com.samuraicmdv.featurecategory.state.ProductPriceUiData
@@ -55,6 +54,10 @@ import com.samuraicmdv.featurecategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 import com.samuraicmdv.ui.widget.IconLabelValue
 import com.samuraicmdv.ui.widget.LabelValue
+import com.samuraicmdv.ui.widget.PriceComponentLevel
+import com.samuraicmdv.ui.widget.PriceComponentStyle
+import com.samuraicmdv.ui.widget.PriceComponentWeight
+import com.samuraicmdv.ui.widget.StyledPriceComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,7 +65,7 @@ fun ProductDetailsBottomSheet(
     product: ProductUiData?,
     showBottomSheet: Boolean,
     handleEvent: (CategoryEvent) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     product?.let { selectedProduct ->
         val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -95,7 +98,7 @@ fun ProductDetailsBottomSheet(
                     product = selectedProduct,
                     isAdmin = true, // TODO replace with real value,
                     handleEvent = {
-                        /*TODO*/
+                        handleEvent(it)
                     },
                 )
             }
@@ -108,7 +111,7 @@ fun ProductDetailsBottomSheetContent(
     product: ProductUiData,
     isAdmin: Boolean,
     handleEvent: (CategoryEvent) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState(initialFirstVisibleItemIndex = 0)
     val context = LocalContext.current
@@ -162,11 +165,14 @@ fun ProductDetailsBottomSheetContent(
                         }
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
                         product.price?.sellingPrice?.let { price ->
-                            Text(
-                                text = price.toDisplayPrice(),
-                                color = MobiTheme.colors.textPositive,
-                                style = MobiTheme.typography.titleMediumBold,
-                                modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                            StyledPriceComponent(
+                                amount = price,
+                                priceComponentWeight = PriceComponentWeight.BOLD,
+                                priceComponentStyle = PriceComponentStyle.MEDIUM,
+                                priceComponentLevel = PriceComponentLevel.POSITIVE,
+                                modifier = Modifier
+                                    .align(Alignment.Start)
+                                    .padding(horizontal = MobiTheme.dimens.dimen_2)
                             )
                         }
 
@@ -218,13 +224,14 @@ fun ProductDetailsBottomSheetContent(
                     product.shortDescription?.let {
                         Text(
                             text = it,
-                            style = MobiTheme.typography.bodyMedium
+                            style = MobiTheme.typography.bodyMedium,
+                            color = MobiTheme.colors.textSecondary,
                         )
                         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     }
                     LabelValue(
                         label = stringResource(id = R.string.title_product_model),
-                        value = product.model
+                        value = product.model,
                     )
                     Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
                     product.code?.let { productCode ->
@@ -262,8 +269,7 @@ fun ProductDetailsBottomSheetContent(
 
         Button(
             onClick = {
-                /*handleEvent(LoginBusinessEvent.Login(user, password))*/
-                Toast.makeText(context, "Not implemented yet!", Toast.LENGTH_SHORT).show()
+                handleEvent(CategoryNavigationEvent.NavigateProductDetails(false, product.id))
             },
             enabled = isAdmin,
             shape = RoundedCornerShape(MobiTheme.dimens.dimen_1_5),

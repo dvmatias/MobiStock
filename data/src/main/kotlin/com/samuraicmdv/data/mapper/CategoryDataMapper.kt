@@ -1,16 +1,16 @@
 package com.samuraicmdv.data.mapper
 
 import com.samuraicmdv.common.utils.ProductCategory
+import com.samuraicmdv.data.entity.BrandEntity
 import com.samuraicmdv.data.entity.CategoryEntity
 import com.samuraicmdv.data.entity.GetCategoryResponseEntity
-import com.samuraicmdv.data.entity.BrandEntity
 import com.samuraicmdv.data.entity.ProductEntity
 import com.samuraicmdv.domain.base.DataMapper
+import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
-import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.domain.model.ProductModel
-import com.samuraicmdv.domain.model.ProductStockModel
+import com.samuraicmdv.domain.model.StockModel
 
 object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryResponseModel?> {
     override fun entityToModel(entity: GetCategoryResponseEntity?): CategoryResponseModel? {
@@ -60,21 +60,19 @@ object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryRespo
                 sku = it.sku,
                 imageUrls = it.imageUrls,
                 categoryId = it.categoryId,
-                stock = ProductStockModel(
+                stock = StockModel(
                     quantity = it.stock?.quantity,
                     low = it.stock?.low,
                     min = it.stock?.min
                 ),
-                sellingPrice = it.productPrice?.selling,
-                costPrice = it.productPrice?.cost,
-                currencyId = it.productPrice?.currencyId,
+                productPrice = it.productPrice?.toModel(),
                 brand = it.brand?.let { brand ->
                     transformBrand(brand)
                 }
             )
         }.orEmpty()
 
-    private fun getProductCategoryType(productCategoryName: String?): ProductCategory =
+    fun getProductCategoryType(productCategoryName: String?): ProductCategory =
         ProductCategory.entries.find {
             it.name == productCategoryName
         } ?: run {

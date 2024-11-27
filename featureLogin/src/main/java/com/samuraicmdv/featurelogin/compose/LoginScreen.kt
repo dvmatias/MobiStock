@@ -35,8 +35,8 @@ fun LoginScreen(
     modifier: Modifier = Modifier,
     handleEvent: (LoginEvent) -> Unit,
 ) {
-    var user by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+    var user by rememberSaveable { mutableStateOf("mobi") }
+    var password by rememberSaveable { mutableStateOf("1234") }
 
     Box(
         modifier = modifier

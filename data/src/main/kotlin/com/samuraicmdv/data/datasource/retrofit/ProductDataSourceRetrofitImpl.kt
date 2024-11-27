@@ -4,8 +4,10 @@ import com.samuraicmdv.data.api.ProductApi
 import com.samuraicmdv.data.datasource.ProductDataSource
 import com.samuraicmdv.data.entity.CreateProductRequestEntity
 import com.samuraicmdv.data.entity.PriceEntity
-import com.samuraicmdv.data.mapper.ProductDataMapper
+import com.samuraicmdv.data.mapper.CreateProductDataMapper
+import com.samuraicmdv.data.mapper.GetProductDetailsDataMapper
 import com.samuraicmdv.domain.model.CreateProductResponseModel
+import com.samuraicmdv.domain.model.GetProductDetailsResponseModel
 import com.samuraicmdv.domain.util.ResponseFailure
 import com.samuraicmdv.domain.util.ResponseWrapper
 import kotlinx.coroutines.Dispatchers
@@ -14,8 +16,26 @@ import javax.inject.Inject
 
 class ProductDataSourceRetrofitImpl @Inject constructor(
     private val productApi: ProductApi,
-    private val mapper: ProductDataMapper,
+    private val createProductDataMapper: CreateProductDataMapper,
+    private val getProductDetailsDataMapper: GetProductDetailsDataMapper,
 ) : ProductDataSource {
+
+    override suspend fun getProductDetails(
+        productId: Int,
+        storeId: Int?
+    ): ResponseWrapper<GetProductDetailsResponseModel> =
+        withContext(Dispatchers.IO) {
+            productApi.getProductDetails(productId, storeId).let { response ->
+                if (response.isSuccessful && response.body() != null) {
+                    ResponseWrapper.success(getProductDetailsDataMapper.entityToModel(response.body()))
+                } else {
+                    ResponseWrapper.error(
+                        null,
+                        ResponseFailure.ServerError("Get product details response failure.")
+                    )
+                }
+            }
+        }
 
     override suspend fun createProduct(
         name: String,
@@ -30,7 +50,7 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
         cost: Double?,
         currencyId: Int?,
         storeId: Int?,
-        preferredMargin: Int?
+        preferredMargin: Int?,
     ): ResponseWrapper<CreateProductResponseModel> =
         withContext(Dispatchers.IO) {
             productApi.createProduct(
@@ -53,7 +73,7 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
                 )
             ).let { response ->
                 if (response.isSuccessful && response.body() != null) {
-                    ResponseWrapper.success(mapper.entityToModel(response.body()))
+                    ResponseWrapper.success(createProductDataMapper.entityToModel(response.body()))
                 } else {
                     ResponseWrapper.error(
                         null,

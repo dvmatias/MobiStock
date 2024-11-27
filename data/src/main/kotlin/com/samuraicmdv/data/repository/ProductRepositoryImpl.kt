@@ -2,13 +2,21 @@ package com.samuraicmdv.data.repository
 
 import com.samuraicmdv.data.datasource.ProductDataSource
 import com.samuraicmdv.domain.model.CreateProductResponseModel
+import com.samuraicmdv.domain.model.GetProductDetailsResponseModel
 import com.samuraicmdv.domain.repository.ProductRepository
 import com.samuraicmdv.domain.util.ResponseWrapper
 import javax.inject.Inject
 
 class ProductRepositoryImpl @Inject constructor(
-    private val productDataSource: ProductDataSource
+    private val productDataSource: ProductDataSource,
 ) : ProductRepository {
+
+    override suspend fun getProductDetails(
+        productId: Int,
+        storeId: Int?,
+    ): ResponseWrapper<GetProductDetailsResponseModel> =
+        productDataSource.getProductDetails(productId, storeId)
+
     override suspend fun createProduct(
         name: String,
         shortDescription: String,
@@ -22,7 +30,7 @@ class ProductRepositoryImpl @Inject constructor(
         cost: Double?,
         currencyId: Int?,
         storeId: Int?,
-        preferredMargin: Int?
+        preferredMargin: Int?,
     ): ResponseWrapper<CreateProductResponseModel> =
         productDataSource.createProduct(
             name = name,

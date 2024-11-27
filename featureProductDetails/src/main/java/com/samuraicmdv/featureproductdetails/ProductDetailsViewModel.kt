@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.samuraicmdv.domain.usecase.CreateProductUseCase
 import com.samuraicmdv.domain.usecase.GetBrandsUseCase
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
+import com.samuraicmdv.domain.usecase.GetProductDetailsUseCase
 import com.samuraicmdv.featureproductdetails.data.BrandUiData
 import com.samuraicmdv.featureproductdetails.data.CategoryUiData
 import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
@@ -30,6 +31,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     private val getProductCategoriesUseCase: GetProductCategoriesUseCase,
     private val getBrandsUseCase: GetBrandsUseCase,
     private val createProductUseCase: CreateProductUseCase,
+    private val getProductDetailsUseCase: GetProductDetailsUseCase,
     private val transformer: ProductDetailsUiDataTransformer,
 ) : ViewModel() {
     /**
@@ -55,12 +57,12 @@ class ProductDetailsViewModel @AssistedInject constructor(
                 when (screenMode) {
                     ProductDetailsUiMode.VIEW -> {
                         // Fetch the product details
-                        launch { fetchProductDetails() }
+                        launch { fetchProductDetails(productId) }
                     }
 
                     ProductDetailsUiMode.EDIT -> {
                         // Fetch the product details
-                        launch { fetchProductDetails() }
+                        launch { fetchProductDetails(productId) }
                         // Fetch the available categories
                         launch { fetchCategories() }
                         // Fetch the available brands
@@ -90,15 +92,22 @@ class ProductDetailsViewModel @AssistedInject constructor(
     /**
      * Fetches the product details. This is only needed when the screen is in view mode or edit mode.
      */
-    private suspend fun fetchProductDetails() {
-        // TODO
+    private suspend fun fetchProductDetails(productId: Int) {
+        getProductDetailsUseCase(GetProductDetailsUseCase.Params(productId, storeId)).let {
+            _uiState.value = _uiState.value.copy(product = transformer.transformProduct(it))
+        }
     }
 
     /**
      * Fetches the available categories. This is only needed when the screen is in edit mode or create mode.
      */
     private suspend fun fetchCategories() {
-        getProductCategoriesUseCase(GetProductCategoriesUseCase.Params(storeId = storeId, all = true)).let {
+        getProductCategoriesUseCase(
+            GetProductCategoriesUseCase.Params(
+                storeId = storeId,
+                all = true
+            )
+        ).let {
             _uiState.value = _uiState.value.copy(categories = transformer.transformCategories(it))
         }
     }
@@ -176,7 +185,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
         fun create(
             @Assisted("storeId") storeId: Int,
             @Assisted("productId") productId: Int,
-            @Assisted("isEditMode") isEditMode: Boolean
+            @Assisted("isEditMode") isEditMode: Boolean,
         ): ProductDetailsViewModel
     }
 }

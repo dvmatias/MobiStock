@@ -32,7 +32,10 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.R
+import com.samuraicmdv.featureproductdetails.data.ProductUiData
+import com.samuraicmdv.featureproductdetails.event.ProductDetailsBusinessEvent
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
+import com.samuraicmdv.featureproductdetails.event.ProductDetailsPresentationEvent
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -65,7 +68,7 @@ fun ProductDetailsScreenCreateSuccessView(
 
         Text(
             text = stringResource(id = R.string.product_details_screen_create_success_title),
-            style = MobiTheme.typography.headlineMediumBold,
+            style = MobiTheme.typography.headlineBold,
         )
 
         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_8))
@@ -92,8 +95,10 @@ fun ProductDetailsScreenCreateSuccessView(
         ) {
             Button(
                 onClick = {
-                    /*handleEvent(LoginBusinessEvent.Login(user, password))*/
-                    Toast.makeText(context, "Not implemented yet!", Toast.LENGTH_SHORT).show()
+                    productId?.let {
+                        handleEvent(ProductDetailsBusinessEvent.ViewProductDetails(it))
+                    } ?: Toast.makeText(context, "Product ID is null!", Toast.LENGTH_SHORT)
+                        .show() // TODO handle this case
                 },
                 shape = RoundedCornerShape(MobiTheme.dimens.dimen_1_5),
                 modifier = Modifier
@@ -109,8 +114,7 @@ fun ProductDetailsScreenCreateSuccessView(
 
             Button(
                 onClick = {
-                    /*handleEvent(LoginBusinessEvent.Login(user, password))*/
-                    Toast.makeText(context, "Not implemented yet!", Toast.LENGTH_SHORT).show()
+                    handleEvent(ProductDetailsPresentationEvent.ExitScreen)
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MobiTheme.colors.surfaceContainer,

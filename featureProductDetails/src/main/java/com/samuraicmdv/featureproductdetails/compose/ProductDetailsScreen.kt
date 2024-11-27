@@ -59,14 +59,14 @@ fun ProductDetailsScreen(
                             title = {
                                 val title =
                                     when (screenMode) {
-                                        VIEW -> uiState.product?.name ?: EMPTY_STRING
+                                        VIEW -> stringResource(id = R.string.title_app_bar_edit)
                                         EDIT -> stringResource(id = R.string.title_app_bar_edit)
                                         CREATE -> EMPTY_STRING
                                         CREATE_SUCCESS -> EMPTY_STRING
                                     }
                                 Text(
                                     text = title,
-                                    style = MobiTheme.typography.titleLargeBold
+                                    style = MobiTheme.typography.titleMediumBold
                                 )
                             },
                             navigationIcon = {
@@ -89,7 +89,10 @@ fun ProductDetailsScreen(
             }
         ) { paddingValues ->
             when (screenMode) {
-                VIEW -> ProductDetailsScreenContentView(modifier.padding(paddingValues))
+                VIEW -> ProductDetailsScreenViewContent(
+                    product,
+                    modifier.padding(paddingValues)
+                )
                 EDIT,
                 CREATE -> ProductDetailsScreenContentEdit(
                     product = product,

@@ -4,8 +4,11 @@ import com.samuraicmdv.common.R
 import com.samuraicmdv.common.utils.ProductCategory
 import com.samuraicmdv.domain.model.GetBrandsResponseModel
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
+import com.samuraicmdv.domain.model.ProductDetailsModel
 import com.samuraicmdv.featureproductdetails.data.BrandUiData
 import com.samuraicmdv.featureproductdetails.data.CategoryUiData
+import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
+import com.samuraicmdv.featureproductdetails.data.ProductUiData
 
 object ProductDetailsUiDataTransformer {
 
@@ -33,6 +36,40 @@ object ProductDetailsUiDataTransformer {
             )
         }
 
+    fun transformProduct(model: ProductDetailsModel?): ProductUiData =
+        ProductUiData(
+            id = model?.id ?: -1,
+            name = model?.name ?: "",
+            shortDescription = model?.shortDescription ?: "",
+            longDescription = model?.longDescription ?: "",
+            model = model?.model ?: "",
+            code = model?.code ?: "",
+            sku = model?.sku ?: "",
+            thumbnailUrl = model?.thumbnailUrl ?: "",
+            imageUrls = model?.imageUrls ?: emptyList(),
+            price = model?.productPrice?.let {
+                ProductPriceUiData(
+                    sellingPrice = it.selling,
+                    costPrice = it.cost,
+                    preferredMargin = it.preferredMargin,
+                )
+            },
+            brand = model?.brand?.let {
+                BrandUiData(
+                    id = it.id ?: -1,
+                    name = it.name ?: "",
+                    logoUrl = it.logoUrl ?: "",
+                )
+            },
+            category = model?.category?.let {
+                CategoryUiData(
+                    id = it.id ?: -1,
+                    nameResId = getProductCategoryNameResource(it.type),
+                    description = it.description ?: "",
+                    logoUrl = it.logoUrl ?: "",
+                )
+            },
+        )
 
     private fun getProductCategoryNameResource(productCategory: ProductCategory?): Int =
         when (productCategory) {

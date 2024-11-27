@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,11 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.samuraicmdv.common.extension.toDisplayPrice
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -37,6 +37,10 @@ import com.samuraicmdv.featurecategory.state.ProductPriceUiData
 import com.samuraicmdv.featurecategory.state.ProductStockUiData
 import com.samuraicmdv.featurecategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
+import com.samuraicmdv.ui.widget.PriceComponentLevel
+import com.samuraicmdv.ui.widget.PriceComponentStyle
+import com.samuraicmdv.ui.widget.PriceComponentWeight
+import com.samuraicmdv.ui.widget.StyledPriceComponent
 
 @Composable
 fun ProductItem(
@@ -45,8 +49,8 @@ fun ProductItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shadowElevation = 1.dp,
         shape = RoundedCornerShape(MobiTheme.dimens.dimen_2),
+        color = MobiTheme.colors.background,
         modifier = modifier.fillMaxWidth()
     ) {
         Row(
@@ -55,17 +59,23 @@ fun ProductItem(
                     handleEvent(CategoryPresentationEvent.HandleProductDetailsBottomSheetState(true, product))
                 }
                 .fillMaxWidth()
-                .height(120.dp)
+                .height(140.dp)
                 .padding(horizontal = MobiTheme.dimens.dimen_1, vertical = MobiTheme.dimens.dimen_1)
         ) {
-            Image(
-                painter = rememberAsyncImagePainter(model = product.thumbnailUrl),
-                contentDescription = null,
-                modifier = Modifier
-                    .aspectRatio(1F)
-                    .clip(RoundedCornerShape(MobiTheme.dimens.dimen_2))
-                    .background(MobiTheme.colors.onPrimary)
-            )
+            ElevatedCard(
+                elevation = CardDefaults.elevatedCardElevation(
+                    defaultElevation = .5.dp
+                ),
+            ) {
+                Image(
+                    painter = rememberAsyncImagePainter(model = product.thumbnailUrl),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .aspectRatio(1F)
+                        .background(MobiTheme.colors.onPrimary)
+                )
+            }
+
             Column(
                 modifier = Modifier
                     .weight(1F)
@@ -76,17 +86,18 @@ fun ProductItem(
                 product.name?.let {
                     Text(
                         text = it,
-                        style = MobiTheme.typography.bodyMediumBold,
+                        style = MobiTheme.typography.bodyMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+                Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_75))
                 product.shortDescription?.let {
                     Text(
                         text = it,
-                        style = MobiTheme.typography.bodyMedium,
+                        style = MobiTheme.typography.bodySmall,
+                        color = MobiTheme.colors.textSecondary,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -104,17 +115,24 @@ fun ProductItem(
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_5))
-                    Text(text = product.stock?.quantity.toString(), style = MobiTheme.typography.bodyMedium)
+                    Text(
+                        text = product.stock?.quantity.toString(),
+                        style = MobiTheme.typography.bodyMedium,
+                        color = MobiTheme.colors.textSecondary,
+                    )
                 }
 
                 Spacer(modifier = Modifier.weight(1F))
-                Text(
-                    text = product.price?.sellingPrice.toDisplayPrice(),
-                    style = MobiTheme.typography.bodyMediumBold,
-                    color = MobiTheme.colors.textPositive,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier.fillMaxWidth()
-                )
+
+                product.price?.sellingPrice?.let { sellingPrice ->
+                    StyledPriceComponent(
+                        amount = sellingPrice,
+                        priceComponentWeight = PriceComponentWeight.NORMAL,
+                        priceComponentStyle = PriceComponentStyle.REGULAR,
+                        priceComponentLevel = PriceComponentLevel.POSITIVE,
+                        modifier = Modifier.align(Alignment.Start)
+                    )
+                }
             }
         }
     }

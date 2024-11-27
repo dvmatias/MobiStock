@@ -303,8 +303,8 @@ val lightMobiColors = MobiColors(
     textDisable = outlineLight,
     textAccent = primaryLight,
     textLink = primaryLight,
-    disabledContainerColor = NEUTRAL_400,
-    onDisabledContainerColor = NEUTRAL_800
+    disabledContainerColor = NEUTRAL_300,
+    onDisabledContainerColor = NEUTRAL_700
 )
 
 val darkMobiColors = MobiColors(
@@ -353,8 +353,8 @@ val darkMobiColors = MobiColors(
     textDisable = outlineDark,
     textAccent = primaryDark,
     textLink = primaryDark,
-    disabledContainerColor = NEUTRAL_800,
-    onDisabledContainerColor = NEUTRAL_600
+    disabledContainerColor = NEUTRAL_700,
+    onDisabledContainerColor = NEUTRAL_300
 )
 
 val LocalMobiColors = staticCompositionLocalOf<MobiColors> {
