@@ -86,7 +86,7 @@ fun ProductItem(
                 product.name?.let {
                     Text(
                         text = it,
-                        style = MobiTheme.typography.bodyMediumBold,
+                        style = MobiTheme.typography.bodyMedium,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.fillMaxWidth()
@@ -97,6 +97,7 @@ fun ProductItem(
                     Text(
                         text = it,
                         style = MobiTheme.typography.bodySmall,
+                        color = MobiTheme.colors.textSecondary,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -114,24 +115,22 @@ fun ProductItem(
                         modifier = Modifier.size(20.dp)
                     )
                     Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_5))
-                    Text(text = product.stock?.quantity.toString(), style = MobiTheme.typography.bodyMedium)
+                    Text(
+                        text = product.stock?.quantity.toString(),
+                        style = MobiTheme.typography.bodyMedium,
+                        color = MobiTheme.colors.textSecondary,
+                    )
                 }
 
                 Spacer(modifier = Modifier.weight(1F))
-                /*Text(
-                    text = product.price?.sellingPrice.toDisplayPrice(),
-                    style = MobiTheme.typography.bodyMediumBold,
-                    color = MobiTheme.colors.textPositive,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier.fillMaxWidth()
-                )*/
+
                 product.price?.sellingPrice?.let { sellingPrice ->
                     StyledPriceComponent(
                         amount = sellingPrice,
-                        priceComponentWeight = PriceComponentWeight.BOLD,
+                        priceComponentWeight = PriceComponentWeight.NORMAL,
                         priceComponentStyle = PriceComponentStyle.REGULAR,
                         priceComponentLevel = PriceComponentLevel.POSITIVE,
-                        modifier = Modifier.align(Alignment.End)
+                        modifier = Modifier.align(Alignment.Start)
                     )
                 }
             }

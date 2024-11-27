@@ -68,7 +68,7 @@ fun ProductDetailsScreenCreateSuccessView(
 
         Text(
             text = stringResource(id = R.string.product_details_screen_create_success_title),
-            style = MobiTheme.typography.headlineMediumBold,
+            style = MobiTheme.typography.headlineBold,
         )
 
         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_8))

@@ -3,6 +3,7 @@ package com.samuraicmdv.featureproductdetails.compose
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -54,12 +55,26 @@ fun ProductDetailsPriceContent(
             .background(MobiTheme.colors.disabledContainerColor)
             .padding(vertical = MobiTheme.dimens.dimen_2, horizontal = MobiTheme.dimens.dimen_2)
     ) {
-        Text(
-            text = "Pricing",
-            style = MobiTheme.typography.titleSmallBold,
-            modifier = Modifier
-                .fillMaxWidth()
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = "Pricing",
+                style = MobiTheme.typography.titleSmallBold,
+                modifier = Modifier.weight(1F)
+            )
+
+            ActionText(
+                action = Action(
+                    name = "Edit",
+                    label = "Edit",
+                    handler = {
+                        /*TODO*/
+                        Toast.makeText(context, "Not implemented yet.", Toast.LENGTH_SHORT).show()
+                    }
+                ),
+            )
+        }
 
         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
 
@@ -139,19 +154,6 @@ fun ProductDetailsPriceContent(
             style = MobiTheme.typography.bodyMedium,
             textAlign = TextAlign.End,
             modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_3))
-
-        ActionText(
-            action = Action(
-                name = "Edit",
-                label = "Edit",
-                handler = {
-                    /*TODO*/
-                    Toast.makeText(context, "Not implemented yet.", Toast.LENGTH_SHORT).show()
-                }
-            ),
-            modifier = Modifier.align(Alignment.End)
         )
     }
 }

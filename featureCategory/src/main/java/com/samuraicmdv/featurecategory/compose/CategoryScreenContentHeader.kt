@@ -57,7 +57,7 @@ fun CategoryScreenContentHeader(
             name?.let {
                 Text(
                     text = it,
-                    style = MobiTheme.typography.headline,
+                    style = MobiTheme.typography.titleMediumBold,
                     modifier = Modifier
                         .fillMaxWidth()
                         .alpha(categoryTitleAlpha)
@@ -87,7 +87,8 @@ fun CategoryScreenContentHeader(
             description?.let {
                 Text(
                     text = it,
-                    style = MobiTheme.typography.bodyLarge,
+                    style = MobiTheme.typography.bodyMedium,
+                    color = MobiTheme.colors.textSecondary,
                     lineHeight = 18.sp,
                     modifier = Modifier.fillMaxWidth()
                 )

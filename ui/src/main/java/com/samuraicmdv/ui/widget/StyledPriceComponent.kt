@@ -18,8 +18,8 @@ import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.util.Locale
 
-private const val BASELINE_MULTIPLIER_CURRENCY_SYMBOL = 0.4F
-private const val BASELINE_MULTIPLIER_DECIMAL = 0.4F
+private const val BASELINE_MULTIPLIER_CURRENCY_SYMBOL = 0.3F
+private const val BASELINE_MULTIPLIER_DECIMAL = 0.3F
 
 @Composable
 fun StyledPriceComponent(
@@ -31,7 +31,7 @@ fun StyledPriceComponent(
 ) {
     val multiplier = priceComponentStyle.multiplier
     val smallFontSize = (MobiTheme.typography.bodySmall.fontSize * multiplier) * 0.7F
-    val largeFontSize = MobiTheme.typography.bodyLarge.fontSize * multiplier
+    val largeFontSize = MobiTheme.typography.bodyMedium.fontSize * multiplier
     val fontFamily = MobiTheme.typography.bodyLarge.fontFamily
     val fontWeight = when (priceComponentWeight) {
         PriceComponentWeight.NORMAL -> FontWeight.Normal
@@ -104,8 +104,8 @@ enum class PriceComponentLevel {
 enum class PriceComponentStyle(val multiplier: Float) {
     SMALL(multiplier = 0.75F),
     REGULAR(multiplier = 1F),
-    MEDIUM(multiplier = 1.5F),
-    LARGE(multiplier = 2F),
+    MEDIUM(multiplier = 1.3F),
+    LARGE(multiplier = 1.75F),
 }
 
 enum class PriceComponentWeight {

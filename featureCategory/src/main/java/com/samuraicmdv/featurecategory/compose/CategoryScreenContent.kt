@@ -114,7 +114,7 @@ fun CategoryScreenContent(
             item {
                 Text(
                     text = stringResource(id = R.string.title_products),
-                    style = MobiTheme.typography.titleMediumBold,
+                    style = MobiTheme.typography.titleSmallBold,
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = headerBackgroundColor)

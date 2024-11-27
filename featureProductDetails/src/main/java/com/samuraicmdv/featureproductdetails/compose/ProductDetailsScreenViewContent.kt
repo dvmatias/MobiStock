@@ -141,6 +141,7 @@ fun ProductDetailsScreenViewContent(
                     Text(
                         text = it,
                         style = MobiTheme.typography.bodyMedium,
+                        color = MobiTheme.colors.textSecondary,
                         modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                     )
                 }
@@ -157,6 +158,7 @@ fun ProductDetailsScreenViewContent(
                     Text(
                         text = it,
                         style = MobiTheme.typography.bodyMedium,
+                        color = MobiTheme.colors.textSecondary,
                         modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                     )
                 }
