@@ -7,10 +7,10 @@ plugins {
 
 android {
     namespace = "com.samuraicmdv.data"
-    compileSdk = 34
+    compileSdk = project.property("compileSdk").toString().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = project.property("minSdk").toString().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

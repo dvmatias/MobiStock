@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.samuraicmdv.mobistock"
-    compileSdk = 34
+    compileSdk = project.property("compileSdk").toString().toInt()
 
     defaultConfig {
         applicationId = "com.samuraicmdv.mobistock"
-        minSdk = 24
-        targetSdk = 33
+        minSdk = project.property("minSdk").toString().toInt()
+        targetSdk =  project.property("targetSdk").toString().toInt()
         versionCode = 1
         versionName = "1.0"
 
