@@ -79,10 +79,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.google.dagger.hilt.android)
 
-    annotationProcessor(libs.google.dagger.hilt.compiler)
-    testAnnotationProcessor(libs.google.dagger.hilt.compiler)
-    androidTestAnnotationProcessor(libs.google.dagger.hilt.compiler)
-
     testImplementation(libs.google.dagger.hilt.android.testing)
     testImplementation(libs.junit)
 

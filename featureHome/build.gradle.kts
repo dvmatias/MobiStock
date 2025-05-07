@@ -84,10 +84,6 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.google.dagger.hilt.android)
 
-    annotationProcessor(libs.google.dagger.hilt.compiler)
-    testAnnotationProcessor(libs.google.dagger.hilt.compiler)
-    androidTestAnnotationProcessor(libs.google.dagger.hilt.compiler)
-
     testImplementation(libs.junit)
     testImplementation(libs.google.dagger.hilt.android.testing)
 
