@@ -13,5 +13,4 @@ data class CategoryScreenState(
     val topAppBarTitleAlpha: Float = ALPHA_ZERO,
     val categoryTitleAlpha: Float = ALPHA_FULL,
     val isStickyHeaderPinned: Boolean = false,
-) {
-}
+)

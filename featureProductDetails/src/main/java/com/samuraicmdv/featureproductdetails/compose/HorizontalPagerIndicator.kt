@@ -1,21 +1,17 @@
 package com.samuraicmdv.featureproductdetails.compose
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.ui.util.ThemePreviews
+import java.util.Locale
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HorizontalPagerIndicator(
     pagerState: PagerState,
@@ -28,7 +24,7 @@ fun HorizontalPagerIndicator(
         modifier = modifier
     ) {
         Text(
-            text = String.format("%d/%d", pagerState.currentPage + 1, pagerState.pageCount),
+            text = String.format(Locale.getDefault(), "%d/%d", pagerState.currentPage + 1, pagerState.pageCount),
             style = MobiTheme.typography.labelLargeBold,
             modifier = Modifier
                 .padding(horizontal = MobiTheme.dimens.dimen_2, vertical = MobiTheme.dimens.dimen_0_5)
@@ -36,7 +32,6 @@ fun HorizontalPagerIndicator(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @ThemePreviews
 @Composable
 fun PreviewHorizontalPagerIndicator() {

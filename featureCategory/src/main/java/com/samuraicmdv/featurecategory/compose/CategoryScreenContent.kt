@@ -5,7 +5,6 @@ import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.VectorConverter
 import androidx.compose.animation.core.animateValueAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -45,7 +44,6 @@ import com.samuraicmdv.featurecategory.state.ProductStockUiData
 import com.samuraicmdv.featurecategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CategoryScreenContent(
     category: CategoryUiData?,

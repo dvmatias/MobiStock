@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED_PARAMETER")
-
 package com.samuraicmdv.mobistock
 
 import android.os.Bundle

@@ -32,7 +32,6 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featureproductdetails.R
-import com.samuraicmdv.featureproductdetails.data.ProductUiData
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsBusinessEvent
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsPresentationEvent

@@ -5,7 +5,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-@Suppress("unused")
+@Suppress("unused", "PropertyName")
 @Stable
 class MobiDimens(
     val unit: Dp = 1.dp,

@@ -199,7 +199,7 @@ fun PreviewMobiTextField() {
                         vertical = MobiTheme.dimens.dimen_1
                     )
             ) {
-                val value = "Value tesgjy"
+                val value = "Value test"
                 val error = "error"
 
                 MobiTextField(
@@ -218,7 +218,7 @@ fun PreviewMobiTextField() {
                 )
 
                 MobiTextField(
-                    value = "Some worong input",
+                    value = "Some wrong input",
                     isError = error.isNotEmpty(),
                     errorMessage = error,
                     onValueChange = {},
