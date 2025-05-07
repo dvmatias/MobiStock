@@ -65,44 +65,43 @@ dependencies {
     implementation(project(mapOf("path" to ":domain")))
     implementation(project(mapOf("path" to ":common")))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.appcompat)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.ui.text.google.fonts)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.google.dagger.hilt.android)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.coil)
     implementation(libs.coil.compose)
-
-    testImplementation(libs.junit)
-    testImplementation(libs.androidx.compose.ui.test.junit4)
-    testImplementation(libs.google.dagger.hilt.android.testing)
-
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.androidx.test.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-    androidTestImplementation(libs.google.dagger.hilt.android.testing)
+    implementation(libs.google.dagger.hilt.android)
 
     annotationProcessor(libs.google.dagger.hilt.compiler)
-
     testAnnotationProcessor(libs.google.dagger.hilt.compiler)
-
     androidTestAnnotationProcessor(libs.google.dagger.hilt.compiler)
 
-    debugImplementation(libs.androidx.compose.ui.tooling)
+    testImplementation(libs.androidx.compose.ui.test.junit4)
+    testImplementation(libs.google.dagger.hilt.android.testing)
+    testImplementation(libs.junit)
+
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.google.dagger.hilt.android.testing)
+
+
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 
     kapt(libs.google.dagger.hilt.android.compiler)
 }

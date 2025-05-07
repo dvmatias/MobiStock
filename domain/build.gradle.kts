@@ -47,22 +47,20 @@ android {
 dependencies {
     implementation(project(mapOf("path" to ":common")))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.android.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.google.dagger.hilt.android)
 
     annotationProcessor(libs.google.dagger.hilt.compiler)
-
     testAnnotationProcessor(libs.google.dagger.hilt.compiler)
-
     androidTestAnnotationProcessor(libs.google.dagger.hilt.compiler)
 
-    testImplementation(libs.junit)
     testImplementation(libs.google.dagger.hilt.android.testing)
+    testImplementation(libs.junit)
 
-    androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.google.dagger.hilt.android.testing)
 
     kapt(libs.google.dagger.hilt.android.compiler)

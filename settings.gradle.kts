@@ -15,12 +15,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "MobiStock"
 include(":app")
-include(":ui")
-include(":domain")
+include(":common")
 include(":data")
+include(":domain")
+include(":featureCategory")
 include(":featureHome")
 include(":featureLogin")
 include(":featureProductDetails")
-include(":common")
 include(":network")
-include(":featureCategory")
+include(":ui")

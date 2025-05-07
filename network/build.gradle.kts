@@ -56,28 +56,26 @@ android {
 }
 
 dependencies {
-    implementation(libs.retrofit2.adapter.rxjava2)
+    implementation(libs.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.google.dagger.hilt.android)
     implementation(libs.okhttp3.logging.interceptor)
-    implementation(libs.android.material)
+    implementation(libs.retrofit2.adapter.rxjava2)
     implementation(libs.okhttp3)
     implementation(libs.retrofit)
     implementation(libs.retrofit2.converter.gson)
 
     annotationProcessor(libs.google.dagger.hilt.compiler)
+    testAnnotationProcessor(libs.google.dagger.hilt.compiler)
+    androidTestAnnotationProcessor(libs.google.dagger.hilt.compiler)
 
     testImplementation(libs.google.dagger.hilt.android.testing)
     testImplementation(libs.junit)
 
-    testAnnotationProcessor(libs.google.dagger.hilt.compiler)
-
-    androidTestImplementation(libs.google.dagger.hilt.android.testing)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(libs.androidx.test.ext.junit)
-
-    androidTestAnnotationProcessor(libs.google.dagger.hilt.compiler)
+    androidTestImplementation(libs.google.dagger.hilt.android.testing)
 
     kapt(libs.google.dagger.hilt.android.compiler)
 }
