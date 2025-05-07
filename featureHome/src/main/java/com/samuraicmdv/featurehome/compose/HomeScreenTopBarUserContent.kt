@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.event.HomePresentationEvent
@@ -38,7 +38,7 @@ fun HomeScreenTopBarUserContent(
         }
     ) {
         Image(
-            painter = rememberImagePainter(userLogoUrl),
+            painter = rememberAsyncImagePainter(userLogoUrl),
             contentDescription = null,
             modifier = Modifier
                 .size(MobiTheme.dimens.dimen_5)

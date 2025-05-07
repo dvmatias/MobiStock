@@ -7,7 +7,7 @@ import com.samuraicmdv.domain.model.ProductDetailsModel
 
 object GetProductDetailsDataMapper :
     DataMapper<GetProductDetailsResponseEntity, GetProductDetailsResponseModel> {
-    override fun entityToModel(entity: GetProductDetailsResponseEntity?): GetProductDetailsResponseModel? {
+    override fun entityToModel(entity: GetProductDetailsResponseEntity?): GetProductDetailsResponseModel {
         return GetProductDetailsResponseModel(
             productDetails = ProductDetailsModel(
                 id = entity?.product?.id,

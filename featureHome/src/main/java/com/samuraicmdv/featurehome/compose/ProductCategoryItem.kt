@@ -28,7 +28,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.event.HomeEvent
 import com.samuraicmdv.featurehome.event.HomeNavigationEvent
@@ -61,7 +61,7 @@ fun ProductCategoryItem(
                 val density = LocalDensity.current.density
                 category.imageUrl?.let {
                     Image(
-                        painter = rememberImagePainter(data = category.imageUrl),
+                        painter = rememberAsyncImagePainter(model = category.imageUrl),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -99,7 +99,7 @@ fun ProductCategoryItem(
                 }
 
             }
-            category.productsCount?.let { it ->
+            category.productsCount?.let {
                 ProductCategoryItemProductsCount(it, modifier = Modifier.align(Alignment.TopEnd))
             }
         }

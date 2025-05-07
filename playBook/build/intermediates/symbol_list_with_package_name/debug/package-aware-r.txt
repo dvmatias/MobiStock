@@ -1,3 +1,0 @@
-com.cmdv.playbook
-string title_activity_play_book
-style Theme_MobiStock

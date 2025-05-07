@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurehome.data.BranchType
 import com.samuraicmdv.featurehome.data.UserUiData
@@ -62,7 +62,7 @@ fun UsersBottomSheetItem(
             Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_5))
             Row(modifier = Modifier.weight(1F)) {
                 Image(
-                    painter = rememberImagePainter(user.logoUrl),
+                    painter = rememberAsyncImagePainter(user.logoUrl),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier

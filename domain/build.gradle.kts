@@ -1,16 +1,16 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.dagger.hilt.android)
     kotlin("kapt")
 }
 
 android {
     namespace = "com.samuraicmdv.domain"
-    compileSdk = 34
+    compileSdk = project.property("compileSdk").toString().toInt()
 
     defaultConfig {
-        minSdk = 24
+        minSdk = project.property("minSdk").toString().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -47,20 +47,19 @@ android {
 dependencies {
     implementation(project(mapOf("path" to ":common")))
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.12.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    // hilt
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    annotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
-    testAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
-    androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
-    testImplementation("com.google.dagger:hilt-android-testing:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+    implementation(libs.android.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.google.dagger.hilt.android)
+
+    testImplementation(libs.google.dagger.hilt.android.testing)
+    testImplementation(libs.junit)
+
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.google.dagger.hilt.android.testing)
+
+    kapt(libs.google.dagger.hilt.android.compiler)
 }
 
 // Allow references to generated code

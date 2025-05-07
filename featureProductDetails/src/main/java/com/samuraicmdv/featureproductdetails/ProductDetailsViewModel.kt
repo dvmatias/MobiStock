@@ -144,10 +144,10 @@ class ProductDetailsViewModel @AssistedInject constructor(
                     preferredMargin = product.price.preferredMargin,
                 )
             ).let {
-                it.id?.let { producId ->
+                it.id?.let { productId ->
                     _uiState.value = _uiState.value.copy(
                         screenMode = ProductDetailsUiMode.CREATE_SUCCESS, // Update screen state to show success screen
-                        product = ProductUiData(id = producId) // Update the product with the newly created product id
+                        product = ProductUiData(id = productId) // Update the product with the newly created product id
                     )
                 } ?: run {
                     // TODO Error

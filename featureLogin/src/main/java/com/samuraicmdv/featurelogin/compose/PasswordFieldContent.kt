@@ -72,7 +72,7 @@ fun PasswordFieldContent(
         MobiTextField(
             value = value,
             isError = passwordError != null,
-            errorMessage = GetLoginError(errorCode = passwordError),
+            errorMessage = getLoginError(errorCode = passwordError),
             onValueChange = onChange,
             modifier = modifier.fillMaxWidth(),
             enabled = !isLoading,

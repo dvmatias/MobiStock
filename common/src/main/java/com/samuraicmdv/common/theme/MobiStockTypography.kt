@@ -38,8 +38,7 @@ data class MobiTypography(
     val displayMedium: TextStyle,
     val displayLarge: TextStyle,
     val buttonLabel: TextStyle
-) {
-}
+)
 
 @Immutable
 private data class MobiTypographyFontSizes(

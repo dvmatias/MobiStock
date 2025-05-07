@@ -64,7 +64,7 @@ fun UserFieldContent(
         MobiTextField(
             value = value,
             isError = userError != null,
-            errorMessage = GetLoginError(errorCode = userError),
+            errorMessage = getLoginError(errorCode = userError),
             onValueChange = onChange,
             enabled = !isLoading,
             leadingIcon = leadingIcon,
