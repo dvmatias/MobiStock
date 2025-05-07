@@ -1,7 +1,7 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.google.dagger.hilt.android)
     kotlin("kapt")
 }
 
@@ -56,27 +56,30 @@ android {
 }
 
 dependencies {
+    implementation(libs.retrofit2.adapter.rxjava2)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.google.dagger.hilt.android)
+    implementation(libs.okhttp3.logging.interceptor)
+    implementation(libs.android.material)
+    implementation(libs.okhttp3)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.gson)
 
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.12.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    // hilt
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    annotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
-    testAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
-    androidTestAnnotationProcessor("com.google.dagger:hilt-compiler:2.51.1")
-    testImplementation("com.google.dagger:hilt-android-testing:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("com.growingio.android:okhttp3:4.3.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.14")
-    implementation("com.squareup.retrofit2:adapter-rxjava2:2.11.0")
+    annotationProcessor(libs.google.dagger.hilt.compiler)
+
+    testImplementation(libs.google.dagger.hilt.android.testing)
+    testImplementation(libs.junit)
+
+    testAnnotationProcessor(libs.google.dagger.hilt.compiler)
+
+    androidTestImplementation(libs.google.dagger.hilt.android.testing)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+
+    androidTestAnnotationProcessor(libs.google.dagger.hilt.compiler)
+
+    kapt(libs.google.dagger.hilt.android.compiler)
 }
 
 // Allow references to generated code
