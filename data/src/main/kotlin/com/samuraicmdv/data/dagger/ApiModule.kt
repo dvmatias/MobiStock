@@ -5,6 +5,7 @@ import com.samuraicmdv.data.api.CategoryApi
 import com.samuraicmdv.data.api.UserApi
 import com.samuraicmdv.data.api.LoginApi
 import com.samuraicmdv.data.api.ProductApi
+import com.samuraicmdv.data.api.SalesLedgeApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,4 +35,8 @@ object ApiModule {
     @Provides
     @Singleton
     fun provideProductApi(retrofit: Retrofit): ProductApi = retrofit.create(ProductApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSalesLedgeApi(retrofit: Retrofit): SalesLedgeApi = retrofit.create(SalesLedgeApi::class.java)
 }

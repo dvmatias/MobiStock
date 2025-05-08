@@ -15,7 +15,7 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/featureCategory" />
-            <option value="$PROJECT_DIR$/featureHome" />
+            <option value="$PROJECT_DIR$/featureDashboard" />
             <option value="$PROJECT_DIR$/featureLogin" />
             <option value="$PROJECT_DIR$/featureProductDetails" />
             <option value="$PROJECT_DIR$/network" />
