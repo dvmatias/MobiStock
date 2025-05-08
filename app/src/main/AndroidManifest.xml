@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name="com.samuraicmdv.featurehome.HomeActivity"
+            android:name="com.samuraicmdv.featuredashboard.DashboardActivity"
             android:exported="false"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.MobiStock" />

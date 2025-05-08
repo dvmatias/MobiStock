@@ -4,7 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import com.samuraicmdv.common.extension.navigate
 import com.samuraicmdv.common.navigation.Navigator
-import com.samuraicmdv.featurehome.HomeActivity
+import com.samuraicmdv.featuredashboard.DashboardActivity
 import com.samuraicmdv.featurecategory.CategoryActivity
 import com.samuraicmdv.featureproductdetails.ProductDetailsActivity
 
@@ -14,10 +14,10 @@ import com.samuraicmdv.featureproductdetails.ProductDetailsActivity
  */
 class NavigatorImpl: Navigator {
     /**
-     * Navigates to [HomeActivity]
+     * Navigates to [DashboardActivity]
      */
     override fun toHome(origin: Activity, data: Bundle?, finish: Boolean) {
-        origin.navigate<HomeActivity>(data, finish)
+        origin.navigate<DashboardActivity>(data, finish)
     }
 
     /**

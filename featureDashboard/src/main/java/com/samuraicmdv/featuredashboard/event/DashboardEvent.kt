@@ -1,0 +1,3 @@
+package com.samuraicmdv.featuredashboard.event
+
+sealed interface DashboardEvent
