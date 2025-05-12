@@ -73,9 +73,10 @@ dependencies {
     implementation(project(mapOf("path" to ":common")))
     implementation(project(mapOf("path" to ":data")))
     implementation(project(mapOf("path" to ":domain")))
-    implementation(project(mapOf("path" to ":featureLogin")))
-    implementation(project(mapOf("path" to ":featureDashboard")))
+    implementation(project(mapOf("path" to ":featureBarcodeScanner")))
     implementation(project(mapOf("path" to ":featureCategory")))
+    implementation(project(mapOf("path" to ":featureDashboard")))
+    implementation(project(mapOf("path" to ":featureLogin")))
     implementation(project(mapOf("path" to ":featureProductDetails")))
 
     implementation(libs.androidx.activity.compose)
