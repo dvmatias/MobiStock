@@ -33,4 +33,8 @@ class NavigatorImpl: Navigator {
     override fun toProductDetails(origin: Activity, data: Bundle?, finish: Boolean) {
         origin.navigate<ProductDetailsActivity>(data, finish)
     }
+
+    override fun toBarcodeScanner(origin: Activity, data: Bundle?, finish: Boolean) {
+        // TODO ("Implement barcode scanner navigation")
+    }
 }

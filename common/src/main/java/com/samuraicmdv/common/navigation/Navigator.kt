@@ -13,4 +13,6 @@ interface Navigator {
     fun toProductCategory(origin: Activity, data: Bundle? = null, finish: Boolean = false)
 
     fun toProductDetails(origin: Activity, data: Bundle? = null, finish: Boolean = false)
+
+    fun toBarcodeScanner(origin: Activity, data: Bundle? = null, finish: Boolean = false)
 }

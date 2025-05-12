@@ -25,7 +25,7 @@ fun HomeScreen(
     val userAddress = uiState.profile?.user?.address
     val userLogoUtl = uiState.profile?.user?.logoUrl
     val relatedUsers = uiState.profile?.relatedUsers
-    val showUsersBottomSheet = uiState.isUsersBottomSheetDisplayed
+    val showUsersBottomSheet = uiState.isUsersBottomSheetDisplayed ?: false
 
     Scaffold(
         topBar = {
@@ -39,7 +39,7 @@ fun HomeScreen(
         modifier = modifier.fillMaxSize(),
     ) { paddingValues ->
         UsersBottomSheetContent(relatedUsers, showUsersBottomSheet, handleEvent = handleEvent)
-        HomeScreenContent(uiState, handleEvent, Modifier.padding(paddingValues))
+        HomeScreenContent(uiState.productCategoriesState, handleEvent, Modifier.padding(paddingValues))
     }
 }
 
