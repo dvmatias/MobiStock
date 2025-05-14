@@ -1,6 +1,8 @@
 package com.samuraicmdv.featurebarcodescanner.compose
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.graphics.Bitmap
 import android.hardware.camera2.CaptureRequest
 import android.os.SystemClock
 import android.util.Size
@@ -8,8 +10,8 @@ import android.view.ViewGroup
 import androidx.annotation.OptIn
 import androidx.camera.camera2.interop.Camera2Interop
 import androidx.camera.camera2.interop.ExperimentalCamera2Interop
-import androidx.camera.core.AspectRatio
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
@@ -43,6 +45,11 @@ fun CameraPreviewViewContent(modifier: Modifier = Modifier, callback: (BarcodeSc
     val cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
     val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
 
+    val barcodeScanner = BarcodeScanning.getClient()
+    val displayMetrics = Resources.getSystem().displayMetrics
+    val targetResolution = Size(displayMetrics.widthPixels, displayMetrics.heightPixels)
+    val cameraProvider = cameraProviderFuture.get()
+
     AndroidView(
         factory = { ctx ->
             val previewView = PreviewView(ctx).apply {
@@ -53,15 +60,14 @@ fun CameraPreviewViewContent(modifier: Modifier = Modifier, callback: (BarcodeSc
             }
 
             cameraProviderFuture.addListener({
-                val cameraProvider = cameraProviderFuture.get()
                 val previewBuilder = Preview.Builder()
-                    .setTargetResolution(Size(1280, 720))
+                    .setTargetResolution(targetResolution)
                     .setTargetRotation(previewView.display.rotation)
 
-                val barcodeScanner = BarcodeScanning.getClient()
                 val imageAnalyzer = ImageAnalysis.Builder()
+                    .setTargetResolution(targetResolution)
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                    .setTargetResolution(Size(1280, 720))
+                    .setTargetRotation(previewView.display.rotation)
                     .build()
                     .also {
                         it.setAnalyzer(cameraExecutor) { imageProxy ->
@@ -105,7 +111,7 @@ fun CameraPreviewViewContent(modifier: Modifier = Modifier, callback: (BarcodeSc
     )
 }
 
-@SuppressLint("UnsafeOptInUsageError")
+@OptIn(ExperimentalGetImage::class)
 private fun processImageProxy(
     imageProxy: ImageProxy,
     barcodeScanner: com.google.mlkit.vision.barcode.BarcodeScanner,
@@ -124,7 +130,32 @@ private fun processImageProxy(
 
     val mediaImage = imageProxy.image
     if (mediaImage != null) {
-        val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+        val rotationDegrees = imageProxy.imageInfo.rotationDegrees
+        val bitmap = imageProxy.toBitmap()
+        val rotatedBitmap = Bitmap.createBitmap(
+            bitmap,
+            0,
+            0,
+            bitmap.width,
+            bitmap.height,
+            android.graphics.Matrix().apply { postRotate(rotationDegrees.toFloat()) },
+            true
+        )
+
+        val squareWidth = rotatedBitmap.width * SCAN_REGION_WIDTH_FACTOR
+        val squareHeight = squareWidth * SCAN_REGION_HEIGHT_FACTOR
+        val left = (rotatedBitmap.width - squareWidth) / 2
+        val top = (rotatedBitmap.height - squareHeight) / 2
+        val croppedBitmap =
+            Bitmap.createBitmap(
+                rotatedBitmap,
+                left.toInt(),
+                top.toInt(),
+                squareWidth.toInt(),
+                squareHeight.toInt()
+            )
+
+        val image = InputImage.fromBitmap(croppedBitmap, rotationDegrees)
         barcodeScanner.process(image)
             .addOnSuccessListener { barcodes ->
                 if (barcodes.isEmpty()) {
@@ -137,7 +168,7 @@ private fun processImageProxy(
                     shouldEmitBarcodeLost = true
                     for (barcode in barcodes.toSet()) {
                         barcode.rawValue?.let {
-                            callback(BarcodeScannerPresentationEvent.OnBarcodeScanned(it))
+                            callback(BarcodeScannerPresentationEvent.OnBarcodeScanned(it, croppedBitmap))
                         }
                     }
                 }

@@ -14,16 +14,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.ui.util.ThemePreviews
 
+const val SCAN_REGION_WIDTH_FACTOR = 0.7f
+const val SCAN_REGION_HEIGHT_FACTOR = 0.8f
+
 @Composable
 fun CameraOverlayContent(modifier: Modifier = Modifier) {
     var isVisible by remember { mutableStateOf(true) }
-    Box {
 
+    Box {
         // Toggle visibility every 500ms
         LaunchedEffect(Unit) {
             while (true) {
@@ -38,15 +42,16 @@ fun CameraOverlayContent(modifier: Modifier = Modifier) {
                 .background(color = Color.Black.copy(alpha = 0.5f))
                 .drawWithContent {
                     drawContent()
-                    val squareSize = size.width * 0.65f
-                    val centerX = size.width / 2 - squareSize / 2
-                    val centerY = size.height / 2 - squareSize / 2
+                    val squareWidth = size.width * SCAN_REGION_WIDTH_FACTOR
+                    val squareHeight = squareWidth * SCAN_REGION_HEIGHT_FACTOR
+                    val centerX = size.width / 2 - squareWidth / 2
+                    val centerY = size.height / 2 - squareHeight / 2
                     drawRect(
                         color = Color(0xFFFFFFFF),
                         topLeft = Offset(x = centerX, y = centerY),
-                        size = androidx.compose.ui.geometry.Size(
-                            squareSize,
-                            squareSize
+                        size = Size(
+                            squareWidth,
+                            squareHeight
                         ),
                         blendMode = BlendMode.DstOut
                     )
