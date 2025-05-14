@@ -6,23 +6,26 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerEvent
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
-fun BarcodeScannerScreen(modifier: Modifier = Modifier) {
+fun BarcodeScannerScreen(
+    callback: (BarcodeScannerEvent) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Box(modifier = modifier.fillMaxSize()) {
-        CameraPreviewContent()
+        CameraPreviewContent(callback)
         CameraOverlayContent()
     }
 }
-
 
 @ThemePreviews
 @Composable
 fun PreviewBarcodeScannerScreen() {
     MobiTheme {
         Surface {
-            BarcodeScannerScreen()
+            BarcodeScannerScreen(callback = {})
         }
     }
 }

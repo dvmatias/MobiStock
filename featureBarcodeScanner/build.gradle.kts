@@ -75,6 +75,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.google.accompanist.permissions)
     implementation(libs.google.dagger.hilt.android)
+    implementation("com.google.mlkit:barcode-scanning:17.0.3")
 
     testImplementation(libs.androidx.compose.ui.test.junit4)
     testImplementation(libs.google.dagger.hilt.android.testing)
