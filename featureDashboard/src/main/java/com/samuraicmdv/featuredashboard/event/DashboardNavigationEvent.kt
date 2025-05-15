@@ -7,4 +7,5 @@ package com.samuraicmdv.featuredashboard.event
  */
 sealed interface DashboardNavigationEvent : DashboardEvent {
     data class NavigateProductCategory(val categoryId: Int) : DashboardNavigationEvent
+    data object NavigateBarcodeScanner : DashboardNavigationEvent
 }

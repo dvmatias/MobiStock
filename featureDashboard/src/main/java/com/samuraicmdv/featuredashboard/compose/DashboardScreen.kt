@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -23,6 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featuredashboard.event.DashboardEvent
+import com.samuraicmdv.featuredashboard.event.DashboardNavigationEvent
 import com.samuraicmdv.featuredashboard.state.DailySaleState
 import com.samuraicmdv.featuredashboard.state.DashboardScreenState
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -42,7 +44,7 @@ fun DashboardScreen(
 
     Scaffold(
         bottomBar = {
-            BottomNavigationBar(navController)
+            BottomNavigationBar(navController, callback)
         },
         modifier = modifier.fillMaxSize()
     ) { paddingValues ->
@@ -51,7 +53,7 @@ fun DashboardScreen(
             startDestination = HOME_ROUTE,
             modifier = Modifier.padding(paddingValues)
         ) {
-            composable(HOME_ROUTE) { HomeScreen() }
+            composable(HOME_ROUTE) { HomeScreen(uiState = uiState, handleEvent = callback) }
             composable(SALES_ROUTE) { DailySalesLedgeScreen(state = uiState.dailySaleState, callback = callback) }
             composable(SALES_HISTORY_ROUTE) { SalesHistoryScreen() }
             composable(PROFILE_ROUTE) { ProfileScreen() }
@@ -60,7 +62,10 @@ fun DashboardScreen(
 }
 
 @Composable
-fun BottomNavigationBar(navController: NavHostController) {
+fun BottomNavigationBar(
+    navController: NavHostController,
+    callback: (DashboardEvent) -> Unit
+) {
     NavigationBar {
         NavigationBarItem(
             icon = { Icon(Icons.Default.Home, contentDescription = HOME_ROUTE) },
@@ -85,6 +90,14 @@ fun BottomNavigationBar(navController: NavHostController) {
             }
         )
         NavigationBarItem(
+            icon = { Icon(Icons.Default.Add, contentDescription = "bar_code_scanner") },
+            label = { Text("Scanner") },
+            selected = false, // This item doesn't correspond to a NavHost route
+            onClick = {
+                callback.invoke(DashboardNavigationEvent.NavigateBarcodeScanner)
+            }
+        )
+        NavigationBarItem(
             icon = { Icon(Icons.Default.Search, contentDescription = SALES_HISTORY_ROUTE) },
             label = { Text("History") },
             selected = navController.currentDestination?.route == SALES_HISTORY_ROUTE,
@@ -106,18 +119,6 @@ fun BottomNavigationBar(navController: NavHostController) {
                 }
             }
         )
-    }
-}
-
-// TODO When implemented, move to a separated files
-@Composable
-fun HomeScreen() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFDC1111))
-    ) {
-        // Your HomeScreen content
     }
 }
 

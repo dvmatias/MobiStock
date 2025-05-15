@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import com.samuraicmdv.common.extension.navigate
 import com.samuraicmdv.common.navigation.Navigator
+import com.samuraicmdv.featurebarcodescanner.BarcodeScannerActivity
 import com.samuraicmdv.featuredashboard.DashboardActivity
 import com.samuraicmdv.featurecategory.CategoryActivity
 import com.samuraicmdv.featureproductdetails.ProductDetailsActivity
@@ -32,5 +33,9 @@ class NavigatorImpl: Navigator {
      */
     override fun toProductDetails(origin: Activity, data: Bundle?, finish: Boolean) {
         origin.navigate<ProductDetailsActivity>(data, finish)
+    }
+
+    override fun toBarcodeScanner(origin: Activity, data: Bundle?, finish: Boolean) {
+        origin.navigate<BarcodeScannerActivity>(data, finish)
     }
 }

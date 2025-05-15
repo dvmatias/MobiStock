@@ -45,12 +45,10 @@ class DashboardActivity : ComponentActivity() {
 
                 val uiState by viewModel.uiState.collectAsState()
                 Surface(modifier = Modifier.fillMaxSize()) {
-//                    HomeScreen(
-//                        uiState = uiState,
-//                        handleEvent = ::handelEvent
-//                    )
-                    DashboardScreen(uiState = uiState,
-                        callback = ::handelEvent)
+                    DashboardScreen(
+                        uiState = uiState,
+                        callback = ::handelEvent
+                    )
                 }
             }
         }
@@ -68,6 +66,10 @@ class DashboardActivity : ComponentActivity() {
                 ).also { data ->
                     navigator.toProductCategory(origin = this, data = data, finish = false)
                 }
+            }
+
+            is DashboardNavigationEvent.NavigateBarcodeScanner -> {
+                navigator.toBarcodeScanner(origin = this, finish = false)
             }
         }
     }

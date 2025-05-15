@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.samuraicmdv.featurecategory"
+    namespace = "com.samuraicmdv.featurebarcodescanner"
     compileSdk = project.property("compileSdk").toString().toInt()
 
     defaultConfig {
@@ -15,9 +15,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -37,26 +34,15 @@ android {
             dimension = "environment"
         }
     }
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
-
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.12"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
     }
 }
 
@@ -69,6 +55,10 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
@@ -83,7 +73,9 @@ dependencies {
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.coil)
     implementation(libs.coil.compose)
+    implementation(libs.google.accompanist.permissions)
     implementation(libs.google.dagger.hilt.android)
+    implementation("com.google.mlkit:barcode-scanning:17.0.3")
 
     testImplementation(libs.androidx.compose.ui.test.junit4)
     testImplementation(libs.google.dagger.hilt.android.testing)

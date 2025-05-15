@@ -21,7 +21,7 @@ private const val COLUMNS_COUNT = 3
 
 @Composable
 fun HomeScreenContent(
-    uiState: DashboardScreenState,
+    uiState: ProductCategoriesState?,
     handleEvent: (DashboardEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -38,7 +38,7 @@ fun HomeScreenContent(
         modifier = modifier
             .fillMaxSize()
     ) {
-        uiState.productCategoriesState?.categories.let { categories ->
+        uiState?.categories.let { categories ->
             categories?.forEach { category ->
                 item {
                     ProductCategoryItem(category, handleEvent)
@@ -96,13 +96,8 @@ fun PreviewHomeScreenContent() {
         }
         Surface {
             HomeScreenContent(
-                uiState = DashboardScreenState(
-                    productCategoriesState = ProductCategoriesState(
-                        categories = categories
-                    ),
-                    dailySaleState = DailySaleState(
-                        summary = "Summary"
-                    )
+                uiState =  ProductCategoriesState(
+                    categories = categories
                 ),
                 handleEvent = {}
             )

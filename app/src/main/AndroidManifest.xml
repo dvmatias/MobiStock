@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
 
     <application
         android:name=".MobiStockApp"
@@ -37,6 +39,11 @@
             android:name="com.samuraicmdv.featuredashboard.DashboardActivity"
             android:exported="false"
             android:label="@string/title_activity_home"
+            android:theme="@style/Theme.MobiStock" />
+        <activity
+            android:name="com.samuraicmdv.featurebarcodescanner.BarcodeScannerActivity"
+            android:exported="false"
+            android:label="@string/title_activity_barcode_scanner"
             android:theme="@style/Theme.MobiStock" />
         <activity
             android:name="com.samuraicmdv.featurecategory.CategoryActivity"
