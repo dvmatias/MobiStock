@@ -1,14 +1,11 @@
 package com.samuraicmdv.featurebarcodescanner.compose
 
-import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.hardware.camera2.CaptureRequest
 import android.os.SystemClock
 import android.util.Size
 import android.view.ViewGroup
 import androidx.annotation.OptIn
-import androidx.camera.camera2.interop.Camera2Interop
 import androidx.camera.camera2.interop.ExperimentalCamera2Interop
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ExperimentalGetImage
@@ -18,12 +15,15 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerEvent
@@ -37,18 +37,30 @@ private var lastAnalyzedTimestamp = 0L
 
 private var shouldEmitBarcodeLost = true
 
+/**
+ * CameraPreviewViewContent is a composable function that sets up the camera preview and image analysis.
+ */
 @OptIn(ExperimentalCamera2Interop::class)
 @Composable
-fun CameraPreviewViewContent(modifier: Modifier = Modifier, callback: (BarcodeScannerEvent) -> Unit) {
+fun CameraPreviewViewContent(
+    modifier: Modifier = Modifier,
+    callback: (BarcodeScannerEvent) -> Unit
+) {
     val context = LocalContext.current
     val lifecycleOwner = context as LifecycleOwner
-    val cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
+    val cameraExecutor = remember { Executors.newSingleThreadExecutor() }
     val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
+    val barcodeScanner = remember { BarcodeScanning.getClient() }
+    val targetResolution = remember {
+        val displayMetrics = Resources.getSystem().displayMetrics
+        Size(displayMetrics.widthPixels, displayMetrics.heightPixels)
+    }
 
-    val barcodeScanner = BarcodeScanning.getClient()
-    val displayMetrics = Resources.getSystem().displayMetrics
-    val targetResolution = Size(displayMetrics.widthPixels, displayMetrics.heightPixels)
-    val cameraProvider = cameraProviderFuture.get()
+    DisposableEffect(Unit) {
+        onDispose {
+            cameraExecutor.shutdown()
+        }
+    }
 
     AndroidView(
         factory = { ctx ->
@@ -59,58 +71,75 @@ fun CameraPreviewViewContent(modifier: Modifier = Modifier, callback: (BarcodeSc
                 )
             }
 
-            cameraProviderFuture.addListener({
-                val previewBuilder = Preview.Builder()
-                    .setTargetResolution(targetResolution)
-                    .setTargetRotation(previewView.display.rotation)
-
-                val imageAnalyzer = ImageAnalysis.Builder()
-                    .setTargetResolution(targetResolution)
-                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                    .setTargetRotation(previewView.display.rotation)
-                    .build()
-                    .also {
-                        it.setAnalyzer(cameraExecutor) { imageProxy ->
-                            processImageProxy(imageProxy, barcodeScanner, callback)
-                        }
-                    }
-
-                val cameraSelector = CameraSelector.Builder()
-                    .requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                    .build()
-
-                // Use Camera2Interop to set focus to infinity
-                val camera2InteropConfig = Camera2Interop.Extender(previewBuilder)
-                camera2InteropConfig.setCaptureRequestOption(
-                    CaptureRequest.CONTROL_AF_MODE,
-                    CaptureRequest.CONTROL_AF_MODE_OFF
-                )
-                camera2InteropConfig.setCaptureRequestOption(
-                    CaptureRequest.LENS_FOCUS_DISTANCE,
-                    8.0f // Focus at infinity
-                )
-                val preview = previewBuilder.build()
-                preview.surfaceProvider = previewView.surfaceProvider
-
-                try {
-                    cameraProvider.unbindAll()
-                    cameraProvider.bindToLifecycle(
-                        lifecycleOwner,
-                        cameraSelector,
-                        preview,
-                        imageAnalyzer
-                    )
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }, ContextCompat.getMainExecutor(context))
-
+            setupCamera(
+                context = ctx,
+                lifecycleOwner = lifecycleOwner,
+                cameraProviderFuture = cameraProviderFuture,
+                previewView = previewView,
+                targetResolution = targetResolution,
+                barcodeScanner = barcodeScanner,
+                cameraExecutor = cameraExecutor,
+                callback = callback
+            )
             previewView
         },
         modifier = modifier
     )
 }
 
+/**
+ * Sets up the camera preview and image analysis.
+ */
+@Suppress("DEPRECATION")
+@OptIn(ExperimentalCamera2Interop::class)
+private fun setupCamera(
+    context: android.content.Context,
+    lifecycleOwner: LifecycleOwner,
+    cameraProviderFuture: ListenableFuture<ProcessCameraProvider>,
+    previewView: PreviewView,
+    targetResolution: Size,
+    barcodeScanner: com.google.mlkit.vision.barcode.BarcodeScanner,
+    cameraExecutor: ExecutorService,
+    callback: (BarcodeScannerEvent) -> Unit
+) {
+    cameraProviderFuture.addListener({
+        try {
+            val cameraProvider = cameraProviderFuture.get()
+            val preview = Preview.Builder()
+                .setTargetResolution(targetResolution)
+                .setTargetRotation(previewView.display.rotation)
+                .build().apply {
+                    surfaceProvider = previewView.surfaceProvider
+                }
+
+            val imageAnalyzer = ImageAnalysis.Builder()
+                .setTargetResolution(targetResolution)
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .setTargetRotation(previewView.display.rotation)
+                .build().apply {
+                    setAnalyzer(cameraExecutor) { imageProxy ->
+                        processImageProxy(imageProxy, barcodeScanner, callback)
+                    }
+                }
+
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            cameraProvider.unbindAll()
+            cameraProvider.bindToLifecycle(
+                lifecycleOwner,
+                cameraSelector,
+                preview,
+                imageAnalyzer
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }, ContextCompat.getMainExecutor(context))
+}
+
+/**
+ * Processes the image proxy and performs barcode scanning.
+ */
 @OptIn(ExperimentalGetImage::class)
 private fun processImageProxy(
     imageProxy: ImageProxy,
@@ -168,7 +197,7 @@ private fun processImageProxy(
                     shouldEmitBarcodeLost = true
                     for (barcode in barcodes.toSet()) {
                         barcode.rawValue?.let {
-                            callback(BarcodeScannerPresentationEvent.OnBarcodeScanned(it, croppedBitmap))
+                            callback(BarcodeScannerPresentationEvent.OnBarcodeScanned(it, croppedBitmap.asImageBitmap()))
                         }
                     }
                 }
