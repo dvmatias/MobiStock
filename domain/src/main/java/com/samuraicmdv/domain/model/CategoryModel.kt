@@ -9,6 +9,5 @@ data class CategoryModel(
     val description: String? = null,
     val logoUrl: String? = null,
     val imageUrl: String? = null,
-    val productsCount: Int? = null,
     val productsQuantity: Int? = null,
 )

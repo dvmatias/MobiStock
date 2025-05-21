@@ -30,7 +30,6 @@ object CategoryUiDataTransformer {
                 description = it.description ?: "",
                 logoUrl = it.logoUrl ?: "",
                 imageUrl = it.imageUrl ?: "",
-                productsCount = it.productsCount ?: 0,
                 productsQuantity = it.productsQuantity ?: 0
             )
         }

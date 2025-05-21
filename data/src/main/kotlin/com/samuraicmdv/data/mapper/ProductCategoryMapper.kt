@@ -27,7 +27,6 @@ object ProductCategoryMapper :
                 type = getProductCategoryType(it.name),
                 logoUrl = it.logoUrl,
                 imageUrl = it.imageUrl,
-                productsCount = it.productsCount,
                 productsQuantity = it.productsQuantity,
                 subcategories = it.subcategories?.map { subcategory ->
                     ProductSubcategoryModel(

@@ -34,7 +34,6 @@ fun CategoryScreenContentHeader(
     name: String?,
     description: String?,
     imageUrl: String?,
-    productsCount: Int?,
     productsQuantity: Int?,
     categoryTitleAlpha: Float,
     handleEvent: (CategoryEvent) -> Unit,
@@ -94,13 +93,6 @@ fun CategoryScreenContentHeader(
                 )
             }
             Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
-            productsCount?.let {
-                Text(
-                    text = "Products count: $it",
-                    style = MobiTheme.typography.bodyMedium,
-                    modifier = Modifier.fillMaxWidth()
-                ) // TODO
-            }
             productsQuantity?.let {
                 Text(
                     text = "Products quantity: $it",
@@ -128,7 +120,6 @@ fun PreviewCategoryHeader(modifier: Modifier = Modifier) {
                 name = "Category Name",
                 description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ",
                 imageUrl = "https://www.example.com/image.jpg",
-                productsCount = 10,
                 productsQuantity = 100,
                 handleEvent = {},
                 categoryTitleAlpha = 1F,

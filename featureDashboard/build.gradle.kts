@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.coil)
     implementation(libs.coil.compose)
+    implementation(libs.google.accompanist.drawablepainter)
     implementation(libs.google.dagger.hilt.android)
 
     testImplementation(libs.junit)

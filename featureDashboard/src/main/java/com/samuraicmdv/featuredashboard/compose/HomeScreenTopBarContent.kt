@@ -22,7 +22,7 @@ fun HomeScreenTopBarContent(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(MobiTheme.colors.background)
+            .background(MobiTheme.colors.surfaceContainer)
             .padding(
                 top = MobiTheme.dimens.dimen_1_5,
                 bottom = MobiTheme.dimens.dimen_1_5,

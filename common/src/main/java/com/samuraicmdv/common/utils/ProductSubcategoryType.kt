@@ -78,7 +78,7 @@ enum class ProductSubcategoryType {
      * Category: WATCH
      */
     SMART_BAND,
-    SMARTWATCH,
+    SMART_WATCH,
 
     UNKNOWN
 }
@@ -121,8 +121,8 @@ fun ProductSubcategoryType?.getNameResId(): Int =
         ProductSubcategoryType.PEN_DRIVE -> R.string.product_subcategory_pen_drive_name
         ProductSubcategoryType.SD -> R.string.product_subcategory_sd_name
         ProductSubcategoryType.SMART_BAND -> R.string.product_subcategory_smart_band_name
-        ProductSubcategoryType.SMARTWATCH -> R.string.product_subcategory_smartwatch_name
-        else -> -1
+        ProductSubcategoryType.SMART_WATCH -> R.string.product_subcategory_smart_watch_name
+        else -> R.string.product_subcategory_unknown_name
     }
 
 fun ProductSubcategoryType?.getIconResId(): Int =
@@ -153,7 +153,7 @@ fun ProductSubcategoryType?.getIconResId(): Int =
         ProductSubcategoryType.SCREEN_PROTECTOR -> R.drawable.product_subcategory_screen_protector_icon
         ProductSubcategoryType.SMART_BAND -> R.drawable.product_subcategory_smart_band_icon
         ProductSubcategoryType.SMART_BAND_CASE -> R.drawable.product_subcategory_smart_band_case_icon
-        ProductSubcategoryType.SMARTWATCH -> R.drawable.product_subcategory_smartwatch_icon
+        ProductSubcategoryType.SMART_WATCH -> R.drawable.product_subcategory_smart_watch_icon
         ProductSubcategoryType.STICK_HOLDER -> R.drawable.product_subcategory_stick_holder_icon
         ProductSubcategoryType.TABLET_CASE -> R.drawable.product_subcategory_tablet_case_icon
         ProductSubcategoryType.WALL_CHARGER_ADAPTER -> R.drawable.product_subcategory_wall_adapter_charger_icon
@@ -164,5 +164,5 @@ fun ProductSubcategoryType?.getIconResId(): Int =
         ProductSubcategoryType.WIRELESS_CHARGER -> R.drawable.product_subcategory_wireless_charger_icon
         ProductSubcategoryType.WIRELESS_EARPHONE -> R.drawable.product_subcategory_wireless_earphone_icon
         ProductSubcategoryType.WIRELESS_HEADPHONE -> R.drawable.product_subcategory_wireless_headphone_icon
-        else -> -1
+        else -> R.drawable.product_category_unknown_icon
     }

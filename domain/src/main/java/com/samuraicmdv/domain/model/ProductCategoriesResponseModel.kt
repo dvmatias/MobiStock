@@ -12,7 +12,6 @@ data class ProductCategoryModel(
     val type: ProductCategoryType? = null,
     val logoUrl: String? = null,
     val imageUrl: String? = null,
-    val productsCount: Int? = null,
     val productsQuantity: Int? = null,
     val subcategories: List<ProductSubcategoryModel>? = null,
 )

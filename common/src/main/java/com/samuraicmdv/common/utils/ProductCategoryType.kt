@@ -9,7 +9,7 @@ enum class ProductCategoryType {
     CASE,
     CHARGER,
     EARPHONE,
-    GAME,
+    GAMING,
     HEADPHONE,
     HOLDER,
     HOME,
@@ -33,7 +33,7 @@ fun ProductCategoryType?.getNameResId(): Int =
         ProductCategoryType.CASE -> R.string.product_category_case_name
         ProductCategoryType.CHARGER -> R.string.product_category_charger_name
         ProductCategoryType.EARPHONE -> R.string.product_category_earphone_name
-        ProductCategoryType.GAME -> R.string.product_category_game_name
+        ProductCategoryType.GAMING -> R.string.product_category_gaming_name
         ProductCategoryType.HEADPHONE -> R.string.product_category_headphone_name
         ProductCategoryType.HOLDER -> R.string.product_category_holder_name
         ProductCategoryType.HOME -> R.string.product_category_home_name
@@ -59,7 +59,7 @@ fun ProductCategoryType?.getIconResId(): Int =
         ProductCategoryType.CASE -> R.drawable.product_category_case_icon
         ProductCategoryType.CHARGER -> R.drawable.product_category_charger_icon
         ProductCategoryType.EARPHONE -> R.drawable.product_category_earphone_icon
-        ProductCategoryType.GAME -> R.drawable.product_category_game_icon
+        ProductCategoryType.GAMING -> R.drawable.product_category_gaming_icon
         ProductCategoryType.HEADPHONE -> R.drawable.product_category_headphone_icon
         ProductCategoryType.HOLDER -> R.drawable.product_category_holder_icon
         ProductCategoryType.HOME -> R.drawable.product_category_unknown_icon

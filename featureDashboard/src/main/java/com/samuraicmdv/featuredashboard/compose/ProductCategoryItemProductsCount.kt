@@ -27,6 +27,17 @@ fun ProductCategoryItemProductsCount(
     modifier: Modifier = Modifier,
 ) {
     var size by remember { mutableStateOf(IntSize.Zero) }
+    val textColor = if (productsCount > 0) {
+        MobiTheme.colors.onSecondaryContainer
+    } else {
+        MobiTheme.colors.onDisabledContainerColor
+    }
+    val backgroundColor = if (productsCount > 0) {
+        MobiTheme.colors.secondaryContainer
+    } else {
+        MobiTheme.colors.disabledContainerColor
+    }
+
     Box(modifier = modifier
         .wrapContentWidth()
         .onSizeChanged { newSize ->
@@ -34,12 +45,12 @@ fun ProductCategoryItemProductsCount(
         }
         .sizeIn(minWidth = with(LocalDensity.current) { size.height.toDp() })
         .clip(
-            RoundedCornerShape(bottomStart = MobiTheme.dimens.dimen_2)
+            RoundedCornerShape(MobiTheme.dimens.dimen_2)
         )
-        .background(MobiTheme.colors.secondaryContainer)
+        .background(backgroundColor)
         .padding(
-            start = MobiTheme.dimens.dimen_2,
-            end = MobiTheme.dimens.dimen_2,
+            start = MobiTheme.dimens.dimen_1,
+            end = MobiTheme.dimens.dimen_1,
             top = MobiTheme.dimens.dimen_0_5,
             bottom = MobiTheme.dimens.dimen_0_5
         )
@@ -47,7 +58,7 @@ fun ProductCategoryItemProductsCount(
         Text(
             text = productsCount.toString(),
             style = MobiTheme.typography.labelMediumBlack,
-            color = MobiTheme.colors.onSecondaryContainer,
+            color = textColor,
             textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.Center)
         )

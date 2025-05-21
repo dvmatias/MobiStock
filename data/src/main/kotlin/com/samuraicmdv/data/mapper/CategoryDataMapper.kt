@@ -31,7 +31,6 @@ object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryRespo
             description = category?.description,
             logoUrl = category?.logoUrl,
             imageUrl = category?.imageUrl,
-            productsCount = category?.productsCount,
             productsQuantity = category?.productsQuantity
         )
 

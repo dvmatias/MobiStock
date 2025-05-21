@@ -127,7 +127,6 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                         nameResId = R.string.product_category_battery_name,
                         description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ",
                         imageUrl = "https://www.example.com/image.jpg",
-                        productsCount = 32,
                         productsQuantity = 547,
                         logoUrl = "https://www.example.com/image.jpg"
                     ),
