@@ -1,11 +1,13 @@
 package com.samuraicmdv.data.mapper
 
+import com.samuraicmdv.common.utils.ProductCategoryType
+import com.samuraicmdv.common.utils.ProductSubcategoryType
 import com.samuraicmdv.data.entity.GetCategoriesResponseEntity
-import com.samuraicmdv.data.entity.CategoryEntity
+import com.samuraicmdv.data.entity.ProductCategoryEntity
 import com.samuraicmdv.domain.base.DataMapper
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
-import com.samuraicmdv.common.utils.ProductCategory
 import com.samuraicmdv.domain.model.ProductCategoryModel
+import com.samuraicmdv.domain.model.ProductSubcategoryModel
 
 object ProductCategoryMapper :
     DataMapper<GetCategoriesResponseEntity, ProductCategoriesResponseModel> {
@@ -17,7 +19,7 @@ object ProductCategoryMapper :
         )
 
     private fun transformProductCategories(
-        productCategories: List<CategoryEntity>?,
+        productCategories: List<ProductCategoryEntity>?,
     ): List<ProductCategoryModel> =
         productCategories?.map {
             ProductCategoryModel(
@@ -27,14 +29,30 @@ object ProductCategoryMapper :
                 imageUrl = it.imageUrl,
                 productsCount = it.productsCount,
                 productsQuantity = it.productsQuantity,
+                subcategories = it.subcategories?.map { subcategory ->
+                    ProductSubcategoryModel(
+                        id = subcategory.id,
+                        type = getProductSubcategoryType(subcategory.name),
+                        logoUrl = subcategory.logoUrl,
+                        imageUrl = subcategory.imageUrl,
+                        productsQuantity = subcategory.productsQuantity
+                    )
+                }
             )
         }.orEmpty()
 
-    private fun getProductCategoryType(productCategoryName: String?): ProductCategory =
-        ProductCategory.entries.find {
+    private fun getProductCategoryType(productCategoryName: String?): ProductCategoryType =
+        ProductCategoryType.entries.find {
             it.name == productCategoryName
         } ?: run {
-            ProductCategory.UNKNOWN
+            ProductCategoryType.UNKNOWN
+        }
+
+    private fun getProductSubcategoryType(productSubcategoryName: String?): ProductSubcategoryType =
+        ProductSubcategoryType.entries.find {
+            it.name == productSubcategoryName
+        } ?: run {
+            ProductSubcategoryType.UNKNOWN
         }
 
 }

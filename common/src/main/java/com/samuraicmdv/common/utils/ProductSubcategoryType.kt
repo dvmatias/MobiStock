@@ -78,7 +78,9 @@ enum class ProductSubcategoryType {
      * Category: WATCH
      */
     SMART_BAND,
-    SMARTWATCH
+    SMARTWATCH,
+
+    UNKNOWN
 }
 
 fun ProductSubcategoryType?.getNameResId(): Int =
@@ -120,7 +122,7 @@ fun ProductSubcategoryType?.getNameResId(): Int =
         ProductSubcategoryType.SD -> R.string.product_subcategory_sd_name
         ProductSubcategoryType.SMART_BAND -> R.string.product_subcategory_smart_band_name
         ProductSubcategoryType.SMARTWATCH -> R.string.product_subcategory_smartwatch_name
-        null -> -1
+        else -> -1
     }
 
 fun ProductSubcategoryType?.getIconResId(): Int =
@@ -162,5 +164,5 @@ fun ProductSubcategoryType?.getIconResId(): Int =
         ProductSubcategoryType.WIRELESS_CHARGER -> R.drawable.product_subcategory_wireless_charger_icon
         ProductSubcategoryType.WIRELESS_EARPHONE -> R.drawable.product_subcategory_wireless_earphone_icon
         ProductSubcategoryType.WIRELESS_HEADPHONE -> R.drawable.product_subcategory_wireless_headphone_icon
-        null -> -1
+        else -> -1
     }
