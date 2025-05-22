@@ -4,64 +4,67 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import com.samuraicmdv.common.theme.MobiTheme
-import com.samuraicmdv.featuredashboard.R
 import com.samuraicmdv.featuredashboard.event.DashboardEvent
 import com.samuraicmdv.featuredashboard.state.ProductCategoriesState
 import com.samuraicmdv.featuredashboard.state.ProductCategoryUiData
 import com.samuraicmdv.featuredashboard.state.ProductSubcategoryUiData
 import com.samuraicmdv.ui.util.ThemePreviews
+import com.samuraicmdv.ui.widget.CustomSearchView
 import com.samuraicmdv.common.R as CommonR
 
 @Composable
-fun HomeScreenContent(
+fun ProductCategoriesContent(
     uiState: ProductCategoriesState?,
     handleEvent: (DashboardEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(
-            start = MobiTheme.dimens.dimen_2,
-            end = MobiTheme.dimens.dimen_2,
-            top = MobiTheme.dimens.dimen_2,
-            bottom = MobiTheme.dimens.dimen_2,
-        ),
-        verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_1),
+    Column(
         modifier = modifier
             .fillMaxSize()
     ) {
-        // Screen header
-        stickyHeader {
-            Column {
-                Text(
-                    text = stringResource(R.string.home_product_categories_title),
-                    style = MobiTheme.typography.titleMediumBold,
-                )
-            }
-        }
+        Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
+        CustomSearchView(
+            onSearch = { query ->
+                println("Search query: $query")
+            },
+            modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+        )
 
-        // Product categories and subcategories
-        uiState?.categories.let { categories ->
-            categories?.forEach { category ->
-                item {
-                    ProductCategoryItem(category, handleEvent)
+        LazyColumn(
+            contentPadding = PaddingValues(
+                start = MobiTheme.dimens.dimen_2,
+                end = MobiTheme.dimens.dimen_2,
+                top = MobiTheme.dimens.dimen_2,
+                bottom = MobiTheme.dimens.dimen_2,
+            ),
+            verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_1)
+        ) {
+            // Product categories and subcategories
+            uiState?.categories.let { categories ->
+                categories?.forEach { category ->
+                    item {
+                        ProductCategoryItem(category, handleEvent)
+                    }
                 }
             }
         }
     }
 }
 
+
 @ThemePreviews
 @Composable
-fun PreviewHomeScreenContent() {
+fun PreviewProductCategoriesContent() {
     MobiTheme {
         val context = LocalContext.current
         val categories = mutableListOf<ProductCategoryUiData>().apply {
@@ -156,8 +159,8 @@ fun PreviewHomeScreenContent() {
                 )
             }
         }
-        Surface {
-            HomeScreenContent(
+        Surface(color = MobiTheme.colors.background) {
+            ProductCategoriesContent(
                 uiState = ProductCategoriesState(
                     categories = categories
                 ),

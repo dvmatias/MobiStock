@@ -62,7 +62,7 @@ fun ProductCategoryType?.getIconResId(): Int =
         ProductCategoryType.GAMING -> R.drawable.product_category_gaming_icon
         ProductCategoryType.HEADPHONE -> R.drawable.product_category_headphone_icon
         ProductCategoryType.HOLDER -> R.drawable.product_category_holder_icon
-        ProductCategoryType.HOME -> R.drawable.product_category_unknown_icon
+        ProductCategoryType.HOME -> R.drawable.product_category_home_icon
         ProductCategoryType.INFORMATICS -> R.drawable.product_category_informatics_icon
         ProductCategoryType.LIGHT -> R.drawable.product_category_light_icon
         ProductCategoryType.MICROPHONE -> R.drawable.product_category_microphone_icon

@@ -1,5 +1,6 @@
 package com.samuraicmdv.featuredashboard.compose
 
+import android.graphics.drawable.Drawable
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
@@ -8,15 +9,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -39,6 +35,7 @@ import com.samuraicmdv.featuredashboard.event.DashboardNavigationEvent
 import com.samuraicmdv.featuredashboard.state.ProductCategoryUiData
 import com.samuraicmdv.featuredashboard.state.ProductSubcategoryUiData
 import com.samuraicmdv.ui.util.ThemePreviews
+import com.samuraicmdv.ui.R as UiR
 
 @Composable
 fun ProductCategoryItem(
@@ -57,99 +54,102 @@ fun ProductCategoryItem(
             .animateContentSize()
             .background(MobiTheme.colors.surfaceContainer)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable {
-                    handleEvent(DashboardNavigationEvent.NavigateProductCategory(category.id))
-                }
-                .padding(MobiTheme.dimens.dimen_1)
-        ) {
-            category.iconDrawable?.let {
-                Image(
-                    painter = rememberDrawablePainter(it),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(42.dp)
-                )
-            }
-            category.name?.let {
-                Text(
-                    text = it,
-                    maxLines = 1,
-                    style = MobiTheme.typography.bodyMedium,
-                    color = MobiTheme.colors.textPrimary,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(horizontal = MobiTheme.dimens.dimen_1)
-                        .align(Alignment.CenterVertically)
-                )
-            }
-
-            if (!hasSubcategories) {
-                category.productsQuantity?.let {
-                    ProductCategoryItemProductsCount(it)
-                }
-            } else {
-                IconButton(
-                    onClick = {
-                        isExpanded = !isExpanded
-                    },
-                    modifier = Modifier.size(36.dp)
-                ) {
-                    Icon(
-                        imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                        contentDescription = "Dropdown Icon"
-                    )
-                }
-            }
-        }
+        ProductCategoryItemContent(
+            id = category.id,
+            iconDrawable = category.iconDrawable,
+            name = category.name,
+            isCategory = true,
+            showExpandButton = hasSubcategories,
+            isExpanded = isExpanded,
+            onExpandButtonClick = {
+                isExpanded = !isExpanded
+            },
+            handleEvent = handleEvent,
+        )
 
         if (isExpanded) {
             category.subcategories?.forEach { subcategory ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            handleEvent(DashboardNavigationEvent.NavigateProductCategory(category.id))
-                        }
-                        .padding(
-                            start = 50.dp,
-                            top = MobiTheme.dimens.dimen_0_25,
-                            bottom = MobiTheme.dimens.dimen_0_25,
-                            end = MobiTheme.dimens.dimen_1
-                        )
-                ) {
-                    subcategory.iconDrawable?.let { icon ->
-                        Image(
-                            painter = rememberDrawablePainter(icon),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(42.dp)
-                        )
-                    }
-                    subcategory.name?.let { name ->
-                        Text(
-                            text = name,
-                            maxLines = 1,
-                            style = MobiTheme.typography.bodyMedium,
-                            color = subcategory.productsQuantity?.let {
-                                if (subcategory.productsQuantity > 0) MobiTheme.colors.textPrimary else MobiTheme.colors.textDisable
-                            } ?: MobiTheme.colors.textDisable,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(horizontal = MobiTheme.dimens.dimen_1)
-                                .align(Alignment.CenterVertically)
-                        )
-                    }
-                    subcategory.productsQuantity?.let {
-                        ProductCategoryItemProductsCount(it)
-                    }
-                }
+                ProductCategoryItemContent(
+                    id = subcategory.id,
+                    iconDrawable = subcategory.iconDrawable,
+                    name = subcategory.name,
+                    isCategory = false,
+                    showExpandButton = false,
+                    isExpanded = false,
+                    onExpandButtonClick = { },
+                    handleEvent = handleEvent,
+                    modifier = Modifier.padding(start = MobiTheme.dimens.dimen_4)
+                )
             }
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1))
+        }
+    }
+}
+
+@Composable
+fun ProductCategoryItemContent(
+    iconDrawable: Drawable?,
+    id: Int,
+    name: String?,
+    isCategory: Boolean,
+    showExpandButton: Boolean,
+    isExpanded: Boolean,
+    onExpandButtonClick: () -> Unit = {},
+    handleEvent: (DashboardEvent) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val context = LocalContext.current
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                handleEvent(DashboardNavigationEvent.NavigateProductCategory(id))
+            }
+            .padding(if (isCategory) MobiTheme.dimens.dimen_1 else MobiTheme.dimens.dimen_0_5)
+            .then(modifier)
+    ) {
+        iconDrawable?.let {
+            Image(
+                painter = rememberDrawablePainter(it),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(42.dp)
+            )
+        }
+        name?.let {
+            Text(
+                text = it,
+                maxLines = 1,
+                style = MobiTheme.typography.bodyMedium,
+                color = MobiTheme.colors.textPrimary,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = MobiTheme.dimens.dimen_1)
+                    .align(Alignment.CenterVertically)
+            )
+        }
+        if (showExpandButton) {
+            IconButton(
+                onClick = {
+                    onExpandButtonClick()
+                },
+                modifier = Modifier.size(36.dp)
+            ) {
+                Icon(
+                    painter = rememberDrawablePainter(
+                        AppCompatResources.getDrawable(
+                            context,
+                            if (isExpanded) UiR.drawable.ic_arrow_up_24px else UiR.drawable.ic_arrow_down_24px
+                        )
+                    ),
+                    tint = MobiTheme.colors.primary,
+                    contentDescription = "Dropdown Icon",
+                    modifier = Modifier
+                        .size(32.dp)
+                        .padding(6.dp),
+                )
+            }
         }
     }
 }
