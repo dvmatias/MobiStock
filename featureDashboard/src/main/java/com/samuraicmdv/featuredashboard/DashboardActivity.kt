@@ -55,6 +55,12 @@ class DashboardActivity : ComponentActivity() {
             is DashboardPresentationEvent.HandleUsersBottomSheetState ->
                 viewModel.updateUsersBottomSheetState(event.show)
 
+            is DashboardPresentationEvent.ToggleProductCategoryExpandedStatus ->
+                viewModel.toggleCategoryExpandedStatus(event.id, event.isExpanded)
+
+            is DashboardPresentationEvent.ToggleAllProductCategoriesExpandedStatus ->
+                viewModel.toggleAllCategoriesExpandedStatus(event.areAllCategoriesExpanded)
+
             is DashboardNavigationEvent.NavigateProductCategory -> {
                 bundleOf(
                     BUNDLE_KEY_STORE_ID to storeId,

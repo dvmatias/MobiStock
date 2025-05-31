@@ -1,50 +1,40 @@
 package com.samuraicmdv.featuredashboard.compose
 
-import android.graphics.drawable.Drawable
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.samuraicmdv.common.R
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featuredashboard.event.DashboardEvent
-import com.samuraicmdv.featuredashboard.event.DashboardNavigationEvent
+import com.samuraicmdv.featuredashboard.event.DashboardPresentationEvent
 import com.samuraicmdv.featuredashboard.state.ProductCategoryUiData
 import com.samuraicmdv.featuredashboard.state.ProductSubcategoryUiData
 import com.samuraicmdv.ui.util.ThemePreviews
-import com.samuraicmdv.ui.R as UiR
 
+/**
+ * Composable function that displays a container for a product category item. This function renders a product category 
+ * with its subcategories, if any, in a collapsible format. 
+ * 
+ * @param uiData The product category data to be displayed.
+ * @param handleEvent A lambda function to handle events, such as toggling the expanded state of the category.
+ * @param modifier A [Modifier] to be applied to the container.
+ */
 @Composable
-fun ProductCategoryItem(
-    category: ProductCategoryUiData,
+fun ProductCategoryItemContainerContent(
+    uiData: ProductCategoryUiData,
     handleEvent: (DashboardEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val hasSubcategories = category.subcategories?.isNotEmpty() ?: false
-    var isExpanded by remember { mutableStateOf(false) }
+    val hasSubcategories = uiData.subcategories?.isNotEmpty() ?: false
 
     Column(
         modifier = modifier
@@ -55,20 +45,20 @@ fun ProductCategoryItem(
             .background(MobiTheme.colors.surfaceContainer)
     ) {
         ProductCategoryItemContent(
-            id = category.id,
-            iconDrawable = category.iconDrawable,
-            name = category.name,
+            id = uiData.id,
+            iconDrawable = uiData.iconDrawable,
+            name = uiData.name,
             isCategory = true,
             showExpandButton = hasSubcategories,
-            isExpanded = isExpanded,
+            isExpanded = uiData.isExpanded,
             onExpandButtonClick = {
-                isExpanded = !isExpanded
+                handleEvent(DashboardPresentationEvent.ToggleProductCategoryExpandedStatus(uiData.id, !uiData.isExpanded))
             },
             handleEvent = handleEvent,
         )
 
-        if (isExpanded) {
-            category.subcategories?.forEach { subcategory ->
+        if (uiData.isExpanded) {
+            uiData.subcategories?.forEach { subcategory ->
                 ProductCategoryItemContent(
                     id = subcategory.id,
                     iconDrawable = subcategory.iconDrawable,
@@ -85,85 +75,16 @@ fun ProductCategoryItem(
     }
 }
 
-@Composable
-fun ProductCategoryItemContent(
-    iconDrawable: Drawable?,
-    id: Int,
-    name: String?,
-    isCategory: Boolean,
-    showExpandButton: Boolean,
-    isExpanded: Boolean,
-    onExpandButtonClick: () -> Unit = {},
-    handleEvent: (DashboardEvent) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val context = LocalContext.current
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {
-                handleEvent(DashboardNavigationEvent.NavigateProductCategory(id))
-            }
-            .padding(if (isCategory) MobiTheme.dimens.dimen_1 else MobiTheme.dimens.dimen_0_5)
-            .then(modifier)
-    ) {
-        iconDrawable?.let {
-            Image(
-                painter = rememberDrawablePainter(it),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(42.dp)
-            )
-        }
-        name?.let {
-            Text(
-                text = it,
-                maxLines = 1,
-                style = MobiTheme.typography.bodyMedium,
-                color = MobiTheme.colors.textPrimary,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = MobiTheme.dimens.dimen_1)
-                    .align(Alignment.CenterVertically)
-            )
-        }
-        if (showExpandButton) {
-            IconButton(
-                onClick = {
-                    onExpandButtonClick()
-                },
-                modifier = Modifier.size(36.dp)
-            ) {
-                Icon(
-                    painter = rememberDrawablePainter(
-                        AppCompatResources.getDrawable(
-                            context,
-                            if (isExpanded) UiR.drawable.ic_arrow_up_24px else UiR.drawable.ic_arrow_down_24px
-                        )
-                    ),
-                    tint = MobiTheme.colors.primary,
-                    contentDescription = "Dropdown Icon",
-                    modifier = Modifier
-                        .size(32.dp)
-                        .padding(6.dp),
-                )
-            }
-        }
-    }
-}
-
 @ThemePreviews
 @Composable
-fun PreviewProductCategoryItem(modifier: Modifier = Modifier) {
+fun PreviewProductCategoryItemContainerContent(modifier: Modifier = Modifier) {
     MobiTheme {
         Surface(color = MobiTheme.colors.background) {
             val context = LocalContext.current
             Column(
                 verticalArrangement = Arrangement.spacedBy(MobiTheme.dimens.dimen_2),
             ) {
-                ProductCategoryItem(
+                ProductCategoryItemContainerContent(
                     ProductCategoryUiData(
                         id = 1,
                         name = "Batteries",
@@ -177,7 +98,7 @@ fun PreviewProductCategoryItem(modifier: Modifier = Modifier) {
                     handleEvent = {}
                 )
 
-                ProductCategoryItem(
+                ProductCategoryItemContainerContent(
                     ProductCategoryUiData(
                         id = 4,
                         name = "Cables",
@@ -223,12 +144,12 @@ fun PreviewProductCategoryItem(modifier: Modifier = Modifier) {
                                 ),
                                 productsQuantity = 13,
                             )
-                        )
+                        ),
                     ),
                     handleEvent = {}
                 )
 
-                ProductCategoryItem(
+                ProductCategoryItemContainerContent(
                     ProductCategoryUiData(
                         id = 17,
                         name = "Gaming",

@@ -88,6 +88,48 @@ class DashboardViewModel @AssistedInject constructor(
     }
 
     /**
+     * Toggles the expanded status of a specific product category.
+     *
+     * @param id The ID of the product category to toggle.
+     * @param isExpanded Boolean indicating whether the category should be expanded or collapsed.
+     */
+    fun toggleCategoryExpandedStatus(
+        id: Int,
+        isExpanded: Boolean
+    ) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                productCategoriesState = currentState.productCategoriesState?.copy(
+                    categories = currentState.productCategoriesState.categories?.map {
+                        if (it.id == id) {
+                            it.copy(isExpanded = isExpanded)
+                        } else {
+                            it
+                        }
+                    }
+                )
+            )
+        }
+    }
+
+    /**
+     * Toggles the expanded status of all product categories.
+     *
+     * @param areAllCategoriesExpanded Boolean indicating whether all categories should be expanded or collapsed.
+     */
+    fun toggleAllCategoriesExpandedStatus(areAllCategoriesExpanded: Boolean) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                productCategoriesState = currentState.productCategoriesState?.copy(
+                    categories = currentState.productCategoriesState.categories?.map {
+                        it.copy(isExpanded = areAllCategoriesExpanded)
+                    }
+                )
+            )
+        }
+    }
+
+    /**
      * View model's factory. This is used by the view model to create instances of itself. This is
      * needed to pass the 'storeId' parameter from the [DashboardActivity] to the view model.
      */

@@ -149,7 +149,7 @@ fun PreviewDailySalesLedgeScreen() {
                     isLoading = false,
                     currentDayDate = Date(),
                     summary = "There are no sales registered today. Please open cash register to start registering sales.",
-                    isDailySalesLedgeOpen = true
+                    isDailySalesLedgeOpen = false
                 ),
                 callback = {}
             )
