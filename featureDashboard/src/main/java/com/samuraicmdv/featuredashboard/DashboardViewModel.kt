@@ -7,6 +7,7 @@ import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
 import com.samuraicmdv.domain.usecase.GetUserProfileUseCase
 import com.samuraicmdv.featuredashboard.state.DailySaleState
 import com.samuraicmdv.featuredashboard.state.DashboardScreenState
+import com.samuraicmdv.featuredashboard.state.ProductCategoriesState
 import com.samuraicmdv.featuredashboard.transformer.DashboardUiDataTransformer
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -27,7 +28,13 @@ class DashboardViewModel @AssistedInject constructor(
     private val transformer: DashboardUiDataTransformer,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DashboardScreenState(profile = null, dailySaleState = DailySaleState()))
+    private val _uiState = MutableStateFlow(
+        DashboardScreenState(
+            profile = null,
+            dailySaleState = DailySaleState(),
+            productCategoriesState = ProductCategoriesState(isLoading = true),
+        )
+    )
     val uiState: StateFlow<DashboardScreenState>
         get() = _uiState.asStateFlow()
 
@@ -51,6 +58,12 @@ class DashboardViewModel @AssistedInject constructor(
 
     private fun getProductCategories() {
         viewModelScope.launch {
+            // Put the product categories state into loading state
+            _uiState.update { currentState ->
+                currentState.copy(
+                    productCategoriesState = currentState.productCategoriesState?.copy(isLoading = true)
+                )
+            }
             getProductCategoriesUseCase(
                 GetProductCategoriesUseCase.Params(storeId)
             ).let { productCategories ->

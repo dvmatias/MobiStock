@@ -1,5 +1,6 @@
 package com.samuraicmdv.featurebarcodescanner.compose
 
+import android.Manifest
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
@@ -9,23 +10,35 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerEvent
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun BarcodeScannerScreen(
     uiData: BarcodeScannerUiData,
-    callback: (BarcodeScannerEvent) -> Unit,
+    handleEvent: (BarcodeScannerEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val cameraPermissionState: PermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
+
     Box(modifier = modifier.fillMaxSize()) {
         // Camera preview
-        CameraPreviewContent(callback)
+        CameraPreviewContent(
+            cameraPermissionState = cameraPermissionState,
+            handleEvent = handleEvent
+        )
 
-        // Screen overlay
-        CameraOverlayContent()
+        if (cameraPermissionState.status.isGranted) {
+            // Screen overlay
+            CameraOverlayContent()
+        }
 
         // Scanned image preview
         uiData.scannedImageBitmap?.let {
@@ -48,7 +61,7 @@ fun PreviewBarcodeScannerScreen() {
         Surface {
             BarcodeScannerScreen(
                 uiData = BarcodeScannerUiData(),
-                callback = {}
+                handleEvent = {}
             )
         }
     }

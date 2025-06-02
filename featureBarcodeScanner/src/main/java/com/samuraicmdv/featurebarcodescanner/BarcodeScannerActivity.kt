@@ -13,6 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.lifecycleScope
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurebarcodescanner.compose.BarcodeScannerScreen
+import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerEvent
+import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerPresentationEvent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -38,9 +40,22 @@ class BarcodeScannerActivity : ComponentActivity() {
                 Surface {
                     BarcodeScannerScreen(
                         uiData = uiData,
-                        callback = viewModel::handleEvent
+                        handleEvent = ::handleEvent
                     )
                 }
+            }
+        }
+    }
+
+    private fun handleEvent(event: BarcodeScannerEvent) {
+        when (event) {
+            // Barcode scanned successfully
+            is BarcodeScannerPresentationEvent.OnBarcodeScanned -> viewModel.onBarcodeScanned(event)
+            // After a barcode is scanned, the scanner lost the code and it is ready to scan again
+            is BarcodeScannerPresentationEvent.OnBarcodeLost -> viewModel.onBarcodeLost()
+            // Exit the scanner screen
+            is BarcodeScannerPresentationEvent.ExitScreen -> {
+                finish()
             }
         }
     }

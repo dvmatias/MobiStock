@@ -77,9 +77,10 @@ class DashboardUiDataTransformer @Inject constructor(
                                 iconDrawable = AppCompatResources.getDrawable(context, subcategory.type.getIconResId()),
                                 productsQuantity = subcategory.productsQuantity ?: 0
                             )
-                        }
+                        },
                     )
-                }
+                },
+                isLoading = false
             )
         }
 

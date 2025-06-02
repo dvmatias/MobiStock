@@ -1,7 +1,6 @@
 package com.samuraicmdv.featurebarcodescanner
 
 import androidx.lifecycle.ViewModel
-import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerEvent
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerPresentationEvent
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerUiData
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,24 +28,12 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
         get() = _scanSuccessEventFlow
 
     /**
-     * Handles the events emitted from the barcode scanner flow.
-     */
-    fun handleEvent(event: BarcodeScannerEvent) {
-        when (event) {
-            // Barcode scanned successfully
-            is BarcodeScannerPresentationEvent.OnBarcodeScanned -> onBarcodeScanned(event)
-            // After a barcode is scanned, the scanner lost the code and it is ready to scan again
-            is BarcodeScannerPresentationEvent.OnBarcodeLost -> onBarcodeLost()
-        }
-    }
-
-    /**
      * Handles the event when a barcode is scanned. It updates the UI data with the new scanned barcode and the scanned
      * image bitmap.
      *
      * @param event The event containing the scanned barcode and the image bitmap.
      */
-    private fun onBarcodeScanned(event: BarcodeScannerPresentationEvent.OnBarcodeScanned) {
+    fun onBarcodeScanned(event: BarcodeScannerPresentationEvent.OnBarcodeScanned) {
         // Check if the scanned barcode is different from the last scanned barcode
         if (_uiData.value.lastScannedBarcode == null || _uiData.value.lastScannedBarcode != event.barcode) {
             // Updates the UI data with the new scanned barcode and image bitmap
@@ -62,7 +49,7 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
     /**
      * Handles the event when a barcode is lost. It resets the last scanned barcode in the UI data.
      */
-    private fun onBarcodeLost() {
+    fun onBarcodeLost() {
         _uiData.value.lastScannedBarcode?.let {
             _uiData.value = _uiData.value.copy(lastScannedBarcode = null)
         }

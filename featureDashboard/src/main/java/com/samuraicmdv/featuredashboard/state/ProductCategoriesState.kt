@@ -7,4 +7,5 @@ package com.samuraicmdv.featuredashboard.state
  */
 data class ProductCategoriesState(
     val categories: List<ProductCategoryUiData>? = null,
+    val isLoading: Boolean = false,
 )

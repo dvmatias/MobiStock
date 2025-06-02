@@ -15,6 +15,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,7 +28,7 @@ import com.samuraicmdv.featuredashboard.state.ProductCategoryUiData
 import com.samuraicmdv.featuredashboard.state.ProductSubcategoryUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 import com.samuraicmdv.ui.widget.CustomExpandPillButton
-import com.samuraicmdv.ui.widget.CustomSearchView
+import com.samuraicmdv.ui.widget.CustomSearchComponent
 import com.samuraicmdv.common.R as CommonR
 
 /**
@@ -35,13 +36,15 @@ import com.samuraicmdv.common.R as CommonR
  */
 @Composable
 fun ProductCategoriesContent(
-    uiState: ProductCategoriesState?,
+    uiState: ProductCategoriesState,
     handleEvent: (DashboardEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     // Variable that governs expanded state for all the categories
-    val areAllExpanded by derivedStateOf {
-        uiState?.categories?.all { it.isExpanded } ?: false
+    val areAllExpanded by remember(uiState.categories) {
+        derivedStateOf {
+            uiState.categories?.all { it.isExpanded } ?: false
+        }
     }
 
     LazyColumn(
@@ -60,10 +63,11 @@ fun ProductCategoriesContent(
             ) {
                 Column {
                     // Search view
-                    CustomSearchView(
+                    CustomSearchComponent(
                         onSearch = { query ->
                             println("Search query: $query") // TODO implement
-                        }, modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
+                        },
+                        modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
                     )
 
                     // Expand/Collapse al categories button
@@ -85,7 +89,7 @@ fun ProductCategoriesContent(
         }
 
         // Product categories and subcategories
-        uiState?.categories.let { categories ->
+        uiState.categories.let { categories ->
             categories?.forEach { category ->
                 item {
                     ProductCategoryItemContainerContent(
@@ -98,7 +102,6 @@ fun ProductCategoriesContent(
         }
     }
 }
-
 
 @ThemePreviews
 @Composable

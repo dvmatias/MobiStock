@@ -1,6 +1,5 @@
 package com.samuraicmdv.ui.widget
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -13,6 +12,8 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -24,42 +25,41 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.ui.R
+import com.samuraicmdv.ui.util.ThemePreviews
+
+private val searchTextStartPadding = 4.dp
 
 /**
  * TODO work in progress
  */
 @Composable
-fun CustomSearchView(
-    hint: String? = "Search",
+fun CustomSearchComponent(
+    hint: String? = null,
     modifier: Modifier = Modifier,
     onSearch: (String) -> Unit
 ) {
     val focusRequester: FocusRequester = remember { FocusRequester() }
     var isSearchExpandedState by remember { mutableStateOf(false) }
     var searchTextState by remember { mutableStateOf("") }
-    val hintState by remember { mutableStateOf(hint ?: "Search") }
+    val hintDefault = stringResource(R.string.custom_search_component_hint_default)
+    val hintState by remember { mutableStateOf(hint ?: hintDefault) }
 
-    Box(
+    Card(
+        shape = RoundedCornerShape(MobiTheme.dimens.searchView / 2),
+        colors = CardDefaults.cardColors(MobiTheme.colors.surfaceContainer),
+        elevation = CardDefaults.cardElevation(MobiTheme.elevations.unit),
         modifier = modifier
             .fillMaxWidth()
             .height(MobiTheme.dimens.searchView)
-            .shadow(
-                elevation = 1.dp, // Shadow elevation
-                shape = RoundedCornerShape(MobiTheme.dimens.searchView / 2), // Rounded corners
-                clip = false
-            )
-            .background(
-                color = Color.White,
-                shape = RoundedCornerShape(MobiTheme.dimens.searchView / 2)
-            )
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -68,7 +68,7 @@ fun CustomSearchView(
                 .clickable(indication = null, interactionSource = null) {
                     isSearchExpandedState = true
                 }
-                .padding(horizontal = MobiTheme.dimens.dimen_2)
+                .padding(horizontal = MobiTheme.dimens.dimen_0_5)
         ) {
             if (isSearchExpandedState) {
                 IconButton(
@@ -79,25 +79,30 @@ fun CustomSearchView(
                         contentDescription = "Start Search",
                     )
                 }
-                Box(modifier = Modifier.weight(1f)) {
+                Box(
+                    contentAlignment = Alignment.CenterStart,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = searchTextStartPadding)
+                ) {
                     BasicTextField(
                         value = searchTextState,
                         onValueChange = {
                             searchTextState = it
                             onSearch(it)
                         },
+                        maxLines = 1,
+                        singleLine = true,
                         textStyle = TextStyle(fontSize = 16.sp, color = Color.Black),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 8.dp)
                             .focusRequester(focusRequester)
                     )
                     if (searchTextState.isEmpty()) {
                         Text(
                             text = hintState,
                             style = MobiTheme.typography.bodyMedium,
-                            color = MobiTheme.colors.textDisable,
-                            modifier = Modifier.padding(start = 8.dp)
+                            color = MobiTheme.colors.textDisable
                         )
                     }
                 }
@@ -108,7 +113,10 @@ fun CustomSearchView(
                         onSearch("")
                     }
                 ) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = "Close Search")
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "Close Search"
+                    )
                 }
 
                 // Request focus when expanded
@@ -134,10 +142,23 @@ fun CustomSearchView(
                         text = hintState,
                         style = MobiTheme.typography.bodyMedium,
                         color = MobiTheme.colors.textPrimary,
-                        modifier = Modifier.padding(start = 8.dp)
+                        modifier = Modifier.padding(start = searchTextStartPadding)
                     )
                 }
             }
         }
+    }
+}
+
+@ThemePreviews
+@Composable
+fun PreviewCustomSearchView(modifier: Modifier = Modifier) {
+    MobiTheme {
+        CustomSearchComponent(
+            hint = "Search here...",
+            onSearch = { query ->
+                println("Search query: $query") // TODO implement search logic
+            }
+        )
     }
 }

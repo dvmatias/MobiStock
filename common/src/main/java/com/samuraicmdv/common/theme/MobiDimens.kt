@@ -22,7 +22,7 @@ class MobiDimens(
     val dimen_7: Dp = 56.dp,
     val dimen_8: Dp = 64.dp,
     val topAppBar: Dp = 56.dp,
-    val searchView: Dp = 48.dp
+    val searchView: Dp = 52.dp
 )
 
 val LocalMobiDimens = staticCompositionLocalOf {

@@ -49,15 +49,11 @@ fun ProductCategoryItemContent(
 
     Card(
         shape = RoundedCornerShape(MobiTheme.dimens.dimen_1),
-        colors = if (isCategory) {
-            CardDefaults.cardColors(
-                containerColor = CardDefaults.cardColors().containerColor
-            )
-        } else {
+        colors =
             CardDefaults.cardColors(
                 containerColor = MobiTheme.colors.surfaceContainer
             )
-        },
+        ,
         modifier = Modifier
             .fillMaxWidth()
             .then(modifier)
