@@ -25,10 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.common.uidata.ProductBrandUiData
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
 import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent
-import com.samuraicmdv.featurecategory.state.ProductBrandUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable

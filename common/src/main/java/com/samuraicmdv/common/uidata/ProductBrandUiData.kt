@@ -1,4 +1,4 @@
-package com.samuraicmdv.featurecategory.state
+package com.samuraicmdv.common.uidata
 
 data class ProductBrandUiData(
     val id: Int,

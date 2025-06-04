@@ -1,5 +1,9 @@
 package com.samuraicmdv.featurecategory.transformer
 
+import com.samuraicmdv.common.uidata.ProductBrandUiData
+import com.samuraicmdv.common.uidata.ProductPriceUiData
+import com.samuraicmdv.common.uidata.ProductStockUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.common.utils.getNameResId
 import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.domain.model.CategoryModel
@@ -7,10 +11,6 @@ import com.samuraicmdv.domain.model.CategoryResponseModel
 import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.featurecategory.state.CategoryScreenState
 import com.samuraicmdv.featurecategory.state.CategoryUiData
-import com.samuraicmdv.featurecategory.state.ProductBrandUiData
-import com.samuraicmdv.featurecategory.state.ProductPriceUiData
-import com.samuraicmdv.featurecategory.state.ProductStockUiData
-import com.samuraicmdv.featurecategory.state.ProductUiData
 
 object CategoryUiDataTransformer {
     fun transform(model: CategoryResponseModel): CategoryScreenState {

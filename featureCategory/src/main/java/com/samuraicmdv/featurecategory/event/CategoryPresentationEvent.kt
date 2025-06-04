@@ -1,6 +1,6 @@
 package com.samuraicmdv.featurecategory.event
 
-import com.samuraicmdv.featurecategory.state.ProductUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 
 sealed class CategoryPresentationEvent : CategoryEvent {
     data class FilterProductsByBrand(val brandId: Int) : CategoryPresentationEvent()
