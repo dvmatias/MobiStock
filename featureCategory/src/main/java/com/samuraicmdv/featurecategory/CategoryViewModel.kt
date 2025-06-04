@@ -3,9 +3,9 @@ package com.samuraicmdv.featurecategory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.samuraicmdv.common.ALPHA_FULL
+import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.domain.usecase.GetCategoryUseCase
 import com.samuraicmdv.featurecategory.state.CategoryScreenState
-import com.samuraicmdv.featurecategory.state.ProductUiData
 import com.samuraicmdv.featurecategory.transformer.CategoryUiDataTransformer
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

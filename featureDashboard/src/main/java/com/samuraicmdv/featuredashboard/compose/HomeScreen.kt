@@ -1,10 +1,13 @@
 package com.samuraicmdv.featuredashboard.compose
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featuredashboard.data.BranchType
@@ -39,7 +42,26 @@ fun HomeScreen(
         modifier = modifier.fillMaxSize(),
     ) { paddingValues ->
         UsersBottomSheetContent(relatedUsers, showUsersBottomSheet, handleEvent = handleEvent)
-        HomeScreenContent(uiState.productCategoriesState, handleEvent, Modifier.padding(paddingValues))
+
+        // Product categories content
+        uiState.productCategoriesState?.let {
+            // Display product categories content
+            if (!it.isLoading) {
+                ProductCategoriesContent(
+                    uiState = it,
+                    handleEvent = handleEvent,
+                    modifier = Modifier.padding(paddingValues)
+                )
+            } else {
+                // Display loading state
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = modifier.fillMaxSize()
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package com.samuraicmdv.featurecategory.state
+package com.samuraicmdv.common.uidata
 
 data class ProductUiData(
     val id: Int,
@@ -16,15 +16,4 @@ data class ProductUiData(
     val reviews: Int? = null,
     val isFavorite: Boolean? = null,
     val brand: ProductBrandUiData? = null,
-)
-data class ProductPriceUiData(
-    val sellingPrice: Double? = null,
-    val costPrice: Double? = null,
-    val currency: String? = null,
-)
-
-data class ProductStockUiData(
-    val quantity: Int? = null,
-    val low: Int? = null,
-    val min: Int? = null,
 )

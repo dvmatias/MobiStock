@@ -44,7 +44,7 @@ private var shouldEmitBarcodeLost = true
 @Composable
 fun CameraPreviewViewContent(
     modifier: Modifier = Modifier,
-    callback: (BarcodeScannerEvent) -> Unit
+    handleEvent: (BarcodeScannerEvent) -> Unit
 ) {
     val context = LocalContext.current
     val lifecycleOwner = context as LifecycleOwner
@@ -79,7 +79,7 @@ fun CameraPreviewViewContent(
                 targetResolution = targetResolution,
                 barcodeScanner = barcodeScanner,
                 cameraExecutor = cameraExecutor,
-                callback = callback
+                handleEvent = handleEvent
             )
             previewView
         },
@@ -100,7 +100,7 @@ private fun setupCamera(
     targetResolution: Size,
     barcodeScanner: com.google.mlkit.vision.barcode.BarcodeScanner,
     cameraExecutor: ExecutorService,
-    callback: (BarcodeScannerEvent) -> Unit
+    handleEvent: (BarcodeScannerEvent) -> Unit
 ) {
     cameraProviderFuture.addListener({
         try {
@@ -118,7 +118,7 @@ private fun setupCamera(
                 .setTargetRotation(previewView.display.rotation)
                 .build().apply {
                     setAnalyzer(cameraExecutor) { imageProxy ->
-                        processImageProxy(imageProxy, barcodeScanner, callback)
+                        processImageProxy(imageProxy, barcodeScanner, handleEvent)
                     }
                 }
 
@@ -144,7 +144,7 @@ private fun setupCamera(
 private fun processImageProxy(
     imageProxy: ImageProxy,
     barcodeScanner: com.google.mlkit.vision.barcode.BarcodeScanner,
-    callback: (BarcodeScannerEvent) -> Unit
+    handleEvent: (BarcodeScannerEvent) -> Unit
 ) {
     val currentTimestamp = SystemClock.elapsedRealtime()
     val timeSinceLastAnalysis = currentTimestamp - lastAnalyzedTimestamp
@@ -191,13 +191,13 @@ private fun processImageProxy(
                     if (shouldEmitBarcodeLost) {
                         shouldEmitBarcodeLost = false
                         // Emit barcode lost event if no barcodes are detected
-                        callback(BarcodeScannerPresentationEvent.OnBarcodeLost)
+                        handleEvent(BarcodeScannerPresentationEvent.OnBarcodeLost)
                     }
                 } else {
                     shouldEmitBarcodeLost = true
                     for (barcode in barcodes.toSet()) {
                         barcode.rawValue?.let {
-                            callback(BarcodeScannerPresentationEvent.OnBarcodeScanned(it, croppedBitmap.asImageBitmap()))
+                            handleEvent(BarcodeScannerPresentationEvent.OnBarcodeScanned(it, croppedBitmap.asImageBitmap()))
                         }
                     }
                 }

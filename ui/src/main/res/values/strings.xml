@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ui_label_value_label_placeholder">%1$s:</string>
+    <string name="button_expand_all_label">expand all</string>
+    <string name="button_collapse_all_label">collapse all</string>
+
+    <!-- Custom Search Component -->
+    <string name="custom_search_component_hint_default">Search here…</string>
 </resources>

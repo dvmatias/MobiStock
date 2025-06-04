@@ -31,6 +31,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.extension.bottomShadow
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.common.uidata.ProductBrandUiData
+import com.samuraicmdv.common.uidata.ProductPriceUiData
+import com.samuraicmdv.common.uidata.ProductStockUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
 import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent
@@ -38,10 +42,6 @@ import com.samuraicmdv.featurecategory.event.ProductsSort
 import com.samuraicmdv.featurecategory.event.ProductsSortName
 import com.samuraicmdv.featurecategory.event.ProductsSortType
 import com.samuraicmdv.featurecategory.state.CategoryUiData
-import com.samuraicmdv.featurecategory.state.ProductBrandUiData
-import com.samuraicmdv.featurecategory.state.ProductPriceUiData
-import com.samuraicmdv.featurecategory.state.ProductStockUiData
-import com.samuraicmdv.featurecategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
 @Composable
@@ -99,7 +99,6 @@ fun CategoryScreenContent(
                     name = stringResource(id = nameResId),
                     description = description,
                     imageUrl = imageUrl,
-                    productsCount = productsCount,
                     productsQuantity = productsQuantity,
                     categoryTitleAlpha = categoryTitleAlpha,
                     handleEvent = handleEvent,
@@ -190,7 +189,6 @@ fun PreviewCategoryContent() {
                     nameResId = com.samuraicmdv.common.R.string.product_category_battery_name,
                     description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ",
                     imageUrl = "https://www.example.com/image.jpg",
-                    productsCount = 32,
                     productsQuantity = 547,
                     logoUrl = "https://www.example.com/image.jpg"
                 ),

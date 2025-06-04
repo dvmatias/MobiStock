@@ -28,7 +28,7 @@ fun UsersBottomSheetList(
 
 @ThemePreviews
 @Composable
-fun PreviewUsersList(modifier: Modifier = Modifier) {
+fun PreviewUsersList() {
     MobiTheme {
         Surface {
             UsersBottomSheetList(

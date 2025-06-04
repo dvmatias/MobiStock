@@ -13,6 +13,8 @@ data class ProductCategoryEntity(
     @SerializedName("description") val description: String? = null,
     @SerializedName("logo_url") val logoUrl: String? = null,
     @SerializedName("image_url") val imageUrl: String? = null,
+    @SerializedName("products_quantity") val productsQuantity: Int? = null,
+    @SerializedName("subcategories") val subcategories: List<ProductSubcategoryEntity>? = null,
 ) {
     fun toModel(): CategoryModel {
         return CategoryModel(

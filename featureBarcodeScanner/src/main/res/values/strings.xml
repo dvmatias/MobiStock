@@ -1,3 +1,8 @@
 <resources>
     <string name="title_activity_barcode_scanner">BarcodeScannerActivity</string>
+
+    <string name="camera_permission_title">Activate the camera!</string>
+    <string name="camera_permission_details">MobiShop Stock needs to access the camera to scan product barcodes.</string>
+    <string name="camera_permission_button_open_config_label">Open Settings </string>
+    <string name="camera_permission_button_exit_screen_label">Exit</string>
 </resources>

@@ -1,14 +1,11 @@
 package com.samuraicmdv.featuredashboard.state
 
-import androidx.annotation.StringRes
-
+/**
+ * State class for managing the product categories in the dashboard.
+ *
+ * @param categories List of [ProductCategoryUiData] representing the product categories.
+ */
 data class ProductCategoriesState(
     val categories: List<ProductCategoryUiData>? = null,
-)
-
-data class ProductCategoryUiData(
-    val id: Int,
-    @StringRes val nameResId: Int? = null,
-    val imageUrl: String? = null,
-    val productsCount: Int? = null,
+    val isLoading: Boolean = false,
 )

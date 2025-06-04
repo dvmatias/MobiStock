@@ -28,13 +28,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.common.uidata.ProductBrandUiData
+import com.samuraicmdv.common.uidata.ProductPriceUiData
+import com.samuraicmdv.common.uidata.ProductStockUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
 import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent
-import com.samuraicmdv.featurecategory.state.ProductBrandUiData
-import com.samuraicmdv.featurecategory.state.ProductPriceUiData
-import com.samuraicmdv.featurecategory.state.ProductStockUiData
-import com.samuraicmdv.featurecategory.state.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 import com.samuraicmdv.ui.widget.PriceComponentLevel
 import com.samuraicmdv.ui.widget.PriceComponentStyle

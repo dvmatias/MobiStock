@@ -1,3 +1,5 @@
 <resources>
     <string name="title_activity_home">HomeActivity</string>
+
+    <string name="home_product_categories_title">Accessories</string>
 </resources>

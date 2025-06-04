@@ -6,6 +6,5 @@ data class CategoryUiData(
     val description: String,
     val logoUrl: String,
     val imageUrl: String,
-    val productsCount: Int,
     val productsQuantity: Int,
 )

@@ -1,9 +1,9 @@
 package com.samuraicmdv.data.mapper
 
-import com.samuraicmdv.common.utils.ProductCategory
+import com.samuraicmdv.common.utils.ProductCategoryType
 import com.samuraicmdv.data.entity.BrandEntity
-import com.samuraicmdv.data.entity.CategoryEntity
 import com.samuraicmdv.data.entity.GetCategoryResponseEntity
+import com.samuraicmdv.data.entity.ProductCategoryEntity
 import com.samuraicmdv.data.entity.ProductEntity
 import com.samuraicmdv.domain.base.DataMapper
 import com.samuraicmdv.domain.model.BrandModel
@@ -23,7 +23,7 @@ object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryRespo
         }
     }
 
-    private fun transformCategory(category: CategoryEntity?): CategoryModel =
+    private fun transformCategory(category: ProductCategoryEntity?): CategoryModel =
         CategoryModel(
             id = category?.id,
             type = getProductCategoryType(category?.name),
@@ -31,7 +31,6 @@ object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryRespo
             description = category?.description,
             logoUrl = category?.logoUrl,
             imageUrl = category?.imageUrl,
-            productsCount = category?.productsCount,
             productsQuantity = category?.productsQuantity
         )
 
@@ -72,11 +71,11 @@ object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryRespo
             )
         }.orEmpty()
 
-    fun getProductCategoryType(productCategoryName: String?): ProductCategory =
-        ProductCategory.entries.find {
+    fun getProductCategoryType(productCategoryName: String?): ProductCategoryType =
+        ProductCategoryType.entries.find {
             it.name == productCategoryName
         } ?: run {
-            ProductCategory.UNKNOWN
+            ProductCategoryType.UNKNOWN
         }
 }
 

@@ -26,6 +26,7 @@ import com.samuraicmdv.featuredashboard.event.DashboardEvent
 import com.samuraicmdv.featuredashboard.state.DailySaleState
 import com.samuraicmdv.ui.util.ThemePreviews
 import java.util.Date
+import com.samuraicmdv.ui.R as UiR
 
 @Composable
 fun DailySalesLedgeScreen(
@@ -55,15 +56,19 @@ fun DailySalesNotOpenContent(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.fillMaxSize().clickable {
-            // TODO open daily sales ledge
-        }
+        modifier = modifier
+            .fillMaxSize()
+            .clickable {
+                // TODO open daily sales ledge
+            }
     ) {
         // Current date
         Text(
             text = currentDayDate?.time.toString(),
             style = MobiTheme.typography.titleSmallBold,
-            modifier = Modifier.padding(top = MobiTheme.dimens.dimen_2, start = MobiTheme.dimens.dimen_2).fillMaxWidth()
+            modifier = Modifier
+                .padding(top = MobiTheme.dimens.dimen_2, start = MobiTheme.dimens.dimen_2)
+                .fillMaxWidth()
         )
         // Card to open daily sales ledge
         Card(
@@ -84,18 +89,24 @@ fun DailySalesNotOpenContent(
                 Image(
                     painter = painterResource(id = R.drawable.ic_cash_register),
                     contentDescription = "Cash Register Icon",
-                    modifier = Modifier.size(48.dp).padding(6.dp)
+                    modifier = Modifier
+                        .size(48.dp)
+                        .padding(6.dp)
                 )
                 Text(
                     text = "Open cash register to start selling",
                     style = MobiTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(start = MobiTheme.dimens.dimen_1).weight(1f)
+                    modifier = Modifier
+                        .padding(start = MobiTheme.dimens.dimen_1)
+                        .weight(1f)
                 )
                 Icon(
-                    painter = painterResource(id = R.drawable.arrow_forward_ios_24px),
+                    painter = painterResource(id = UiR.drawable.ic_arrow_forward_24px),
                     contentDescription = "Arrow Right Icon",
                     tint = MobiTheme.colors.primary,
-                    modifier = Modifier.size(32.dp).padding(6.dp)
+                    modifier = Modifier
+                        .size(32.dp)
+                        .padding(6.dp)
                 )
             }
         }
@@ -103,7 +114,10 @@ fun DailySalesNotOpenContent(
         summary?.let {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxWidth(0.7f).padding(start = MobiTheme.dimens.dimen_2, end = MobiTheme.dimens.dimen_2).weight(1f)
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .padding(start = MobiTheme.dimens.dimen_2, end = MobiTheme.dimens.dimen_2)
+                    .weight(1f)
             ) {
                 Text(
                     text = it,
@@ -135,7 +149,7 @@ fun PreviewDailySalesLedgeScreen() {
                     isLoading = false,
                     currentDayDate = Date(),
                     summary = "There are no sales registered today. Please open cash register to start registering sales.",
-                    isDailySalesLedgeOpen = true
+                    isDailySalesLedgeOpen = false
                 ),
                 callback = {}
             )

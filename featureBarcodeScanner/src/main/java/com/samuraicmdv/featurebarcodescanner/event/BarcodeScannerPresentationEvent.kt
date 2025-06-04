@@ -9,6 +9,29 @@ import androidx.compose.ui.graphics.ImageBitmap
  * @see BarcodeScannerEvent
  */
 sealed interface BarcodeScannerPresentationEvent : BarcodeScannerEvent {
-    data class OnBarcodeScanned(val barcode: String, val bitmap: ImageBitmap?) : BarcodeScannerPresentationEvent
+    /**
+     * Event emitted when a barcode is successfully scanned.
+     *
+     * @param barcode The scanned barcode string.
+     * @param bitmap The image bitmap of the scanned barcode, can be null if not available.
+     */
+    data class OnBarcodeScanned(
+        val barcode: String,
+        val bitmap: ImageBitmap?
+    ) : BarcodeScannerPresentationEvent
+
+    /**
+     * Event emitted when the barcode scanner has lost the code after a successful scan.
+     */
     data object OnBarcodeLost : BarcodeScannerPresentationEvent
+
+    /**
+     * Exit screen event.
+     */
+    data object ExitScreen : BarcodeScannerNavigationEvent
+
+    /**
+     * Event emitted when the bottom sheet is dismissed.
+     */
+    data object OnBottomSheetDismissed : BarcodeScannerNavigationEvent
 }

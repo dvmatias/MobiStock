@@ -2,6 +2,8 @@ package com.samuraicmdv.featurecategory.state
 
 import com.samuraicmdv.common.ALPHA_FULL
 import com.samuraicmdv.common.ALPHA_ZERO
+import com.samuraicmdv.common.uidata.ProductBrandUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 
 data class CategoryScreenState(
     val isLoading: Boolean = false,
