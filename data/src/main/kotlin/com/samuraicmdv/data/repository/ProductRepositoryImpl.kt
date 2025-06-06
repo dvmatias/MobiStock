@@ -11,11 +11,16 @@ class ProductRepositoryImpl @Inject constructor(
     private val productDataSource: ProductDataSource,
 ) : ProductRepository {
 
-    override suspend fun getProductDetails(
+    override suspend fun getProductDetailsForStore(
         productId: Int,
-        storeId: Int?,
+        storeId: Int,
     ): ResponseWrapper<GetProductDetailsResponseModel> =
-        productDataSource.getProductDetails(productId, storeId)
+        productDataSource.getProductDetailsForStore(productId, storeId)
+
+    override suspend fun getProductDetailsGeneral(
+        productId: Int,
+    ): ResponseWrapper<GetProductDetailsResponseModel> =
+        productDataSource.getProductDetailsGeneral(productId)
 
     override suspend fun createProduct(
         name: String,

@@ -20,12 +20,26 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
     private val getProductDetailsDataMapper: GetProductDetailsDataMapper,
 ) : ProductDataSource {
 
-    override suspend fun getProductDetails(
+    override suspend fun getProductDetailsForStore(
         productId: Int,
-        storeId: Int?
+        storeId: Int
     ): ResponseWrapper<GetProductDetailsResponseModel> =
         withContext(Dispatchers.IO) {
-            productApi.getProductDetails(productId, storeId).let { response ->
+            productApi.getProductDetailsForStore(productId, storeId).let { response ->
+                if (response.isSuccessful && response.body() != null) {
+                    ResponseWrapper.success(getProductDetailsDataMapper.entityToModel(response.body()))
+                } else {
+                    ResponseWrapper.error(
+                        null,
+                        ResponseFailure.ServerError("Get product details response failure.")
+                    )
+                }
+            }
+        }
+
+    override suspend fun getProductDetailsGeneral(productId: Int): ResponseWrapper<GetProductDetailsResponseModel> =
+        withContext(Dispatchers.IO) {
+            productApi.getProductDetailsGeneral(productId).let { response ->
                 if (response.isSuccessful && response.body() != null) {
                     ResponseWrapper.success(getProductDetailsDataMapper.entityToModel(response.body()))
                 } else {

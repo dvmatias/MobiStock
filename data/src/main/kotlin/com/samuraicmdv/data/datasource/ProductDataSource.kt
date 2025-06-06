@@ -5,10 +5,27 @@ import com.samuraicmdv.domain.model.GetProductDetailsResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
 interface ProductDataSource {
-
-    suspend fun getProductDetails(
+    /**
+     * Triggers the service call to get product details for a specific store. The difference with
+     * [ProductDataSource.getProductDetailsGeneral] lays in that the product information includes stock information data.
+     *
+     * @param productId The ID of the product to retrieve details for.
+     * @param storeId The ID of the store for which to retrieve product details.
+     */
+    suspend fun getProductDetailsForStore(
         productId: Int,
-        storeId: Int? = null,
+        storeId: Int,
+    ): ResponseWrapper<GetProductDetailsResponseModel>
+
+    /**
+     * Triggers the service call to get product details for a specific store. The difference with
+     * [ProductDataSource.getProductDetailsForStore] lays in that the product information doesn't includes stock
+     * information data since the call is not tied to any store.
+     *
+     * @param productId The ID of the product to retrieve details for.
+     */
+    suspend fun getProductDetailsGeneral(
+        productId: Int,
     ): ResponseWrapper<GetProductDetailsResponseModel>
 
     /**
