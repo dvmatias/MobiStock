@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.samuraicmdv.domain.usecase.CreateProductUseCase
 import com.samuraicmdv.domain.usecase.GetBrandsUseCase
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
-import com.samuraicmdv.domain.usecase.GetProductDetailsForStoreUseCase
+import com.samuraicmdv.domain.usecase.GetProductDetailsByIdForStoreUseCase
 import com.samuraicmdv.featureproductdetails.data.BrandUiData
 import com.samuraicmdv.featureproductdetails.data.CategoryUiData
 import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
@@ -31,7 +31,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     private val getProductCategoriesUseCase: GetProductCategoriesUseCase,
     private val getBrandsUseCase: GetBrandsUseCase,
     private val createProductUseCase: CreateProductUseCase,
-    private val getProductDetailsForStoreUseCase: GetProductDetailsForStoreUseCase,
+    private val getProductDetailsByIdForStoreUseCase: GetProductDetailsByIdForStoreUseCase,
     private val transformer: ProductDetailsUiDataTransformer,
 ) : ViewModel() {
     /**
@@ -93,7 +93,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
      * Fetches the product details. This is only needed when the screen is in view mode or edit mode.
      */
     private suspend fun fetchProductDetails(productId: Int) {
-        getProductDetailsForStoreUseCase(GetProductDetailsForStoreUseCase.Params(productId, storeId)).let {
+        getProductDetailsByIdForStoreUseCase(GetProductDetailsByIdForStoreUseCase.Params(productId, storeId)).let {
             _uiState.value = _uiState.value.copy(product = transformer.transformProduct(it))
         }
     }

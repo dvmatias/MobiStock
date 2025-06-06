@@ -2,8 +2,10 @@ package com.samuraicmdv.domain.dagger
 
 import com.samuraicmdv.domain.repository.ProductRepository
 import com.samuraicmdv.domain.usecase.CreateProductUseCase
-import com.samuraicmdv.domain.usecase.GetProductDetailsForStoreUseCase
-import com.samuraicmdv.domain.usecase.GetProductDetailsGeneralUseCase
+import com.samuraicmdv.domain.usecase.GetProductDetailsByCodeForStoreUseCase
+import com.samuraicmdv.domain.usecase.GetProductDetailsByCodeGeneralUseCase
+import com.samuraicmdv.domain.usecase.GetProductDetailsByIdForStoreUseCase
+import com.samuraicmdv.domain.usecase.GetProductDetailsByIdGeneralUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,14 +19,26 @@ object UseCaseModule {
         CreateProductUseCase(productRepository)
 
     @Provides
-    fun provideGetProductDetailsForStoreUseCase(
+    fun provideGetProductDetailsByIdForStoreUseCase(
         productRepository: ProductRepository,
-    ): GetProductDetailsForStoreUseCase =
-        GetProductDetailsForStoreUseCase(productRepository)
+    ): GetProductDetailsByIdForStoreUseCase =
+        GetProductDetailsByIdForStoreUseCase(productRepository)
 
     @Provides
-    fun provideGetProductDetailsGeneralUseCase(
+    fun provideGetProductDetailsByIdGeneralUseCase(
         productRepository: ProductRepository,
-    ): GetProductDetailsGeneralUseCase =
-        GetProductDetailsGeneralUseCase(productRepository)
+    ): GetProductDetailsByIdGeneralUseCase =
+        GetProductDetailsByIdGeneralUseCase(productRepository)
+
+    @Provides
+    fun provideGetProductDetailsByCodeForStoreUseCase(
+        productRepository: ProductRepository,
+    ): GetProductDetailsByCodeForStoreUseCase =
+        GetProductDetailsByCodeForStoreUseCase(productRepository)
+
+    @Provides
+    fun provideGetProductDetailsByCodeGeneralUseCase(
+        productRepository: ProductRepository,
+    ): GetProductDetailsByCodeGeneralUseCase =
+        GetProductDetailsByCodeGeneralUseCase(productRepository)
 }

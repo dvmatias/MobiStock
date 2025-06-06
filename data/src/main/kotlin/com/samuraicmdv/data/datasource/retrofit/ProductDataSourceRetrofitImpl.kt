@@ -20,12 +20,12 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
     private val getProductDetailsDataMapper: GetProductDetailsDataMapper,
 ) : ProductDataSource {
 
-    override suspend fun getProductDetailsForStore(
+    override suspend fun getProductDetailsByIdForStore(
         productId: Int,
         storeId: Int
     ): ResponseWrapper<GetProductDetailsResponseModel> =
         withContext(Dispatchers.IO) {
-            productApi.getProductDetailsForStore(productId, storeId).let { response ->
+            productApi.getProductDetailsByIdForStore(productId, storeId).let { response ->
                 if (response.isSuccessful && response.body() != null) {
                     ResponseWrapper.success(getProductDetailsDataMapper.entityToModel(response.body()))
                 } else {
@@ -37,9 +37,44 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
             }
         }
 
-    override suspend fun getProductDetailsGeneral(productId: Int): ResponseWrapper<GetProductDetailsResponseModel> =
+    override suspend fun getProductDetailsByIdGeneral(
+        productId: Int
+    ): ResponseWrapper<GetProductDetailsResponseModel> =
         withContext(Dispatchers.IO) {
-            productApi.getProductDetailsGeneral(productId).let { response ->
+            productApi.getProductDetailsByIdGeneral(productId).let { response ->
+                if (response.isSuccessful && response.body() != null) {
+                    ResponseWrapper.success(getProductDetailsDataMapper.entityToModel(response.body()))
+                } else {
+                    ResponseWrapper.error(
+                        null,
+                        ResponseFailure.ServerError("Get product details response failure.")
+                    )
+                }
+            }
+        }
+
+    override suspend fun getProductDetailsByCodeForStore(
+        productCode: String,
+        storeId: Int
+    ): ResponseWrapper<GetProductDetailsResponseModel> =
+        withContext(Dispatchers.IO) {
+            productApi.getProductDetailsByCodeForStore(productCode).let { response ->
+                if (response.isSuccessful && response.body() != null) {
+                    ResponseWrapper.success(getProductDetailsDataMapper.entityToModel(response.body()))
+                } else {
+                    ResponseWrapper.error(
+                        null,
+                        ResponseFailure.ServerError("Get product details response failure.")
+                    )
+                }
+            }
+        }
+
+    override suspend fun getProductDetailsByCodeGeneral(
+        productCode: String
+    ): ResponseWrapper<GetProductDetailsResponseModel> =
+        withContext(Dispatchers.IO) {
+            productApi.getProductDetailsByCodeGeneral(productCode).let { response ->
                 if (response.isSuccessful && response.body() != null) {
                     ResponseWrapper.success(getProductDetailsDataMapper.entityToModel(response.body()))
                 } else {

@@ -20,14 +20,25 @@ interface ProductApi {
     ): Response<CreateProductResponseEntity>
 
     @GET("$PATH/$DETAILS_PATH")
-    suspend fun getProductDetailsForStore(
+    suspend fun getProductDetailsByIdForStore(
         @Query("id") productId: Int,
         @Query("store_id") storeId: Int? = null,
     ): Response<GetProductDetailsResponseEntity>
 
     @GET("$PATH/$DETAILS_PATH")
-    suspend fun getProductDetailsGeneral(
+    suspend fun getProductDetailsByIdGeneral(
         @Query("id") productId: Int,
+    ): Response<GetProductDetailsResponseEntity>
+
+    @GET("$PATH/$DETAILS_PATH")
+    suspend fun getProductDetailsByCodeForStore(
+        @Query("code") productCode: String,
+        @Query("store_id") storeId: Int? = null,
+    ): Response<GetProductDetailsResponseEntity>
+
+    @GET("$PATH/$DETAILS_PATH")
+    suspend fun getProductDetailsByCodeGeneral(
+        @Query("code") productCode: String,
     ): Response<GetProductDetailsResponseEntity>
 
     companion object {

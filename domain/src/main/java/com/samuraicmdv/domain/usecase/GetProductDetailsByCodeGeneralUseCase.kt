@@ -5,15 +5,15 @@ import com.samuraicmdv.domain.repository.ProductRepository
 import javax.inject.Inject
 
 /**
- * Use case for fetching general product details.
+ * Use case for fetching general product details by product code.
  *
  * @param productRepository The repository to access product data.
  */
-class GetProductDetailsGeneralUseCase @Inject constructor(
+class GetProductDetailsByCodeGeneralUseCase @Inject constructor(
     private val productRepository: ProductRepository,
 ) {
     suspend operator fun invoke(params: Params): ProductDetailsModel =
-        productRepository.getProductDetailsGeneral(params.productId)
+        productRepository.getProductDetailsByCodeGeneral(params.productCode)
             .getOrNull()
             ?.productDetails
             ?: throw Exception("Product not found") // TODO Handle case
@@ -21,9 +21,9 @@ class GetProductDetailsGeneralUseCase @Inject constructor(
     /**
      * Parameters for fetching general product details.
      *
-     * @param productId The ID of the product to retrieve details for.
+     * @param productCode The code of the product to retrieve details for.
      */
     data class Params(
-        val productId: Int
+        val productCode: String,
     )
 }

@@ -6,24 +6,48 @@ import com.samuraicmdv.domain.util.ResponseWrapper
 
 interface ProductRepository {
     /**
-     * Fetch the product details for a specific store. The difference with [ProductRepository.getProductDetailsGeneral]
-     * lays in that the product information includes stock information data.
+     * Fetch the product details for a specific store using the product ID. The difference with
+     * [ProductRepository.getProductDetailsByIdGeneral] lays in that the product information includes stock information
+     * data.
      *
      * @param productId The ID of the product to retrieve details for.
      * @param storeId The ID of the store for which to retrieve product details.
      */
-    suspend fun getProductDetailsForStore(
+    suspend fun getProductDetailsByIdForStore(
         productId: Int,
         storeId: Int,
     ): ResponseWrapper<GetProductDetailsResponseModel>
 
     /**
-     * Fetch the product details for a specific store. The difference with [ProductRepository.getProductDetailsForStore]
-     * lays in that the product information in this case doesn't includes stock information data.
+     * Fetch the product details in general using the product ID. The difference with
+     * [ProductRepository.getProductDetailsByIdForStore] lays in that the product information in this case doesn't
+     * includes stock information data.
      *
      * @param productId The ID of the product to retrieve details for.
      */
-    suspend fun getProductDetailsGeneral(productId: Int): ResponseWrapper<GetProductDetailsResponseModel>
+    suspend fun getProductDetailsByIdGeneral(productId: Int): ResponseWrapper<GetProductDetailsResponseModel>
+
+    /**
+     * Fetch the product details for a specific store using the product code. The difference with
+     * [ProductRepository.getProductDetailsByCodeGeneral] lays in that the product information includes stock information
+     * data.
+     *
+     * @param productCode The code of the product to retrieve details for.
+     * @param storeId The ID of the store for which to retrieve product details.
+     */
+    suspend fun getProductDetailsByCodeForStore(
+        productCode: String,
+        storeId: Int,
+    ): ResponseWrapper<GetProductDetailsResponseModel>
+
+    /**
+     * Fetch the product details in general using the product code. The difference with
+     * [ProductRepository.getProductDetailsByIdGeneral] lays in that the product information in this case doesn't
+     * includes stock information data.
+     *
+     * @param productCode The code of the product to retrieve details for.
+     */
+    suspend fun getProductDetailsByCodeGeneral(productCode: String): ResponseWrapper<GetProductDetailsResponseModel>
 
     suspend fun createProduct(
         name: String,
