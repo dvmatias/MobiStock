@@ -1,5 +1,6 @@
 package com.samuraicmdv.featurebarcodescanner.state
 
+import androidx.compose.ui.graphics.ImageBitmap
 import com.samuraicmdv.common.uidata.ProductUiData
 
 /**
@@ -9,10 +10,13 @@ import com.samuraicmdv.common.uidata.ProductUiData
  * @property isLoading Indicates whether the product details are currently being loaded.
  * @property productUiData Contains the details of the product, such as name, description, price, stock, and brand.
  * @property scannedBarCode The barcode that was scanned to retrieve the product details, if applicable.
+ * @property scannedImageBitmap The bitmap image of the scanned barcode, used for display purposes.
+ * @property showBottomSheet Indicates whether the bottom sheet displaying product details should be shown.
  */
-data class ProductDetailsUiData(
+data class ScanDetailsUiData(
     val isLoading: Boolean = false,
-    val showBottomSheet: Boolean = false,
     val productUiData: ProductUiData? = null,
-    val scannedBarCode: String? = null
+    val scannedBarCode: String? = null,
+    val scannedImageBitmap: ImageBitmap? = null,
+    val showBottomSheet: Boolean = false,
 )

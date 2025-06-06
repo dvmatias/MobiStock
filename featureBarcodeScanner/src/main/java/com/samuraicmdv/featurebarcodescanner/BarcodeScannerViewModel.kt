@@ -3,7 +3,7 @@ package com.samuraicmdv.featurebarcodescanner
 import androidx.lifecycle.ViewModel
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerPresentationEvent
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
-import com.samuraicmdv.featurebarcodescanner.state.ProductDetailsUiData
+import com.samuraicmdv.featurebarcodescanner.state.ScanDetailsUiData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -48,18 +48,19 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
             // Updates the UI data with the new scanned barcode and image bitmap
             _uiData.value = _uiData.value.copy(
                 lastScannedBarcode = event.barcode,
-                scannedImageBitmap = event.bitmap
             )
             // Update the product details UI data with the scanned barcode
             _uiData.value = _uiData.value.copy(
-                productDetailsUiData = _uiData.value.productDetailsUiData?.copy(
+                scanDetailsUiData = _uiData.value.scanDetailsUiData?.copy(
                     showBottomSheet = true,
                     isLoading = true,
-                    scannedBarCode = event.barcode
-                ) ?: ProductDetailsUiData(
+                    scannedBarCode = event.barcode,
+                    scannedImageBitmap = event.bitmap
+                ) ?: ScanDetailsUiData(
                     showBottomSheet = true,
                     isLoading = true,
-                    scannedBarCode = event.barcode
+                    scannedBarCode = event.barcode,
+                    scannedImageBitmap = event.bitmap
                 )
             )
         }
@@ -78,14 +79,14 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
      *  Checks if the bottom sheet should be dismissed.
      */
     fun shouldDismissBottomSheet(): Boolean =
-        _uiData.value.productDetailsUiData?.showBottomSheet == true
+        _uiData.value.scanDetailsUiData?.showBottomSheet == true
 
     /**
      *  Dismisses the bottom sheet and resets the loading state. Also, allows scanning again.
      */
     fun dismissBottomSheet() {
         _uiData.value = _uiData.value.copy(
-            productDetailsUiData = _uiData.value.productDetailsUiData?.copy(
+            scanDetailsUiData = _uiData.value.scanDetailsUiData?.copy(
                 showBottomSheet = false,
                 isLoading = false
             )

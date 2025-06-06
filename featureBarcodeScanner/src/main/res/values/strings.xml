@@ -5,4 +5,7 @@
     <string name="camera_permission_details">MobiShop Stock needs to access the camera to scan product barcodes.</string>
     <string name="camera_permission_button_open_config_label">Open Settings </string>
     <string name="camera_permission_button_exit_screen_label">Exit</string>
+
+
+    <string name="label_product_details_button">Product details</string>
 </resources>

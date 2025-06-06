@@ -32,7 +32,6 @@ import com.samuraicmdv.common.uidata.ProductBrandUiData
 import com.samuraicmdv.common.uidata.ProductPriceUiData
 import com.samuraicmdv.common.uidata.ProductStockUiData
 import com.samuraicmdv.common.uidata.ProductUiData
-import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
 import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -108,7 +107,7 @@ fun ProductItem(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.in_stock_ic),
+                        painter = painterResource(id = com.samuraicmdv.common.R.drawable.in_stock_ic),
                         contentDescription = null,
                         colorFilter = ColorFilter.tint(color = MobiTheme.colors.onSurface),
                         modifier = Modifier.size(20.dp)
