@@ -8,12 +8,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerEvent
+import com.samuraicmdv.featurebarcodescanner.preview.BarcodeScannerScreenPreviewParameter
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
 import com.samuraicmdv.ui.util.ThemePreviews
 
@@ -60,11 +62,13 @@ fun BarcodeScannerScreen(
 
 @ThemePreviews
 @Composable
-fun PreviewBarcodeScannerScreen() {
+fun PreviewBarcodeScannerScreen(
+    @PreviewParameter(BarcodeScannerScreenPreviewParameter::class) previewData: BarcodeScannerState
+) {
     MobiTheme {
         Surface {
             BarcodeScannerScreen(
-                uiData = BarcodeScannerState(),
+                uiData = previewData,
                 handleEvent = {}
             )
         }
