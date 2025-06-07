@@ -14,7 +14,6 @@ class GetProductDetailsByCodeGeneralUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(params: Params): ProductDetailsModel =
         productRepository.getProductDetailsByCodeGeneral(params.productCode)
-            .getOrNull()
             ?.productDetails
             ?: throw Exception("Product not found") // TODO Handle case
 

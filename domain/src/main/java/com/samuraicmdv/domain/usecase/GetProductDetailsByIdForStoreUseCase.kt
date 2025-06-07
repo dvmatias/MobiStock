@@ -16,7 +16,7 @@ class GetProductDetailsByIdForStoreUseCase @Inject constructor(
         productRepository.getProductDetailsByIdForStore(
             params.productId,
             params.storeId
-        ).getOrNull()?.productDetails
+        )?.productDetails
             ?: throw Exception("Product not found") // TODO Handle case
 
     /**

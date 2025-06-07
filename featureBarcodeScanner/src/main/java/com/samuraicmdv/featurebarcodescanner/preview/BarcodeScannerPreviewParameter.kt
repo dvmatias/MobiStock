@@ -10,7 +10,9 @@ import com.samuraicmdv.featurebarcodescanner.state.ScanDetailsUiData
 
 class BarcodeScannerScreenPreviewParameter : PreviewParameterProvider<BarcodeScannerState> {
     override val values: Sequence<BarcodeScannerState>
-        get() = sequenceOf(BarcodeScannerState())
+        get() = sequenceOf(BarcodeScannerState(
+            scanDetailsUiData = getScanDetailsUiDataReady(),
+        ))
 }
 
 class ProductDetailsBottomSheetPreviewParameter : PreviewParameterProvider<ScanDetailsUiData> {

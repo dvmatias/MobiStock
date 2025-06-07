@@ -5,15 +5,15 @@ import com.samuraicmdv.data.entity.BrandEntity
 import com.samuraicmdv.data.entity.GetCategoryResponseEntity
 import com.samuraicmdv.data.entity.ProductCategoryEntity
 import com.samuraicmdv.data.entity.ProductEntity
-import com.samuraicmdv.domain.base.DataMapper
+import com.samuraicmdv.domain.base.EntityMapper
 import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
 import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.domain.model.StockModel
 
-object CategoryDataMapper : DataMapper<GetCategoryResponseEntity?, CategoryResponseModel?> {
-    override fun entityToModel(entity: GetCategoryResponseEntity?): CategoryResponseModel? {
+object CategoryEntityMapper : EntityMapper<GetCategoryResponseEntity?, CategoryResponseModel?> {
+    override fun map(entity: GetCategoryResponseEntity?): CategoryResponseModel? {
         return entity?.let { e ->
             CategoryResponseModel(
                 category = transformCategory(e.category),

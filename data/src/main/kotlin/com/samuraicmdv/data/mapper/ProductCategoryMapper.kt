@@ -4,14 +4,14 @@ import com.samuraicmdv.common.utils.ProductCategoryType
 import com.samuraicmdv.common.utils.ProductSubcategoryType
 import com.samuraicmdv.data.entity.GetCategoriesResponseEntity
 import com.samuraicmdv.data.entity.ProductCategoryEntity
-import com.samuraicmdv.domain.base.DataMapper
+import com.samuraicmdv.domain.base.EntityMapper
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
 import com.samuraicmdv.domain.model.ProductCategoryModel
 import com.samuraicmdv.domain.model.ProductSubcategoryModel
 
 object ProductCategoryMapper :
-    DataMapper<GetCategoriesResponseEntity, ProductCategoriesResponseModel> {
-    override fun entityToModel(
+    EntityMapper<GetCategoriesResponseEntity, ProductCategoriesResponseModel> {
+    override fun map(
         entity: GetCategoriesResponseEntity?,
     ): ProductCategoriesResponseModel =
         ProductCategoriesResponseModel(

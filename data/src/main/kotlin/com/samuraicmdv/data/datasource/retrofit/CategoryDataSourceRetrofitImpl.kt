@@ -2,7 +2,7 @@ package com.samuraicmdv.data.datasource.retrofit
 
 import com.samuraicmdv.data.api.CategoryApi
 import com.samuraicmdv.data.datasource.CategoryDataSource
-import com.samuraicmdv.data.mapper.CategoryDataMapper
+import com.samuraicmdv.data.mapper.CategoryEntityMapper
 import com.samuraicmdv.data.mapper.ProductCategoryMapper
 import com.samuraicmdv.domain.model.CategoryResponseModel
 import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class CategoryDataSourceRetrofitImpl @Inject constructor(
     private val categoryApi: CategoryApi,
-    private val categoryDataMapper: CategoryDataMapper,
+    private val categoryDataMapper: CategoryEntityMapper,
     private val productCategoryMapper: ProductCategoryMapper,
 ) : CategoryDataSource {
     override suspend fun getCategory(storeId: Int, categoryId: Int): ResponseWrapper<CategoryResponseModel> =
@@ -22,7 +22,7 @@ class CategoryDataSourceRetrofitImpl @Inject constructor(
             categoryApi.getCategoryByCategoryId(storeId, categoryId).let { serviceResponse ->
                 if (serviceResponse.isSuccessful) {
                     ResponseWrapper.success(
-                        data = categoryDataMapper.entityToModel(serviceResponse.body())
+                        data = categoryDataMapper.map(serviceResponse.body())
                     )
                 } else {
                     ResponseWrapper.error(
@@ -44,7 +44,7 @@ class CategoryDataSourceRetrofitImpl @Inject constructor(
             ).let { serviceResponse ->
                 if (serviceResponse.isSuccessful) {
                     ResponseWrapper.success(
-                        data = productCategoryMapper.entityToModel(serviceResponse.body())
+                        data = productCategoryMapper.map(serviceResponse.body())
                     )
                 } else {
                     ResponseWrapper.error(

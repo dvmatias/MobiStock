@@ -1,6 +1,7 @@
 package com.samuraicmdv.data.repository
 
 import com.samuraicmdv.data.datasource.ProductDataSource
+import com.samuraicmdv.data.mapper.GetProductDetailsEntityMapper
 import com.samuraicmdv.domain.model.CreateProductResponseModel
 import com.samuraicmdv.domain.model.GetProductDetailsResponseModel
 import com.samuraicmdv.domain.repository.ProductRepository
@@ -9,29 +10,38 @@ import javax.inject.Inject
 
 class ProductRepositoryImpl @Inject constructor(
     private val productDataSource: ProductDataSource,
+    private val getProductDetailsDataMapper: GetProductDetailsEntityMapper
 ) : ProductRepository {
 
     override suspend fun getProductDetailsByIdForStore(
         productId: Int,
         storeId: Int,
-    ): ResponseWrapper<GetProductDetailsResponseModel> =
-        productDataSource.getProductDetailsByIdForStore(productId, storeId)
+    ): GetProductDetailsResponseModel?{
+        val responseEntity = productDataSource.getProductDetailsByIdForStore(productId, storeId)
+        return getProductDetailsDataMapper.map(responseEntity.getOrNull())
+    }
 
     override suspend fun getProductDetailsByIdGeneral(
-        productId: Int,
-    ): ResponseWrapper<GetProductDetailsResponseModel> =
-        productDataSource.getProductDetailsByIdGeneral(productId)
+        productId: Int
+    ): GetProductDetailsResponseModel?{
+        val responseEntity = productDataSource.getProductDetailsByIdGeneral(productId)
+        return getProductDetailsDataMapper.map(responseEntity.getOrNull())
+    }
 
     override suspend fun getProductDetailsByCodeForStore(
         productCode: String,
         storeId: Int
-    ): ResponseWrapper<GetProductDetailsResponseModel> =
-        productDataSource.getProductDetailsByCodeGeneral(productCode)
+    ): GetProductDetailsResponseModel? {
+        val responseEntity = productDataSource.getProductDetailsByCodeForStore(productCode, storeId)
+        return getProductDetailsDataMapper.map(responseEntity.getOrNull())
+    }
 
     override suspend fun getProductDetailsByCodeGeneral(
         productCode: String
-    ): ResponseWrapper<GetProductDetailsResponseModel> =
-        productDataSource.getProductDetailsByCodeGeneral(productCode)
+    ): GetProductDetailsResponseModel? {
+        val responseEntity = productDataSource.getProductDetailsByCodeGeneral(productCode)
+        return getProductDetailsDataMapper.map(responseEntity.getOrNull())
+    }
 
     override suspend fun createProduct(
         name: String,

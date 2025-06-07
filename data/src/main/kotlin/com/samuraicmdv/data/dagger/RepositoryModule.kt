@@ -6,6 +6,7 @@ import com.samuraicmdv.data.datasource.ProductDataSource
 import com.samuraicmdv.data.datasource.SalesLedgeDataSource
 import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.UserDataSourceRetrofitImpl
+import com.samuraicmdv.data.mapper.GetProductDetailsEntityMapper
 import com.samuraicmdv.data.repository.BrandRepositoryImpl
 import com.samuraicmdv.data.repository.CategoryRepositoryImpl
 import com.samuraicmdv.data.repository.LoginRepositoryImpl
@@ -43,8 +44,11 @@ object RepositoryModule {
         BrandRepositoryImpl(brandDataSource)
 
     @Provides
-    fun provideProductRepository(productDataSource: ProductDataSource): ProductRepository =
-        ProductRepositoryImpl(productDataSource)
+    fun provideProductRepository(
+        productDataSource: ProductDataSource,
+        getProductDetailsDataMapper: GetProductDetailsEntityMapper
+    ): ProductRepository =
+        ProductRepositoryImpl(productDataSource, getProductDetailsDataMapper)
 
     @Provides
     fun provideSalesRepository(salesLedgeDataSource: SalesLedgeDataSource): SalesLedgeRepository =

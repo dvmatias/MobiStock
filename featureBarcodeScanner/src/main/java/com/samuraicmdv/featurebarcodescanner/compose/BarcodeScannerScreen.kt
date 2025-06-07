@@ -50,13 +50,11 @@ fun BarcodeScannerScreen(
         }
 
         // Product details bottom sheet
-        uiData.scanDetailsUiData?.let {
-            ProductDetailsBottomSheet(
-                uiData = it,
-                bottomSheetState = bottomSheetState,
-                handleEvent = handleEvent,
-            )
-        }
+        ProductDetailsBottomSheet(
+            uiData = uiData.scanDetailsUiData,
+            bottomSheetState = bottomSheetState,
+            handleEvent = handleEvent,
+        )
     }
 }
 

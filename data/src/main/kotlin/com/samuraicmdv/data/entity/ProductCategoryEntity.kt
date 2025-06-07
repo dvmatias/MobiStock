@@ -1,7 +1,7 @@
 package com.samuraicmdv.data.entity
 
 import com.google.gson.annotations.SerializedName
-import com.samuraicmdv.data.mapper.CategoryDataMapper
+import com.samuraicmdv.data.mapper.CategoryEntityMapper
 import com.samuraicmdv.domain.model.CategoryModel
 
 /**
@@ -23,7 +23,7 @@ data class ProductCategoryEntity(
             description = description,
             logoUrl = logoUrl,
             imageUrl = imageUrl,
-            type = CategoryDataMapper.getProductCategoryType(name)
+            type = CategoryEntityMapper.getProductCategoryType(name)
         )
     }
 }

@@ -16,7 +16,7 @@ interface ProductRepository {
     suspend fun getProductDetailsByIdForStore(
         productId: Int,
         storeId: Int,
-    ): ResponseWrapper<GetProductDetailsResponseModel>
+    ): GetProductDetailsResponseModel?
 
     /**
      * Fetch the product details in general using the product ID. The difference with
@@ -25,7 +25,7 @@ interface ProductRepository {
      *
      * @param productId The ID of the product to retrieve details for.
      */
-    suspend fun getProductDetailsByIdGeneral(productId: Int): ResponseWrapper<GetProductDetailsResponseModel>
+    suspend fun getProductDetailsByIdGeneral(productId: Int): GetProductDetailsResponseModel?
 
     /**
      * Fetch the product details for a specific store using the product code. The difference with
@@ -38,7 +38,7 @@ interface ProductRepository {
     suspend fun getProductDetailsByCodeForStore(
         productCode: String,
         storeId: Int,
-    ): ResponseWrapper<GetProductDetailsResponseModel>
+    ): GetProductDetailsResponseModel?
 
     /**
      * Fetch the product details in general using the product code. The difference with
@@ -47,7 +47,7 @@ interface ProductRepository {
      *
      * @param productCode The code of the product to retrieve details for.
      */
-    suspend fun getProductDetailsByCodeGeneral(productCode: String): ResponseWrapper<GetProductDetailsResponseModel>
+    suspend fun getProductDetailsByCodeGeneral(productCode: String): GetProductDetailsResponseModel?
 
     suspend fun createProduct(
         name: String,

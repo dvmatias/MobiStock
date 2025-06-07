@@ -9,5 +9,5 @@ package com.samuraicmdv.featurebarcodescanner.state
  */
 data class BarcodeScannerState(
     val lastScannedBarcode: String? = null,
-    val scanDetailsUiData: ScanDetailsUiData? = null,
+    val scanDetailsUiData: ScanDetailsUiData,
 )

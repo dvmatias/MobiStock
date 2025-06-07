@@ -3,7 +3,7 @@ package com.samuraicmdv.data.datasource.retrofit
 import com.samuraicmdv.data.api.UserApi
 import com.samuraicmdv.data.datasource.UserDataSource
 import com.samuraicmdv.data.entity.GetUserProfileRequestEntity
-import com.samuraicmdv.data.mapper.UserProfileDataMapper
+import com.samuraicmdv.data.mapper.UserProfileEntityMapper
 import com.samuraicmdv.domain.util.ResponseFailure
 import com.samuraicmdv.domain.util.ResponseWrapper
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 class UserDataSourceRetrofitImpl @Inject constructor(
     private val userApi: UserApi,
-    private val userProfileMapper: UserProfileDataMapper,
+    private val userProfileMapper: UserProfileEntityMapper,
 ) : UserDataSource {
 
     override suspend fun getUserProfileByUserId(userId: Int) =
@@ -28,7 +28,7 @@ class UserDataSourceRetrofitImpl @Inject constructor(
                 userApi.getProfile(requestEntity).let { serviceResponse ->
                     if (serviceResponse.isSuccessful) {
                         ResponseWrapper.success(
-                            data = userProfileMapper.entityToModel(serviceResponse.body())
+                            data = userProfileMapper.map(serviceResponse.body())
                         )
                     } else {
                         ResponseWrapper.error(

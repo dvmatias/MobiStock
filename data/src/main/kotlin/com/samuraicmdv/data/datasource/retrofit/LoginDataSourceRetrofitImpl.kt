@@ -3,7 +3,7 @@ package com.samuraicmdv.data.datasource.retrofit
 import com.samuraicmdv.data.api.LoginApi
 import com.samuraicmdv.data.datasource.LoginDataSource
 import com.samuraicmdv.data.entity.LoginRequestEntity
-import com.samuraicmdv.data.mapper.LoginDataMapper
+import com.samuraicmdv.data.mapper.LoginEntityMapper
 import com.samuraicmdv.domain.model.LoginResponseModel
 import com.samuraicmdv.domain.util.ResponseFailure
 import com.samuraicmdv.domain.util.ResponseWrapper
@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 class LoginDataSourceRetrofitImpl @Inject constructor(
     private val loginApi: LoginApi,
-    private val mapper: LoginDataMapper,
+    private val mapper: LoginEntityMapper,
 ) : LoginDataSource {
     override suspend fun login(
         username: String,
@@ -28,7 +28,7 @@ class LoginDataSourceRetrofitImpl @Inject constructor(
         withContext(Dispatchers.IO) {
             loginApi.login(LoginRequestEntity(username, password)).let { response ->
                 if (response.isSuccessful && response.body() != null) {
-                    ResponseWrapper.success(mapper.entityToModel(response.body()))
+                    ResponseWrapper.success(mapper.map(response.body()))
                 } else {
                     ResponseWrapper.error(
                         null,
