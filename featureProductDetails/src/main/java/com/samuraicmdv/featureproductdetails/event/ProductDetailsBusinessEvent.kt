@@ -1,6 +1,6 @@
 package com.samuraicmdv.featureproductdetails.event
 
-import com.samuraicmdv.featureproductdetails.data.ProductUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 
 sealed class ProductDetailsBusinessEvent : ProductDetailsEvent {
     /**

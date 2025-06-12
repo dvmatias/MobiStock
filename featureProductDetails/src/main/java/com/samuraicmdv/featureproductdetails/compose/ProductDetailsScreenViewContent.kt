@@ -28,11 +28,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.event.Action
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.common.uidata.CategoryUiData
+import com.samuraicmdv.common.uidata.ProductBrandUiData
+import com.samuraicmdv.common.uidata.ProductPriceUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featureproductdetails.R
-import com.samuraicmdv.featureproductdetails.data.BrandUiData
-import com.samuraicmdv.featureproductdetails.data.CategoryUiData
-import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
-import com.samuraicmdv.featureproductdetails.data.ProductUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 import com.samuraicmdv.ui.widget.ActionText
 import com.samuraicmdv.ui.widget.LabelValue
@@ -234,7 +234,7 @@ fun PreviewProductDetailsScreenViewContent() {
                     shortDescription = "Product Description",
                     longDescription = "Product Description",
                     imageUrls = listOf("https://picsum.photos/200/300"),
-                    brand = BrandUiData(
+                    brand = ProductBrandUiData(
                         id = 1,
                         name = "Brand Name",
                         logoUrl = "https://picsum.photos/200/300"
@@ -243,7 +243,6 @@ fun PreviewProductDetailsScreenViewContent() {
                         id = 1,
                         nameResId = R.string.field_label_category,
                         description = "Category Description",
-                        logoUrl = "https://picsum.photos/200/300"
                     ),
                     price = ProductPriceUiData(
                         sellingPrice = 7800.04,

@@ -3,8 +3,8 @@ package com.samuraicmdv.data.datasource.retrofit
 import com.samuraicmdv.data.api.ProductApi
 import com.samuraicmdv.data.datasource.ProductDataSource
 import com.samuraicmdv.data.entity.CreateProductRequestEntity
-import com.samuraicmdv.data.entity.GetProductDetailsResponseEntity
 import com.samuraicmdv.data.entity.PriceEntity
+import com.samuraicmdv.data.entity.ProductDetailsResponseEntity
 import com.samuraicmdv.data.mapper.CreateProductEntityMapper
 import com.samuraicmdv.domain.model.CreateProductResponseModel
 import com.samuraicmdv.domain.util.ResponseFailure
@@ -21,7 +21,7 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
     override suspend fun getProductDetailsByIdForStore(
         productId: Int,
         storeId: Int
-    ): ResponseWrapper<GetProductDetailsResponseEntity> =
+    ): ResponseWrapper<ProductDetailsResponseEntity> =
         withContext(Dispatchers.IO) {
             productApi.getProductDetailsByIdForStore(productId, storeId).let { response ->
                 if (response.isSuccessful && response.body() != null) {
@@ -37,7 +37,7 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
 
     override suspend fun getProductDetailsByIdGeneral(
         productId: Int
-    ): ResponseWrapper<GetProductDetailsResponseEntity> =
+    ): ResponseWrapper<ProductDetailsResponseEntity> =
         withContext(Dispatchers.IO) {
             productApi.getProductDetailsByIdGeneral(productId).let { response ->
                 if (response.isSuccessful && response.body() != null) {
@@ -54,7 +54,7 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
     override suspend fun getProductDetailsByCodeForStore(
         productCode: String,
         storeId: Int
-    ): ResponseWrapper<GetProductDetailsResponseEntity> =
+    ): ResponseWrapper<ProductDetailsResponseEntity> =
         withContext(Dispatchers.IO) {
             productApi.getProductDetailsByCodeForStore(productCode).let { response ->
                 if (response.isSuccessful && response.body() != null) {
@@ -70,7 +70,7 @@ class ProductDataSourceRetrofitImpl @Inject constructor(
 
     override suspend fun getProductDetailsByCodeGeneral(
         productCode: String
-    ): ResponseWrapper<GetProductDetailsResponseEntity> =
+    ): ResponseWrapper<ProductDetailsResponseEntity> =
         withContext(Dispatchers.IO) {
             productApi.getProductDetailsByCodeGeneral(productCode).let { response ->
                 if (response.isSuccessful && response.body() != null) {

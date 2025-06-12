@@ -1,14 +1,15 @@
 package com.samuraicmdv.data.mapper
 
 import com.samuraicmdv.common.utils.ProductCategoryType
+import com.samuraicmdv.common.utils.ProductSubcategoryType
 import com.samuraicmdv.data.entity.BrandEntity
 import com.samuraicmdv.data.entity.GetCategoryResponseEntity
 import com.samuraicmdv.data.entity.ProductCategoryEntity
 import com.samuraicmdv.data.entity.ProductEntity
 import com.samuraicmdv.domain.base.EntityMapper
 import com.samuraicmdv.domain.model.BrandModel
-import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
+import com.samuraicmdv.domain.model.ProductCategoryModel
 import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.domain.model.StockModel
 
@@ -23,15 +24,13 @@ object CategoryEntityMapper : EntityMapper<GetCategoryResponseEntity?, CategoryR
         }
     }
 
-    private fun transformCategory(category: ProductCategoryEntity?): CategoryModel =
-        CategoryModel(
+    private fun transformCategory(category: ProductCategoryEntity?): ProductCategoryModel =
+        ProductCategoryModel(
             id = category?.id,
             type = getProductCategoryType(category?.name),
             name = category?.name,
             description = category?.description,
-            logoUrl = category?.logoUrl,
-            imageUrl = category?.imageUrl,
-            productsQuantity = category?.productsQuantity
+            productsQuantity = null
         )
 
     private fun transformBrands(brands: List<BrandEntity>?): List<BrandModel> =
@@ -64,10 +63,8 @@ object CategoryEntityMapper : EntityMapper<GetCategoryResponseEntity?, CategoryR
                     low = it.stock?.low,
                     min = it.stock?.min
                 ),
-                productPrice = it.productPrice?.toModel(),
-                brand = it.brand?.let { brand ->
-                    transformBrand(brand)
-                }
+                productPrice = it.price?.toModel(),
+                brandId = it.brandId
             )
         }.orEmpty()
 
@@ -76,6 +73,13 @@ object CategoryEntityMapper : EntityMapper<GetCategoryResponseEntity?, CategoryR
             it.name == productCategoryName
         } ?: run {
             ProductCategoryType.UNKNOWN
+        }
+
+    fun getProductSubcategoryType(productSubcategoryName: String?): ProductSubcategoryType =
+        ProductSubcategoryType.entries.find {
+            it.name == productSubcategoryName
+        } ?: run {
+            ProductSubcategoryType.UNKNOWN
         }
 }
 

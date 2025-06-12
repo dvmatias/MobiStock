@@ -1,22 +1,34 @@
 package com.samuraicmdv.featurebarcodescanner
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.samuraicmdv.domain.usecase.GetProductDetailsByCodeGeneralUseCase
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerPresentationEvent
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
 import com.samuraicmdv.featurebarcodescanner.state.ScanDetailsUiData
+import com.samuraicmdv.featurebarcodescanner.transformer.ProductDetailsUiDataTransformer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
+class BarcodeScannerViewModel @Inject constructor(
+    private val getProductDetailsByCodeGeneralUseCase: GetProductDetailsByCodeGeneralUseCase,
+    private val productDetailsUiDataTransformer: ProductDetailsUiDataTransformer
+) : ViewModel() {
     /**
      * StateFlow that holds the UI data for the barcode scanner.
      */
-    private var _uiData = MutableStateFlow(BarcodeScannerState())
+    private var _uiData = MutableStateFlow(
+        BarcodeScannerState(
+            lastScannedBarcode = null,
+            scanDetailsUiData = ScanDetailsUiData()
+        )
+    )
     val uiData: StateFlow<BarcodeScannerState>
         get() = _uiData
 
@@ -51,18 +63,29 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
             )
             // Update the product details UI data with the scanned barcode
             _uiData.value = _uiData.value.copy(
-                scanDetailsUiData = _uiData.value.scanDetailsUiData?.copy(
-                    showBottomSheet = true,
-                    isLoading = true,
-                    scannedBarCode = event.barcode,
-                    scannedImageBitmap = event.bitmap
-                ) ?: ScanDetailsUiData(
+                scanDetailsUiData = _uiData.value.scanDetailsUiData.copy(
                     showBottomSheet = true,
                     isLoading = true,
                     scannedBarCode = event.barcode,
                     scannedImageBitmap = event.bitmap
                 )
             )
+            // Fetch product details by the scanned barcode
+            viewModelScope.launch {
+                getProductDetailsByCodeGeneralUseCase(
+                    GetProductDetailsByCodeGeneralUseCase.Params(
+                        productCode = event.barcode,
+                    )
+                ).let { productDetailsModel ->
+                    // Update the UI data with the fetched product details
+                    _uiData.value = _uiData.value.copy(
+                        scanDetailsUiData = _uiData.value.scanDetailsUiData.copy(
+                            productUiData = productDetailsUiDataTransformer.transformProduct(productDetailsModel),
+                            isLoading = false
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -79,14 +102,14 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
      *  Checks if the bottom sheet should be dismissed.
      */
     fun shouldDismissBottomSheet(): Boolean =
-        _uiData.value.scanDetailsUiData?.showBottomSheet == true
+        _uiData.value.scanDetailsUiData.showBottomSheet
 
     /**
      *  Dismisses the bottom sheet and resets the loading state. Also, allows scanning again.
      */
     fun dismissBottomSheet() {
         _uiData.value = _uiData.value.copy(
-            scanDetailsUiData = _uiData.value.scanDetailsUiData?.copy(
+            scanDetailsUiData = _uiData.value.scanDetailsUiData.copy(
                 showBottomSheet = false,
                 isLoading = false
             )

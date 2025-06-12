@@ -51,7 +51,8 @@ fun ProductDetailsBottomSheet(
             sheetState = bottomSheetState,
             properties = ModalBottomSheetProperties(
                 shouldDismissOnBackPress = true,
-            )
+            ),
+            containerColor = MobiTheme.colors.surfaceContainer
         ) {
             ProductDetailsBottomSheetContent(uiData)
         }

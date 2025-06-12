@@ -1,6 +1,6 @@
 package com.samuraicmdv.domain.usecase
 
-import com.samuraicmdv.domain.model.ProductDetailsModel
+import com.samuraicmdv.domain.model.ProductDetailsResponseModel
 import com.samuraicmdv.domain.repository.ProductRepository
 import javax.inject.Inject
 
@@ -12,12 +12,11 @@ import javax.inject.Inject
 class GetProductDetailsByIdForStoreUseCase @Inject constructor(
     private val productRepository: ProductRepository,
 ) {
-    suspend operator fun invoke(params: Params): ProductDetailsModel =
+    suspend operator fun invoke(params: Params): ProductDetailsResponseModel =
         productRepository.getProductDetailsByIdForStore(
             params.productId,
             params.storeId
-        )?.productDetails
-            ?: throw Exception("Product not found") // TODO Handle case
+        ) ?: throw Exception("Product not found") // TODO Handle case
 
     /**
      * Parameters for fetching product details for a specific store.

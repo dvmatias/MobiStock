@@ -1,8 +1,8 @@
 package com.samuraicmdv.featureproductdetails.state
 
-import com.samuraicmdv.featureproductdetails.data.BrandUiData
-import com.samuraicmdv.featureproductdetails.data.CategoryUiData
-import com.samuraicmdv.featureproductdetails.data.ProductUiData
+import com.samuraicmdv.common.uidata.CategoryUiData
+import com.samuraicmdv.common.uidata.ProductBrandUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 
 /**
  * Represents the state of the product details screen.
@@ -18,5 +18,5 @@ data class ProductDetailsUiState(
     val isLoading: Boolean = false,
     val product: ProductUiData? = null,
     val categories: List<CategoryUiData>? = null,
-    val brands: List<BrandUiData>? = null,
+    val brands: List<ProductBrandUiData>? = null,
 )

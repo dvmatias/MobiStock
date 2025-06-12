@@ -21,8 +21,8 @@ import com.samuraicmdv.data.datasource.retrofit.UserDataSourceRetrofitImpl
 import com.samuraicmdv.data.mapper.BrandEntityMapper
 import com.samuraicmdv.data.mapper.CategoryEntityMapper
 import com.samuraicmdv.data.mapper.CreateProductEntityMapper
+import com.samuraicmdv.data.mapper.GetCategoriesResponseEntityMapper
 import com.samuraicmdv.data.mapper.LoginEntityMapper
-import com.samuraicmdv.data.mapper.ProductCategoryMapper
 import com.samuraicmdv.data.mapper.SalesLedgeEntityMapper
 import com.samuraicmdv.data.mapper.UserProfileEntityMapper
 import dagger.Module
@@ -50,7 +50,7 @@ object DataSourceModule {
     fun provideCategoryDataSource(
         categoryApi: CategoryApi,
         categoryDataMapper: CategoryEntityMapper,
-        productCategoryMapper: ProductCategoryMapper,
+        productCategoryMapper: GetCategoriesResponseEntityMapper,
     ): CategoryDataSource =
         CategoryDataSourceRetrofitImpl(categoryApi, categoryDataMapper, productCategoryMapper)
 

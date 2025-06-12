@@ -3,9 +3,9 @@ package com.samuraicmdv.data.dagger
 import com.samuraicmdv.data.mapper.BrandEntityMapper
 import com.samuraicmdv.data.mapper.CategoryEntityMapper
 import com.samuraicmdv.data.mapper.CreateProductEntityMapper
-import com.samuraicmdv.data.mapper.GetProductDetailsEntityMapper
+import com.samuraicmdv.data.mapper.GetCategoriesResponseEntityMapper
 import com.samuraicmdv.data.mapper.LoginEntityMapper
-import com.samuraicmdv.data.mapper.ProductCategoryMapper
+import com.samuraicmdv.data.mapper.ProductDetailsResponseEntityMapper
 import com.samuraicmdv.data.mapper.SalesLedgeEntityMapper
 import com.samuraicmdv.data.mapper.UserProfileEntityMapper
 import dagger.Module
@@ -25,7 +25,7 @@ abstract class DataMapperModule {
         fun provideUserProfileMapper(): UserProfileEntityMapper = UserProfileEntityMapper
 
         @Provides
-        fun provideProductCategoryMapper(): ProductCategoryMapper = ProductCategoryMapper
+        fun provideProductCategoryMapper(): GetCategoriesResponseEntityMapper = GetCategoriesResponseEntityMapper
 
         @Provides
         fun provideCategoryDataMapper(): CategoryEntityMapper = CategoryEntityMapper
@@ -40,8 +40,8 @@ abstract class DataMapperModule {
         fun provideSalesLedgeDataMapper(): SalesLedgeEntityMapper = SalesLedgeEntityMapper
 
         @Provides
-        fun provideGetProductDetailsEntityMapper(): GetProductDetailsEntityMapper {
-            return GetProductDetailsEntityMapper()
+        fun provideGetProductDetailsEntityMapper(): ProductDetailsResponseEntityMapper {
+            return ProductDetailsResponseEntityMapper()
         }
     }
 }

@@ -1,29 +1,29 @@
 package com.samuraicmdv.data.repository
 
 import com.samuraicmdv.data.datasource.ProductDataSource
-import com.samuraicmdv.data.mapper.GetProductDetailsEntityMapper
+import com.samuraicmdv.data.mapper.ProductDetailsResponseEntityMapper
 import com.samuraicmdv.domain.model.CreateProductResponseModel
-import com.samuraicmdv.domain.model.GetProductDetailsResponseModel
+import com.samuraicmdv.domain.model.ProductDetailsResponseModel
 import com.samuraicmdv.domain.repository.ProductRepository
 import com.samuraicmdv.domain.util.ResponseWrapper
 import javax.inject.Inject
 
 class ProductRepositoryImpl @Inject constructor(
     private val productDataSource: ProductDataSource,
-    private val getProductDetailsDataMapper: GetProductDetailsEntityMapper
+    private val getProductDetailsDataMapper: ProductDetailsResponseEntityMapper
 ) : ProductRepository {
 
     override suspend fun getProductDetailsByIdForStore(
         productId: Int,
         storeId: Int,
-    ): GetProductDetailsResponseModel?{
+    ): ProductDetailsResponseModel?{
         val responseEntity = productDataSource.getProductDetailsByIdForStore(productId, storeId)
         return getProductDetailsDataMapper.map(responseEntity.getOrNull())
     }
 
     override suspend fun getProductDetailsByIdGeneral(
         productId: Int
-    ): GetProductDetailsResponseModel?{
+    ): ProductDetailsResponseModel?{
         val responseEntity = productDataSource.getProductDetailsByIdGeneral(productId)
         return getProductDetailsDataMapper.map(responseEntity.getOrNull())
     }
@@ -31,14 +31,14 @@ class ProductRepositoryImpl @Inject constructor(
     override suspend fun getProductDetailsByCodeForStore(
         productCode: String,
         storeId: Int
-    ): GetProductDetailsResponseModel? {
+    ): ProductDetailsResponseModel? {
         val responseEntity = productDataSource.getProductDetailsByCodeForStore(productCode, storeId)
         return getProductDetailsDataMapper.map(responseEntity.getOrNull())
     }
 
     override suspend fun getProductDetailsByCodeGeneral(
         productCode: String
-    ): GetProductDetailsResponseModel? {
+    ): ProductDetailsResponseModel? {
         val responseEntity = productDataSource.getProductDetailsByCodeGeneral(productCode)
         return getProductDetailsDataMapper.map(responseEntity.getOrNull())
     }

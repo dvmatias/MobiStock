@@ -2,14 +2,14 @@ package com.samuraicmdv.featureproductdetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.samuraicmdv.common.uidata.CategoryUiData
+import com.samuraicmdv.common.uidata.ProductBrandUiData
+import com.samuraicmdv.common.uidata.ProductPriceUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.domain.usecase.CreateProductUseCase
 import com.samuraicmdv.domain.usecase.GetBrandsUseCase
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
 import com.samuraicmdv.domain.usecase.GetProductDetailsByIdForStoreUseCase
-import com.samuraicmdv.featureproductdetails.data.BrandUiData
-import com.samuraicmdv.featureproductdetails.data.CategoryUiData
-import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
-import com.samuraicmdv.featureproductdetails.data.ProductUiData
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiMode
 import com.samuraicmdv.featureproductdetails.state.ProductDetailsUiState
 import com.samuraicmdv.featureproductdetails.transformer.ProductDetailsUiDataTransformer
@@ -137,11 +137,11 @@ class ProductDetailsViewModel @AssistedInject constructor(
                     categoryId = product.category?.id!!,
                     brandId = product.brand?.id!!,
                     sku = product.sku,
-                    selling = product.price!!.sellingPrice,
-                    cost = product.price.costPrice,
+                    selling = product.price?.sellingPrice,
+                    cost = product.price?.costPrice,
                     currencyId = 1,
                     storeId = storeId,
-                    preferredMargin = product.price.preferredMargin,
+                    preferredMargin = null,
                 )
             ).let {
                 it.id?.let { productId ->
@@ -167,7 +167,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
         thumbnailUrl = "",
         imageUrls = emptyList(),
         price = ProductPriceUiData(),
-        brand = BrandUiData(
+        brand = ProductBrandUiData(
             id = -1,
             name = "",
             logoUrl = "",
@@ -176,7 +176,6 @@ class ProductDetailsViewModel @AssistedInject constructor(
             id = -1,
             nameResId = -1,
             description = "",
-            logoUrl = "",
         ),
     )
 

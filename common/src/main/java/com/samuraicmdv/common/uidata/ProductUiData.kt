@@ -6,6 +6,7 @@ data class ProductUiData(
     val code: String? = null,
     val imageUrls: List<String>? = null,
     val isFavorite: Boolean? = null,
+    val category: CategoryUiData? = null,
     val longDescription: String? = null,
     val model: String? = null,
     val name: String? = null,

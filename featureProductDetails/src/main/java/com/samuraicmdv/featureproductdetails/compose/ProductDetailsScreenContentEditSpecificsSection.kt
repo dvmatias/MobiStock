@@ -27,9 +27,9 @@ import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.EMPTY_STRING
 import com.samuraicmdv.common.SPACE_STRING
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.common.uidata.CategoryUiData
+import com.samuraicmdv.common.uidata.ProductBrandUiData
 import com.samuraicmdv.featureproductdetails.R
-import com.samuraicmdv.featureproductdetails.data.BrandUiData
-import com.samuraicmdv.featureproductdetails.data.CategoryUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 import com.samuraicmdv.ui.widget.MobiTextField
 
@@ -42,8 +42,8 @@ fun ProductDetailsScreenContentEditSpecificsSection(
     categories: List<CategoryUiData>?,
     onSelectedCategory: (CategoryUiData) -> Unit,
     categoryError: String?,
-    brands: List<BrandUiData>?,
-    onSelectedBrand: (BrandUiData) -> Unit,
+    brands: List<ProductBrandUiData>?,
+    onSelectedBrand: (ProductBrandUiData) -> Unit,
     brandError: String?,
     sku: String,
     onSkuChange: (String) -> Unit,
@@ -242,13 +242,12 @@ fun PreviewProductDetailsScreenContentEditSpecificsSection() {
                         id = it,
                         nameResId = R.string.field_label_category,
                         description = EMPTY_STRING,
-                        logoUrl = EMPTY_STRING,
                     )
                 },
                 onSelectedCategory = {},
                 categoryError = null,
                 brands = List(5) {
-                    BrandUiData(
+                    ProductBrandUiData(
                         id = it,
                         name = EMPTY_STRING,
                         logoUrl = EMPTY_STRING,

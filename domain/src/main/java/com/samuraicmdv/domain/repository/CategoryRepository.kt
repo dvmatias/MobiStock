@@ -1,7 +1,7 @@
 package com.samuraicmdv.domain.repository
 
 import com.samuraicmdv.domain.model.CategoryResponseModel
-import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
+import com.samuraicmdv.domain.model.GetCategoriesResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
 interface CategoryRepository {
@@ -20,5 +20,5 @@ interface CategoryRepository {
     suspend fun getProductCategories(
         storeId: Int,
         all: Boolean,
-    ): ResponseWrapper<ProductCategoriesResponseModel>
+    ): ResponseWrapper<GetCategoriesResponseModel>
 }

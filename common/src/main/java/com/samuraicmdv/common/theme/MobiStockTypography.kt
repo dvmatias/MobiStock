@@ -56,15 +56,15 @@ private data class MobiTypographyFontSizes(
 private data class MobiTypographyLineHeight(
     val smallest: TextUnit = 12.sp,
     val small: TextUnit = 14.sp,
-    val caption: TextUnit =   16.sp,
-    val bodySmall: TextUnit =  18.sp,
-    val bodyMedium: TextUnit =  20.sp,
-    val bodyLarge: TextUnit =  26.sp,
-    val titleSmall: TextUnit =  30.sp,
-    val titleMedium: TextUnit =  32.sp,
-    val titleLarge: TextUnit =  36.sp,
-    val headline: TextUnit =  42.sp,
-    val display: TextUnit =  56.sp,
+    val caption: TextUnit =   14.sp,
+    val bodySmall: TextUnit =  16.sp,
+    val bodyMedium: TextUnit =  18.sp,
+    val bodyLarge: TextUnit =  22.sp,
+    val titleSmall: TextUnit =  20.sp,
+    val titleMedium: TextUnit =  24.sp,
+    val titleLarge: TextUnit =  28.sp,
+    val headline: TextUnit =  82.sp,
+    val display: TextUnit =  48.sp,
 )
 
 val LocalMobiTypography = staticCompositionLocalOf {

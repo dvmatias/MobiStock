@@ -6,35 +6,35 @@ import com.samuraicmdv.common.uidata.ProductStockUiData
 import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.common.utils.getNameResId
 import com.samuraicmdv.domain.model.BrandModel
-import com.samuraicmdv.domain.model.CategoryModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
+import com.samuraicmdv.domain.model.ProductCategoryModel
 import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.featurecategory.state.CategoryScreenState
 import com.samuraicmdv.featurecategory.state.CategoryUiData
 
 object CategoryUiDataTransformer {
     fun transform(model: CategoryResponseModel): CategoryScreenState {
-
         return CategoryScreenState(
             category = transformCategory(model.category),
-            products = transformProducts(model.products),
+            products = transformProducts(model.products, model.brands),
             brands = transformBrands(model.brands)
         )
     }
 
-    private fun transformCategory(category: CategoryModel?): CategoryUiData? =
+    private fun transformCategory(category: ProductCategoryModel?): CategoryUiData? =
         category?.let {
             CategoryUiData(
                 id = it.id ?: -1,
                 nameResId = it.type.getNameResId(),
                 description = it.description ?: "",
-                logoUrl = it.logoUrl ?: "",
-                imageUrl = it.imageUrl ?: "",
                 productsQuantity = it.productsQuantity ?: 0
             )
         }
 
-    private fun transformProducts(products: List<ProductModel>?): List<ProductUiData> =
+    private fun transformProducts(
+        products: List<ProductModel>?,
+        brands: List<BrandModel>?
+    ): List<ProductUiData> =
         products?.map {
             ProductUiData(
                 id = it.id ?: -1,
@@ -59,11 +59,13 @@ object CategoryUiDataTransformer {
                 rating = 0.0,
                 reviews = 0,
                 isFavorite = false,
-                brand = ProductBrandUiData(
-                    id = it.brand?.id ?: -1,
-                    name = it.brand?.name ?: "",
-                    logoUrl = it.brand?.logoUrl ?: ""
-                )
+                brand = brands?.find { brand -> brand.id == it.brandId }?.let { brand ->
+                    ProductBrandUiData(
+                        id = brand.id ?: -1,
+                        name = brand.name ?: "",
+                        logoUrl = brand.logoUrl ?: ""
+                    )
+                },
             )
         }.orEmpty()
 

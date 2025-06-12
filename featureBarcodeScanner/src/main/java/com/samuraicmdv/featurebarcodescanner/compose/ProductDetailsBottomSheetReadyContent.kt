@@ -1,7 +1,9 @@
 package com.samuraicmdv.featurebarcodescanner.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,11 +12,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -34,12 +38,10 @@ import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featurebarcodescanner.R
 import com.samuraicmdv.featurebarcodescanner.preview.ProductDetailsBottomSheetReadyContentPreviewParameter
 import com.samuraicmdv.ui.util.ThemePreviews
-import com.samuraicmdv.ui.widget.LabelValue
 import com.samuraicmdv.ui.widget.PriceComponentLevel
 import com.samuraicmdv.ui.widget.PriceComponentStyle
 import com.samuraicmdv.ui.widget.PriceComponentWeight
 import com.samuraicmdv.ui.widget.StyledPriceComponent
-import com.samuraicmdv.common.R as CommonR
 
 /**
  *  This composable function displays the content of the product details bottom sheet when the product data is ready.
@@ -52,141 +54,155 @@ fun ProductDetailsBottomSheetReadyContent(
     uiData: ProductUiData,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
-        // Name
-        uiData.name?.let { productName ->
-            Text(
-                text = productName,
-                style = MobiTheme.typography.titleMediumBold
-            )
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
-        }
+    Column(modifier = modifier.wrapContentHeight()) {
 
-        // Product category/subcategory and brand
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            // Category
-            uiData.productCategoryName?.let {
-                Text(
-                    text = it,
-                    style = MobiTheme.typography.bodyMedium
-                )
-            }
-
-            // Subcategory with " - " separator
-            uiData.productSubcategoryName?.let {
-                uiData.productCategoryName?.let {
-                    Text(
-                        text = "-",
-                        style = MobiTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_0_5)
-                    )
-                }
-                Text(
-                    text = it,
-                    style = MobiTheme.typography.bodyMedium
-                )
-            }
-
-            // Brand
-            Row(
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.weight(1f)
-            ) {
-                uiData.brand?.logoUrl?.let { brandLogoUrl ->
-                    Image(
-                        painter = rememberAsyncImagePainter(model = brandLogoUrl),
-                        contentDescription = null,
-                        contentScale = ContentScale.Fit,
+        Row(modifier = modifier.height(160.dp)) {
+            Column {
+                // Thumbnail image
+                uiData.thumbnailUrl?.let {
+                    ElevatedCard(
+                        elevation = CardDefaults.elevatedCardElevation(
+                            defaultElevation = 1.dp
+                        ),
                         modifier = Modifier
-                            .size(24.dp)
-                            .clip(RoundedCornerShape(MobiTheme.dimens.dimen_0_5))
-                    )
-                }
-                uiData.brand?.name?.let { brandName ->
-                    Text(
-                        text = brandName,
-                        style = MobiTheme.typography.bodyMedium
-                    )
+                            .size(160.dp)
+                    ) {
+                        Image(
+                            painter = rememberAsyncImagePainter(model = it),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .aspectRatio(1F)
+                                .background(MobiTheme.colors.surfaceContainer)
+                        )
+                    }
                 }
             }
-        }
 
-        // Code
-        uiData.code?.let { productCode ->
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
-            LabelValue(
-                label = "Code",
-                value = productCode
-            )
-        }
+            Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
 
-        // Thumbnail image
-        uiData.thumbnailUrl?.let {
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1_5))
-            Card(
-                shape = RoundedCornerShape(MobiTheme.dimens.dimen_1),
-                colors = CardDefaults.cardColors(MobiTheme.colors.surface),
-                elevation = CardDefaults.cardElevation(MobiTheme.elevations.two),
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
+            Column(
+                modifier = Modifier.wrapContentHeight()
             ) {
-                Image(
-                    painter = rememberAsyncImagePainter(model = it),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .height(160.dp)
-                        .aspectRatio(1F)
-                )
-            }
-        }
+                // Brand
+                Row(
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    uiData.brand?.logoUrl?.let { brandLogoUrl ->
+                        Image(
+                            painter = rememberAsyncImagePainter(model = brandLogoUrl),
+                            contentDescription = null,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .size(36.dp)
+                                .clip(RoundedCornerShape(MobiTheme.dimens.dimen_0_5))
+                        )
+                    }
+                    Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_1))
+                    uiData.brand?.name?.let { brandName ->
+                        Text(
+                            text = brandName,
+                            style = MobiTheme.typography.bodyMedium
+                        )
+                    }
+                }
 
-        // Price
-        uiData.price?.sellingPrice?.let { price ->
-            Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_1_5))
-            StyledPriceComponent(
-                amount = price,
-                priceComponentWeight = PriceComponentWeight.BOLD,
-                priceComponentStyle = PriceComponentStyle.LARGE,
-                priceComponentLevel = PriceComponentLevel.DISPLAY,
-                modifier = Modifier
-                    .padding(horizontal = MobiTheme.dimens.dimen_2)
-                    .align(Alignment.CenterHorizontally)
-            )
+                // Name
+                uiData.name?.let { productName ->
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
+                    Text(
+                        text = productName,
+                        maxLines = 2,
+                        overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                        style = MobiTheme.typography.titleSmallBold
+                    )
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
+                }
+
+                // Product category/subcategory and brand
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    // Category
+                    uiData.productCategoryName?.let {
+                        Text(
+                            text = it,
+                            style = MobiTheme.typography.bodyMedium
+                        )
+                    }
+
+                    // Subcategory with " - " separator
+                    uiData.productSubcategoryName?.let {
+                        uiData.productCategoryName?.let {
+                            Text(
+                                text = "-",
+                                style = MobiTheme.typography.bodySmall,
+                                modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_0_5)
+                            )
+                        }
+                        Text(
+                            text = it,
+                            style = MobiTheme.typography.bodySmall
+                        )
+                    }
+                }
+
+                // Code
+                uiData.code?.let { productCode ->
+                    Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_0_5))
+                    Text(
+                        text = "Code $productCode",
+                        style = MobiTheme.typography.bodySmall
+                    )
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+                // Price
+                uiData.price?.sellingPrice?.let { price ->
+                    StyledPriceComponent(
+                        amount = price,
+                        priceComponentWeight = PriceComponentWeight.BOLD,
+                        priceComponentStyle = PriceComponentStyle.MEDIUM,
+                        priceComponentLevel = PriceComponentLevel.DISPLAY,
+                    )
+                }
+            }
         }
 
         // Stock
-        uiData.stock?.quantity.let {
-            AssistChip(
-                onClick = {},
-                border = null,
-                leadingIcon = {
-                    Icon(
-                        painter = painterResource(id = CommonR.drawable.in_stock_ic),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(24.dp)
-                            .align(Alignment.CenterHorizontally)
-                    )
-                },
-                label = {
-                    Text(
-                        text = "In stock: $it",
-                        style = MobiTheme.typography.bodyMedium
-                    )
-                },
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-            )
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.width(160.dp)
+        ) {
+            uiData.stock?.quantity.let {
+                AssistChip(
+                    onClick = {},
+                    border = null,
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(id = com.samuraicmdv.common.R.drawable.in_stock_ic),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(24.dp)
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = "In stock: $it",
+                            style = MobiTheme.typography.bodyMedium
+                        )
+                    },
+                    modifier = Modifier
+                )
+            }
         }
 
         HorizontalDivider(
-            modifier = Modifier.padding(bottom = MobiTheme.dimens.dimen_2),
+            modifier = Modifier
+                .padding(top = MobiTheme.dimens.dimen_1)
+                .padding(bottom = MobiTheme.dimens.dimen_2),
             thickness = MobiTheme.dimens.dividerThickness,
             color = MobiTheme.colors.outlineVariant
         )
@@ -216,7 +232,6 @@ fun ProductDetailsBottomSheetReadyContent(
                 style = MobiTheme.typography.buttonLabel
             )
         }
-
     }
 }
 

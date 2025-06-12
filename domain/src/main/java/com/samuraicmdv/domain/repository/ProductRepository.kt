@@ -1,7 +1,7 @@
 package com.samuraicmdv.domain.repository
 
 import com.samuraicmdv.domain.model.CreateProductResponseModel
-import com.samuraicmdv.domain.model.GetProductDetailsResponseModel
+import com.samuraicmdv.domain.model.ProductDetailsResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
 interface ProductRepository {
@@ -16,7 +16,7 @@ interface ProductRepository {
     suspend fun getProductDetailsByIdForStore(
         productId: Int,
         storeId: Int,
-    ): GetProductDetailsResponseModel?
+    ): ProductDetailsResponseModel?
 
     /**
      * Fetch the product details in general using the product ID. The difference with
@@ -25,7 +25,7 @@ interface ProductRepository {
      *
      * @param productId The ID of the product to retrieve details for.
      */
-    suspend fun getProductDetailsByIdGeneral(productId: Int): GetProductDetailsResponseModel?
+    suspend fun getProductDetailsByIdGeneral(productId: Int): ProductDetailsResponseModel?
 
     /**
      * Fetch the product details for a specific store using the product code. The difference with
@@ -38,7 +38,7 @@ interface ProductRepository {
     suspend fun getProductDetailsByCodeForStore(
         productCode: String,
         storeId: Int,
-    ): GetProductDetailsResponseModel?
+    ): ProductDetailsResponseModel?
 
     /**
      * Fetch the product details in general using the product code. The difference with
@@ -47,7 +47,7 @@ interface ProductRepository {
      *
      * @param productCode The code of the product to retrieve details for.
      */
-    suspend fun getProductDetailsByCodeGeneral(productCode: String): GetProductDetailsResponseModel?
+    suspend fun getProductDetailsByCodeGeneral(productCode: String): ProductDetailsResponseModel?
 
     suspend fun createProduct(
         name: String,

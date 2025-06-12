@@ -1,6 +1,6 @@
 package com.samuraicmdv.data.datasource
 
-import com.samuraicmdv.data.entity.GetProductDetailsResponseEntity
+import com.samuraicmdv.data.entity.ProductDetailsResponseEntity
 import com.samuraicmdv.domain.model.CreateProductResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
@@ -15,7 +15,7 @@ interface ProductDataSource {
     suspend fun getProductDetailsByIdForStore(
         productId: Int,
         storeId: Int,
-    ): ResponseWrapper<GetProductDetailsResponseEntity>
+    ): ResponseWrapper<ProductDetailsResponseEntity>
 
     /**
      * Triggers the service call to get product details in general using the product ID. The difference with
@@ -24,7 +24,7 @@ interface ProductDataSource {
      *
      * @param productId The ID of the product to retrieve details for.
      */
-    suspend fun getProductDetailsByIdGeneral(productId: Int, ): ResponseWrapper<GetProductDetailsResponseEntity>
+    suspend fun getProductDetailsByIdGeneral(productId: Int, ): ResponseWrapper<ProductDetailsResponseEntity>
 
     /**
      * Triggers the service call to get product details for a specific store  using the product code. The difference with
@@ -36,7 +36,7 @@ interface ProductDataSource {
     suspend fun getProductDetailsByCodeForStore(
         productCode: String,
         storeId: Int,
-    ): ResponseWrapper<GetProductDetailsResponseEntity>
+    ): ResponseWrapper<ProductDetailsResponseEntity>
 
     /**
      * Triggers the service call to get product details in general using the product code. The difference with
@@ -45,7 +45,7 @@ interface ProductDataSource {
      *
      * @param productCode The code of the product to retrieve details for.
      */
-    suspend fun getProductDetailsByCodeGeneral(productCode: String): ResponseWrapper<GetProductDetailsResponseEntity>
+    suspend fun getProductDetailsByCodeGeneral(productCode: String): ResponseWrapper<ProductDetailsResponseEntity>
 
     /**
      * Triggers the service call to create a product.
