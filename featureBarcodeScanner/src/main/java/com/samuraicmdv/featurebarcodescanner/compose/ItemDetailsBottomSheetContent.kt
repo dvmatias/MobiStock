@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.samuraicmdv.common.theme.MobiTheme
-import com.samuraicmdv.featurebarcodescanner.preview.ProductDetailsBottomSheetContentPreviewParameter
-import com.samuraicmdv.featurebarcodescanner.state.ScanDetailsUiData
+import com.samuraicmdv.featurebarcodescanner.preview.ItemDetailsBottomSheetContentPreviewParameter
+import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsBottomSheetUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
@@ -19,20 +19,20 @@ import com.samuraicmdv.ui.util.ThemePreviews
  * @param modifier A [Modifier] to be applied to the content.
  */
 @Composable
-fun ProductDetailsBottomSheetContent(
-    uiData: ScanDetailsUiData,
+fun ItemDetailsBottomSheetContent(
+    uiData: ItemDetailsBottomSheetUiData,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
     ) {
         if (uiData.isLoading) {
-            ProductDetailsBottomSheetLoadingContent(
+            ItemDetailsBottomSheetLoadingContent(
                 scannedBarCode = uiData.scannedBarCode,
                 scannedImageBitmap = uiData.scannedImageBitmap
             )
         } else {
-            ProductDetailsBottomSheetReadyContent(uiData.productUiData ?: return)
+            ItemDetailsBottomSheetReadyContent(uiData.itemDetailsUiData ?: return)
         }
     }
 
@@ -40,12 +40,12 @@ fun ProductDetailsBottomSheetContent(
 
 @ThemePreviews
 @Composable
-fun PreviewProductDetailsBottomSheetContent(
-    @PreviewParameter(ProductDetailsBottomSheetContentPreviewParameter::class) previewData: ScanDetailsUiData
+fun PreviewItemDetailsBottomSheetContent(
+    @PreviewParameter(ItemDetailsBottomSheetContentPreviewParameter::class) previewData: ItemDetailsBottomSheetUiData
 ) {
     MobiTheme {
         Surface(color = MobiTheme.colors.background) {
-            ProductDetailsBottomSheetContent(
+            ItemDetailsBottomSheetContent(
                 uiData = previewData
             )
         }

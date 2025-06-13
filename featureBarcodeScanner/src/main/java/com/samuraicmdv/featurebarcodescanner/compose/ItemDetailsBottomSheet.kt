@@ -14,7 +14,7 @@ import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerEvent
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerPresentationEvent
 import com.samuraicmdv.featurebarcodescanner.preview.ProductDetailsBottomSheetPreviewParameter
-import com.samuraicmdv.featurebarcodescanner.state.ScanDetailsUiData
+import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsBottomSheetUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 import kotlinx.coroutines.launch
 
@@ -28,8 +28,8 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDetailsBottomSheet(
-    uiData: ScanDetailsUiData,
+fun ItemDetailsBottomSheet(
+    uiData: ItemDetailsBottomSheetUiData,
     bottomSheetState: SheetState,
     handleEvent: (BarcodeScannerEvent) -> Unit
 ) {
@@ -54,7 +54,7 @@ fun ProductDetailsBottomSheet(
             ),
             containerColor = MobiTheme.colors.surfaceContainer
         ) {
-            ProductDetailsBottomSheetContent(uiData)
+            ItemDetailsBottomSheetContent(uiData)
         }
     }
 }
@@ -62,14 +62,14 @@ fun ProductDetailsBottomSheet(
 @OptIn(ExperimentalMaterial3Api::class)
 @ThemePreviews
 @Composable
-fun PreviewProductDetailsBottomSheet(
-    @PreviewParameter(ProductDetailsBottomSheetPreviewParameter::class) previewData: ScanDetailsUiData
+fun PreviewItemDetailsBottomSheet(
+    @PreviewParameter(ProductDetailsBottomSheetPreviewParameter::class) previewData: ItemDetailsBottomSheetUiData
 ) {
     MobiTheme {
         Surface(color = MobiTheme.colors.background) {
             val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
 
-            ProductDetailsBottomSheet(
+            ItemDetailsBottomSheet(
                 uiData = previewData,
                 bottomSheetState = bottomSheetState,
                 handleEvent = {},

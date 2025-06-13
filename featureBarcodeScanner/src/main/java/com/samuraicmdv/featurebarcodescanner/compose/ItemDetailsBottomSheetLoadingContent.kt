@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
-import com.samuraicmdv.featurebarcodescanner.preview.ProductDetailsBottomSheetLoadingContentPreviewParameter
-import com.samuraicmdv.featurebarcodescanner.state.ScanDetailsUiData
+import com.samuraicmdv.featurebarcodescanner.preview.ItemDetailsBottomSheetLoadingContentPreviewParameter
+import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsBottomSheetUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
@@ -29,7 +29,7 @@ import com.samuraicmdv.ui.util.ThemePreviews
  * @param scannedImageBitmap The bitmap image of the scanned barcode, displayed as an image.
  */
 @Composable
-fun ProductDetailsBottomSheetLoadingContent(
+fun ItemDetailsBottomSheetLoadingContent(
     scannedBarCode: String?,
     scannedImageBitmap: ImageBitmap?,
     modifier: Modifier = Modifier
@@ -65,12 +65,12 @@ fun ProductDetailsBottomSheetLoadingContent(
 
 @ThemePreviews
 @Composable
-fun PreviewProductDetailsBottomSheetLoadingContent(
-    @PreviewParameter(ProductDetailsBottomSheetLoadingContentPreviewParameter::class) previewData: ScanDetailsUiData
+fun PreviewItemDetailsBottomSheetLoadingContent(
+    @PreviewParameter(ItemDetailsBottomSheetLoadingContentPreviewParameter::class) previewData: ItemDetailsBottomSheetUiData
 ) {
     MobiTheme {
         Surface(color = MobiTheme.colors.background) {
-            ProductDetailsBottomSheetLoadingContent(
+            ItemDetailsBottomSheetLoadingContent(
                 scannedBarCode = previewData.scannedBarCode,
                 scannedImageBitmap = previewData.scannedImageBitmap,
             )

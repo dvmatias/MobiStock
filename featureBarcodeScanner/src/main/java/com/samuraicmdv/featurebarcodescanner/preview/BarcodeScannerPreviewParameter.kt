@@ -1,86 +1,66 @@
 package com.samuraicmdv.featurebarcodescanner.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.samuraicmdv.common.uidata.ProductBrandUiData
-import com.samuraicmdv.common.uidata.ProductPriceUiData
-import com.samuraicmdv.common.uidata.ProductStockUiData
-import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
-import com.samuraicmdv.featurebarcodescanner.state.ScanDetailsUiData
+import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsBottomSheetUiData
+import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsUiData
 
 class BarcodeScannerScreenPreviewParameter : PreviewParameterProvider<BarcodeScannerState> {
     override val values: Sequence<BarcodeScannerState>
         get() = sequenceOf(BarcodeScannerState(
-            scanDetailsUiData = getScanDetailsUiDataReady(),
+            itemDetailsBottomSheetUiData = getScanDetailsUiDataReady(),
         ))
 }
 
-class ProductDetailsBottomSheetPreviewParameter : PreviewParameterProvider<ScanDetailsUiData> {
-    override val values: Sequence<ScanDetailsUiData>
+class ProductDetailsBottomSheetPreviewParameter : PreviewParameterProvider<ItemDetailsBottomSheetUiData> {
+    override val values: Sequence<ItemDetailsBottomSheetUiData>
         get() = sequenceOf(
             getScanDetailsUiDataLoading(),
             getScanDetailsUiDataReady()
         )
 }
 
-class ProductDetailsBottomSheetContentPreviewParameter : PreviewParameterProvider<ScanDetailsUiData> {
-    override val values: Sequence<ScanDetailsUiData>
+class ItemDetailsBottomSheetContentPreviewParameter : PreviewParameterProvider<ItemDetailsBottomSheetUiData> {
+    override val values: Sequence<ItemDetailsBottomSheetUiData>
         get() = sequenceOf(
             getScanDetailsUiDataLoading(),
             getScanDetailsUiDataReady()
         )
 }
 
-class ProductDetailsBottomSheetLoadingContentPreviewParameter : PreviewParameterProvider<ScanDetailsUiData> {
-    override val values: Sequence<ScanDetailsUiData>
+class ItemDetailsBottomSheetLoadingContentPreviewParameter : PreviewParameterProvider<ItemDetailsBottomSheetUiData> {
+    override val values: Sequence<ItemDetailsBottomSheetUiData>
         get() = sequenceOf(getScanDetailsUiDataLoading())
 }
 
-class ProductDetailsBottomSheetReadyContentPreviewParameter : PreviewParameterProvider<ProductUiData> {
-    override val values: Sequence<ProductUiData>
-        get() = sequenceOf(getScanDetailsUiDataReady().productUiData!!)
+class ItemDetailsBottomSheetReadyContentPreviewParameter : PreviewParameterProvider<ItemDetailsUiData> {
+    override val values: Sequence<ItemDetailsUiData>
+        get() = sequenceOf(getScanDetailsUiDataReady().itemDetailsUiData!!)
 }
 
 fun getScanDetailsUiDataLoading() =
-    ScanDetailsUiData(
+    ItemDetailsBottomSheetUiData(
         isLoading = true,
         showBottomSheet = true,
-        productUiData = null,
+        itemDetailsUiData = null,
         scannedBarCode = "1234567890123"
     )
 
 fun getScanDetailsUiDataReady() =
-    ScanDetailsUiData(
+    ItemDetailsBottomSheetUiData(
         isLoading = false,
         showBottomSheet = true,
-        productUiData = ProductUiData(
+        itemDetailsUiData = ItemDetailsUiData(
             id = 1,
-            name = "Sample Product - this is a very long long name",
-            shortDescription = "This is a sample product.",
-            longDescription = "This is a sample product. This product is used for demonstration purposes. This is a sample product. This product is used for demonstration purposes.",
-            model = "Model X",
-            code = "SP-12345",
-            sku = "SKU-123456789",
+            brandLogoUrl = "https://example.com/brand-logo.png",
+            brandName = "Samsung",
+            categorySubcategory = "Cable - Charger Cable",
+            code = "CABL00025",
+            description = "This is a sample product. This product is used for demonstration purposes. This is a sample product. This product is used for demonstration purposes.",
+            price = 799.99,
+            stock = 15,
             thumbnailUrl = "https://example.com/thumbnail.jpg",
-            imageUrls = listOf("https://example.com/image1.jpg", "https://example.com/image2.jpg"),
-            price = ProductPriceUiData(
-                sellingPrice = 799.99,
-                costPrice = 599.99,
-                currency = "ARS"
-            ),
-            stock = ProductStockUiData(
-                quantity = 50
-            ),
-            rating = 4.5,
-            reviews = 100,
-            isFavorite = true,
-            productCategoryName = "Cable",
-            productSubcategoryName = "Charging Cable",
-            brand = ProductBrandUiData(
-                id = 1,
-                name = "Brand Name",
-                logoUrl = "https://example.com/brand-logo.png"
-            )
+            title = "Cable USB 3.0 - 25W - USB A a C"
         ),
         scannedBarCode = "1234567890123"
     )

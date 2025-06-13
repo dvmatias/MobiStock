@@ -1,6 +1,7 @@
 package com.samuraicmdv.featurebarcodescanner
 
-import com.samuraicmdv.featurebarcodescanner.transformer.ProductDetailsUiDataTransformer
+import com.samuraicmdv.featurebarcodescanner.transformer.ItemDetailsUiDataTransformer
+import com.samuraicmdv.featurebarcodescanner.transformer.ItemDetailsUiDataTransformerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,5 +11,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object BarcodeScannerModule {
     @Provides
-    fun provideProductDetailsUiDataTransformer(): ProductDetailsUiDataTransformer = ProductDetailsUiDataTransformer
+    fun provideItemDetailsUiDataTransformer(): ItemDetailsUiDataTransformer = ItemDetailsUiDataTransformerImpl()
 }
