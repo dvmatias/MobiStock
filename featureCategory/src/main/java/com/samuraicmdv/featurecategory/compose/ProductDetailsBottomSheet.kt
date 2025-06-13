@@ -252,7 +252,7 @@ fun ProductDetailsBottomSheetContent(
                         value = product.stock?.quantity?.toString(),
                         icon = {
                             Icon(
-                                painter = painterResource(id = R.drawable.in_stock_ic),
+                                painter = painterResource(id = com.samuraicmdv.common.R.drawable.in_stock_ic),
                                 contentDescription = null,
                                 modifier = Modifier.size(24.dp)
                             )

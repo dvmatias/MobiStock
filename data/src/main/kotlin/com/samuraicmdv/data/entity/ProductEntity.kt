@@ -1,7 +1,6 @@
 package com.samuraicmdv.data.entity
 
 import com.google.gson.annotations.SerializedName
-import com.samuraicmdv.domain.model.ProductModel
 
 /**
  * Data class that models a product in the API response.
@@ -16,26 +15,9 @@ data class ProductEntity(
     @SerializedName("sku") val sku: String? = null,
     @SerializedName("thumbnail_url") val thumbnailUrl: String? = null,
     @SerializedName("image_urls") val imageUrls: List<String>? = null,
-    @SerializedName("brand") val brand: BrandEntity? = null,
+    @SerializedName("brand_id") val brandId: Int? = null,
     @SerializedName("category_id") val categoryId: Int? = null,
+    @SerializedName("subcategory_id") val subcategoryId: Int? = null,
     @SerializedName("stock") val stock: StockEntity? = null,
-    @SerializedName("price") val productPrice: PriceEntity? = null,
-) {
-    fun toModel(): ProductModel {
-        return ProductModel(
-            id = id ?: 0,
-            name = name ?: "",
-            shortDescription = shortDescription ?: "",
-            longDescription = longDescription ?: "",
-            model = model ?: "",
-            code = code ?: "",
-            sku = sku ?: "",
-            thumbnailUrl = thumbnailUrl ?: "",
-            imageUrls = imageUrls ?: emptyList(),
-            brand = brand?.toModel(),
-            categoryId = categoryId ?: 0,
-            stock = stock?.toModel(),
-            productPrice = productPrice?.toModel(),
-        )
-    }
-}
+    @SerializedName("price") val price: PriceEntity? = null,
+)

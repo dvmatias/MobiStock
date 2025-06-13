@@ -33,7 +33,6 @@ import com.samuraicmdv.ui.util.ThemePreviews
 fun CategoryScreenContentHeader(
     name: String?,
     description: String?,
-    imageUrl: String?,
     productsQuantity: Int?,
     categoryTitleAlpha: Float,
     handleEvent: (CategoryEvent) -> Unit,
@@ -118,9 +117,7 @@ fun PreviewCategoryHeader(modifier: Modifier = Modifier) {
         Surface {
             CategoryScreenContentHeader(
                 name = "Category Name",
-                description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ",
-                imageUrl = "https://www.example.com/image.jpg",
-                productsQuantity = 100,
+                description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ", productsQuantity = 100,
                 handleEvent = {},
                 categoryTitleAlpha = 1F,
                 modifier = Modifier.padding(horizontal = MobiTheme.dimens.dimen_2)

@@ -2,7 +2,7 @@ package com.samuraicmdv.data.repository
 
 import com.samuraicmdv.data.datasource.CategoryDataSource
 import com.samuraicmdv.domain.model.CategoryResponseModel
-import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
+import com.samuraicmdv.domain.model.GetCategoriesResponseModel
 import com.samuraicmdv.domain.repository.CategoryRepository
 import com.samuraicmdv.domain.util.ResponseWrapper
 import javax.inject.Inject
@@ -16,6 +16,6 @@ class CategoryRepositoryImpl @Inject constructor(
     override suspend fun getProductCategories(
         storeId: Int,
         all: Boolean,
-    ): ResponseWrapper<ProductCategoriesResponseModel> =
+    ): ResponseWrapper<GetCategoriesResponseModel> =
         categoryDataSource.getProductCategories(storeId, all)
 }

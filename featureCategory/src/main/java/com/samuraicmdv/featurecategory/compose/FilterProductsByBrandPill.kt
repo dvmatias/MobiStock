@@ -59,7 +59,7 @@ fun FilterProductsByBrandPill(
                 Text(
                     text = selectedOption.uppercase(),
                     color = MobiTheme.colors.onPrimary,
-                    style = MobiTheme.typography.labelMediumBlack,
+                    style = MobiTheme.typography.labelMediumBold,
                 )
                 Icon(
                     imageVector = Icons.Default.ArrowDropDown,

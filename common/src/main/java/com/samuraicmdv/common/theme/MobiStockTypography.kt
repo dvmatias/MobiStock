@@ -17,7 +17,6 @@ data class MobiTypography(
     val labelSmallBold: TextStyle,
     val labelMedium: TextStyle,
     val labelMediumBold: TextStyle,
-    val labelMediumBlack: TextStyle,
     val labelLarge: TextStyle,
     val labelLargeBold: TextStyle,
     val bodySmall: TextStyle,
@@ -34,9 +33,7 @@ data class MobiTypography(
     val titleLargeBold: TextStyle,
     val headline: TextStyle,
     val headlineBold: TextStyle,
-    val displaySmall: TextStyle,
-    val displayMedium: TextStyle,
-    val displayLarge: TextStyle,
+    val display: TextStyle,
     val buttonLabel: TextStyle
 )
 
@@ -52,26 +49,22 @@ private data class MobiTypographyFontSizes(
     val titleMedium: TextUnit =  24.sp,
     val titleLarge: TextUnit =  28.sp,
     val headline: TextUnit =  32.sp,
-    val displaySmall: TextUnit =  36.sp,
-    val displayMedium: TextUnit =  48.sp,
-    val displayLarge: TextUnit =  60.sp,
+    val display: TextUnit =  48.sp,
 )
 
 @Immutable
 private data class MobiTypographyLineHeight(
     val smallest: TextUnit = 12.sp,
     val small: TextUnit = 14.sp,
-    val caption: TextUnit =   16.sp,
-    val bodySmall: TextUnit =  18.sp,
-    val bodyMedium: TextUnit =  20.sp,
-    val bodyLarge: TextUnit =  26.sp,
-    val titleSmall: TextUnit =  30.sp,
-    val titleMedium: TextUnit =  32.sp,
-    val titleLarge: TextUnit =  36.sp,
-    val headline: TextUnit =  42.sp,
-    val displaySmall: TextUnit =  46.sp,
-    val displayMedium: TextUnit =  56.sp,
-    val displayLarge: TextUnit =  66.sp,
+    val caption: TextUnit =   14.sp,
+    val bodySmall: TextUnit =  16.sp,
+    val bodyMedium: TextUnit =  18.sp,
+    val bodyLarge: TextUnit =  22.sp,
+    val titleSmall: TextUnit =  20.sp,
+    val titleMedium: TextUnit =  24.sp,
+    val titleLarge: TextUnit =  28.sp,
+    val headline: TextUnit =  82.sp,
+    val display: TextUnit =  48.sp,
 )
 
 val LocalMobiTypography = staticCompositionLocalOf {
@@ -163,10 +156,6 @@ fun mobiTypography(mobiColors: MobiColors): MobiTypography {
             fontSize = fontSizes.small,
             lineHeight = lineHeights.small
         ),
-        labelMediumBlack = titleBold.copy(
-            fontSize = fontSizes.small,
-            lineHeight = lineHeights.small
-        ),
         labelLarge = titleNormal.copy(
             fontSize = fontSizes.caption,
             lineHeight = lineHeights.caption
@@ -231,17 +220,9 @@ fun mobiTypography(mobiColors: MobiColors): MobiTypography {
             fontSize = fontSizes.headline,
             lineHeight = lineHeights.headline
         ),
-        displaySmall = titleNormal.copy(
-            fontSize = fontSizes.displaySmall,
-            lineHeight = lineHeights.displaySmall
-        ),
-        displayMedium = titleNormal.copy(
-            fontSize = fontSizes.displayMedium,
-            lineHeight = lineHeights.displayMedium
-        ),
-        displayLarge = titleNormal.copy(
-            fontSize = fontSizes.displayLarge,
-            lineHeight = lineHeights.displayLarge
+        display = titleNormal.copy(
+            fontSize = fontSizes.display,
+            lineHeight = lineHeights.display
         ),
         buttonLabel = titleBold.copy(
             fontSize = fontSizes.bodyMedium,

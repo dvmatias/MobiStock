@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.appcompat.content.res.AppCompatResources
 import com.samuraicmdv.common.utils.getIconResId
 import com.samuraicmdv.common.utils.getNameResId
-import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
+import com.samuraicmdv.domain.model.GetCategoriesResponseModel
 import com.samuraicmdv.domain.model.UserModel
 import com.samuraicmdv.domain.model.UserProfileResponseModel
 import com.samuraicmdv.featuredashboard.data.BranchType
@@ -58,7 +58,7 @@ class DashboardUiDataTransformer @Inject constructor(
         }
 
     fun transformProductCategories(
-        productCategories: ProductCategoriesResponseModel,
+        productCategories: GetCategoriesResponseModel,
     ): ProductCategoriesState? =
         productCategories.productCategories?.let { categories ->
             ProductCategoriesState(
@@ -66,16 +66,14 @@ class DashboardUiDataTransformer @Inject constructor(
                     ProductCategoryUiData(
                         id = it.id ?: -1,
                         name = context.getString(it.type.getNameResId()),
-                        imageUrl = it.imageUrl,
                         iconDrawable = AppCompatResources.getDrawable(context, it.type.getIconResId()),
                         productsQuantity = it.productsQuantity ?: 0,
                         subcategories = it.subcategories?.map { subcategory ->
                             ProductSubcategoryUiData(
                                 id = subcategory.id ?: -1,
                                 name = context.getString(subcategory.type.getNameResId()),
-                                imageUrl = subcategory.imageUrl,
                                 iconDrawable = AppCompatResources.getDrawable(context, subcategory.type.getIconResId()),
-                                productsQuantity = subcategory.productsQuantity ?: 0
+                                productsQuantity = 0
                             )
                         },
                     )

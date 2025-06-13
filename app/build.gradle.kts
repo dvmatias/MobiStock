@@ -102,6 +102,11 @@ dependencies {
 
     kapt(libs.google.dagger.hilt.android.compiler)
 }
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 // Allow references to generated code
 kapt {

@@ -1,7 +1,7 @@
 package com.samuraicmdv.data.datasource
 
 import com.samuraicmdv.domain.model.CategoryResponseModel
-import com.samuraicmdv.domain.model.ProductCategoriesResponseModel
+import com.samuraicmdv.domain.model.GetCategoriesResponseModel
 import com.samuraicmdv.domain.util.ResponseWrapper
 
 /**
@@ -23,5 +23,5 @@ interface CategoryDataSource {
     suspend fun getProductCategories(
         storeId: Int,
         all: Boolean,
-    ): ResponseWrapper<ProductCategoriesResponseModel>
+    ): ResponseWrapper<GetCategoriesResponseModel>
 }

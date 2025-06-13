@@ -56,7 +56,7 @@ fun UserFieldContent(
     ) {
         Text(
             text = stringResource(id = R.string.label_user_name_input_field).uppercase(),
-            style = MobiTheme.typography.labelMediumBlack,
+            style = MobiTheme.typography.labelMediumBold,
             color = MobiTheme.colors.textSecondary,
             modifier = Modifier.fillMaxWidth(),
         )

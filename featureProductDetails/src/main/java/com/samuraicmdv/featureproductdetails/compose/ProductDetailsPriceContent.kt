@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.samuraicmdv.common.event.Action
 import com.samuraicmdv.common.extension.getMargin
 import com.samuraicmdv.common.theme.MobiTheme
-import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
+import com.samuraicmdv.common.uidata.ProductPriceUiData
 import com.samuraicmdv.ui.widget.ActionText
 import com.samuraicmdv.ui.widget.IconLabelValue
 import com.samuraicmdv.ui.widget.LabelValue

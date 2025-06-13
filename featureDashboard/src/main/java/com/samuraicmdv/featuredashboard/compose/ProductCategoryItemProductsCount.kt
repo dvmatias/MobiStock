@@ -57,7 +57,7 @@ fun ProductCategoryItemProductsCount(
     ) {
         Text(
             text = productsCount.toString(),
-            style = MobiTheme.typography.labelMediumBlack,
+            style = MobiTheme.typography.labelMediumBold,
             color = textColor,
             textAlign = TextAlign.Center,
             modifier = Modifier.align(Alignment.Center)

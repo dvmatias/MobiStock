@@ -1,18 +1,24 @@
 package com.samuraicmdv.featurebarcodescanner
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.samuraicmdv.domain.usecase.GetProductDetailsByCodeGeneralUseCase
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerPresentationEvent
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
-import com.samuraicmdv.featurebarcodescanner.state.ProductDetailsUiData
+import com.samuraicmdv.featurebarcodescanner.transformer.ItemDetailsUiDataTransformer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
+class BarcodeScannerViewModel @Inject constructor(
+    private val getProductDetailsByCodeGeneralUseCase: GetProductDetailsByCodeGeneralUseCase,
+    private val itemDetailsUiDataTransformer: ItemDetailsUiDataTransformer
+) : ViewModel() {
     /**
      * StateFlow that holds the UI data for the barcode scanner.
      */
@@ -30,6 +36,8 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
 
     private var canScan: Boolean = true
 
+    private var scannedBarcode: String? = null
+
     /**
      * Handles the event when a barcode is scanned. It updates the UI data with the new scanned barcode and the scanned
      * image bitmap.
@@ -38,30 +46,35 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
      */
     fun onBarcodeScanned(event: BarcodeScannerPresentationEvent.OnBarcodeScanned) {
         // Check if scanning is allowed and if the scanned barcode is different from the last scanned barcode
-        if (canScan && (_uiData.value.lastScannedBarcode == null || _uiData.value.lastScannedBarcode != event.barcode)) {
+        if (canScan && (scannedBarcode == null || scannedBarcode != event.barcode)) {
             // Prevent further scans until the current one is processed
             canScan = false
 
             // Emit the scanned barcode event to the flow so the activity can sound the "pip"
             _scanSuccessEventFlow.tryEmit(event)
 
-            // Updates the UI data with the new scanned barcode and image bitmap
-            _uiData.value = _uiData.value.copy(
-                lastScannedBarcode = event.barcode,
-                scannedImageBitmap = event.bitmap
-            )
             // Update the product details UI data with the scanned barcode
             _uiData.value = _uiData.value.copy(
-                productDetailsUiData = _uiData.value.productDetailsUiData?.copy(
-                    showBottomSheet = true,
-                    isLoading = true,
-                    scannedBarCode = event.barcode
-                ) ?: ProductDetailsUiData(
-                    showBottomSheet = true,
-                    isLoading = true,
-                    scannedBarCode = event.barcode
-                )
+                isBottomSheetDisplayed = true,
+                isBottomSheetLoading = true,
+                scannedBarCode = event.barcode,
+                scannedImageBitmap = event.bitmap
             )
+
+            // Fetch product details by the scanned barcode
+            viewModelScope.launch {
+                getProductDetailsByCodeGeneralUseCase(
+                    GetProductDetailsByCodeGeneralUseCase.Params(
+                        productCode = event.barcode,
+                    )
+                ).let { itemDetailsModel ->
+                    // Update the UI data with the fetched product details
+                    _uiData.value = _uiData.value.copy(
+                        isBottomSheetLoading = false,
+                        itemDetailsUiData = itemDetailsUiDataTransformer.transform(itemDetailsModel),
+                    )
+                }
+            }
         }
     }
 
@@ -69,26 +82,21 @@ class BarcodeScannerViewModel @Inject constructor() : ViewModel() {
      * Handles the event when a barcode is lost. It resets the last scanned barcode in the UI data.
      */
     fun onBarcodeLost() {
-        _uiData.value.lastScannedBarcode?.let {
-            _uiData.value = _uiData.value.copy(lastScannedBarcode = null)
-        }
+        scannedBarcode = null
     }
 
     /**
      *  Checks if the bottom sheet should be dismissed.
      */
-    fun shouldDismissBottomSheet(): Boolean =
-        _uiData.value.productDetailsUiData?.showBottomSheet == true
+    fun shouldDismissBottomSheet(): Boolean = _uiData.value.isBottomSheetDisplayed
 
     /**
      *  Dismisses the bottom sheet and resets the loading state. Also, allows scanning again.
      */
     fun dismissBottomSheet() {
         _uiData.value = _uiData.value.copy(
-            productDetailsUiData = _uiData.value.productDetailsUiData?.copy(
-                showBottomSheet = false,
-                isLoading = false
-            )
+            isBottomSheetLoading = false,
+            isBottomSheetDisplayed = false
         )
         // Allow scanning again after dismissing the bottom sheet
         canScan = true

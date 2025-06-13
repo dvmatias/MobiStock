@@ -98,7 +98,6 @@ fun CategoryScreenContent(
                 CategoryScreenContentHeader(
                     name = stringResource(id = nameResId),
                     description = description,
-                    imageUrl = imageUrl,
                     productsQuantity = productsQuantity,
                     categoryTitleAlpha = categoryTitleAlpha,
                     handleEvent = handleEvent,
@@ -188,9 +187,7 @@ fun PreviewCategoryContent() {
                     id = 1,
                     nameResId = com.samuraicmdv.common.R.string.product_category_battery_name,
                     description = "Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. ",
-                    imageUrl = "https://www.example.com/image.jpg",
                     productsQuantity = 547,
-                    logoUrl = "https://www.example.com/image.jpg"
                 ),
                 products = List(5) { index ->
                     ProductUiData(

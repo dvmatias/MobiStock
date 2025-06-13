@@ -2,7 +2,7 @@ package com.samuraicmdv.data.api
 
 import com.samuraicmdv.data.entity.CreateProductRequestEntity
 import com.samuraicmdv.data.entity.CreateProductResponseEntity
-import com.samuraicmdv.data.entity.GetProductDetailsResponseEntity
+import com.samuraicmdv.data.entity.ProductDetailsResponseEntity
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -20,10 +20,26 @@ interface ProductApi {
     ): Response<CreateProductResponseEntity>
 
     @GET("$PATH/$DETAILS_PATH")
-    suspend fun getProductDetails(
+    suspend fun getProductDetailsByIdForStore(
         @Query("id") productId: Int,
         @Query("store_id") storeId: Int? = null,
-    ): Response<GetProductDetailsResponseEntity>
+    ): Response<ProductDetailsResponseEntity>
+
+    @GET("$PATH/$DETAILS_PATH")
+    suspend fun getProductDetailsByIdGeneral(
+        @Query("id") productId: Int,
+    ): Response<ProductDetailsResponseEntity>
+
+    @GET("$PATH/$DETAILS_PATH")
+    suspend fun getProductDetailsByCodeForStore(
+        @Query("code") productCode: String,
+        @Query("store_id") storeId: Int? = null,
+    ): Response<ProductDetailsResponseEntity>
+
+    @GET("$PATH/$DETAILS_PATH")
+    suspend fun getProductDetailsByCodeGeneral(
+        @Query("code") productCode: String,
+    ): Response<ProductDetailsResponseEntity>
 
     companion object {
         private const val PATH = "product"

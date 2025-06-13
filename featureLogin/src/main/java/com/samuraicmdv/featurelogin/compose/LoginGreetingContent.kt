@@ -29,7 +29,7 @@ fun LoginGreetingContent(
         Text(
             text = stringResource(id = R.string.greetings_content_title),
             color = MobiTheme.colors.textPrimary,
-            style = MobiTheme.typography.displayMedium,
+            style = MobiTheme.typography.display,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(TEXT_PERCENT_WIDTH)
         )

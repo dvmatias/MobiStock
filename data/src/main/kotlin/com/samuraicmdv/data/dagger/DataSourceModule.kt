@@ -18,14 +18,13 @@ import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.ProductDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.SalesLedgeDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.UserDataSourceRetrofitImpl
-import com.samuraicmdv.data.mapper.BrandDataMapper
-import com.samuraicmdv.data.mapper.CategoryDataMapper
-import com.samuraicmdv.data.mapper.CreateProductDataMapper
-import com.samuraicmdv.data.mapper.GetProductDetailsDataMapper
-import com.samuraicmdv.data.mapper.LoginDataMapper
-import com.samuraicmdv.data.mapper.ProductCategoryMapper
-import com.samuraicmdv.data.mapper.SalesLedgeDataMapper
-import com.samuraicmdv.data.mapper.UserProfileDataMapper
+import com.samuraicmdv.data.mapper.BrandEntityMapper
+import com.samuraicmdv.data.mapper.CategoryEntityMapper
+import com.samuraicmdv.data.mapper.CreateProductEntityMapper
+import com.samuraicmdv.data.mapper.GetCategoriesResponseEntityMapper
+import com.samuraicmdv.data.mapper.LoginEntityMapper
+import com.samuraicmdv.data.mapper.SalesLedgeEntityMapper
+import com.samuraicmdv.data.mapper.UserProfileEntityMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,47 +36,45 @@ object DataSourceModule {
     @Provides
     fun provideLoginDataSourceRetrofit(
         loginApi: LoginApi,
-        dataMapper: LoginDataMapper,
+        dataMapper: LoginEntityMapper,
     ): LoginDataSource = LoginDataSourceRetrofitImpl(loginApi, dataMapper)
 
     @Provides
     fun provideUserDataSourceRetrofit(
         userApi: UserApi,
-        userProfileDataMapper: UserProfileDataMapper,
+        userProfileDataMapper: UserProfileEntityMapper,
     ): UserDataSource =
         UserDataSourceRetrofitImpl(userApi, userProfileDataMapper)
 
     @Provides
     fun provideCategoryDataSource(
         categoryApi: CategoryApi,
-        categoryDataMapper: CategoryDataMapper,
-        productCategoryMapper: ProductCategoryMapper,
+        categoryDataMapper: CategoryEntityMapper,
+        productCategoryMapper: GetCategoriesResponseEntityMapper,
     ): CategoryDataSource =
         CategoryDataSourceRetrofitImpl(categoryApi, categoryDataMapper, productCategoryMapper)
 
     @Provides
     fun provideBrandDataSource(
         brandApi: BrandApi,
-        brandDataMapper: BrandDataMapper,
+        brandDataMapper: BrandEntityMapper,
     ): BrandDataSource =
         BrandDataSourceRetrofitImpl(brandApi, brandDataMapper)
 
     @Provides
     fun provideProductDataSource(
         productApi: ProductApi,
-        createProductDataMapper: CreateProductDataMapper,
-        getProductDetailsDataMapper: GetProductDetailsDataMapper,
+        createProductDataMapper: CreateProductEntityMapper,
     ): ProductDataSource =
         ProductDataSourceRetrofitImpl(
             productApi,
-            createProductDataMapper,
-            getProductDetailsDataMapper
+            createProductDataMapper
         )
 
     @Provides
     fun provideSalesLedgeDataSource(
         api: SalesLedgeApi,
-        salesLedgeDataMapper: SalesLedgeDataMapper,
+        salesLedgeDataMapper: SalesLedgeEntityMapper,
     ): SalesLedgeDataSource =
         SalesLedgeDataSourceRetrofitImpl(
             api,

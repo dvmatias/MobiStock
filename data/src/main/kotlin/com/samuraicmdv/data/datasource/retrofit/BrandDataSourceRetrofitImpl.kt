@@ -2,7 +2,7 @@ package com.samuraicmdv.data.datasource.retrofit
 
 import com.samuraicmdv.data.api.BrandApi
 import com.samuraicmdv.data.datasource.BrandDataSource
-import com.samuraicmdv.data.mapper.BrandDataMapper
+import com.samuraicmdv.data.mapper.BrandEntityMapper
 import com.samuraicmdv.domain.model.GetBrandsResponseModel
 import com.samuraicmdv.domain.util.ResponseFailure
 import com.samuraicmdv.domain.util.ResponseWrapper
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class BrandDataSourceRetrofitImpl @Inject constructor(
     private val brandApi: BrandApi,
-    private val brandDataMapper: BrandDataMapper,
+    private val brandDataMapper: BrandEntityMapper,
 ) : BrandDataSource {
 
     override suspend fun getBrands(storeId: Int): ResponseWrapper<GetBrandsResponseModel> =
@@ -22,7 +22,7 @@ class BrandDataSourceRetrofitImpl @Inject constructor(
             ).let { serviceResponse ->
                 if (serviceResponse.isSuccessful) {
                     ResponseWrapper.success(
-                        data = brandDataMapper.entityToModel(serviceResponse.body())
+                        data = brandDataMapper.map(serviceResponse.body())
                     )
                 } else {
                     ResponseWrapper.error(

@@ -1,13 +1,13 @@
 package com.samuraicmdv.data.dagger
 
-import com.samuraicmdv.data.mapper.BrandDataMapper
-import com.samuraicmdv.data.mapper.CategoryDataMapper
-import com.samuraicmdv.data.mapper.CreateProductDataMapper
-import com.samuraicmdv.data.mapper.GetProductDetailsDataMapper
-import com.samuraicmdv.data.mapper.LoginDataMapper
-import com.samuraicmdv.data.mapper.ProductCategoryMapper
-import com.samuraicmdv.data.mapper.SalesLedgeDataMapper
-import com.samuraicmdv.data.mapper.UserProfileDataMapper
+import com.samuraicmdv.data.mapper.BrandEntityMapper
+import com.samuraicmdv.data.mapper.CategoryEntityMapper
+import com.samuraicmdv.data.mapper.CreateProductEntityMapper
+import com.samuraicmdv.data.mapper.GetCategoriesResponseEntityMapper
+import com.samuraicmdv.data.mapper.LoginEntityMapper
+import com.samuraicmdv.data.mapper.ProductDetailsResponseEntityMapper
+import com.samuraicmdv.data.mapper.SalesLedgeEntityMapper
+import com.samuraicmdv.data.mapper.UserProfileEntityMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,30 +15,33 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataMapperModule {
-    @Provides
-    fun provideLoginDataMapper(): LoginDataMapper = LoginDataMapper
+abstract class DataMapperModule {
 
-    @Provides
-    fun provideUserProfileMapper(): UserProfileDataMapper = UserProfileDataMapper
+    companion object {
+        @Provides
+        fun provideLoginDataMapper(): LoginEntityMapper = LoginEntityMapper
 
-    @Provides
-    fun provideProductCategoryMapper(): ProductCategoryMapper = ProductCategoryMapper
+        @Provides
+        fun provideUserProfileMapper(): UserProfileEntityMapper = UserProfileEntityMapper
 
-    @Provides
-    fun provideCategoryDataMapper(): CategoryDataMapper = CategoryDataMapper
+        @Provides
+        fun provideProductCategoryMapper(): GetCategoriesResponseEntityMapper = GetCategoriesResponseEntityMapper
 
-    @Provides
-    fun provideBrandDataMapper(): BrandDataMapper = BrandDataMapper
+        @Provides
+        fun provideCategoryDataMapper(): CategoryEntityMapper = CategoryEntityMapper
 
-    @Provides
-    fun provideCreateProductDataMapper(): CreateProductDataMapper = CreateProductDataMapper
+        @Provides
+        fun provideBrandDataMapper(): BrandEntityMapper = BrandEntityMapper
 
-    @Provides
-    fun provideGetProductDetailsDataMapper(): GetProductDetailsDataMapper =
-        GetProductDetailsDataMapper
+        @Provides
+        fun provideCreateProductDataMapper(): CreateProductEntityMapper = CreateProductEntityMapper
 
-    @Provides
-    fun provideSalesLedgeDataMapper(): SalesLedgeDataMapper =
-        SalesLedgeDataMapper
+        @Provides
+        fun provideSalesLedgeDataMapper(): SalesLedgeEntityMapper = SalesLedgeEntityMapper
+
+        @Provides
+        fun provideGetProductDetailsEntityMapper(): ProductDetailsResponseEntityMapper {
+            return ProductDetailsResponseEntityMapper()
+        }
+    }
 }

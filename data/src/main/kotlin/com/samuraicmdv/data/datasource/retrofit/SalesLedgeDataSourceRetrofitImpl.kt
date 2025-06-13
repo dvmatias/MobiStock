@@ -2,7 +2,7 @@ package com.samuraicmdv.data.datasource.retrofit
 
 import com.samuraicmdv.data.api.SalesLedgeApi
 import com.samuraicmdv.data.datasource.SalesLedgeDataSource
-import com.samuraicmdv.data.mapper.SalesLedgeDataMapper
+import com.samuraicmdv.data.mapper.SalesLedgeEntityMapper
 import com.samuraicmdv.domain.model.GetDailySalesLedgeResponseModel
 import com.samuraicmdv.domain.util.ResponseFailure
 import com.samuraicmdv.domain.util.ResponseWrapper
@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class SalesLedgeDataSourceRetrofitImpl @Inject constructor(
     private val salesLedgeApi: SalesLedgeApi,
-    private val salesLedgeDataMapper: SalesLedgeDataMapper
+    private val salesLedgeDataMapper: SalesLedgeEntityMapper
 ) : SalesLedgeDataSource {
 
     override suspend fun getDailySalesLedge(
@@ -23,7 +23,7 @@ class SalesLedgeDataSourceRetrofitImpl @Inject constructor(
         val body = response.body()
 
         return if (response.isSuccessful && body != null) {
-            ResponseWrapper.success(salesLedgeDataMapper.entityToModel(body))
+            ResponseWrapper.success(salesLedgeDataMapper.map(body))
         } else {
             ResponseWrapper.error(
                 null,

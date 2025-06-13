@@ -30,11 +30,11 @@ import androidx.core.content.ContextCompat
 import com.samuraicmdv.common.EMPTY_STRING
 import com.samuraicmdv.common.extension.getMargin
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.common.uidata.CategoryUiData
+import com.samuraicmdv.common.uidata.ProductBrandUiData
+import com.samuraicmdv.common.uidata.ProductPriceUiData
+import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featureproductdetails.R
-import com.samuraicmdv.featureproductdetails.data.BrandUiData
-import com.samuraicmdv.featureproductdetails.data.CategoryUiData
-import com.samuraicmdv.featureproductdetails.data.ProductPriceUiData
-import com.samuraicmdv.featureproductdetails.data.ProductUiData
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsBusinessEvent
 import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -47,7 +47,7 @@ import com.samuraicmdv.ui.util.ThemePreviews
 fun ProductDetailsScreenContentEdit(
     product: ProductUiData?,
     categories: List<CategoryUiData>?,
-    brands: List<BrandUiData>?,
+    brands: List<ProductBrandUiData>?,
     handleEvent: (ProductDetailsEvent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -347,7 +347,7 @@ private fun validateCategory(
 
 private fun validateBrand(
     context: Context,
-    brand: BrandUiData?,
+    brand: ProductBrandUiData?,
     onBrandError: (String) -> Unit,
 ): Boolean {
     if (brand?.id == -1) {
@@ -374,7 +374,7 @@ fun PreviewProductDetailsScreenContentEdit() {
                     thumbnailUrl = EMPTY_STRING,
                     imageUrls = emptyList(),
                     price = ProductPriceUiData(),
-                    brand = BrandUiData(
+                    brand = ProductBrandUiData(
                         id = -1,
                         name = EMPTY_STRING,
                         logoUrl = EMPTY_STRING,
@@ -382,20 +382,17 @@ fun PreviewProductDetailsScreenContentEdit() {
                     category = CategoryUiData(
                         id = -1,
                         nameResId = -1,
-                        description = EMPTY_STRING,
-                        logoUrl = EMPTY_STRING,
-                    ),
+                        description = EMPTY_STRING,),
                 ),
                 categories = List(5) {
                     CategoryUiData(
                         id = it,
                         nameResId = R.string.field_label_category,
                         description = EMPTY_STRING,
-                        logoUrl = EMPTY_STRING,
                     )
                 },
                 brands = List(5) {
-                    BrandUiData(
+                    ProductBrandUiData(
                         id = it,
                         name = EMPTY_STRING,
                         logoUrl = EMPTY_STRING,
