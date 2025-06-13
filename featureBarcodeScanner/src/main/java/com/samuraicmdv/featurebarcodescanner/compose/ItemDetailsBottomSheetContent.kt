@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurebarcodescanner.preview.ItemDetailsBottomSheetContentPreviewParameter
-import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsBottomSheetUiData
+import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
@@ -20,13 +20,13 @@ import com.samuraicmdv.ui.util.ThemePreviews
  */
 @Composable
 fun ItemDetailsBottomSheetContent(
-    uiData: ItemDetailsBottomSheetUiData,
+    uiData: BarcodeScannerState,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.padding(horizontal = MobiTheme.dimens.dimen_2)
     ) {
-        if (uiData.isLoading) {
+        if (uiData.isBottomSheetLoading) {
             ItemDetailsBottomSheetLoadingContent(
                 scannedBarCode = uiData.scannedBarCode,
                 scannedImageBitmap = uiData.scannedImageBitmap
@@ -41,7 +41,7 @@ fun ItemDetailsBottomSheetContent(
 @ThemePreviews
 @Composable
 fun PreviewItemDetailsBottomSheetContent(
-    @PreviewParameter(ItemDetailsBottomSheetContentPreviewParameter::class) previewData: ItemDetailsBottomSheetUiData
+    @PreviewParameter(ItemDetailsBottomSheetContentPreviewParameter::class) previewData: BarcodeScannerState
 ) {
     MobiTheme {
         Surface(color = MobiTheme.colors.background) {

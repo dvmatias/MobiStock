@@ -51,7 +51,7 @@ fun BarcodeScannerScreen(
 
         // Product details bottom sheet
         ItemDetailsBottomSheet(
-            uiData = uiData.itemDetailsBottomSheetUiData,
+            uiData = uiData,
             bottomSheetState = bottomSheetState,
             handleEvent = handleEvent,
         )

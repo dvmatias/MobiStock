@@ -2,34 +2,31 @@ package com.samuraicmdv.featurebarcodescanner.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
-import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsBottomSheetUiData
 import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsUiData
 
 class BarcodeScannerScreenPreviewParameter : PreviewParameterProvider<BarcodeScannerState> {
     override val values: Sequence<BarcodeScannerState>
-        get() = sequenceOf(BarcodeScannerState(
-            itemDetailsBottomSheetUiData = getScanDetailsUiDataReady(),
-        ))
+        get() = sequenceOf(getScanDetailsUiDataReady())
 }
 
-class ProductDetailsBottomSheetPreviewParameter : PreviewParameterProvider<ItemDetailsBottomSheetUiData> {
-    override val values: Sequence<ItemDetailsBottomSheetUiData>
+class ProductDetailsBottomSheetPreviewParameter : PreviewParameterProvider<BarcodeScannerState> {
+    override val values: Sequence<BarcodeScannerState>
         get() = sequenceOf(
             getScanDetailsUiDataLoading(),
             getScanDetailsUiDataReady()
         )
 }
 
-class ItemDetailsBottomSheetContentPreviewParameter : PreviewParameterProvider<ItemDetailsBottomSheetUiData> {
-    override val values: Sequence<ItemDetailsBottomSheetUiData>
+class ItemDetailsBottomSheetContentPreviewParameter : PreviewParameterProvider<BarcodeScannerState> {
+    override val values: Sequence<BarcodeScannerState>
         get() = sequenceOf(
             getScanDetailsUiDataLoading(),
             getScanDetailsUiDataReady()
         )
 }
 
-class ItemDetailsBottomSheetLoadingContentPreviewParameter : PreviewParameterProvider<ItemDetailsBottomSheetUiData> {
-    override val values: Sequence<ItemDetailsBottomSheetUiData>
+class ItemDetailsBottomSheetLoadingContentPreviewParameter : PreviewParameterProvider<BarcodeScannerState> {
+    override val values: Sequence<BarcodeScannerState>
         get() = sequenceOf(getScanDetailsUiDataLoading())
 }
 
@@ -39,17 +36,19 @@ class ItemDetailsBottomSheetReadyContentPreviewParameter : PreviewParameterProvi
 }
 
 fun getScanDetailsUiDataLoading() =
-    ItemDetailsBottomSheetUiData(
-        isLoading = true,
-        showBottomSheet = true,
+    BarcodeScannerState(
+        isBottomSheetLoading = true,
+        isBottomSheetDisplayed = true,
         itemDetailsUiData = null,
-        scannedBarCode = "1234567890123"
+        scannedBarCode = "1234567890123",
+        scannedImageBitmap = null
     )
 
+
 fun getScanDetailsUiDataReady() =
-    ItemDetailsBottomSheetUiData(
-        isLoading = false,
-        showBottomSheet = true,
+    BarcodeScannerState(
+        isBottomSheetLoading = false,
+        isBottomSheetDisplayed = true,
         itemDetailsUiData = ItemDetailsUiData(
             id = 1,
             brandLogoUrl = "https://example.com/brand-logo.png",
@@ -62,5 +61,6 @@ fun getScanDetailsUiDataReady() =
             thumbnailUrl = "https://example.com/thumbnail.jpg",
             title = "Cable USB 3.0 - 25W - USB A a C"
         ),
-        scannedBarCode = "1234567890123"
+        scannedBarCode = "1234567890123",
+        scannedImageBitmap = null
     )

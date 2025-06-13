@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featurebarcodescanner.preview.ItemDetailsBottomSheetLoadingContentPreviewParameter
-import com.samuraicmdv.featurebarcodescanner.state.ItemDetailsBottomSheetUiData
+import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
@@ -66,7 +66,7 @@ fun ItemDetailsBottomSheetLoadingContent(
 @ThemePreviews
 @Composable
 fun PreviewItemDetailsBottomSheetLoadingContent(
-    @PreviewParameter(ItemDetailsBottomSheetLoadingContentPreviewParameter::class) previewData: ItemDetailsBottomSheetUiData
+    @PreviewParameter(ItemDetailsBottomSheetLoadingContentPreviewParameter::class) previewData: BarcodeScannerState
 ) {
     MobiTheme {
         Surface(color = MobiTheme.colors.background) {
