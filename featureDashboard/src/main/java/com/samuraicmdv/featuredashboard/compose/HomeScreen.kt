@@ -13,7 +13,7 @@ import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featuredashboard.data.BranchType
 import com.samuraicmdv.featuredashboard.data.UserUiData
 import com.samuraicmdv.featuredashboard.event.DashboardEvent
-import com.samuraicmdv.featuredashboard.state.DailySaleState
+import com.samuraicmdv.featuredashboard.state.DailySaleUiData
 import com.samuraicmdv.featuredashboard.state.DashboardScreenState
 import com.samuraicmdv.featuredashboard.state.UserProfileUiData
 import com.samuraicmdv.ui.util.ThemePreviews
@@ -104,7 +104,7 @@ fun PreviewHomeScreen() {
                             )
                         )
                     ),
-                    dailySaleState = DailySaleState(),
+                    dailySaleUiData = DailySaleUiData(),
                     isUsersBottomSheetDisplayed = false
                 )
             ) {}

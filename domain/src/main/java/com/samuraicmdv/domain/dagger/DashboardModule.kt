@@ -1,10 +1,10 @@
 package com.samuraicmdv.domain.dagger
 
 import com.samuraicmdv.domain.repository.CategoryRepository
-import com.samuraicmdv.domain.repository.SalesLedgeRepository
+import com.samuraicmdv.domain.repository.SalesLedgerRepository
 import com.samuraicmdv.domain.repository.UserRepository
-import com.samuraicmdv.domain.usecase.GetDailySalesLedgeUseCase
-import com.samuraicmdv.domain.usecase.GetDailySalesLedgeUseCaseImpl
+import com.samuraicmdv.domain.usecase.GetDaySalesLedgerUseCase
+import com.samuraicmdv.domain.usecase.GetDaySalesLedgerUseCaseImpl
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
 import com.samuraicmdv.domain.usecase.GetUserProfileUseCase
 import dagger.Module
@@ -26,8 +26,8 @@ object DashboardModule {
         GetProductCategoriesUseCase(categoryRepository)
 
     @Provides
-    fun provideGetDailySalesLedgeUseCase(
-        salesLedgeRepository: SalesLedgeRepository,
-    ): GetDailySalesLedgeUseCase =
-        GetDailySalesLedgeUseCaseImpl(salesLedgeRepository)
+    fun provideGetDaySalesLedgerUseCase(
+        salesLedgerRepository: SalesLedgerRepository,
+    ): GetDaySalesLedgerUseCase =
+        GetDaySalesLedgerUseCaseImpl(salesLedgerRepository)
 }

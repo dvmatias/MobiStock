@@ -1,5 +1,5 @@
 package com.samuraicmdv.domain.model
 
-data class GetDailySalesLedgeResponseModel(
+data class GetDaySalesLedgerResponseModel(
     val salesLedge: SalesLedgeModel?
 )

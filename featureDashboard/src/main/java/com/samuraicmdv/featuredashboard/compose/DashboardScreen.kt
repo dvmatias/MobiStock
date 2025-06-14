@@ -23,9 +23,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.samuraicmdv.common.theme.MobiTheme
+import com.samuraicmdv.featuredashboard.compose.dailysalesledge.DailySalesLedgeScreen
 import com.samuraicmdv.featuredashboard.event.DashboardEvent
 import com.samuraicmdv.featuredashboard.event.DashboardNavigationEvent
-import com.samuraicmdv.featuredashboard.state.DailySaleState
+import com.samuraicmdv.featuredashboard.state.DailySaleUiData
 import com.samuraicmdv.featuredashboard.state.DashboardScreenState
 import com.samuraicmdv.ui.util.ThemePreviews
 
@@ -54,7 +55,7 @@ fun DashboardScreen(
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(HOME_ROUTE) { HomeScreen(uiState = uiState, handleEvent = callback) }
-            composable(SALES_ROUTE) { DailySalesLedgeScreen(state = uiState.dailySaleState, callback = callback) }
+            composable(SALES_ROUTE) { DailySalesLedgeScreen(state = uiState.dailySaleUiData, callback = callback) }
             composable(SALES_HISTORY_ROUTE) { SalesHistoryScreen() }
             composable(PROFILE_ROUTE) { ProfileScreen() }
         }
@@ -156,7 +157,7 @@ fun PreviewMainScreen() {
             DashboardScreen(
                 uiState = DashboardScreenState(
                     productCategoriesState = null,
-                    dailySaleState = DailySaleState()
+                    dailySaleUiData = DailySaleUiData()
                 ),
                 callback = {}
             )

@@ -2,8 +2,8 @@ package com.samuraicmdv.domain.util
 
 class ResponseWrapper<out T>(
     private val data: T?,
-    private val responseStatus: ResponseStatus,
-    private val responseFailure: ResponseFailure?,
+    val status: ResponseStatus,
+    val failure: ResponseFailure?,
 ) {
 
     val isSuccess: Boolean = data !== failMarker

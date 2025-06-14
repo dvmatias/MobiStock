@@ -2,10 +2,10 @@ package com.samuraicmdv.featuredashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.samuraicmdv.domain.usecase.GetDailySalesLedgeUseCase
+import com.samuraicmdv.domain.usecase.GetDaySalesLedgerUseCase
 import com.samuraicmdv.domain.usecase.GetProductCategoriesUseCase
 import com.samuraicmdv.domain.usecase.GetUserProfileUseCase
-import com.samuraicmdv.featuredashboard.state.DailySaleState
+import com.samuraicmdv.featuredashboard.state.DailySaleUiData
 import com.samuraicmdv.featuredashboard.state.DashboardScreenState
 import com.samuraicmdv.featuredashboard.state.ProductCategoriesState
 import com.samuraicmdv.featuredashboard.transformer.DashboardUiDataTransformer
@@ -19,19 +19,22 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+/**
+ * View model for the [DashboardActivity].
+ */
 @HiltViewModel(assistedFactory = DashboardViewModel.Factory::class)
 class DashboardViewModel @AssistedInject constructor(
-    @Assisted private val storeId: Int,
+    @Assisted private val params: Params,
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getProductCategoriesUseCase: GetProductCategoriesUseCase,
-    private val getDailySalesLedge: GetDailySalesLedgeUseCase,
+    private val getDaySalesLedger: GetDaySalesLedgerUseCase,
     private val transformer: DashboardUiDataTransformer,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
         DashboardScreenState(
             profile = null,
-            dailySaleState = DailySaleState(),
+            dailySaleUiData = DailySaleUiData(isLoading = true),
             productCategoriesState = ProductCategoriesState(isLoading = true),
         )
     )
@@ -41,12 +44,13 @@ class DashboardViewModel @AssistedInject constructor(
     init {
         getStoreProfile()
         getProductCategories()
+        getDailySalesLedge()
     }
 
     private fun getStoreProfile() {
         viewModelScope.launch {
             // GetUser profile
-            getUserProfileUseCase(GetUserProfileUseCase.Params(storeId)).let { userProfileModel ->
+            getUserProfileUseCase(GetUserProfileUseCase.Params(params.storeId)).let { userProfileModel ->
                 _uiState.update { currentState ->
                     currentState.copy(
                         profile = transformer.transformUserProfile(userProfileModel)
@@ -65,7 +69,7 @@ class DashboardViewModel @AssistedInject constructor(
                 )
             }
             getProductCategoriesUseCase(
-                GetProductCategoriesUseCase.Params(storeId)
+                GetProductCategoriesUseCase.Params(params.storeId)
             ).let { productCategories ->
                 _uiState.update { currentState ->
                     currentState.copy(
@@ -78,10 +82,17 @@ class DashboardViewModel @AssistedInject constructor(
 
     private fun getDailySalesLedge() {
         viewModelScope.launch {
-            getDailySalesLedge(GetDailySalesLedgeUseCase.Params(storeId)).let { dailySales ->
+            getDaySalesLedger(
+                GetDaySalesLedgerUseCase.Params(
+                    storeId = params.storeId,
+                    day = params.day,
+                    month = params.month,
+                    year = params.year
+                )
+            ).let { dailySales ->
                 _uiState.update { currentState ->
                     currentState.copy(
-                        dailySaleState = transformer.transformDailySales(dailySales)
+                        dailySaleUiData = transformer.transformDailySales(dailySales)
                     )
                 }
             }
@@ -148,6 +159,15 @@ class DashboardViewModel @AssistedInject constructor(
      */
     @AssistedFactory
     interface Factory {
-        fun create(storeId: Int): DashboardViewModel
+        fun create(
+            params: Params
+        ): DashboardViewModel
     }
+
+    data class Params(
+        val storeId: Int,
+        val day: Int,
+        val month: Int,
+        val year: Int
+    )
 }

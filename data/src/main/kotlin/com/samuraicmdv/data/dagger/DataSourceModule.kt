@@ -10,20 +10,19 @@ import com.samuraicmdv.data.datasource.BrandDataSource
 import com.samuraicmdv.data.datasource.CategoryDataSource
 import com.samuraicmdv.data.datasource.LoginDataSource
 import com.samuraicmdv.data.datasource.ProductDataSource
-import com.samuraicmdv.data.datasource.SalesLedgeDataSource
+import com.samuraicmdv.data.datasource.SalesLedgerDataSource
 import com.samuraicmdv.data.datasource.UserDataSource
 import com.samuraicmdv.data.datasource.retrofit.BrandDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.CategoryDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.ProductDataSourceRetrofitImpl
-import com.samuraicmdv.data.datasource.retrofit.SalesLedgeDataSourceRetrofitImpl
+import com.samuraicmdv.data.datasource.retrofit.SalesLedgerDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.UserDataSourceRetrofitImpl
 import com.samuraicmdv.data.mapper.BrandEntityMapper
 import com.samuraicmdv.data.mapper.CategoryEntityMapper
 import com.samuraicmdv.data.mapper.CreateProductEntityMapper
 import com.samuraicmdv.data.mapper.GetCategoriesResponseEntityMapper
 import com.samuraicmdv.data.mapper.LoginEntityMapper
-import com.samuraicmdv.data.mapper.SalesLedgeEntityMapper
 import com.samuraicmdv.data.mapper.UserProfileEntityMapper
 import dagger.Module
 import dagger.Provides
@@ -72,12 +71,5 @@ object DataSourceModule {
         )
 
     @Provides
-    fun provideSalesLedgeDataSource(
-        api: SalesLedgeApi,
-        salesLedgeDataMapper: SalesLedgeEntityMapper,
-    ): SalesLedgeDataSource =
-        SalesLedgeDataSourceRetrofitImpl(
-            api,
-            salesLedgeDataMapper
-        )
+    fun provideSalesLedgeDataSource(api: SalesLedgeApi): SalesLedgerDataSource = SalesLedgerDataSourceRetrofitImpl(api)
 }

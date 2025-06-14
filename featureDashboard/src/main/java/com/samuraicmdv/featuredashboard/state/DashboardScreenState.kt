@@ -12,5 +12,5 @@ data class DashboardScreenState(
     val profile: UserProfileUiData? = null,
     val isUsersBottomSheetDisplayed: Boolean = false,
     val productCategoriesState: ProductCategoriesState? = null,
-    val dailySaleState: DailySaleState? = null
+    val dailySaleUiData: DailySaleUiData? = null
 )

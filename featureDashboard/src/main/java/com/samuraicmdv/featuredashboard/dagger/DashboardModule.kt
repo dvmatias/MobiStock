@@ -2,6 +2,7 @@ package com.samuraicmdv.featuredashboard.dagger
 
 import android.content.Context
 import com.samuraicmdv.featuredashboard.transformer.DashboardUiDataTransformer
+import com.samuraicmdv.featuredashboard.transformer.DashboardUiDataTransformerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,5 +15,5 @@ object DashboardModule {
     @Provides
     fun provideHomeUiDataTransformer(
         @ApplicationContext context: Context
-    ): DashboardUiDataTransformer = DashboardUiDataTransformer(context)
+    ): DashboardUiDataTransformer = DashboardUiDataTransformerImpl(context)
 }

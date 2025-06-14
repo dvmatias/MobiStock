@@ -3,10 +3,10 @@ package com.samuraicmdv.data.dagger
 import com.samuraicmdv.data.mapper.BrandEntityMapper
 import com.samuraicmdv.data.mapper.CategoryEntityMapper
 import com.samuraicmdv.data.mapper.CreateProductEntityMapper
+import com.samuraicmdv.data.mapper.DaySalesLedgerEntityMapper
 import com.samuraicmdv.data.mapper.GetCategoriesResponseEntityMapper
 import com.samuraicmdv.data.mapper.LoginEntityMapper
 import com.samuraicmdv.data.mapper.ProductDetailsResponseEntityMapper
-import com.samuraicmdv.data.mapper.SalesLedgeEntityMapper
 import com.samuraicmdv.data.mapper.UserProfileEntityMapper
 import dagger.Module
 import dagger.Provides
@@ -37,7 +37,7 @@ abstract class DataMapperModule {
         fun provideCreateProductDataMapper(): CreateProductEntityMapper = CreateProductEntityMapper
 
         @Provides
-        fun provideSalesLedgeDataMapper(): SalesLedgeEntityMapper = SalesLedgeEntityMapper
+        fun provideSalesLedgeDataMapper(): DaySalesLedgerEntityMapper = DaySalesLedgerEntityMapper
 
         @Provides
         fun provideGetProductDetailsEntityMapper(): ProductDetailsResponseEntityMapper {

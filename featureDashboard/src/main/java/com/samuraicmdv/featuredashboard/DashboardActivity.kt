@@ -17,6 +17,7 @@ import com.samuraicmdv.featuredashboard.event.DashboardEvent
 import com.samuraicmdv.featuredashboard.event.DashboardNavigationEvent
 import com.samuraicmdv.featuredashboard.event.DashboardPresentationEvent
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,7 +37,18 @@ class DashboardActivity : ComponentActivity() {
             MobiTheme {
                 viewModel = hiltViewModel(
                     creationCallback = { factory: DashboardViewModel.Factory ->
-                        factory.create(storeId)
+                        val calendar = Calendar.getInstance()
+                        val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+                        val month: Int = calendar.get(Calendar.MONTH) + 1 // Months are 0-based, so add 1
+                        val year: Int = calendar.get(Calendar.YEAR)
+                        factory.create(
+                           DashboardViewModel.Params(
+                               storeId = storeId,
+                               day = day,
+                               month = month,
+                               year = year
+                           )
+                        )
                     }
                 )
 

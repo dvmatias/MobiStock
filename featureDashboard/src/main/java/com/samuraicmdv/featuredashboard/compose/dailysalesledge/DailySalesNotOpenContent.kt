@@ -1,4 +1,4 @@
-package com.samuraicmdv.featuredashboard.compose
+package com.samuraicmdv.featuredashboard.compose.dailysalesledge
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,29 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.featuredashboard.R
 import com.samuraicmdv.featuredashboard.event.DashboardEvent
-import com.samuraicmdv.featuredashboard.state.DailySaleState
-import com.samuraicmdv.ui.util.ThemePreviews
 import java.util.Date
-import com.samuraicmdv.ui.R as UiR
-
-@Composable
-fun DailySalesLedgeScreen(
-    state: DailySaleState?,
-    callback: (DashboardEvent) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier.fillMaxSize()
-    ) {
-        if (state?.isDailySalesLedgeOpen == true) {
-            // Daily sales ledge already open
-            DailySalesOpenContent(callback)
-        } else {
-            // Daily sales ledge not open yet
-            DailySalesNotOpenContent(state?.currentDayDate, state?.summary, callback)
-        }
-    }
-}
 
 @Composable
 fun DailySalesNotOpenContent(
@@ -101,7 +78,7 @@ fun DailySalesNotOpenContent(
                         .weight(1f)
                 )
                 Icon(
-                    painter = painterResource(id = UiR.drawable.ic_arrow_forward_24px),
+                    painter = painterResource(id = com.samuraicmdv.ui.R.drawable.ic_arrow_forward_24px),
                     contentDescription = "Arrow Right Icon",
                     tint = MobiTheme.colors.primary,
                     modifier = Modifier
@@ -129,44 +106,3 @@ fun DailySalesNotOpenContent(
         }
     }
 }
-
-@Composable
-fun DailySalesOpenContent(
-    callback: (DashboardEvent) -> Unit,
-    modifier: Modifier = Modifier
-) {
-
-}
-
-@ThemePreviews
-@Composable
-fun PreviewDailySalesLedgeScreen() {
-    MobiTheme {
-        // A surface container using the 'background' color from the theme
-        Surface {
-            DailySalesLedgeScreen(
-                state = DailySaleState(
-                    isLoading = false,
-                    currentDayDate = Date(),
-                    summary = "There are no sales registered today. Please open cash register to start registering sales.",
-                    isDailySalesLedgeOpen = false
-                ),
-                callback = {}
-            )
-        }
-    }
-}
-
-
-/* Create an inline function called "prettyMuchThatsIt", it takes two integers and returns the sum of them in String format. If the sum is bigger than 10, it returns a string "Wow, that's a big number!".*/
-fun prettyMuchThatsIt(a: Int, b: Int): String {
-    val sum = a + b
-    return if (sum > 10) {
-        "Wow, that's a big number!"
-    } else {
-        sum.toString()
-    }
-}
-
-
-
