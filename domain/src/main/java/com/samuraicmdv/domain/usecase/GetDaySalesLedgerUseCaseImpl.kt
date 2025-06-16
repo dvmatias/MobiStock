@@ -10,12 +10,15 @@ class GetDaySalesLedgerUseCaseImpl @Inject constructor(
 ) : GetDaySalesLedgerUseCase {
 
     override suspend operator fun invoke(params: GetDaySalesLedgerUseCase.Params): GetDaySalesLedgerResponseModel {
-        return repository.getDaySalesLedger(
+        val response = repository.getDaySalesLedger(
             storeId = params.storeId,
             day = params.day,
             month = params.month,
             year = params.year
-        ).getOrNull() ?: GetDaySalesLedgerResponseModel(salesLedge = null)
+        )
+        return response.getOrNull() ?: GetDaySalesLedgerResponseModel(
+            errorMessage = response.failure?.exception,
+            daySalesLedger = null
+        )
     }
-
 }

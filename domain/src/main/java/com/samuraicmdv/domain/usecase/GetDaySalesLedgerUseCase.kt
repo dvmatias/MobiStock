@@ -1,7 +1,9 @@
 package com.samuraicmdv.domain.usecase
 
+import com.samuraicmdv.domain.model.GetDaySalesLedgerResponseModel
+
 interface GetDaySalesLedgerUseCase {
-    suspend operator fun invoke(params: Params): Any? // TODO
+    suspend operator fun invoke(params: Params): GetDaySalesLedgerResponseModel
 
     /**
      * Parameters for fetching daily sales ledge.

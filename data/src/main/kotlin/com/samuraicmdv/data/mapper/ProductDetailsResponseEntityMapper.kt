@@ -26,7 +26,7 @@ class ProductDetailsResponseEntityMapper @Inject constructor() :
                 productPrice = entity.product?.price?.toModel(),
                 shortDescription = entity.product?.shortDescription,
                 sku = entity.product?.sku,
-                stock = entity.product?.stock?.toModel(),
+                stock = entity.product?.stock,
                 subcategoryId = entity.subcategory?.id,
                 thumbnailUrl = entity.product?.thumbnailUrl
             ),

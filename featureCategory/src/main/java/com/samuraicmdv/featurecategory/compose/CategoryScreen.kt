@@ -27,7 +27,6 @@ import com.samuraicmdv.common.extension.bottomShadow
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.common.uidata.ProductBrandUiData
 import com.samuraicmdv.common.uidata.ProductPriceUiData
-import com.samuraicmdv.common.uidata.ProductStockUiData
 import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featurecategory.event.CategoryEvent
 import com.samuraicmdv.featurecategory.event.CategoryNavigationEvent
@@ -143,11 +142,7 @@ fun PreviewCategoryScreen(modifier: Modifier = Modifier) {
                             rating = 4.5,
                             reviews = 100,
                             isFavorite = true,
-                            stock = ProductStockUiData(
-                                quantity = 100,
-                                low = 10,
-                                min = 5
-                            ),
+                            stock = 13,
                             brand = ProductBrandUiData(
                                 id = index + 2,
                                 name = "Brand",

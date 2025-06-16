@@ -2,7 +2,6 @@ package com.samuraicmdv.featurecategory.transformer
 
 import com.samuraicmdv.common.uidata.ProductBrandUiData
 import com.samuraicmdv.common.uidata.ProductPriceUiData
-import com.samuraicmdv.common.uidata.ProductStockUiData
 import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.common.utils.getNameResId
 import com.samuraicmdv.domain.model.BrandModel
@@ -51,11 +50,7 @@ object CategoryUiDataTransformer {
                     costPrice = it.productPrice?.cost ?: 0.0,
                     currency = (it.productPrice?.currencyId ?: 1).toString() // TODO transform currency ID into currency name/symbol
                 ),
-                stock = ProductStockUiData(
-                    quantity = it.stock?.quantity,
-                    low = it.stock?.low,
-                    min = it.stock?.min
-                ),
+                stock = it.stock,
                 rating = 0.0,
                 reviews = 0,
                 isFavorite = false,

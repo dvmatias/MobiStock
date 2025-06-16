@@ -1,8 +1,12 @@
 package com.samuraicmdv.featuredashboard.dagger
 
 import android.content.Context
-import com.samuraicmdv.featuredashboard.transformer.DashboardUiDataTransformer
-import com.samuraicmdv.featuredashboard.transformer.DashboardUiDataTransformerImpl
+import com.samuraicmdv.featuredashboard.transformer.CategoriesUiDataTransformer
+import com.samuraicmdv.featuredashboard.transformer.CategoriesUiDataTransformerImpl
+import com.samuraicmdv.featuredashboard.transformer.DaySalesLedgerUiDataTransformer
+import com.samuraicmdv.featuredashboard.transformer.DaySalesLedgerUiDataTransformerImpl
+import com.samuraicmdv.featuredashboard.transformer.UserProfileUiDataTransformer
+import com.samuraicmdv.featuredashboard.transformer.UserProfileUiDataTransformerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +17,13 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object DashboardModule {
     @Provides
-    fun provideHomeUiDataTransformer(
+    fun provideCategoriesUiDataTransformer(
         @ApplicationContext context: Context
-    ): DashboardUiDataTransformer = DashboardUiDataTransformerImpl(context)
+    ): CategoriesUiDataTransformer = CategoriesUiDataTransformerImpl(context)
+
+    @Provides
+    fun provideUserProfileUiDataTransformer(): UserProfileUiDataTransformer = UserProfileUiDataTransformerImpl()
+
+    @Provides
+    fun provideDaySalesLedgerUiDataTransformer(): DaySalesLedgerUiDataTransformer = DaySalesLedgerUiDataTransformerImpl()
 }

@@ -36,7 +36,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,7 +44,6 @@ import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.common.uidata.ProductBrandUiData
 import com.samuraicmdv.common.uidata.ProductPriceUiData
-import com.samuraicmdv.common.uidata.ProductStockUiData
 import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featurecategory.R
 import com.samuraicmdv.featurecategory.event.CategoryEvent
@@ -114,7 +112,6 @@ fun ProductDetailsBottomSheetContent(
     modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState(initialFirstVisibleItemIndex = 0)
-    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -249,7 +246,7 @@ fun ProductDetailsBottomSheetContent(
 
                     IconLabelValue(
                         label = stringResource(id = R.string.title_product_quantity),
-                        value = product.stock?.quantity?.toString(),
+                        value = product.stock?.toString(),
                         icon = {
                             Icon(
                                 painter = painterResource(id = com.samuraicmdv.common.R.drawable.in_stock_ic),
@@ -314,11 +311,7 @@ fun PreviewProductDetailsBottomSheetContentAdminStatic() {
                         costPrice = 50.0,
                         currency = "ARS"
                     ),
-                    stock = ProductStockUiData(
-                        quantity = 100,
-                        low = 10,
-                        min = 5
-                    ),
+                    stock = 13,
                     rating = 4.5,
                     reviews = 100,
                     isFavorite = false,
@@ -355,11 +348,7 @@ fun PreviewProductDetailsBottomSheetContentAdminEdit() {
                         costPrice = 50.0,
                         currency = "ARS"
                     ),
-                    stock = ProductStockUiData(
-                        quantity = 100,
-                        low = 10,
-                        min = 5
-                    ),
+                    stock = 15,
                     rating = 4.5,
                     reviews = 100,
                     isFavorite = false,
@@ -396,11 +385,7 @@ fun PreviewProductDetailsBottomSheetContentNoAdmin() {
                         costPrice = 50.0,
                         currency = "ARS"
                     ),
-                    stock = ProductStockUiData(
-                        quantity = 100,
-                        low = 10,
-                        min = 5
-                    ),
+                    stock = 23,
                     rating = 4.5,
                     reviews = 100,
                     isFavorite = false,

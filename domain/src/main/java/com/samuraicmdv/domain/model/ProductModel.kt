@@ -12,7 +12,7 @@ data class ProductModel(
     val productPrice: PriceModel? = null,
     val shortDescription: String? = null,
     val sku: String? = null,
-    val stock: StockModel? = null,
+    val stock: Int? = null,
     val subcategoryId: Int? = null,
     val thumbnailUrl: String? = null,
 )

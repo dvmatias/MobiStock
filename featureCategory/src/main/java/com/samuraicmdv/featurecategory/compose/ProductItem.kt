@@ -30,7 +30,6 @@ import coil.compose.rememberAsyncImagePainter
 import com.samuraicmdv.common.theme.MobiTheme
 import com.samuraicmdv.common.uidata.ProductBrandUiData
 import com.samuraicmdv.common.uidata.ProductPriceUiData
-import com.samuraicmdv.common.uidata.ProductStockUiData
 import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.featurecategory.event.CategoryEvent
 import com.samuraicmdv.featurecategory.event.CategoryPresentationEvent
@@ -114,7 +113,7 @@ fun ProductItem(
                     )
                     Spacer(modifier = Modifier.width(MobiTheme.dimens.dimen_0_5))
                     Text(
-                        text = product.stock?.quantity.toString(),
+                        text = product.stock?.toString() ?:"",
                         style = MobiTheme.typography.bodyMedium,
                         color = MobiTheme.colors.textSecondary,
                     )
@@ -155,11 +154,7 @@ fun PreviewProductItem() {
                     rating = 4.5,
                     reviews = 100,
                     isFavorite = true,
-                    stock = ProductStockUiData(
-                        quantity = 100,
-                        low = 10,
-                        min = 5
-                    ),
+                    stock = 24,
                     brand = ProductBrandUiData(
                         id = 1,
                         name = "Brand",

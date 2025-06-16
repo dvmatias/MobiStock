@@ -1,5 +1,6 @@
 package com.samuraicmdv.domain.model
 
 data class GetDaySalesLedgerResponseModel(
-    val salesLedge: SalesLedgeModel?
+    val errorMessage: String? = null,
+    val daySalesLedger: DaySalesLedgerModel? = null
 )

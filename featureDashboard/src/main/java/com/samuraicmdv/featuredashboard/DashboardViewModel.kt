@@ -8,7 +8,9 @@ import com.samuraicmdv.domain.usecase.GetUserProfileUseCase
 import com.samuraicmdv.featuredashboard.state.DailySaleUiData
 import com.samuraicmdv.featuredashboard.state.DashboardScreenState
 import com.samuraicmdv.featuredashboard.state.ProductCategoriesState
-import com.samuraicmdv.featuredashboard.transformer.DashboardUiDataTransformer
+import com.samuraicmdv.featuredashboard.transformer.CategoriesUiDataTransformer
+import com.samuraicmdv.featuredashboard.transformer.DaySalesLedgerUiDataTransformer
+import com.samuraicmdv.featuredashboard.transformer.UserProfileUiDataTransformer
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -28,7 +30,9 @@ class DashboardViewModel @AssistedInject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getProductCategoriesUseCase: GetProductCategoriesUseCase,
     private val getDaySalesLedger: GetDaySalesLedgerUseCase,
-    private val transformer: DashboardUiDataTransformer,
+    private val categoriesUiDataTransformer: CategoriesUiDataTransformer,
+    private val userProfileUiDataTransformer: UserProfileUiDataTransformer,
+    private val daySalesLedgerTransformer: DaySalesLedgerUiDataTransformer,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
@@ -53,7 +57,7 @@ class DashboardViewModel @AssistedInject constructor(
             getUserProfileUseCase(GetUserProfileUseCase.Params(params.storeId)).let { userProfileModel ->
                 _uiState.update { currentState ->
                     currentState.copy(
-                        profile = transformer.transformUserProfile(userProfileModel)
+                        profile = userProfileUiDataTransformer.transform(userProfileModel)
                     )
                 }
             }
@@ -73,7 +77,7 @@ class DashboardViewModel @AssistedInject constructor(
             ).let { productCategories ->
                 _uiState.update { currentState ->
                     currentState.copy(
-                        productCategoriesState = transformer.transformProductCategories(productCategories)
+                        productCategoriesState = categoriesUiDataTransformer.transform(productCategories)
                     )
                 }
             }
@@ -89,10 +93,10 @@ class DashboardViewModel @AssistedInject constructor(
                     month = params.month,
                     year = params.year
                 )
-            ).let { dailySales ->
+            ).let { response ->
                 _uiState.update { currentState ->
                     currentState.copy(
-                        dailySaleUiData = transformer.transformDailySales(dailySales)
+                        dailySaleUiData = daySalesLedgerTransformer.transform(response)
                     )
                 }
             }

@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class SalesLedgerRepositoryImpl @Inject constructor(
     private val dataSource: SalesLedgerDataSource,
-    private val salesLedgeDataMapper: DaySalesLedgerEntityMapper
+    private val daySalesLedgeDataMapper: DaySalesLedgerEntityMapper
 ) : SalesLedgerRepository {
     override suspend fun getDaySalesLedger(
         storeId: Int,
@@ -21,18 +21,7 @@ class SalesLedgerRepositoryImpl @Inject constructor(
     ): ResponseWrapper<GetDaySalesLedgerResponseModel> {
         val response = dataSource.getDaySalesLedger(storeId, day, month, year)
         return when (response.status) {
-            ResponseStatus.SUCCESS -> {
-                val mappedData = salesLedgeDataMapper.map(response.getOrNull())
-                mappedData?.let {
-                    ResponseWrapper.success(data = mappedData)
-                } ?: kotlin.run {
-                    ResponseWrapper.error(
-                        data = null,
-                        responseFailure = ResponseFailure.TransformationError
-                    )
-                }
-            }
-
+            ResponseStatus.SUCCESS -> ResponseWrapper.success(data = daySalesLedgeDataMapper.map(response.getOrNull()))
             ResponseStatus.ERROR -> {
                 ResponseWrapper.error(
                     data = null,

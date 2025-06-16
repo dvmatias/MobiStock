@@ -17,6 +17,6 @@ data class ProductUiData(
     val reviews: Int? = null,
     val shortDescription: String? = null,
     val sku: String? = null,
-    val stock: ProductStockUiData? = null,
+    val stock: Int? = null,
     val thumbnailUrl: String? = null,
 )

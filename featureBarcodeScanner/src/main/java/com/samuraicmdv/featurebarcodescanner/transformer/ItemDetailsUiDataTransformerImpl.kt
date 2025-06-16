@@ -31,7 +31,7 @@ class ItemDetailsUiDataTransformerImpl @Inject constructor() : ItemDetailsUiData
             code = product?.code ?: "",
             description = product?.shortDescription ?: "",
             price = product?.productPrice?.selling ?: 0.0,
-            stock = product?.stock?.quantity,
+            stock = product?.stock,
             thumbnailUrl = product?.thumbnailUrl ?: "",
             title = product?.name ?: "",
         )

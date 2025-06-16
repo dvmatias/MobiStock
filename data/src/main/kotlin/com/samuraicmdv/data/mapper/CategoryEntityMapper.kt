@@ -11,7 +11,6 @@ import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
 import com.samuraicmdv.domain.model.ProductCategoryModel
 import com.samuraicmdv.domain.model.ProductModel
-import com.samuraicmdv.domain.model.StockModel
 
 object CategoryEntityMapper : EntityMapper<GetCategoryResponseEntity?, CategoryResponseModel?> {
     override fun map(entity: GetCategoryResponseEntity?): CategoryResponseModel? {
@@ -58,11 +57,7 @@ object CategoryEntityMapper : EntityMapper<GetCategoryResponseEntity?, CategoryR
                 sku = it.sku,
                 imageUrls = it.imageUrls,
                 categoryId = it.categoryId,
-                stock = StockModel(
-                    quantity = it.stock?.quantity,
-                    low = it.stock?.low,
-                    min = it.stock?.min
-                ),
+                stock = it.stock,
                 productPrice = it.price?.toModel(),
                 brandId = it.brandId
             )
