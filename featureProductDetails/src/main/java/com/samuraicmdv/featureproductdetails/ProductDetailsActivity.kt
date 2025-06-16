@@ -23,13 +23,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProductDetailsActivity : ComponentActivity() {
     /**
-     * The ID of the store to which the product belongs.
+     * The ID of the store to which the item belongs.
      */
     private val storeId: Int
         get() = intent.getIntExtra(BUNDLE_KEY_STORE_ID, -1)
 
     /**
-     * The ID of the product to display details for or edit. If this param is not provided in the Intent, the screen
+     * The ID of the item to display details for or edit. If this param is not provided in the Intent, the screen
      * will show an error message.
      */
     private val productId: Int
@@ -37,7 +37,7 @@ class ProductDetailsActivity : ComponentActivity() {
 
     /**
      * Whether the screen is in edit mode or not. Default value is false, if this param is not provided in the Intent,
-     * the screen will present a view mode for product details. This should be 'true' only for editing existent products.
+     * the screen will present a view mode for item details. This should be 'true' only for editing existent products.
      */
     private val isEditMode: Boolean
         get() = intent.getBooleanExtra(BUNDLE_KEY_IS_EDIT_MODE, false)
@@ -75,7 +75,7 @@ class ProductDetailsActivity : ComponentActivity() {
                 viewModel.createProduct(event.product)
 
             is ProductDetailsBusinessEvent.ViewProductDetails -> {
-                // TODO viewModel.fetchProductDetails(event.productId)
+                // TODO viewModel.fetchProductDetails(event.itemId)
             }
 
             is ProductDetailsPresentationEvent.ExitScreen -> finish()

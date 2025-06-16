@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.samuraicmdv.domain.model.BrandModel
 
 /**
- * Data class that models a product brand in the API response.
+ * Data class that models a item brand in the API response.
  */
 data class BrandEntity(
     @SerializedName("id") val id: Int? = null,

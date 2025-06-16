@@ -32,7 +32,7 @@ import com.samuraicmdv.ui.widget.CustomSearchComponent
 import com.samuraicmdv.common.R as CommonR
 
 /**
- * Composable function that displays a list of product categories and their subcategories.
+ * Composable function that displays a list of item categories and their subcategories.
  */
 @Composable
 fun ProductCategoriesContent(

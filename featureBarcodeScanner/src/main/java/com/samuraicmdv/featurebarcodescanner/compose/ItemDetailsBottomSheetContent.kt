@@ -12,10 +12,10 @@ import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
- * ProductDetailsBottomSheetContent is a composable function that displays the content of the product details bottom
+ * ProductDetailsBottomSheetContent is a composable function that displays the content of the item details bottom
  * sheet.
  *
- * @param uiData The UI data containing product details and scanned barcode.
+ * @param uiData The UI data containing item details and scanned barcode.
  * @param modifier A [Modifier] to be applied to the content.
  */
 @Composable

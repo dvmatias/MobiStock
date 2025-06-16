@@ -1,13 +1,12 @@
 package com.samuraicmdv.featurecategory.transformer
 
 import com.samuraicmdv.common.uidata.ProductBrandUiData
-import com.samuraicmdv.common.uidata.ProductPriceUiData
 import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.common.utils.getNameResId
 import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
+import com.samuraicmdv.domain.model.ItemModel
 import com.samuraicmdv.domain.model.ProductCategoryModel
-import com.samuraicmdv.domain.model.ProductModel
 import com.samuraicmdv.featurecategory.state.CategoryScreenState
 import com.samuraicmdv.featurecategory.state.CategoryUiData
 
@@ -31,38 +30,38 @@ object CategoryUiDataTransformer {
         }
 
     private fun transformProducts(
-        products: List<ProductModel>?,
+        products: List<ItemModel>?,
         brands: List<BrandModel>?
-    ): List<ProductUiData> =
-        products?.map {
-            ProductUiData(
-                id = it.id ?: -1,
-                name = it.name ?: "",
-                shortDescription = it.shortDescription ?: "",
-                longDescription = it.longDescription ?: "",
-                model = it.model ?: "-",
-                code = it.code ?: "-",
-                sku = it.sku ?: "-",
-                thumbnailUrl = it.thumbnailUrl,
-                imageUrls = it.imageUrls ?: emptyList(),
-                price = ProductPriceUiData(
-                    sellingPrice = it.productPrice?.selling ?: 0.0,
-                    costPrice = it.productPrice?.cost ?: 0.0,
-                    currency = (it.productPrice?.currencyId ?: 1).toString() // TODO transform currency ID into currency name/symbol
-                ),
-                stock = it.stock,
-                rating = 0.0,
-                reviews = 0,
-                isFavorite = false,
-                brand = brands?.find { brand -> brand.id == it.brandId }?.let { brand ->
-                    ProductBrandUiData(
-                        id = brand.id ?: -1,
-                        name = brand.name ?: "",
-                        logoUrl = brand.logoUrl ?: ""
-                    )
-                },
-            )
-        }.orEmpty()
+    ): List<ProductUiData> = TODO()
+//        products?.map {
+//            ProductUiData(
+//                id = it.id ?: -1,
+//                name = it.name ?: "",
+//                shortDescription = it.shortDescription ?: "",
+//                longDescription = it.longDescription ?: "",
+//                model = it.model ?: "-",
+//                code = it.code ?: "-",
+//                sku = it.sku ?: "-",
+//                thumbnailUrl = it.thumbnailUrl,
+//                imageUrls = it.imageUrls ?: emptyList(),
+//                price = ProductPriceUiData(
+//                    sellingPrice = it.productPrice?.selling ?: 0.0,
+//                    costPrice = it.productPrice?.cost ?: 0.0,
+//                    currency = (it.productPrice?.currencyId ?: 1).toString() // TODO transform currency ID into currency name/symbol
+//                ),
+//                stock = it.stock,
+//                rating = 0.0,
+//                reviews = 0,
+//                isFavorite = false,
+//                brand = brands?.find { brand -> brand.id == it.brandId }?.let { brand ->
+//                    ProductBrandUiData(
+//                        id = brand.id ?: -1,
+//                        name = brand.name ?: "",
+//                        logoUrl = brand.logoUrl ?: ""
+//                    )
+//                },
+//            )
+//        }.orEmpty()
 
     private fun transformBrands(brands: List<BrandModel>?): List<ProductBrandUiData>? =
         brands?.map {

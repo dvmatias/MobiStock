@@ -2,10 +2,10 @@ package com.samuraicmdv.featurebarcodescanner
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.samuraicmdv.domain.usecase.GetProductDetailsByCodeGeneralUseCase
+import com.samuraicmdv.domain.usecase.GetItemSummaryUseCase
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerPresentationEvent
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
-import com.samuraicmdv.featurebarcodescanner.transformer.ItemDetailsUiDataTransformer
+import com.samuraicmdv.featurebarcodescanner.transformer.ItemSummaryUiDataTransformer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,8 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BarcodeScannerViewModel @Inject constructor(
-    private val getProductDetailsByCodeGeneralUseCase: GetProductDetailsByCodeGeneralUseCase,
-    private val itemDetailsUiDataTransformer: ItemDetailsUiDataTransformer
+    private val getItemSummaryUseCase: GetItemSummaryUseCase,
+    private val itemSummaryUiDataTransformer: ItemSummaryUiDataTransformer
 ) : ViewModel() {
     /**
      * StateFlow that holds the UI data for the barcode scanner.
@@ -53,7 +53,7 @@ class BarcodeScannerViewModel @Inject constructor(
             // Emit the scanned barcode event to the flow so the activity can sound the "pip"
             _scanSuccessEventFlow.tryEmit(event)
 
-            // Update the product details UI data with the scanned barcode
+            // Update the item details UI data with the scanned barcode
             _uiData.value = _uiData.value.copy(
                 isBottomSheetDisplayed = true,
                 isBottomSheetLoading = true,
@@ -61,17 +61,17 @@ class BarcodeScannerViewModel @Inject constructor(
                 scannedImageBitmap = event.bitmap
             )
 
-            // Fetch product details by the scanned barcode
+            // Fetch item details by the scanned barcode
             viewModelScope.launch {
-                getProductDetailsByCodeGeneralUseCase(
-                    GetProductDetailsByCodeGeneralUseCase.Params(
-                        productCode = event.barcode,
+                getItemSummaryUseCase(
+                    GetItemSummaryUseCase.Params(
+                        itemCode = event.barcode,
                     )
                 ).let { itemDetailsModel ->
-                    // Update the UI data with the fetched product details
+                    // Update the UI data with the fetched item details
                     _uiData.value = _uiData.value.copy(
                         isBottomSheetLoading = false,
-                        itemDetailsUiData = itemDetailsUiDataTransformer.transform(itemDetailsModel),
+                        itemDetailsUiData = itemSummaryUiDataTransformer.transform(itemDetailsModel),
                     )
                 }
             }

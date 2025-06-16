@@ -66,7 +66,7 @@ class DashboardViewModel @AssistedInject constructor(
 
     private fun getProductCategories() {
         viewModelScope.launch {
-            // Put the product categories state into loading state
+            // Put the item categories state into loading state
             _uiState.update { currentState ->
                 currentState.copy(
                     productCategoriesState = currentState.productCategoriesState?.copy(isLoading = true)
@@ -116,9 +116,9 @@ class DashboardViewModel @AssistedInject constructor(
     }
 
     /**
-     * Toggles the expanded status of a specific product category.
+     * Toggles the expanded status of a specific item category.
      *
-     * @param id The ID of the product category to toggle.
+     * @param id The ID of the item category to toggle.
      * @param isExpanded Boolean indicating whether the category should be expanded or collapsed.
      */
     fun toggleCategoryExpandedStatus(
@@ -141,7 +141,7 @@ class DashboardViewModel @AssistedInject constructor(
     }
 
     /**
-     * Toggles the expanded status of all product categories.
+     * Toggles the expanded status of all item categories.
      *
      * @param areAllCategoriesExpanded Boolean indicating whether all categories should be expanded or collapsed.
      */

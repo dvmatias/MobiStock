@@ -12,7 +12,7 @@ interface CategoryRepository {
 
 
     /**
-     * Gets the product categories.
+     * Gets the item categories.
      *
      * @param storeId Store's unique identifier.
      * @param all Boolean flag to get all categories.

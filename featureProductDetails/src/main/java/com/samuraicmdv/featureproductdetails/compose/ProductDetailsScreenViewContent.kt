@@ -55,7 +55,7 @@ fun ProductDetailsScreenViewContent(
                     .fillMaxWidth()
                     .verticalScroll(scrollState)
             ) {
-                // Display product images
+                // Display item images
                 ProductDetailsImageGallery(
                     imageUrls = imageUrls,
                     modifier = Modifier.fillMaxWidth()

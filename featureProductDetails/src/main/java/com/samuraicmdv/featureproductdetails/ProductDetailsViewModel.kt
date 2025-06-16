@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = ProductDetailsViewModel.Factory::class)
 class ProductDetailsViewModel @AssistedInject constructor(
     @Assisted("storeId") val storeId: Int,
-    @Assisted("productId") val productId: Int,
+    @Assisted("itemId") val productId: Int,
     @Assisted("isEditMode") val isEditMode: Boolean,
     private val getProductCategoriesUseCase: GetProductCategoriesUseCase,
     private val getBrandsUseCase: GetBrandsUseCase,
@@ -35,7 +35,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     private val transformer: ProductDetailsUiDataTransformer,
 ) : ViewModel() {
     /**
-     * The state of the UI for the product details screen. Initially is loading.
+     * The state of the UI for the item details screen. Initially is loading.
      */
     private val _uiState = MutableStateFlow(ProductDetailsUiState(isLoading = true))
     val uiState: StateFlow<ProductDetailsUiState>
@@ -56,12 +56,12 @@ class ProductDetailsViewModel @AssistedInject constructor(
             coroutineScope {
                 when (screenMode) {
                     ProductDetailsUiMode.VIEW -> {
-                        // Fetch the product details
+                        // Fetch the item details
                         launch { fetchProductDetails(productId) }
                     }
 
                     ProductDetailsUiMode.EDIT -> {
-                        // Fetch the product details
+                        // Fetch the item details
                         launch { fetchProductDetails(productId) }
                         // Fetch the available categories
                         launch { fetchCategories() }
@@ -75,7 +75,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
                         launch { fetchCategories() }
                         // Fetch the available brands
                         launch { fetchBrands() }
-                        // When creating a new product, initialized the product UI data
+                        // When creating a new item, initialized the item UI data
                         _uiState.value = _uiState.value.copy(product = getEmptyProduct())
                     }
 
@@ -90,7 +90,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     }
 
     /**
-     * Fetches the product details. This is only needed when the screen is in view mode or edit mode.
+     * Fetches the item details. This is only needed when the screen is in view mode or edit mode.
      */
     private suspend fun fetchProductDetails(productId: Int) {
         getProductDetailsByIdForStoreUseCase(GetProductDetailsByIdForStoreUseCase.Params(productId, storeId)).let {
@@ -122,7 +122,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     }
 
     /**
-     * Creates a new product.
+     * Creates a new item.
      */
     fun createProduct(product: ProductUiData) {
         viewModelScope.launch {
@@ -147,7 +147,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
                 it.id?.let { productId ->
                     _uiState.value = _uiState.value.copy(
                         screenMode = ProductDetailsUiMode.CREATE_SUCCESS, // Update screen state to show success screen
-                        product = ProductUiData(id = productId) // Update the product with the newly created product id
+                        product = ProductUiData(id = productId) // Update the item with the newly created item id
                     )
                 } ?: run {
                     // TODO Error
@@ -183,7 +183,7 @@ class ProductDetailsViewModel @AssistedInject constructor(
     interface Factory {
         fun create(
             @Assisted("storeId") storeId: Int,
-            @Assisted("productId") productId: Int,
+            @Assisted("itemId") productId: Int,
             @Assisted("isEditMode") isEditMode: Boolean,
         ): ProductDetailsViewModel
     }

@@ -1,6 +1,6 @@
 package com.samuraicmdv.domain.dagger
 
-import com.samuraicmdv.domain.repository.ProductRepository
+import com.samuraicmdv.domain.repository.ItemRepository
 import com.samuraicmdv.domain.usecase.CreateProductUseCase
 import com.samuraicmdv.domain.usecase.GetProductDetailsByCodeForStoreUseCase
 import com.samuraicmdv.domain.usecase.GetProductDetailsByCodeGeneralUseCase
@@ -15,30 +15,30 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
     @Provides
-    fun provideCreateProductUseCase(productRepository: ProductRepository): CreateProductUseCase =
-        CreateProductUseCase(productRepository)
+    fun provideCreateProductUseCase(itemRepository: ItemRepository): CreateProductUseCase =
+        CreateProductUseCase(itemRepository)
 
     @Provides
     fun provideGetProductDetailsByIdForStoreUseCase(
-        productRepository: ProductRepository,
+        itemRepository: ItemRepository,
     ): GetProductDetailsByIdForStoreUseCase =
-        GetProductDetailsByIdForStoreUseCase(productRepository)
+        GetProductDetailsByIdForStoreUseCase(itemRepository)
 
     @Provides
     fun provideGetProductDetailsByIdGeneralUseCase(
-        productRepository: ProductRepository,
+        itemRepository: ItemRepository,
     ): GetProductDetailsByIdGeneralUseCase =
-        GetProductDetailsByIdGeneralUseCase(productRepository)
+        GetProductDetailsByIdGeneralUseCase(itemRepository)
 
     @Provides
     fun provideGetProductDetailsByCodeForStoreUseCase(
-        productRepository: ProductRepository,
+        itemRepository: ItemRepository,
     ): GetProductDetailsByCodeForStoreUseCase =
-        GetProductDetailsByCodeForStoreUseCase(productRepository)
+        GetProductDetailsByCodeForStoreUseCase(itemRepository)
 
     @Provides
     fun provideGetProductDetailsByCodeGeneralUseCase(
-        productRepository: ProductRepository,
+        itemRepository: ItemRepository,
     ): GetProductDetailsByCodeGeneralUseCase =
-        GetProductDetailsByCodeGeneralUseCase(productRepository)
+        GetProductDetailsByCodeGeneralUseCase(itemRepository)
 }

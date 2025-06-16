@@ -3,11 +3,11 @@ package com.samuraicmdv.featuredashboard.state
 import android.graphics.drawable.Drawable
 
 /**
- * Data class for modeling a product subcategory.
+ * Data class for modeling a item subcategory.
  *
- * @param id Unique identifier for the product subcategory.
- * @param name Name of the product subcategory.
- * @param iconDrawable Drawable resource for the product subcategory icon.
+ * @param id Unique identifier for the item subcategory.
+ * @param name Name of the item subcategory.
+ * @param iconDrawable Drawable resource for the item subcategory icon.
  * @param productsQuantity Number of products in the subcategory.
  */
 data class ProductSubcategoryUiData(

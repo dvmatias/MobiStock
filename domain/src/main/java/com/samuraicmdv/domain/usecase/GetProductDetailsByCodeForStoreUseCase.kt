@@ -1,28 +1,28 @@
 package com.samuraicmdv.domain.usecase
 
 import com.samuraicmdv.domain.model.ProductDetailsResponseModel
-import com.samuraicmdv.domain.repository.ProductRepository
+import com.samuraicmdv.domain.repository.ItemRepository
 import javax.inject.Inject
 
 /**
- * Use case for fetching product details by product code for a specific store.
+ * Use case for fetching item details by item code for a specific store.
  *
- * @param productRepository The repository to access product data.
+ * @param itemRepository The repository to access item data.
  */
 class GetProductDetailsByCodeForStoreUseCase @Inject constructor(
-    private val productRepository: ProductRepository,
+    private val itemRepository: ItemRepository,
 ) {
     suspend operator fun invoke(params: Params): ProductDetailsResponseModel =
-        productRepository.getProductDetailsByCodeForStore(
+        itemRepository.getProductDetailsByCodeForStore(
             params.productCode,
             params.storeId
         ) ?: throw Exception("Product not found") // TODO Handle case
 
     /**
-     * Parameters for fetching product details for a specific store.
+     * Parameters for fetching item details for a specific store.
      *
-     * @param productCode The code of the product to retrieve details for.
-     * @param storeId The ID of the store for which to retrieve product details.
+     * @param productCode The code of the item to retrieve details for.
+     * @param storeId The ID of the store for which to retrieve item details.
      */
     data class Params(
         val productCode: String,

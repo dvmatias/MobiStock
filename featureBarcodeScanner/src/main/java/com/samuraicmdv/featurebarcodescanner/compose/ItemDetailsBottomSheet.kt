@@ -19,10 +19,10 @@ import com.samuraicmdv.ui.util.ThemePreviews
 import kotlinx.coroutines.launch
 
 /**
- * ProductDetailsBottomSheet is a composable function that displays a bottom sheet with product details and the scanned
+ * ProductDetailsBottomSheet is a composable function that displays a bottom sheet with item details and the scanned
  * barcode.
  *
- * @param uiData The UI data containing product details and scanned barcode.
+ * @param uiData The UI data containing item details and scanned barcode.
  * @param bottomSheetState The state of the bottom sheet.
  * @param handleEvent A lambda function to handle events emitted from the bottom sheet.
  */

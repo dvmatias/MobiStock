@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.samuraicmdv.domain.model.PriceModel
 
 /**
- * Data class that models a product price in the API response.
+ * Data class that models a item price in the API response.
  */
 data class PriceEntity(
     @SerializedName("selling") val selling: Double? = null,

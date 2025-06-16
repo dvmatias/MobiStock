@@ -6,5 +6,5 @@ package com.samuraicmdv.domain.model
 data class CategoryResponseModel(
     val category: ProductCategoryModel? = null,
     val brands: List<BrandModel>? = null,
-    val products: List<ProductModel>? = null,
+    val products: List<ItemModel>? = null,
 )

@@ -45,7 +45,7 @@ fun HomeScreen(
 
         // Product categories content
         uiState.productCategoriesState?.let {
-            // Display product categories content
+            // Display item categories content
             if (!it.isLoading) {
                 ProductCategoriesContent(
                     uiState = it,

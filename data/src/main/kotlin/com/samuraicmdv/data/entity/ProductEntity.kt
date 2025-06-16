@@ -3,7 +3,7 @@ package com.samuraicmdv.data.entity
 import com.google.gson.annotations.SerializedName
 
 /**
- * Data class that models a product in the API response.
+ * Data class that models a item in the API response.
  */
 data class ProductEntity(
     @SerializedName("id") val id: Int? = null,

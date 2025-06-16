@@ -8,14 +8,14 @@ import com.samuraicmdv.data.api.SalesLedgeApi
 import com.samuraicmdv.data.api.UserApi
 import com.samuraicmdv.data.datasource.BrandDataSource
 import com.samuraicmdv.data.datasource.CategoryDataSource
+import com.samuraicmdv.data.datasource.ItemDataSource
 import com.samuraicmdv.data.datasource.LoginDataSource
-import com.samuraicmdv.data.datasource.ProductDataSource
 import com.samuraicmdv.data.datasource.SalesLedgerDataSource
 import com.samuraicmdv.data.datasource.UserDataSource
 import com.samuraicmdv.data.datasource.retrofit.BrandDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.CategoryDataSourceRetrofitImpl
+import com.samuraicmdv.data.datasource.retrofit.ItemDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
-import com.samuraicmdv.data.datasource.retrofit.ProductDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.SalesLedgerDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.UserDataSourceRetrofitImpl
 import com.samuraicmdv.data.mapper.BrandEntityMapper
@@ -64,8 +64,8 @@ object DataSourceModule {
     fun provideProductDataSource(
         productApi: ProductApi,
         createProductDataMapper: CreateProductEntityMapper,
-    ): ProductDataSource =
-        ProductDataSourceRetrofitImpl(
+    ): ItemDataSource =
+        ItemDataSourceRetrofitImpl(
             productApi,
             createProductDataMapper
         )

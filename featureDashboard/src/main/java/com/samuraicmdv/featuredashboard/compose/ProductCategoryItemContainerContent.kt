@@ -21,10 +21,10 @@ import com.samuraicmdv.featuredashboard.state.ProductSubcategoryUiData
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
- * Composable function that displays a container for a product category item. This function renders a product category 
+ * Composable function that displays a container for a item category item. This function renders a item category
  * with its subcategories, if any, in a collapsible format. 
  * 
- * @param uiData The product category data to be displayed.
+ * @param uiData The item category data to be displayed.
  * @param handleEvent A lambda function to handle events, such as toggling the expanded state of the category.
  * @param modifier A [Modifier] to be applied to the container.
  */

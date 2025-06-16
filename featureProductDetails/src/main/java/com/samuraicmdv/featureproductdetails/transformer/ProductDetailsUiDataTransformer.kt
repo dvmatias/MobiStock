@@ -2,7 +2,6 @@ package com.samuraicmdv.featureproductdetails.transformer
 
 import com.samuraicmdv.common.uidata.CategoryUiData
 import com.samuraicmdv.common.uidata.ProductBrandUiData
-import com.samuraicmdv.common.uidata.ProductPriceUiData
 import com.samuraicmdv.common.uidata.ProductUiData
 import com.samuraicmdv.common.utils.getNameResId
 import com.samuraicmdv.domain.model.GetBrandsResponseModel
@@ -35,40 +34,41 @@ object ProductDetailsUiDataTransformer {
         }
 
     fun transformProduct(model: ProductDetailsResponseModel?): ProductUiData {
-        val product = model?.product
-        val brand = model?.brand
-        val category = model?.category
-        return ProductUiData(
-            id = product?.id ?: -1,
-            name = product?.name ?: "",
-            shortDescription = product?.shortDescription ?: "",
-            longDescription = product?.longDescription ?: "",
-            model = product?.model ?: "",
-            code = product?.code ?: "",
-            sku = product?.sku ?: "",
-            thumbnailUrl = product?.thumbnailUrl ?: "",
-            imageUrls = product?.imageUrls ?: emptyList(),
-            price = product?.productPrice?.let {
-                ProductPriceUiData(
-                    sellingPrice = it.selling,
-                    costPrice = it.cost,
-//                    preferredMargin = it.preferredMargin, /TODO
-                )
-            },
-            brand = brand?.let {
-                ProductBrandUiData(
-                    id = it.id ?: -1,
-                    name = it.name ?: "",
-                    logoUrl = it.logoUrl ?: "",
-                )
-            },
-            category = category?.let {
-                CategoryUiData(
-                    id = it.id ?: -1,
-                    nameResId = it.type.getNameResId(),
-                    description = it.description ?: "",
-                )
-            },
-        )
+//        val item = model?.item
+//        val brand = model?.brand
+//        val category = model?.category
+//        return ProductUiData(
+//            id = item?.id ?: -1,
+//            name = item?.name ?: "",
+//            shortDescription = item?.shortDescription ?: "",
+//            longDescription = item?.longDescription ?: "",
+//            model = item?.model ?: "",
+//            code = item?.code ?: "",
+//            sku = item?.sku ?: "",
+//            thumbnailUrl = item?.thumbnailUrl ?: "",
+//            imageUrls = item?.imageUrls ?: emptyList(),
+//            price = item?.productPrice?.let {
+//                ProductPriceUiData(
+//                    sellingPrice = it.selling,
+//                    costPrice = it.cost,
+////                    preferredMargin = it.preferredMargin, /TODO
+//                )
+//            },
+//            brand = brand?.let {
+//                ProductBrandUiData(
+//                    id = it.id ?: -1,
+//                    name = it.name ?: "",
+//                    logoUrl = it.logoUrl ?: "",
+//                )
+//            },
+//            category = category?.let {
+//                CategoryUiData(
+//                    id = it.id ?: -1,
+//                    nameResId = it.type.getNameResId(),
+//                    description = it.description ?: "",
+//                )
+//            },
+//        )
+        TODO()
     }
 }

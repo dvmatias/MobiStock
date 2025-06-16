@@ -18,7 +18,7 @@ interface CategoryDataSource {
      *
      * @param storeId Store unique identifier.
      * @param all When 'true' fetches all categories including categories without stock for the
-     * current store. When 'false' it will only fetch product categories with product in stock
+     * current store. When 'false' it will only fetch item categories with item in stock
      */
     suspend fun getProductCategories(
         storeId: Int,

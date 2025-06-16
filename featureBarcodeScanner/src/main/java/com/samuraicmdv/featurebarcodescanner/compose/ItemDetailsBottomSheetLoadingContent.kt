@@ -23,7 +23,7 @@ import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
- * Composable function to display the loading content of the product details bottom sheet.
+ * Composable function to display the loading content of the item details bottom sheet.
  *
  * @param scannedBarCode The barcode that was scanned, displayed as text.
  * @param scannedImageBitmap The bitmap image of the scanned barcode, displayed as an image.

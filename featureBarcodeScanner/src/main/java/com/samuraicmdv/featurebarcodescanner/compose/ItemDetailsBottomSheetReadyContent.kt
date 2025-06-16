@@ -47,9 +47,9 @@ private val itemImageSize = 150.dp
 private val brandLogoSize = 24.dp
 
 /**
- *  This composable function displays the content of the product details bottom sheet when the product data is ready.
+ *  This composable function displays the content of the item details bottom sheet when the item data is ready.
  *
- *  @param uiData The product details data to be displayed in the bottom sheet.
+ *  @param uiData The item details data to be displayed in the bottom sheet.
  *  @param modifier The modifier to be applied to the content layout.
  */
 @Composable
@@ -184,10 +184,10 @@ fun ItemDetailsBottomSheetReadyContent(
 
         Spacer(modifier = Modifier.height(MobiTheme.dimens.dimen_2))
 
-        // Button to navigate to product details
+        // Button to navigate to item details
         Button(
             onClick = {
-                // TODO handleEvent(CategoryNavigationEvent.NavigateProductDetails(false, product.id))
+                // TODO handleEvent(CategoryNavigationEvent.NavigateProductDetails(false, item.id))
             },
             enabled = true, // TODO isAdmin,
             shape = RoundedCornerShape(MobiTheme.dimens.dimen_1_5),

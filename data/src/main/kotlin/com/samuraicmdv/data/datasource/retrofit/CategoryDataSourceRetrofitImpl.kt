@@ -48,7 +48,7 @@ class CategoryDataSourceRetrofitImpl @Inject constructor(
                     )
                 } else {
                     ResponseWrapper.error(
-                        responseFailure = ResponseFailure.ServerError("Get product categories failure")
+                        responseFailure = ResponseFailure.ServerError("Get item categories failure")
                     )
                 }
             }

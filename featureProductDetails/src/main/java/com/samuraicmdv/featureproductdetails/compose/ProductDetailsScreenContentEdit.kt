@@ -40,8 +40,8 @@ import com.samuraicmdv.featureproductdetails.event.ProductDetailsEvent
 import com.samuraicmdv.ui.util.ThemePreviews
 
 /**
- * This content is for rendering [ProductDetailsScreen] when a product is in edit mode. This applies for existing
- * products or for products that are being created (a new product).
+ * This content is for rendering [ProductDetailsScreen] when a item is in edit mode. This applies for existing
+ * products or for products that are being created (a new item).
  */
 @Composable
 fun ProductDetailsScreenContentEdit(
@@ -88,7 +88,7 @@ fun ProductDetailsScreenContentEdit(
         mutableStateOf(null)
     }
     var margin by remember {
-        mutableIntStateOf(65) // TODO product?.price?.preferredMargin with 65 as default
+        mutableIntStateOf(65) // TODO item?.price?.preferredMargin with 65 as default
     }
     var cost by remember {
         mutableStateOf(product?.price?.costPrice?.toString() ?: EMPTY_STRING)
@@ -125,7 +125,7 @@ fun ProductDetailsScreenContentEdit(
                 handleEvent(
                     ProductDetailsBusinessEvent.CreateNewProduct(
                         product = ProductUiData(
-                            id = -1, // When creating a product there is no ID associated with it
+                            id = -1, // When creating a item there is no ID associated with it
                             name = name,
                             shortDescription = shortDescription,
                             longDescription = longDescription,
@@ -306,8 +306,8 @@ private fun validateCost(
 }
 
 /**
- * @param revenue The selling price of the product set in the form.
- * @param cost The cost price of the product set in the form.
+ * @param revenue The selling price of the item set in the form.
+ * @param cost The cost price of the item set in the form.
  * @param margin The selected margin in the form.
  */
 private fun validateRevenue(

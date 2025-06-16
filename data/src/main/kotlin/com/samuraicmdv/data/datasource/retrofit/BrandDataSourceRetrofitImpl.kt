@@ -26,7 +26,7 @@ class BrandDataSourceRetrofitImpl @Inject constructor(
                     )
                 } else {
                     ResponseWrapper.error(
-                        responseFailure = ResponseFailure.ServerError("Get product brands failure")
+                        responseFailure = ResponseFailure.ServerError("Get item brands failure")
                     )
                 }
             }

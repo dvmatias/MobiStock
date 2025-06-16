@@ -1,14 +1,14 @@
 package com.samuraicmdv.domain.usecase
 
-import com.samuraicmdv.domain.repository.ProductRepository
+import com.samuraicmdv.domain.repository.ItemRepository
 import javax.inject.Inject
 
 class CreateProductUseCase @Inject constructor(
-    private val productRepository: ProductRepository
+    private val itemRepository: ItemRepository
 ) {
 
     suspend operator fun invoke(params: Params) =
-        productRepository.createProduct(
+        itemRepository.createProduct(
             name = params.name,
             shortDescription = params.shortDescription,
             longDescription = params.longDescription,

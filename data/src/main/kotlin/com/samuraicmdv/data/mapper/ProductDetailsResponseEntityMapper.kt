@@ -3,7 +3,6 @@ package com.samuraicmdv.data.mapper
 import com.samuraicmdv.data.entity.ProductDetailsResponseEntity
 import com.samuraicmdv.domain.base.EntityMapper
 import com.samuraicmdv.domain.model.ProductDetailsResponseModel
-import com.samuraicmdv.domain.model.ProductModel
 import javax.inject.Inject
 
 class ProductDetailsResponseEntityMapper @Inject constructor() :
@@ -14,25 +13,26 @@ class ProductDetailsResponseEntityMapper @Inject constructor() :
             return null
         }
         return ProductDetailsResponseModel(
-            product = ProductModel(
-                id = entity.product?.id,
-                brandId = entity.product?.brandId,
-                categoryId = entity.category?.id,
-                code = entity.product?.code,
-                imageUrls = entity.product?.imageUrls,
-                longDescription = entity.product?.longDescription,
-                model = entity.product?.model,
-                name = entity.product?.name,
-                productPrice = entity.product?.price?.toModel(),
-                shortDescription = entity.product?.shortDescription,
-                sku = entity.product?.sku,
-                stock = entity.product?.stock,
-                subcategoryId = entity.subcategory?.id,
-                thumbnailUrl = entity.product?.thumbnailUrl
-            ),
-            brand = entity.brand?.toModel(),
-            category = entity.category?.toModel(),
-            subcategory = entity.subcategory?.toModel(),
+//            item = ItemModel(
+//                id = entity.item?.id,
+//                brandId = entity.item?.brandId,
+//                categoryId = entity.category?.id,
+//                code = entity.item?.code,
+//                imageUrls = entity.item?.imageUrls,
+//                longDescription = entity.item?.longDescription,
+//                model = entity.item?.model,
+//                name = entity.item?.name,
+//                productPrice = entity.item?.price?.toModel(),
+//                shortDescription = entity.item?.shortDescription,
+//                sku = entity.item?.sku,
+//                stock = entity.item?.stock,
+//                subcategoryId = entity.subcategory?.id,
+//                thumbnailUrl = entity.item?.thumbnailUrl
+//            ),
+//            brand = entity.brand?.toModel(),
+//            category = entity.category?.toModel(),
+//            subcategory = entity.subcategory?.toModel(),
+            TODO()
         )
     }
 }

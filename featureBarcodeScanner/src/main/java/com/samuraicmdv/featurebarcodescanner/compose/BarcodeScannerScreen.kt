@@ -23,7 +23,7 @@ import com.samuraicmdv.ui.util.ThemePreviews
  * Main composable screen for BarcodeScannerActivity. BarcodeScannerScreen is a composable function that displays the
  * barcode scanner UI.
  *
- * @param uiData The UI data containing the state of the barcode scanner, including scanned image and product details.
+ * @param uiData The UI data containing the state of the barcode scanner, including scanned image and item details.
  * @param handleEvent A lambda function to handle events emitted from the barcode scanner.
  * @param modifier A [Modifier] to be applied to the screen.
  */

@@ -13,9 +13,9 @@ sealed class DashboardPresentationEvent : DashboardEvent {
     data class HandleUsersBottomSheetState(val show: Boolean) : DashboardPresentationEvent()
 
     /**
-     * Event to toggle the expanded status of a specific product category.
+     * Event to toggle the expanded status of a specific item category.
      *
-     * @param id The ID of the product category to toggle.
+     * @param id The ID of the item category to toggle.
      * @param isExpanded Boolean indicating whether the category should be expanded or collapsed.
      */
     data class ToggleProductCategoryExpandedStatus(
@@ -24,7 +24,7 @@ sealed class DashboardPresentationEvent : DashboardEvent {
     ) : DashboardEvent
 
     /**
-     * Event to toggle the expanded status of all product categories.
+     * Event to toggle the expanded status of all item categories.
      *
      * @param areAllCategoriesExpanded Boolean indicating whether all categories should be expanded or collapsed.
      */

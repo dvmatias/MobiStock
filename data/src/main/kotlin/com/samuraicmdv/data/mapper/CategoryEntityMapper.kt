@@ -9,8 +9,8 @@ import com.samuraicmdv.data.entity.ProductEntity
 import com.samuraicmdv.domain.base.EntityMapper
 import com.samuraicmdv.domain.model.BrandModel
 import com.samuraicmdv.domain.model.CategoryResponseModel
+import com.samuraicmdv.domain.model.ItemModel
 import com.samuraicmdv.domain.model.ProductCategoryModel
-import com.samuraicmdv.domain.model.ProductModel
 
 object CategoryEntityMapper : EntityMapper<GetCategoryResponseEntity?, CategoryResponseModel?> {
     override fun map(entity: GetCategoryResponseEntity?): CategoryResponseModel? {
@@ -44,24 +44,25 @@ object CategoryEntityMapper : EntityMapper<GetCategoryResponseEntity?, CategoryR
             logoUrl = brand.logoUrl
         )
 
-    private fun transformProducts(products: List<ProductEntity>?): List<ProductModel> =
-        products?.map {
-            ProductModel(
-                id = it.id,
-                name = it.name,
-                shortDescription = it.shortDescription,
-                longDescription = it.longDescription,
-                model = it.model,
-                code = it.code,
-                thumbnailUrl = it.thumbnailUrl,
-                sku = it.sku,
-                imageUrls = it.imageUrls,
-                categoryId = it.categoryId,
-                stock = it.stock,
-                productPrice = it.price?.toModel(),
-                brandId = it.brandId
-            )
-        }.orEmpty()
+    private fun transformProducts(products: List<ProductEntity>?): List<ItemModel> =
+        TODO()
+//        products?.map {
+//            ItemModel(
+//                id = it.id,
+//                name = it.name,
+//                shortDescription = it.shortDescription,
+//                longDescription = it.longDescription,
+//                model = it.model,
+//                code = it.code,
+//                thumbnailUrl = it.thumbnailUrl,
+//                sku = it.sku,
+//                imageUrls = it.imageUrls,
+//                categoryId = it.categoryId,
+//                stock = it.stock,
+//                productPrice = it.price?.toModel(),
+//                brandId = it.brandId
+//            )
+//        }.orEmpty()
 
     fun getProductCategoryType(productCategoryName: String?): ProductCategoryType =
         ProductCategoryType.entries.find {

@@ -6,7 +6,7 @@ import com.samuraicmdv.domain.util.ResponseWrapper
 interface BrandRepository {
 
     /**
-     * Gets the product brands.
+     * Gets the item brands.
      *
      * @param storeId Store's unique identifier.
      */

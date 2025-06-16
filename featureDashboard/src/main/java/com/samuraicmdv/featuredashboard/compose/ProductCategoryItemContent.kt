@@ -31,7 +31,7 @@ val iconSizeCategory = 42.dp
 val iconSizeSubCategory = 36.dp
 
 /**
- * Composable function that displays a product category item with an icon, name, and optional expand button.
+ * Composable function that displays a item category item with an icon, name, and optional expand button.
  */
 @Composable
 fun ProductCategoryItemContent(

@@ -2,22 +2,23 @@ package com.samuraicmdv.data.dagger
 
 import com.samuraicmdv.data.datasource.BrandDataSource
 import com.samuraicmdv.data.datasource.CategoryDataSource
-import com.samuraicmdv.data.datasource.ProductDataSource
+import com.samuraicmdv.data.datasource.ItemDataSource
 import com.samuraicmdv.data.datasource.SalesLedgerDataSource
 import com.samuraicmdv.data.datasource.retrofit.LoginDataSourceRetrofitImpl
 import com.samuraicmdv.data.datasource.retrofit.UserDataSourceRetrofitImpl
 import com.samuraicmdv.data.mapper.DaySalesLedgerEntityMapper
+import com.samuraicmdv.data.mapper.ItemSummaryResponseEntityMapper
 import com.samuraicmdv.data.mapper.ProductDetailsResponseEntityMapper
 import com.samuraicmdv.data.repository.BrandRepositoryImpl
 import com.samuraicmdv.data.repository.CategoryRepositoryImpl
+import com.samuraicmdv.data.repository.ItemRepositoryImpl
 import com.samuraicmdv.data.repository.LoginRepositoryImpl
-import com.samuraicmdv.data.repository.ProductRepositoryImpl
 import com.samuraicmdv.data.repository.SalesLedgerRepositoryImpl
 import com.samuraicmdv.data.repository.UserRepositoryImpl
 import com.samuraicmdv.domain.repository.BrandRepository
 import com.samuraicmdv.domain.repository.CategoryRepository
+import com.samuraicmdv.domain.repository.ItemRepository
 import com.samuraicmdv.domain.repository.LoginRepository
-import com.samuraicmdv.domain.repository.ProductRepository
 import com.samuraicmdv.domain.repository.SalesLedgerRepository
 import com.samuraicmdv.domain.repository.UserRepository
 import dagger.Module
@@ -45,11 +46,12 @@ object RepositoryModule {
         BrandRepositoryImpl(brandDataSource)
 
     @Provides
-    fun provideProductRepository(
-        productDataSource: ProductDataSource,
+    fun provideItemRepository(
+        itemDataSource: ItemDataSource,
+        itemSummaryResponseEntityMapper: ItemSummaryResponseEntityMapper,
         getProductDetailsDataMapper: ProductDetailsResponseEntityMapper
-    ): ProductRepository =
-        ProductRepositoryImpl(productDataSource, getProductDetailsDataMapper)
+    ): ItemRepository =
+        ItemRepositoryImpl(itemDataSource, itemSummaryResponseEntityMapper, getProductDetailsDataMapper)
 
     @Provides
     fun provideSalesRepository(
