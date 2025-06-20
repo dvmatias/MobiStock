@@ -42,12 +42,12 @@ class DashboardActivity : ComponentActivity() {
                         val month: Int = calendar.get(Calendar.MONTH) + 1 // Months are 0-based, so add 1
                         val year: Int = calendar.get(Calendar.YEAR)
                         factory.create(
-                           DashboardViewModel.Params(
-                               storeId = storeId,
-                               day = day,
-                               month = month,
-                               year = year
-                           )
+                            DashboardViewModel.Params(
+                                storeId = storeId,
+                                day = day,
+                                month = month,
+                                year = year
+                            )
                         )
                     }
                 )
@@ -83,7 +83,12 @@ class DashboardActivity : ComponentActivity() {
             }
 
             is DashboardNavigationEvent.NavigateBarcodeScanner -> {
-                navigator.toBarcodeScanner(origin = this, finish = false)
+                navigator.toBarcodeScanner(
+                    origin = this,
+                    data = bundleOf(
+                        BUNDLE_KEY_STORE_ID to storeId
+                    ), finish = false
+                )
             }
         }
     }

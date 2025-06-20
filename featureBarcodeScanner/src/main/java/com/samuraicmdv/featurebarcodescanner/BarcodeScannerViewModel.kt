@@ -6,16 +6,19 @@ import com.samuraicmdv.domain.usecase.GetItemSummaryUseCase
 import com.samuraicmdv.featurebarcodescanner.event.BarcodeScannerPresentationEvent
 import com.samuraicmdv.featurebarcodescanner.state.BarcodeScannerState
 import com.samuraicmdv.featurebarcodescanner.transformer.ItemSummaryUiDataTransformer
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class BarcodeScannerViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = BarcodeScannerViewModel.Factory::class)
+class BarcodeScannerViewModel @AssistedInject constructor(
+    @Assisted private val storeId: Int,
     private val getItemSummaryUseCase: GetItemSummaryUseCase,
     private val itemSummaryUiDataTransformer: ItemSummaryUiDataTransformer
 ) : ViewModel() {
@@ -66,6 +69,7 @@ class BarcodeScannerViewModel @Inject constructor(
                 getItemSummaryUseCase(
                     GetItemSummaryUseCase.Params(
                         itemCode = event.barcode,
+                        storeId = storeId
                     )
                 ).let { itemDetailsModel ->
                     // Update the UI data with the fetched item details
@@ -100,6 +104,11 @@ class BarcodeScannerViewModel @Inject constructor(
         )
         // Allow scanning again after dismissing the bottom sheet
         canScan = true
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(storeId: Int): BarcodeScannerViewModel
     }
 
 }
